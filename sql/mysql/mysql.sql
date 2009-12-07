@@ -19,3 +19,11 @@ CREATE TABLE IF NOT EXISTS `ezcomment` (
   KEY `user_id_session_key_ip` (`user_id`,`session_key`,`ip`),
   KEY `contentobject_id_contentobject_attribute_id_lang_id_parentcom_id` (`contentobject_id`,`contentobject_attribute_id`,`language_id`,`parent_comment_id`)
 ) ENGINE=InnoDB;
+
+CREATE TABLE  `ezcomment_notification` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `contentobject_id` int(11) NOT NULL,
+  `language_id` int(11) NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8

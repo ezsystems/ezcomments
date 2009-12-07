@@ -92,7 +92,7 @@ class ezcomComment extends eZPersistentObject
                              'function_attributes' => array(),
                              'increment_key' => 'id',
                              'class_name' => 'ezcomComment',
-                             'name' => 'ezcomments' );
+                             'name' => 'ezcomment' );
         return $def;
     }
 
