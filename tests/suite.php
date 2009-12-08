@@ -1,5 +1,5 @@
 <?php
-class suite extends ezpTestSuite
+class suite extends ezpDatabaseTestSuite
 {
     public function __construct()
     {
