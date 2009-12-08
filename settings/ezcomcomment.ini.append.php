@@ -2,6 +2,6 @@
 
 [ezcomCommentSettings]
 DefaultEnabled=true
-
+DefaultShown=true
 
 ?>
