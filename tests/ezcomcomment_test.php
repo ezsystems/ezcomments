@@ -81,8 +81,12 @@ class ezcomCommentTest extends ezpDatabaseTestCase
     }
     
     /**
-     * 1. Fetch the ezcomComment object list
-     * 2. 
+     * 1. store an ezcomcomment object into database
+     * 2. Fetch the ezcomComment object list
+     * 3. assert fetchForUser( userid )
+     * 4. Assert fetchForUser( userid, notification )
+     * 5. Assert fetchForUser( userid,notification, status )
+     * 6. Assert fetchForUser( userid ) when there is no record in database
      */
     public function testFetchForUser()
     {
@@ -121,7 +125,7 @@ class ezcomCommentTest extends ezpDatabaseTestCase
         $this->assertType( 'ezcomComment', $list[0] );
         $this->assertEquals( 13, $list[0]->attribute( 'contentobject_id' ) );
         
-        // Assert fetchForUser( userid ) when there is no record
+        // Assert fetchForUser( userid ) when there is no record in database
         $list = ezcomComment::fetchForUser( 15 );
         $this->assertType( 'array', $list );
         $this->assertSame( 0, count( $list ) );
