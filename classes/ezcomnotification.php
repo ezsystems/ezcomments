@@ -1,20 +1,24 @@
 <?php
-/**
- * eZ Comment notification persistent object class definition
- */
 
+/**
+ * ezcomNotification persistent object class definition
+ * 
+ */
 class ezcomNotification extends eZPersistentObject
 {
     /**
-     * Construct, use {@link ezcomComment::create()} to create new objects.
+     * Construct, use {@link ezcomNotification::create()} to create new objects.
+     * 
      * @param array $row
      */
     public function __construct( $row )
     {
        parent::__construct( $row );
     }
+
     /**
      * Fields definition
+     * 
      * @return array
      */
     public static function definition()
@@ -26,41 +30,44 @@ class ezcomNotification extends eZPersistentObject
                                                 'contentobject_id' => array( 'name' => 'ContentObjectID',
                                                                              'datatype' => 'integer',
                                                                              'default' => 0,
-                                                                             'required' => true),
+                                                                             'required' => true ),
                                                 'language_id' => array( 'name' => 'LanguageID',
                                                                         'datatype' => 'integer',
                                                                         'default' => 0,
-                                                                        'required' => true),
+                                                                        'required' => true ),
                                                 'status' => array( 'name' => 'Status',
                                                                    'datatype' => 'integer',
                                                                    'default' => 1,
-                                                                   'required' => true),
-                                                                       ),
-                             'keys' => 'id',
+                                                                   'required' => true ) ),
+                             'keys' => array( 'id' ),
                              'function_attributes' => array(),
                              'increment_key' => 'id',
                              'class_name' => 'ezcomNotification',
-                             'name' => 'ezcomment_notification');
+                             'name' => 'ezcomment_notification' );
         return $def;
     }
-    
+
     /**
-     * create new ezcomNotification object
+     * Create new ezcomNotification object
+     * 
      * @static
      * @param array $row
      * @return ezcomNotification
      */
-    public static function create( $row = array() ){
+    public static function create( $row = array() )
+    {
         $object = new self( $row );
         return $object;
     }
-    
+
     /**
-     * fetch notification by given id
+     * Fetch notification by given id
+     * 
      * @param int $id
      * @return null|ezcomNotification
      */
-    static function fetch( $id ){
+    static function fetch( $id )
+    {
         $cond = array( 'id' => $id );
         $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
         return $return;

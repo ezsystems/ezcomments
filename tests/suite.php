@@ -1,5 +1,6 @@
 <?php
-class suite extends ezpDatabaseTestSuite
+
+class ezcomCommentsTestSuite extends ezpDatabaseTestSuite
 {
     public function __construct()
     {
@@ -8,9 +9,11 @@ class suite extends ezpDatabaseTestSuite
         $this->addTestSuite( "ezcomCommentTest" );
         $this->addTestSuite( "ezcomNotificationTest" );
     }
+
     public static function suite()
     {
         return new self();
     }
 }
+
 ?>
