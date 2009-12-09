@@ -89,13 +89,27 @@ class ezcomComment extends eZPersistentObject
                                                                          'default' => 0,
                                                                          'required' => true ) ),
                              'keys' => array( 'id' ),
-                             'function_attributes' => array(),
+                             'function_attributes' => array( 
+                                                            'contentobject' => 'contentObject' ),
                              'increment_key' => 'id',
                              'class_name' => 'ezcomComment',
                              'name' => 'ezcomment' );
         return $def;
     }
 
+    /**
+     * get the contentobject of one comment
+     * @return unknown_type
+     */
+    public function contentObject()
+    {
+        if ( isset( $this->ContentObjectID ) and $this->ContentObjectID )
+        {
+            return eZContentObject::fetch( $this->ContentObjectID );
+        }
+        return null;
+    }
+    
     /**
      * Creates new ezcomComments object
      * 
@@ -121,6 +135,23 @@ class ezcomComment extends eZPersistentObject
         $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
         return $return;
     }
+    
+    static function fetchForUser( $userID, $notification = false, $status = false  )
+    {
+        $cond = array();
+        $cond['user_id'] = $userID;
+        if ( $notification !== false )
+        {
+            $cond['notification'] = $notification;
+        }
+        if( $status!== false )
+        {
+            $cond['status'] = $status;
+        }
+        $return = eZPersistentObject::fetchObjectList( self::definition(), null, $cond );
+        return $return;
+    }
+    
 }
 
 ?>

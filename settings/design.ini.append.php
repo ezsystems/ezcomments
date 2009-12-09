@@ -2,6 +2,6 @@
 
 
 [ExtensionSettings]
-DesignExtensions[]=ezcomment
+DesignExtensions[]=ezcomments
 
 */ ?>

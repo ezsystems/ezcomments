@@ -1,6 +1,10 @@
 <?php /* #?ini charset="utf-8"?
 
 [TemplateSettings]
-ExtensionAutoloadPath[]=ezcomcomment
+ExtensionAutoloadPath[]=ezcomcomments
+
+[RoleSettings]
+PolicyOmitList[]=comment/notifications
+
 
 */ ?>
