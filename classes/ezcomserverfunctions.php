@@ -48,39 +48,46 @@ class ezcomServerFunctions extends ezjscServerFunctions
      * @return JSON object
      * 
      */
-    public static function get_notification_comment_list( $offset = null, $length = null, $userID = false )
+    public static function get_notification_comment_list( $args )
     {
+        $http = eZHTTPTool::instance();
+        $offset = null;
+        $length = null;
+        $userID = null;
+        
         $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
         //1. check the permission
         
-        
         //2. check user
-        if ( $userID === false )
+        if ( $http->hasPostVariable( 'user_id' ) )
+        {
+            $userID = $http->postVariable( 'user_id' );
+        }
+        else
         {
             $userID = eZUser::currentUserID();
         }
             
         //3. check offset
         $defaultNumPerPage = $ezcommentsINI->variable( 'ezcommentsSettings', 'NumberPerPage' );
-        if( $defaultNumPerPage == '-1' )
+        if( $defaultNumPerPage != '-1' )
         {
-            $offset = null;
-            $length = null;
-        }
-        else
-        {
-            if ( is_null( $offset ) )
+            if ( $http->hasPostVariable( 'offset' ) )
             {
-                $offset = 0;
+                $offset = $http->postVariable( 'user_id' );
             }
             //4. check countPerPage
-            if( is_null( $length ) )
+            if ( $http->hasPostVariable( 'length' ) )
+            {
+                $offset = $http->postVariable( 'user_id' );
+            }
+            else
             {
                 $length = $defaultNumPerPage;
             }
         }
         //5. fetch comment
-        $comments = ezcomComment::fetchForUser( $userID, null, null, null );
+        $comments = ezcomComment::fetchForUser( $userID, null, $offset, $length );
         $db = eZDB::instance();
         $countArray = $db->arrayQuery( 'select count(*) as count from ezcomment where user_id ='.$userID );
         $totalCount = $countArray[0]['count'];
