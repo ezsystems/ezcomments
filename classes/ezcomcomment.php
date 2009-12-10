@@ -136,7 +136,7 @@ class ezcomComment extends eZPersistentObject
         return $return;
     }
     
-    static function fetchForUser( $userID, $notification = false, $status = false  )
+    static function fetchForUser( $userID, $sorts = null, $offset = null, $length = null, $notification = false, $status = false  )
     {
         $cond = array();
         $cond['user_id'] = $userID;
@@ -144,11 +144,24 @@ class ezcomComment extends eZPersistentObject
         {
             $cond['notification'] = $notification;
         }
-        if( $status!== false )
+        if( $status !== false )
         {
             $cond['status'] = $status;
         }
-        $return = eZPersistentObject::fetchObjectList( self::definition(), null, $cond );
+        $limit = null;
+        if( !is_null( $offset ) )
+        {
+            $limit = array();
+            if( !is_int( $length ) )
+            {
+                return null;
+            }
+            else
+            {
+                $limit = array( 'offset' => $offset, 'lenth' => $length );
+            }
+        }
+        $return = eZPersistentObject::fetchObjectList( self::definition(), null, $cond, $sorts, $limit );
         return $return;
     }
     
