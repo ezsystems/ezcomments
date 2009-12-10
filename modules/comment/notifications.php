@@ -40,6 +40,6 @@ require_once( 'kernel/common/template.php' );
 
 $tpl = templateInit();
 $Result = array();
-$tpl->setVariable( 'comment_list', $commentList );
+//$tpl->setVariable( 'comment_list', $commentList );
 $Result['content'] = $tpl->fetch( 'design:comment/notifications.tpl' );
 ?>
