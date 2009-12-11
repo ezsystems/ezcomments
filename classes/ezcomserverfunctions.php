@@ -54,14 +54,21 @@ class ezcomServerFunctions extends ezjscServerFunctions
         $offset = null;
         $length = null;
         $userID = null;
+        $argObject = array();
         
         $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
         //1. check the permission
         
         //2. check user
-        if ( $http->hasPostVariable( 'user_id' ) )
+        
+        if( $http->hasPostVariable( 'args' ) )
         {
-            $userID = $http->postVariable( 'user_id' );
+            $args = $http->postVariable( 'args' );
+            $argObject = json_decode($args);
+        }
+        if ( isset( $argObject->user_id ) )
+        {
+            $userID = $argObject->user_id;
         }
         else
         {
@@ -69,23 +76,28 @@ class ezcomServerFunctions extends ezjscServerFunctions
         }
             
         //3. check offset
-        $defaultNumPerPage = $ezcommentsINI->variable( 'ezcommentsSettings', 'NumberPerPage' );
+        $defaultNumPerPage = $ezcommentsINI->variable( 'notificationSettings', 'NumberPerPage' );
         if( $defaultNumPerPage != '-1' )
         {
-            if ( $http->hasPostVariable( 'offset' ) )
+            if ( isset( $argObject->offset ) )
             {
-                $offset = $http->postVariable( 'user_id' );
+                $offset = $argObject->offset;
+            }
+            else
+            {
+                $offset = 0;
             }
             //4. check countPerPage
-            if ( $http->hasPostVariable( 'length' ) )
+            if ( isset( $argObject->length ) )
             {
-                $offset = $http->postVariable( 'user_id' );
+                $length = $argObject->length;
             }
             else
             {
                 $length = $defaultNumPerPage;
             }
         }
+        
         //5. fetch comment
         $comments = ezcomComment::fetchForUser( $userID, null, $offset, $length );
         $db = eZDB::instance();
@@ -107,10 +119,12 @@ class ezcomServerFunctions extends ezjscServerFunctions
                 $row['notification'] = $comment->attribute('notification');
                 $row['text'] = $comment->attribute('text');
                 $row['object_name'] = $objectName;
+                $row['time'] = $comment->attribute('created');
                 $resultComments[] = $row;
             }
             $result['comments'] = $resultComments;
             $result['total_count'] = $totalCount;
+//            $result = $offset;
             $result = json_encode( $result );
 
         }
@@ -118,15 +132,52 @@ class ezcomServerFunctions extends ezjscServerFunctions
         {
             $result = null;
         }
-//        if( $length == array() )
-//        {
-//            $result = 'is null';
-//        }
-//        else
-//        {
-//            $result = 'not null';
-//        }
         return $result;
+    }
+    
+    /**
+     * 
+     * @param $args: get args
+     * @return string: update result message
+     */
+    public static function update_notification_comment( $args )
+    {
+        $http = eZHTTPTool::instance();
+        
+        //1. check the permission
+        
+        //2. get parameters
+        $argObject = null;
+        if( $http->hasPostVariable( 'args' ) )
+        {
+            $argsString = $http->postVariable( 'args' );
+            $argObject = json_decode( $argsString, true ); 
+        }
+        $message = null;
+        
+        //3. buid update parameters and execute update
+        $fields = array();
+        $conditions = array();
+        $updateResult = true;
+        $message = "";
+        foreach( $argObject as $row )
+        {
+            $fields['notification'] = $row['notification'];
+            $conditions['id'] = $row['id'];
+            ezcomComment::updateFields( $fields, $conditions );
+            //to do: add error handle 
+        }
+        
+        //4. return result
+        if ( $updateResult )
+        {
+            $message = "update success";
+        }
+        else
+        {
+            $message = "update error";
+        }
+        return $message;
     }
     
     /**

@@ -7,7 +7,7 @@ EnableNotification=true
 
 [notificationSettings]
 #-1 means not paging
-NumberPerPage=10
+NumberPerPage=3
 
 
 ?>

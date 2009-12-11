@@ -151,20 +151,22 @@ class ezcomComment extends eZPersistentObject
         $limit = null;
         if( !is_null( $offset ) )
         {
-            $limit = array();
-            if( !is_int( $length ) )
-            {
-                return null;
-            }
-            else
-            {
-                $limit = array( 'offset' => $offset, 'lenth' => $length );
-            }
+           $limit = array();
+           $limit = array( 'offset' => $offset, 'length' => $length );
         }
         $return = eZPersistentObject::fetchObjectList( self::definition(), null, $cond, $sorts, $limit );
         return $return;
     }
     
+    static function updateFields( $fields, $conditions )
+    {
+        $parameters = array();
+        $parameters['definition'] = self::definition();
+        $parameters['update_fields'] = $fields;
+        $parameters['conditions'] = $conditions;
+        //use try to catch the error
+        eZPersistentObject::updateObjectList( $parameters );
+    }
 }
 
 ?>
