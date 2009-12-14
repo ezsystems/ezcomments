@@ -113,9 +113,11 @@ class ezcomServerFunctions extends ezjscServerFunctions
             {
                 $row = array();
                 $contentobject_id = $comment->attribute( 'contentobject_id' );
-                $objectName = eZContentObject::fetch( $contentobject_id ) -> attribute( 'name' );
+                $contentObject = eZContentObject::fetch( $contentobject_id );
+                $objectName =  $contentObject -> attribute( 'name' );
                 $row['id'] = $comment->attribute( 'id' );
                 $row['contentobject_id'] = $contentobject_id;
+                $row['content_url'] = $contentObject->mainNode()->attribute( 'url_alias' );
                 $row['notification'] = $comment->attribute('notification');
                 $row['text'] = $comment->attribute('text');
                 $row['object_name'] = $objectName;
@@ -171,11 +173,11 @@ class ezcomServerFunctions extends ezjscServerFunctions
         //4. return result
         if ( $updateResult )
         {
-            $message = "update success";
+            $message = "Update success";
         }
         else
         {
-            $message = "update error";
+            $message = "Update error";
         }
         return $message;
     }
