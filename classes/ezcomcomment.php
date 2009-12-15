@@ -158,6 +158,23 @@ class ezcomComment extends eZPersistentObject
         return $return;
     }
     
+    static function fetchByContetentObjectID($contentobject_id, $sorts = null, $offset = null, $length = null)
+    {
+        $cond = array();
+        $cond['contentobject_id'] = $contentobject_id;
+        if( is_null( $offset ) || is_null( $length ) )
+        {
+            return null;
+        }
+        else
+        {
+            $limit = array( 'offset' => $offset, 'length' => $length);
+            $return = eZPersistentObject::fetchObjectList( self::definition(), null, $cond, $sorts, $limit );
+            return $return;
+        
+        }
+    }
+    
     static function updateFields( $fields, $conditions )
     {
         $parameters = array();

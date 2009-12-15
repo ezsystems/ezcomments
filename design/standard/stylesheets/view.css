@@ -1,0 +1,82 @@
+.ezcomments-comment-view-page{
+    height:25px;
+    background-color:#f4f7fe;
+    text-align:right;
+    padding:4px;
+    border-width:1px 1px 0px 1px;
+    border-color:#999999 #999999 #999999 #999999;
+    border-style:solid solid solid solid
+    
+}
+
+.ezcomments-comment-view-comment{
+    background-color:#fcfcfc;
+    border-width:1px 1px 1px 1px;
+    border-color:#999999 #999999 #999999 #999999;
+    border-style:solid solid solid solid
+}
+
+.ezcomments-comment-view-commenttitle{
+    height:25px;
+    vertical-align:middle;
+    background-color:#e6f0ff;
+     border-width:0px 0px 1px 0px;
+    border-color:#999999 #999999 #cccccc #999999;
+    border-style:solid solid dotted solid;
+    padding:2px
+}
+
+.ezcomments-comment-view-commentbody{
+    background-color:#f4f7fe;
+    font-family: Times;
+    color:#000000;
+    font-size:14px;
+    padding:3px
+}
+
+.ezcomments-comment-view-commentbottom{
+    font-style:italic;
+    text-align:right;
+    color:#666666;
+    background-color:#f4f7fe;
+    height:25px
+}
+
+.ezcomments-comment-view-addcomment{
+    border-width:1px 1px 1px 1px;
+    border-color:#999999 #999999 #999999 #999999;
+    border-style:solid solid solid solid;
+    width:100%;
+    background-color:#f4f7fe
+}
+
+.ezcomments-comment-view-addcomment table{
+    width:100%;
+}
+
+.ezcomments-comment-view-addcomment td{
+    padding:3px;
+}
+
+.ezcomments-comment-view-addcomment-left{
+    width:80px
+}
+.ezcomments-comment-view-addcomment-input{
+    
+}
+.ezcomments-comment-view-addcomment-textarea{
+    width:80%;
+    height:100px
+}
+.ezcomments-comment-view-addcomment-title{
+    width:300px
+}
+
+.ezcomments-comment-view-addcomment-email{
+    width:200px
+}
+
+.ezcomments-comment-view-moduletitle{
+    font-weight:bold;
+    color:#000000
+}

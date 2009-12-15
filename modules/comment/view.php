@@ -1,9 +1,9 @@
 <?php
 //
-// Created on: <8-Dec-2009 00:00:00 xc>
+// Created on: <09-Dec-2009 00:00:00 xc>
 //
 // ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ JSCore extension for eZ Publish
+// SOFTWARE NAME: eZ Comments extension for eZ Publish
 // SOFTWARE RELEASE: 1.0-1
 // COPYRIGHT NOTICE: Copyright (C) 2009 eZ Systems AS
 // SOFTWARE LICENSE: GNU General Public License v2.0
@@ -25,15 +25,28 @@
 // 
 // ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
 //
-$Module = array( 'name' => 'ezcom Module and Views' );
+/**
+ *  Logic for view notification to set set user notifications
+ */
+require_once( 'kernel/common/template.php' );
 
-$ViewList = array();
-$ViewList['notifications'] = array(
-       'script' => 'notifications.php',
-       'params' => array(),
-       );
-$ViewList['view'] = array(
-       'script' => 'view.php',
-       'params' => array('ContentObjectID'),
-       );
+//1. check permission
+
+//2. get user's ID
+
+//3. 
+
+//$commentList = ezcomComment::fetchForUser( 1 );
+
+$http = eZHTTPTool::instance();
+
+$ContentObjectID = $Params['ContentObjectID'];
+
+$tpl = templateInit();
+$tpl->setVariable("contentobject_id",$ContentObjectID);
+
+
+$Result = array();
+$Result['content'] = $tpl->fetch( 'design:comment/view.tpl' );
+return $Result;
 ?>

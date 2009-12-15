@@ -9,5 +9,8 @@ EnableNotification=true
 #-1 means not paging
 NumberPerPage=3
 
+[commentSettings]
+#-1 means not paging
+NumberPerPage=3
 
 ?>

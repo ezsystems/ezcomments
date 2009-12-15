@@ -190,10 +190,10 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
    ezcommentsComment.refresh = ezcommentsRequestData;
    ezcommentsComment.repaint = ezcommentsFillData;
    ezcommentsComment.showMessage = ezcommentsShowMessage;
-   // register events
+   // register callback
    ezcommentsComment.events.on("paintcomment",fillComments);   
+   //ezcommentsComment.events.detach("paintcomment");
    Y.on( "contentready", ezcommentsInit, '#ezcomments_comments' );
-            
 });
 
 {/literal}

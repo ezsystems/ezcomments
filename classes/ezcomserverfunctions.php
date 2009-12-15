@@ -209,5 +209,99 @@ class ezcomServerFunctions extends ezjscServerFunctions
     {
         
     }
+    
+    public static function get_view_comment_list()
+    {
+        $http = eZHTTPTool::instance();
+        $offset = null;
+        $length = null;
+        $contentobject_id = null;
+        $argObject = array();
+        
+        $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
+        //1. check the permission
+        
+        //2. check user
+        
+        if( $http->hasPostVariable( 'args' ) )
+        {
+            $args = $http->postVariable( 'args' );
+            $argObject = json_decode($args);
+        }
+//        if ( isset( $argObject->user_id ) )
+//        {
+//            $userID = $argObject->user_id;
+//        }
+//        else
+//        {
+//            $userID = eZUser::currentUserID();
+//        }
+            
+        //3. check offset
+        $defaultNumPerPage = $ezcommentsINI->variable( 'commentSettings', 'NumberPerPage' );
+        if( $defaultNumPerPage != '-1' )
+        {
+            if ( isset( $argObject->offset ) )
+            {
+                $offset = $argObject->offset;
+            }
+            else
+            {
+                $offset = 0;
+            }
+            //4. check countPerPage
+            if ( isset( $argObject->length ) )
+            {
+                $length = $argObject->length;
+            }
+            else
+            {
+                $length = $defaultNumPerPage;
+            }
+        }
+        if( !isset($argObject->oid) )
+        {
+            return null;
+        }
+        else if(!is_int($argObject->oid))
+        {
+            return null;
+        }
+        else
+        {
+            $contentobjectID = $argObject->oid;
+            $sorts = array( 'modified' => 'desc' );
+            $comments = ezcomComment::fetchByContetentObjectID( $contentobjectID, $sorts, $offset, $length);
+            $db = eZDB::instance();
+            $countArray = $db->arrayQuery( 'select count(*) as count from ezcomment where contentobject_id ='.$contentobjectID );
+            $totalCount = $countArray[0]['count'];
+            
+            $result = array();
+            if( $comments == null )
+            {
+                return null;
+            }
+            else
+            {
+                $resultComments = array();
+                foreach ( $comments as $comment )
+                {
+                    $row = array();
+                    $row['id'] = $comment->attribute( 'id' );
+                    $row['oid'] = $comment->attribute( 'contentobject_id' );
+                    $row['modified'] = $comment->attribute( 'modified' );
+                    $row['created'] = $comment->attribute( 'created' );
+                    $row['title'] = $comment->attribute( 'title' );
+                    $row['text'] = $comment->attribute( 'text' );
+                    $row['author'] = "111";
+                    $row['userid'] = $comment->attribute( 'user_id' );
+                    $resultComments[] = $row;
+                }
+                $result['comments'] = $resultComments;
+                $result['total_count'] = $totalCount;
+                return json_encode($result);
+            }
+        }
+    }
 
 }
