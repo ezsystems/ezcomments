@@ -2,7 +2,7 @@
 <div class="ezcomments-comment-view-addcomment">
     <table>
         <tr><td colspan="2" class="ezcomments-comment-view-moduletitle">
-            Add Comment
+            Post Comment
         </td></tr>
         <tr>
             <td class="ezcomments-comment-view-addcomment-left">Title:</td>

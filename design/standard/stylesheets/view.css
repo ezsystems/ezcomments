@@ -47,11 +47,12 @@
     border-color:#999999 #999999 #999999 #999999;
     border-style:solid solid solid solid;
     width:100%;
-    background-color:#f4f7fe
 }
+
 
 .ezcomments-comment-view-addcomment table{
     width:100%;
+     border-collapse:collapse
 }
 
 .ezcomments-comment-view-addcomment td{
@@ -77,6 +78,10 @@
 }
 
 .ezcomments-comment-view-moduletitle{
-    font-weight:bold;
-    color:#000000
+    color:#ffffff;
+    background-color:#4192BD;
+    border-color:#999999 #999999 #ffffff #999999;
+    border-width:0px 0px 1px 0px;
+    border-style:solid solid solid solid;
+    height:25px
 }

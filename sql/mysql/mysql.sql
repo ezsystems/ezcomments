@@ -27,3 +27,21 @@ CREATE TABLE IF NOT EXISTS `ezcomment_notification` (
   `status` smallint(6) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `ezcomment_subscriber` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `enabled` smallint(6) NOT NULL DEFAULT '1',
+  `hash_string` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `ezcomment_subscription` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL,
+  `sub_type` varchar(30) NOT NULL,
+  `sub_id` varchar(100) NOT NULL,
+  `enabled` smallint(6) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
