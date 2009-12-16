@@ -39,6 +39,8 @@
         </table>
     </form>
 </div>
+{include name="view_page_ui" uri="design:comment/view_add_comment_extension.tpl"}
+
 <script type="text/javascript">
 
 <!--
@@ -61,15 +63,14 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         ezcommentsCommentView.events.on("addcomment:vertify", defaultVertify);
     });
     
-    var defaultVertify = function(e)
-    {
-        return true;
-    }
+    ezcommentsCommentView.addComment = new Object();
     
+    //show message in adding comment
     var showAddingMessage = function(message)
     {
         Y.get( '#ezcomments_comment_view_addcomment_message' ).setContent( message );
     }
+    ezcommentsCommentView.addComment.showMessage = showAddingMessage;
     
     //clear the message about adding comment
     var clearAddingMessage = function()
@@ -80,84 +81,93 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
             message.set("innerHTML","");
         }
     }
+    ezcommentsCommentView.addComment.clearMessage = clearAddingMessage;
     
     ezcommentsCommentView.events.on('commentloaded',function(e){
-        ezcommentsCommentView.event.fire("addcomment:initui",Y.get('#ezcomments_comment_view_addcomment'));
-        Y.get("#ezcomments_comment_view_addcomment_title").set('value','');
-        Y.get("#ezcomments_comment_view_addcomment_content").set('value','');
-        clearAddingMessage();
-        // 1. init input form from user
         var user = ezcommentsCommentView.userInfo;
-        if( user.name != null )
+        var addCommentContainer = Y.get('#ezcomments_comment_view_addcomment');
+        if(ezcommentsCommentView.events.fire("addcomment:initui", addCommentContainer, user))
         {
-            Y.get("#ezcomments_comment_view_addcomment_name").set('value',user.name);
-        }
-        
-        if( user.website != null )
-        {
-            Y.get("#ezcomments_comment_view_addcomment_website").set('value',user.website);
-        }
-        
-        if( user.email != null )
-        {
-            var emailInput = Y.get("#ezcomments_comment_view_addcomment_email");
-            emailInput.set('value',user.email);
-            emailInput.set('disabled',true);
-        }
-        
-        if( user.notified != null )
-        {
-            if( user.notified == true )
+            Y.get("#ezcomments_comment_view_addcomment_title").set('value','');
+            Y.get("#ezcomments_comment_view_addcomment_content").set('value','');
+            clearAddingMessage();
+            // 1. init input form from user
+            if( user.name != null )
             {
-                var notifiedInput = Y.get("#ezcomments_comment_view_addcomment_notified");
-                notifiedInput.set('checked',true);
+                Y.get("#ezcomments_comment_view_addcomment_name").set('value',user.name);
             }
+            
+            if( user.website != null )
+            {
+                Y.get("#ezcomments_comment_view_addcomment_website").set('value',user.website);
+            }
+            
+            if( user.email != null )
+            {
+                var emailInput = Y.get("#ezcomments_comment_view_addcomment_email");
+                emailInput.set('value',user.email);
+                emailInput.set('disabled',true);
+            }
+            
+            if( user.notified != null )
+            {
+                if( user.notified == true )
+                {
+                    var notifiedInput = Y.get("#ezcomments_comment_view_addcomment_notified");
+                    notifiedInput.set('checked',true);
+                }
+            }
+            
+            // 2. init input form from cookies
         }
+        Y.get('#ezcomments_comment_view_addcomment_post').on('click',addComment);
         
-        // 2. init input form from cookies
-        
-        Y.get('#ezcomments_comment_view_addcomment_post').on('click',postComment);
     });
     
-    var postComment = function(e)
+    var addComment = function(e)
     {
-        //1.vertify field
-        if(ezcommentsCommentView.events.fire("addcomment:vertify"))
+        var argObject = new Object();
+        argObject.title = Y.get("#ezcomments_comment_view_addcomment_title").get("value");
+        argObject.name = Y.get("#ezcomments_comment_view_addcomment_name").get("value");
+        argObject.website = Y.get("#ezcomments_comment_view_addcomment_website").get("value");
+        argObject.email = Y.get("#ezcomments_comment_view_addcomment_email").get("value");
+        argObject.content = Y.get("#ezcomments_comment_view_addcomment_content").get("value");
+        if( Y.get("#ezcomments_comment_view_addcomment_notified").get("value") == "on" )
         {
-            //2.send post data
-            var args="";
-            var argObject = new Object();
-            argObject.title = Y.get("#ezcomments_comment_view_addcomment_title").get("value");
-            argObject.name = Y.get("#ezcomments_comment_view_addcomment_name").get("value");
-            argObject.website = Y.get("#ezcomments_comment_view_addcomment_website").get("value");
-            argObject.email = Y.get("#ezcomments_comment_view_addcomment_email").get("value");
-            argObject.content = Y.get("#ezcomments_comment_view_addcomment_content").get("value");
-            if( Y.get("#ezcomments_comment_view_addcomment_notified").get("value") == "on" )
-            {
-                argObject.notified = true;
-            }
-            else
-            {
-                argObject.notified = false;
-            }
-            args = Y.JSON.stringify(argObject);
+            argObject.notified = true;
+        }
+        else
+        {
+            argObject.notified = false;
+        }
 
-            Y.io.ez( 'comment::add_comment', {
-            data: 'args='+args,
-            on: {success: function( id,r )
-                { 
-                    if ( r.responseJSON.error_text )
-                        Y.get( '#ezcomments_comment_view_addcomment_message' ).setContent( r.responseJSON.error_text );
-                    else
-                    {
-                        var resContent = r.responseJSON.content;
-                        showAddingMessage(resContent);
-                        //3.refresh data
-                        ezcommentsCommentView.events.fire("load");
+        //1.vertify field
+        if(ezcommentsCommentView.events.fire("addcomment:vertify", argObject))
+        {
+            if(ezcommentsCommentView.events.fire("addcomment:beforerequest", argObject))
+            {
+                //2.send post data
+                
+                var args="";
+                args = Y.JSON.stringify(argObject);
+    
+                Y.io.ez( 'comment::add_comment', {
+                data: 'args='+args,
+                on: {success: function( id,r )
+                    { 
+                        if ( r.responseJSON.error_text )
+                            showAddingMessage( r.responseJSON.error_text );
+                        else
+                        {
+                            var resContent = r.responseJSON.content;
+                            showAddingMessage(resContent);
+                            //3.refresh data
+                            ezcommentsCommentView.events.fire("load");
+                        }
                     }
-                }
-                }
-            });
+                    }
+                });
+            }
         }
         
     }

@@ -1,12 +1,14 @@
 .ezcomments-comment-view-page{
     height:25px;
-    background-color:#f4f7fe;
+    background-color:#ffffff;
     text-align:right;
-    padding:4px;
-    border-width:1px 1px 0px 1px;
+    border-width:1px 1px 1px 1px;
     border-color:#999999 #999999 #999999 #999999;
     border-style:solid solid solid solid
-    
+}
+
+.ezcomments-comment-view-page a{
+    text-decoration:underline
 }
 
 .ezcomments-comment-view-comment{
@@ -19,15 +21,14 @@
 .ezcomments-comment-view-commenttitle{
     height:22px;
     vertical-align:middle;
-    background-color:#e6f0ff;
-     border-width:0px 0px 1px 0px;
+    background-image:url('../images/bg_comment_title.jpg');
+    border-width:0px 0px 1px 0px;
     border-color:#999999 #999999 #cccccc #999999;
     border-style:solid solid dotted solid;
     padding:2px
 }
 
 .ezcomments-comment-view-commentbody{
-    background-color:#f4f7fe;
     font-family: Times;
     color:#000000;
     font-size:14px;
@@ -38,7 +39,6 @@
     font-style:italic;
     text-align:right;
     color:#666666;
-    background-color:#f4f7fe;
     height:25px
 }
 

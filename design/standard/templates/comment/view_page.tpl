@@ -1,7 +1,7 @@
 <div id="ezcomments_comment_view_page" class="ezcomments-comment-view-page">
 
 </div>
-
+<br />
 <script type="text/javascript">
 
 <!--
@@ -34,10 +34,59 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
             return;
         }
         
+         
         var viewPage = Y.get('#ezcomments_comment_view_page');
-        var output = "<span>Total comments:</span>";
+        var output = "<p><span>Total comments:</span>";
         output += "<span>"+total_count+",</span> ";
         output += "<span>Pages:</span>";
+        
+        var pageSpace = 2;
+        var pageStr = "";
+        if ( (currentPage - pageSpace) > 1 )
+        {
+            pageStr += "1 ";
+            if((currentPage-pageSpace-1)>1)
+            {
+                pageStr+="...";
+            }
+            for(var i=currentPage-1;i>(currentPage - pageSpace);i--)
+            {
+                pageStr+=" " + i + " ";
+            }
+        }
+        else
+        {
+            for(var i=pageSpace; i>0; i--)
+            {
+                if((currentPage-i)>0)
+                {
+                    pageStr+=" " + currentPage-i + " ";
+                }
+            }
+        }
+        pageStr += " "+currentPage+" ";
+        if ( (currentPage + pageSpace) >= totalPage )
+        {
+            for(var i = (currentPage + 1);i <= totalPage ;i++)
+            {
+                pageStr+=" " + i + " ";
+            }
+        }
+        else
+        {
+            for(var i=currentPage+1; i<=currentPage+pageSpace; i++)
+            {
+                pageStr +=" " + i + " ";
+            }
+            if((totalPage-currentPage-pageSpace)>1)
+            {
+                pageStr += "..."
+            }
+            pageStr+=totalPage;
+        }
+        
+        output+=pageStr;
+        
         if(currentPage!=1)
         {
         output += "<span><a href=\"#\" topage=\"1\" title=\"First page\">|<</a></span>";
@@ -58,7 +107,8 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         {
         output += "<span><a href=\"#\" title=\"Last page\" topage=\""+totalPage+"\">>|</a></span>";
         }
-        output+="</span>";
+        
+        output+="</span></p>";
         viewPage.setContent(output);
         Y.on('click', jumpPage, '#ezcomments_comment_view_page a')
    });
