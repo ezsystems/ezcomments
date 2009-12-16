@@ -1,6 +1,7 @@
 <div id="ezcomments_comment_view_page" class="ezcomments-comment-view-page">
 
 </div>
+
 <script type="text/javascript">
 
 <!--
@@ -20,8 +21,8 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         }
    }
 
-   // load init
-   var paintPage = function(e){
+   // Paint page after loading comment
+   ezcommentsCommentView.events.on("commentloaded", function(e){
         var total_count = ezcommentsCommentView.currentData.result.total_count;
         var request =  ezcommentsCommentView.currentData.request;
         var currentPage = request.targetPage;
@@ -60,12 +61,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         output+="</span>";
         viewPage.setContent(output);
         Y.on('click', jumpPage, '#ezcomments_comment_view_page a')
-   }
-   
-    ezcommentsCommentView.events.on("commentloaded",paintPage);
-   
-   
-   
+   });
 });
 
 {/literal}

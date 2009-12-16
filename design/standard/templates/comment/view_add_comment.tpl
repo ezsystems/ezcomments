@@ -1,5 +1,5 @@
 
-<div class="ezcomments-comment-view-addcomment">
+<div id="ezcomments_comment_view_addcomment" class="ezcomments-comment-view-addcomment">
     <form onsubmit="return false;">
         <table>
             <tr><td colspan="2" class="ezcomments-comment-view-moduletitle">
@@ -27,11 +27,10 @@
             </tr>
             <tr>
                 <td>Notified:</td>
-                <td><input id="ezcomments_comment_view_addcomment_notified"  type="checkbox" /></td>
+                <td><input id="ezcomments_comment_view_addcomment_notified" type="checkbox" /></td>
             </tr>
             <tr>
                 <td colspan="2" id="ezcomments_comment_view_addcomment_message" class="ezcomments-comment-view-addcomment-message">
-                
                 </td>
             </tr>
             <tr>
@@ -65,7 +64,6 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
     var defaultVertify = function(e)
     {
         return true;
-        
     }
     
     var showAddingMessage = function(message)
@@ -84,6 +82,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
     }
     
     ezcommentsCommentView.events.on('commentloaded',function(e){
+        ezcommentsCommentView.event.fire("addcomment:initui",Y.get('#ezcomments_comment_view_addcomment'));
         Y.get("#ezcomments_comment_view_addcomment_title").set('value','');
         Y.get("#ezcomments_comment_view_addcomment_content").set('value','');
         clearAddingMessage();

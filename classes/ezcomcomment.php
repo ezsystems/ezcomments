@@ -11,7 +11,7 @@ class ezcomComment extends eZPersistentObject
      * 
      * @param array $row
      */
-    public function __contstruct( $row )
+    public function __construct( $row )
     {
         parent::__construct( $row );
     }
@@ -162,7 +162,7 @@ class ezcomComment extends eZPersistentObject
         return $return;
     }
     
-    static function fetchByContetentObjectID($contentobject_id, $sorts = null, $offset = null, $length = null)
+    static function fetchByContentObjectID($contentobject_id, $sorts = null, $offset = null, $length = null)
     {
         $cond = array();
         $cond['contentobject_id'] = $contentobject_id;
