@@ -21,6 +21,28 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         }
    }
 
+   //init the current page
+   ezcommentsCommentView.events.on("initdata", function(){
+   
+        var currentLocation = location.href;
+        var numberIndex = currentLocation.indexOf("#");
+        if(numberIndex!=-1)
+        {
+            var params = currentLocation.substring(numberIndex+1);
+            if(params.match(/^p\/\d+$/))
+            {
+                var targetPage=params.substring(params.indexOf("p/")+2);
+                if(parseInt(targetPage)>=1)
+                {
+                    ezcommentsCommentView.currentData.request.targetPage=targetPage;
+                    var numberPerPage = ezcommentsCommentView.currentData.request.numberPerPage;
+                    ezcommentsCommentView.currentData.request.offset=(targetPage-1)*numberPerPage;
+                }
+            }
+        }
+    
+   });
+
    // Paint page after loading comment
    ezcommentsCommentView.events.on("commentloaded", function(e){
         var total_count = ezcommentsCommentView.currentData.result.total_count;
@@ -44,14 +66,14 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         var pageStr = "";
         if ( (currentPage - pageSpace) > 1 )
         {
-            pageStr += "1 ";
+            pageStr += "<a href=\"#p/1\">1</a> ";
             if((currentPage-pageSpace-1)>1)
             {
                 pageStr+="...";
             }
             for(var i=currentPage-1;i>(currentPage - pageSpace);i--)
             {
-                pageStr+=" " + i + " ";
+                pageStr+=" <a href=\"#p/" + i +"\"" + i + "</a> ";
             }
         }
         else
@@ -60,7 +82,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
             {
                 if((currentPage-i)>0)
                 {
-                    pageStr+=" " + currentPage-i + " ";
+                    pageStr+=" <a href=\"#p/"+ currentPage-i +"\">" + currentPage-i + "</a> ";
                 }
             }
         }
@@ -69,20 +91,20 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         {
             for(var i = (currentPage + 1);i <= totalPage ;i++)
             {
-                pageStr+=" " + i + " ";
+                pageStr+=" <a href=\"#p/" + i +"\">" + i + "</a> ";
             }
         }
         else
         {
             for(var i=currentPage+1; i<=currentPage+pageSpace; i++)
             {
-                pageStr +=" " + i + " ";
+                pageStr +=" <a href=\"#p/" + i +"\">" + i + "</a> ";
             }
             if((totalPage-currentPage-pageSpace)>1)
             {
                 pageStr += "..."
             }
-            pageStr+=totalPage;
+            pageStr+="<a href=\"#p/"+totalPage+"\">"+totalPage+"</a>";
         }
         
         output+=pageStr;
@@ -110,7 +132,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         
         output+="</span></p>";
         viewPage.setContent(output);
-        Y.on('click', jumpPage, '#ezcomments_comment_view_page a')
+        //Y.on('click', jumpPage, '#ezcomments_comment_view_page a')
    });
 });
 
