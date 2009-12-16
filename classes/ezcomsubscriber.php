@@ -28,10 +28,10 @@ class ezcomSubscriber extends eZPersistentObject
                                                                'default' => 0,
                                                                'required' => true ),
                                                 'user_id' => array( 'name' => 'UserID',
-                                                                             'datatype' => 'integer',
-                                                                             'default' => 0,
-                                                                             'required' => true ),
-                                                'email' => array( 'name' => 'Email',
+                                                                     'datatype' => 'integer',
+                                                                     'default' => 0,
+                                                                     'required' => true ),
+                                                'email' => array( 'name' => 'EMail',
                                                                         'datatype' => 'string',
                                                                         'default' => '',
                                                                         'required' => true ),
@@ -73,6 +73,19 @@ class ezcomSubscriber extends eZPersistentObject
     static function fetch( $id )
     {
         $cond = array( 'id' => $id );
+        $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
+        return $return;
+    }
+    
+/**
+     * Fetch ezcomSubscriber by given email
+     * 
+     * @param int $email
+     * @return null|ezcomSubscriber
+     */
+    static function fetchByEmail( $email )
+    {
+        $cond = array( 'email' => $email );
         $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
         return $return;
     }

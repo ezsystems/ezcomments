@@ -10,6 +10,8 @@ var ezcommentsCommentView = new Object();
 ezcommentsCommentView.userinfo = null;
 ezcommentsCommentView.events = null;
 ezcommentsCommentView.currentData = new Object();
+ezcommentsCommentView.request = new Object();
+
 
 //1. register events
 YUI( YUI3_config ).use('node', 'io-ez', 'event-custom-complex', function( Y )

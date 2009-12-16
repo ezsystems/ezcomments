@@ -9,9 +9,9 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
 {
     var argObject = new Object();
     argObject.offset = 0;
-    argObject.length = 2;
+    argObject.length = 5;
     argObject.targetPage = 1;
-    argObject.numberPerPage = 2;
+    argObject.numberPerPage = 5;
     argObject.oid=parseInt(Y.get("#ezcomments_comment_oid").getAttribute("value"));
     ezcommentsCommentView.currentData.request = argObject;
 

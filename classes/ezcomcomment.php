@@ -87,7 +87,11 @@ class ezcomComment extends eZPersistentObject
                                                 'notification' => array( 'name' => 'Notification',
                                                                          'datatype' => 'integer',
                                                                          'default' => 0,
-                                                                         'required' => true ) ),
+                                                                         'required' => true ),
+                                                'title' => array( 'name' => 'Title',
+                                                                  'datatype' => 'string',
+                                                                  'default' => '',
+                                                                  'required' => true ) ),
                              'keys' => array( 'id' ),
                              'function_attributes' => array( 
                                                             'contentobject' => 'contentObject' ),

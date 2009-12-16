@@ -27,6 +27,10 @@ class ezcomSubscription extends eZPersistentObject
                                                                'datatype' => 'integer',
                                                                'default' => 0,
                                                                'required' => true ),
+                                               'subscriber_id' => array( 'name' => 'SubscriberID',
+                                                                     'datatype' => 'integer',
+                                                                     'default' => 0,
+                                                                     'required' => true ),
                                                 'user_id' => array( 'name' => 'UserID',
                                                                              'datatype' => 'integer',
                                                                              'default' => 0,
@@ -38,6 +42,10 @@ class ezcomSubscription extends eZPersistentObject
                                                 'sub_id' => array( 'name' => 'SubID',
                                                                    'datatype' => 'string',
                                                                    'default' => '',
+                                                                   'required' => true ),
+                                                'sub_time' => array( 'name' => 'SubTime',
+                                                                   'datatype' => 'integer',
+                                                                   'default' => 1,
                                                                    'required' => true ),
                                                 'enabled' => array( 'name' => 'Enabled',
                                                                    'datatype' => 'integer',
@@ -76,6 +84,7 @@ class ezcomSubscription extends eZPersistentObject
         $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
         return $return;
     }
+    
 }
 
 ?>

@@ -273,7 +273,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
             $sorts = array( 'modified' => 'desc' );
             $comments = ezcomComment::fetchByContetentObjectID( $contentobjectID, $sorts, $offset, $length);
             $db = eZDB::instance();
-            $countArray = $db->arrayQuery( 'select count(*) as count from ezcomment where contentobject_id ='.$contentobjectID );
+            $countArray = $db->arrayQuery( 'SELECT count(*) AS count FROM ezcomment WHERE contentobject_id ='.$contentobjectID );
             $totalCount = $countArray[0]['count'];
             
             $result = array();
@@ -302,6 +302,96 @@ class ezcomServerFunctions extends ezjscServerFunctions
                 return json_encode($result);
             }
         }
+    }
+    
+    
+    /**
+     * Add comment into database
+     * @param array $args
+     * @return string result
+     */
+    public static function add_comment($args)
+    {
+        //1.vertify user
+        
+        $userID = 14;
+        $contentObjectID = 85;
+        //2. vertify data
+        $argObject = null;
+        $http = eZHTTPTool::instance();
+        if( $http->hasPostVariable( 'args' ) )
+        {
+           $args = $http->postVariable( 'args' );
+           $argObject = json_decode($args);
+        }
+        else
+        {
+            return "Parameter error!";
+        }
+        if( is_null($argObject) )
+        {
+            return "Parameter is null!";
+        }
+        //3. insert data
+        //3.1 insert into comment table
+        $comment = ezcomComment::create();
+        $comment->setAttribute( 'title', $argObject->title );
+        $comment->setAttribute( 'name', $argObject->name );
+        $comment->setAttribute( 'website', $argObject->website );
+        $comment->setAttribute( 'email', $argObject->email );
+        $comment->setAttribute( 'text', $argObject->content );
+        $comment->setAttribute( 'user_id', $userID );
+        $comment->setAttribute( 'contentobject_id', $contentObjectID );
+        if( $argObject->notified === true )
+        {
+            $comment->setAttribute( 'notification', 1 );
+        }
+        else
+        {
+            $comment->setAttribute( 'notification', 0 );
+        }
+        $comment->store();
+        
+        if( $argObject->notified === true )
+        {
+            //3.2 insert into subscriber
+            //if there is no data in subscriber for same email, save it
+            $subscriber = ezcomSubscriber::fetchByEmail( $argObject->email );
+            if( is_null( $subscriber ) )
+            {
+                $subscriber = ezcomSubscriber::create();
+                $subscriber->setAttribute( 'user_id', $userID );
+                $subscriber->setAttribute( 'email', $argObject->email );
+                $subscriber->setAttribute( 'hash_string', uniqid() );
+                $subscriber->store();
+                $subscriber = ezcomSubscriber::fetchByEmail( $argObject->email );
+            }
+            
+            //3.3 insert into subscription table
+            // if there is no data in ezcomment_subscription with given contentobject_id and subscriber_id
+            $db = eZDB::instance();
+            $countArray = $db->arrayQuery( 'SELECT count(*) AS count
+                                   FROM ezcomment_subscription
+                                   WHERE 
+                                   sub_id=\'' . $contentObjectID . '\'
+                                   AND subscriber_id ='.$subscriber->attribute( 'id' ) );
+            $totalCount = $countArray[0]['count'];
+            if( $totalCount == '0' )
+            {
+                $subscription = ezcomSubscription::create();
+                $subscription->setAttribute( 'user_id', $userID );
+                $subscription->setAttribute( 'subscriber_id', $subscriber->attribute( 'id' ) );
+                $subscription->setAttribute( 'sub_type', "ezcontentobject" );
+                $subscription->setAttribute( 'sub_id', $contentObjectID );
+                $subscription->setAttribute( 'sub_time', 12342324 );
+                $subscription->store();
+            }
+        }
+        
+        //4. insert data into notification queue
+        // if there is data in ezcomment_subscription with same contentobject_id, put the contentobject_id and type into queue
+         
+        return "Comment added!";
     }
 
 }

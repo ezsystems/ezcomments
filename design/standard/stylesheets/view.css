@@ -17,7 +17,7 @@
 }
 
 .ezcomments-comment-view-commenttitle{
-    height:25px;
+    height:22px;
     vertical-align:middle;
     background-color:#e6f0ff;
      border-width:0px 0px 1px 0px;
@@ -84,4 +84,9 @@
     border-width:0px 0px 1px 0px;
     border-style:solid solid solid solid;
     height:25px
+}
+.ezcomments-comment-view-addcomment-message{
+    text-align:center;
+    font-style:italic;
+    color:#ff0000
 }
