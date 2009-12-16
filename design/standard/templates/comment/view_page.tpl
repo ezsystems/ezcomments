@@ -17,7 +17,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
             var offset= ( targetPage - 1 ) * numPerPage;
             ezcommentsCommentView.currentData.request.offset=offset;
             ezcommentsCommentView.currentData.request.targetPage=targetPage;
-            ezcommentsCommentView.events.fire("load");
+            ezcommentsCommentView.refresh();
         }
    }
 
@@ -34,7 +34,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
                 var targetPage=params.substring(params.indexOf("p/")+2);
                 if(parseInt(targetPage)>=1)
                 {
-                    ezcommentsCommentView.currentData.request.targetPage=targetPage;
+                    ezcommentsCommentView.currentData.request.targetPage=parseInt(targetPage);
                     var numberPerPage = ezcommentsCommentView.currentData.request.numberPerPage;
                     ezcommentsCommentView.currentData.request.offset=(targetPage-1)*numberPerPage;
                 }
@@ -50,13 +50,11 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         var currentPage = request.targetPage;
         var numberPerPage = request.numberPerPage;
         var totalPage = Math.ceil(total_count/numberPerPage);
-        
         if(totalPage==1)
         {
             return;
         }
         
-         
         var viewPage = Y.get('#ezcomments_comment_view_page');
         var output = "<p><span>Total comments:</span>";
         output += "<span>"+total_count+",</span> ";
@@ -66,14 +64,14 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         var pageStr = "";
         if ( (currentPage - pageSpace) > 1 )
         {
-            pageStr += "<a href=\"#p/1\">1</a> ";
+            pageStr += "<a topage='1' href='#'>1</a> ";
             if((currentPage-pageSpace-1)>1)
             {
-                pageStr+="...";
+                pageStr+=" ... ";
             }
-            for(var i=currentPage-1;i>(currentPage - pageSpace);i--)
+            for(var i=currentPage - pageSpace;i<currentPage;i++)
             {
-                pageStr+=" <a href=\"#p/" + i +"\"" + i + "</a> ";
+                pageStr+=" <a topage='"+i+"' href='#'>" + i + "</a> ";
             }
         }
         else
@@ -82,7 +80,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
             {
                 if((currentPage-i)>0)
                 {
-                    pageStr+=" <a href=\"#p/"+ currentPage-i +"\">" + currentPage-i + "</a> ";
+                    pageStr+=" <a topage='" + (currentPage-i) +"' href='#'>" + (currentPage-i) + "</a> ";
                 }
             }
         }
@@ -91,24 +89,34 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         {
             for(var i = (currentPage + 1);i <= totalPage ;i++)
             {
-                pageStr+=" <a href=\"#p/" + i +"\">" + i + "</a> ";
+                pageStr+=" <a topage='"+ i +"' href='#'>" + i + "</a> ";
             }
         }
         else
         {
             for(var i=currentPage+1; i<=currentPage+pageSpace; i++)
             {
-                pageStr +=" <a href=\"#p/" + i +"\">" + i + "</a> ";
+                pageStr +=" <a topage='"+ i +"' href='#'>" + i + "</a> ";
             }
             if((totalPage-currentPage-pageSpace)>1)
             {
-                pageStr += "..."
+                pageStr += " ... "
             }
-            pageStr+="<a href=\"#p/"+totalPage+"\">"+totalPage+"</a>";
+            pageStr+="<a topage='"+ totalPage +"' href='#'>"+totalPage+"</a>";
+        }
+        
+        if(currentPage>1)
+        {
+            output += "<span> <a href=\"#\" topage=\""+(currentPage-1)+"\" title=\"Previous page\"><</a> </span>";
         }
         
         output+=pageStr;
+        if(currentPage<totalPage)
+        {
+         output += "<span> <a href=\"#\" title=\"Next page\" topage=\""+(currentPage+1)+"\">></a> </span>";
+        }
         
+        /*
         if(currentPage!=1)
         {
         output += "<span><a href=\"#\" topage=\"1\" title=\"First page\">|<</a></span>";
@@ -129,10 +137,10 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         {
         output += "<span><a href=\"#\" title=\"Last page\" topage=\""+totalPage+"\">>|</a></span>";
         }
-        
+        */
         output+="</span></p>";
         viewPage.setContent(output);
-        //Y.on('click', jumpPage, '#ezcomments_comment_view_page a')
+        Y.on('click', jumpPage, '#ezcomments_comment_view_page a')
    });
 });
 

@@ -7,9 +7,31 @@
 {literal}
 YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex', function( Y )
 {
+    ezcommentsCommentView.refresh = function(){
+        var args= Y.JSON.stringify( ezcommentsCommentView.currentData.request);
+        var result = false;
+        Y.io.ez( 'comment::get_view_comment_list', {
+                data: 'args='+args,
+                on: {success: function( id,r )
+                    { 
+                        if ( r.responseJSON.error_text )
+                            Y.get( '#ezcomments_comment_message' ).setContent( r.responseJSON.error_text );
+                        else
+                        {
+                            var resContent = r.responseJSON.content;
+                            var resObject = Y.JSON.parse( resContent );
+                            ezcommentsCommentView.currentData.result = resObject;
+                            ezcommentsCommentView.events.fire("commentloaded");
+                            result = true;
+                        }
+                    }
+                }
+            });
+        return result;
+    }
 
    // Initialize data when after loading UI
-   ezcommentsCommentView.events.on("load",function(e){
+   ezcommentsCommentView.events.on("load",function(){
         var argObject = new Object();
         argObject.offset = 0;
         argObject.length = 5;
@@ -17,30 +39,11 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         argObject.numberPerPage = 5;
         argObject.oid=parseInt(Y.get("#ezcomments_comment_oid").getAttribute("value"));
         ezcommentsCommentView.currentData.request = argObject;
-      
-       if(ezcommentsCommentView.events.fire("initdata"))
-       {
-            var args="";
-            args = Y.JSON.stringify( ezcommentsCommentView.currentData.request);
-            Y.io.ez( 'comment::get_view_comment_list', {
-                    data: 'args='+args,
-                    on: {success: function( id,r )
-                        { 
-                            if ( r.responseJSON.error_text )
-                                Y.get( '#ezcomments_comment_message' ).setContent( r.responseJSON.error_text );
-                            else
-                            {
-                                var resContent = r.responseJSON.content;
-                                var resObject = Y.JSON.parse( resContent );
-                                ezcommentsCommentView.currentData.result = resObject;
-                                ezcommentsCommentView.currentData.request = argObject;
-                                ezcommentsCommentView.events.fire("commentloaded");
-                            }
-                        }
-                    }
-                });
-                
-        }        
+        
+        if(ezcommentsCommentView.events.fire("initdata"))
+        {
+            var result = ezcommentsCommentView.refresh();
+        }
     });
     // invoke callback "commentlist:paint" from another template
     ezcommentsCommentView.events.on("commentloaded",function(e){

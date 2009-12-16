@@ -8,7 +8,19 @@
 }
 
 .ezcomments-comment-view-page a{
-    text-decoration:underline
+    height:25px;
+    border-width:1px 1px 1px 1px;
+    background-color:#eeeeee;
+    border-color:#cccccc #cccccc #cccccc #cccccc;
+    border-style:solid solid solid solid
+}
+
+.ezcomments-comment-view-page a:hover{
+    height:25px;
+    background-color:#cccccc;
+    border-width:1px 1px 1px 1px;
+    border-color:#999999 #999999 #999999 #999999;
+    border-style:solid solid solid solid
 }
 
 .ezcomments-comment-view-comment{
