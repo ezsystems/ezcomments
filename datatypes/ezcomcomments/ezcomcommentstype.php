@@ -54,8 +54,8 @@ class ezcomCommentsType extends eZDataType
      */
     function fetchObjectAttributeHTTPInput( $http, $base, $contentObjectAttribute )
     {
-        $enabledName = $base . '_ezcomments_enabled_' . $contentObjectAttribute->attribute( 'id' );
-        $shownName = $base . '_ezcomments_shown_' . $contentObjectAttribute->attribute( 'id' );
+        $enabledName = $base . '_ezcomcomments_enabled_' . $contentObjectAttribute->attribute( 'id' );
+        $shownName = $base . '_ezcomcomments_shown_' . $contentObjectAttribute->attribute( 'id' );
         $enabledValue = 0;
         $shownValue = -1;
         if( $http->hasPostVariable( $enabledName ) )
