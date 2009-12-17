@@ -1,10 +1,6 @@
 .ezcomments-comment-view-page{
     height:25px;
-    background-color:#ffffff;
     text-align:right;
-    border-width:1px 1px 1px 1px;
-    border-color:#e3e4e7 #e3e4e7 #e3e4e7 #e3e4e7;
-    border-style:solid solid solid solid;
     font-size:0.85em;
 }
 
@@ -25,20 +21,12 @@
 }
 
 .ezcomments-comment-view-comment{
-    background-color:#fcfcfc;
-    border-width:1px 1px 1px 1px;
-    border-color:#e3e4e7 #e3e4e7 #e3e4e7 #e3e4e7;
-    border-style:solid solid solid solid;
     font-size:0.85em
 }
 
 .ezcomments-comment-view-commenttitle{
     height:22px;
     vertical-align:middle;
-    background-image:url('../images/bg_comment_title.jpg');
-    border-width:0px 0px 1px 0px;
-    border-color:#e3e4e7 #e3e4e7 #cccccc #e3e4e7;
-    border-style:solid solid dotted solid;
     padding:2px
 }
 
@@ -51,6 +39,9 @@
     font-style:italic;
     text-align:right;
     color:#666666;
+    border-width:0px 0px 1px 0px;
+    border-color:#e3e4e7 #e3e4e7 #cccccc #e3e4e7;
+    border-style:solid solid dotted solid;
 }
 
 .ezcomments-comment-view-addcomment{
@@ -78,15 +69,19 @@
     
 }
 .ezcomments-comment-view-addcomment-textarea{
-    width:80%;
+    width:60%;
     height:100px
 }
 .ezcomments-comment-view-addcomment-title{
-    width:300px
+    width:200px
 }
 
 .ezcomments-comment-view-addcomment-email{
-    width:200px
+    width:150px
+}
+
+.ezcomments-comment-view-addcomment-name{
+    width:100px
 }
 
 .ezcomments-comment-view-moduletitle{
