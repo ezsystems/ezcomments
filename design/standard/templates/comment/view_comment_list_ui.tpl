@@ -24,7 +24,7 @@ YUI( YUI3_config ).use('node','event-custom-complex', function( Y )
                 }
                 output += "<div class=\"ezcomments-comment-view-commenttitle\"><span>"+"#"+index+"</span><span> "+title+"</span></div>";
                 output += "<div class=\"ezcomments-comment-view-commentbody\">"+row['text']+"</div>";
-                output += "<div class=\"ezcomments-comment-view-commentbottom\">"+row['author']+" on "+ row['modified'] +"</div>";
+                output += "<div class=\"ezcomments-comment-view-commentbottom\"><span>"+row['author']+" on "+ row['modified'] +"&nbsp;</span></div>";
                 output += "</div><br />";
             }
             commentContainer.setContent(output);

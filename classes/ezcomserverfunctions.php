@@ -293,7 +293,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
                     $row['created'] = $comment->attribute( 'created' );
                     $row['title'] = $comment->attribute( 'title' );
                     $row['text'] = $comment->attribute( 'text' );
-                    $row['author'] = "111";
+                    $row['author'] = $comment->attribute( 'name' );
                     $row['userid'] = $comment->attribute( 'user_id' );
                     $resultComments[] = $row;
                 }
@@ -315,7 +315,6 @@ class ezcomServerFunctions extends ezjscServerFunctions
         //1.vertify user
         
         $userID = 14;
-        $contentObjectID = 85;
         //2. vertify data
         $argObject = null;
         $http = eZHTTPTool::instance();
@@ -332,6 +331,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
         {
             return "Parameter is null!";
         }
+        $contentObjectID =  $argObject->oid;
         //3. insert data
         //3.1 insert into comment table
         $comment = ezcomComment::create();
@@ -341,7 +341,10 @@ class ezcomServerFunctions extends ezjscServerFunctions
         $comment->setAttribute( 'email', $argObject->email );
         $comment->setAttribute( 'text', $argObject->content );
         $comment->setAttribute( 'user_id', $userID );
-        $comment->setAttribute( 'contentobject_id', $contentObjectID );
+        $comment->setAttribute( 'contentobject_id', $contentObjectID);
+        $currentTime = time();
+        $comment->setAttribute( 'created', $currentTime);
+        $comment->setAttribute( 'modified', $currentTime);
         if( $argObject->notified === true )
         {
             $comment->setAttribute( 'notification', 1 );
@@ -383,7 +386,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
                 $subscription->setAttribute( 'subscriber_id', $subscriber->attribute( 'id' ) );
                 $subscription->setAttribute( 'sub_type', "ezcontentobject" );
                 $subscription->setAttribute( 'sub_id', $contentObjectID );
-                $subscription->setAttribute( 'sub_time', 12342324 );
+                $subscription->setAttribute( 'sub_time', $currentTime );
                 $subscription->store();
             }
         }

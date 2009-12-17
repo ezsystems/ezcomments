@@ -60,7 +60,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
             userInfo.notified = true;
             ezcommentsCommentView.userInfo = userInfo;
         }
-        ezcommentsCommentView.events.on("addcomment:vertify", defaultVertify);
+        Y.get('#ezcomments_comment_view_addcomment_post').on('click',addComment);
     });
     
     ezcommentsCommentView.addComment = new Object();
@@ -119,9 +119,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
             }
             
             // 2. init input form from cookies
-        }
-        Y.get('#ezcomments_comment_view_addcomment_post').on('click',addComment);
-        
+        }        
     });
     
     var addComment = function(e)
@@ -132,6 +130,8 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         argObject.website = Y.get("#ezcomments_comment_view_addcomment_website").get("value");
         argObject.email = Y.get("#ezcomments_comment_view_addcomment_email").get("value");
         argObject.content = Y.get("#ezcomments_comment_view_addcomment_content").get("value");
+        argObject.oid = parseInt(Y.get("#ezcomments_comment_oid").get("value"));
+        
         if( Y.get("#ezcomments_comment_view_addcomment_notified").get("value") == "on" )
         {
             argObject.notified = true;
@@ -162,7 +162,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
                             var resContent = r.responseJSON.content;
                             showAddingMessage(resContent);
                             //3.refresh data
-                            ezcommentsCommentView.events.fire("load");
+                            ezcommentsCommentView.refresh();
                         }
                     }
                     }

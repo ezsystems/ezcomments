@@ -44,6 +44,8 @@ $ContentObjectID = $Params['ContentObjectID'];
 
 $tpl = templateInit();
 $tpl->setVariable("contentobject_id",$ContentObjectID);
+$tpl->setVariable("enabled",1);
+$tpl->setVariable("shown",1);
 
 
 $Result = array();

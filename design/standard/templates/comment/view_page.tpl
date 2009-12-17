@@ -1,6 +1,4 @@
-<div id="ezcomments_comment_view_page" class="ezcomments-comment-view-page">
-
-</div>
+<div id="ezcomments_comment_view_page"></div>
 <br />
 <script type="text/javascript">
 
@@ -8,6 +6,7 @@
 {literal}
 YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex', function( Y )
 {
+
    var jumpPage = function(e)
    {
         if(e.currentTarget.get("tagName").toLowerCase()=="a")
@@ -50,95 +49,75 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         var currentPage = request.targetPage;
         var numberPerPage = request.numberPerPage;
         var totalPage = Math.ceil(total_count/numberPerPage);
-        if(totalPage==1)
-        {
-            return;
-        }
         
         var viewPage = Y.get('#ezcomments_comment_view_page');
         var output = "<p><span>Total comments:</span>";
-        output += "<span>"+total_count+",</span> ";
-        output += "<span>Pages:</span>";
-        
-        var pageSpace = 2;
-        var pageStr = "";
-        if ( (currentPage - pageSpace) > 1 )
+        output += "<span>"+total_count+"</span> ";
+        if( totalPage > 1 )
         {
-            pageStr += "<a topage='1' href='#'>1</a> ";
-            if((currentPage-pageSpace-1)>1)
+         
+            
+            output += "<span>, </span><span>Pages:</span>";
+            
+            var pageSpace = 2;
+            var pageStr = "";
+            if ( (currentPage - pageSpace) > 1 )
             {
-                pageStr+=" ... ";
-            }
-            for(var i=currentPage - pageSpace;i<currentPage;i++)
-            {
-                pageStr+=" <a topage='"+i+"' href='#'>" + i + "</a> ";
-            }
-        }
-        else
-        {
-            for(var i=pageSpace; i>0; i--)
-            {
-                if((currentPage-i)>0)
+                pageStr += "<a topage='1' href='#'>1</a> ";
+                if((currentPage-pageSpace-1)>1)
                 {
-                    pageStr+=" <a topage='" + (currentPage-i) +"' href='#'>" + (currentPage-i) + "</a> ";
+                    pageStr+=" ... ";
                 }
-            }
-        }
-        pageStr += " "+currentPage+" ";
-        if ( (currentPage + pageSpace) >= totalPage )
-        {
-            for(var i = (currentPage + 1);i <= totalPage ;i++)
-            {
-                pageStr+=" <a topage='"+ i +"' href='#'>" + i + "</a> ";
-            }
-        }
-        else
-        {
-            for(var i=currentPage+1; i<=currentPage+pageSpace; i++)
-            {
-                pageStr +=" <a topage='"+ i +"' href='#'>" + i + "</a> ";
-            }
-            if((totalPage-currentPage-pageSpace)>1)
-            {
-                pageStr += " ... "
-            }
-            pageStr+="<a topage='"+ totalPage +"' href='#'>"+totalPage+"</a>";
-        }
-        
-        if(currentPage>1)
-        {
-            output += "<span> <a href=\"#\" topage=\""+(currentPage-1)+"\" title=\"Previous page\"><</a> </span>";
-        }
-        
-        output+=pageStr;
-        if(currentPage<totalPage)
-        {
-         output += "<span> <a href=\"#\" title=\"Next page\" topage=\""+(currentPage+1)+"\">></a> </span>";
-        }
-        
-        /*
-        if(currentPage!=1)
-        {
-        output += "<span><a href=\"#\" topage=\"1\" title=\"First page\">|<</a></span>";
-        }
-        output += "<span>";
-        for(var i=1; i<=parseInt(totalPage); i++)
-        {
-            if(i==currentPage)
-            {
-              output+=" "+i+" ";
+                for(var i=currentPage - pageSpace;i<currentPage;i++)
+                {
+                    pageStr+=" <a topage='"+i+"' href='javascript:click(this)'>" + i + "</a> ";
+                }
             }
             else
             {
-                output+=" <a href=\"#\" topage=\""+i+"\">"+i+"</a> ";
+                for(var i=pageSpace; i>0; i--)
+                {
+                    if((currentPage-i)>0)
+                    {
+                        pageStr+=" <a topage='" + (currentPage-i) +"' href='javascript:click(this)'>" + (currentPage-i) + "</a> ";
+                    }
+                }
             }
+            pageStr += " "+currentPage+" ";
+            if ( (currentPage + pageSpace) >= totalPage )
+            {
+                for(var i = (currentPage + 1);i <= totalPage ;i++)
+                {
+                    pageStr+=" <a topage='"+ i +"' href='javascript:click(this)'>" + i + "</a> ";
+                }
+            }
+            else
+            {
+                for(var i=currentPage+1; i<=currentPage+pageSpace; i++)
+                {
+                    pageStr +=" <a topage='"+ i +"' href='javascript:click(this)'>" + i + "</a> ";
+                }
+                if((totalPage-currentPage-pageSpace)>1)
+                {
+                    pageStr += " ... "
+                }
+                pageStr+="<a topage='"+ totalPage +"' href='javascript:click(this)'>"+totalPage+"</a>";
+            }
+            
+            if(currentPage>1)
+            {
+                output += "<span> <a href=\"javascript:click(this)\" topage=\""+(currentPage-1)+"\" title=\"Previous page\"><</a> </span>";
+            }
+            
+            output+=pageStr;
+            if(currentPage<totalPage)
+            {
+             output += "<span> <a href=\"javascript:click(this)\" title=\"Next page\" topage=\""+(currentPage+1)+"\">></a> </span>";
+            }
+            output+="</span>&nbsp;";
         }
-        if(currentPage!=totalPage)
-        {
-        output += "<span><a href=\"#\" title=\"Last page\" topage=\""+totalPage+"\">>|</a></span>";
-        }
-        */
-        output+="</span></p>";
+        output+="</p>";
+        viewPage.addClass("ezcomments-comment-view-page");
         viewPage.setContent(output);
         Y.on('click', jumpPage, '#ezcomments_comment_view_page a')
    });

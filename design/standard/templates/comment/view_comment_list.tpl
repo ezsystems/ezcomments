@@ -39,7 +39,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         argObject.numberPerPage = 5;
         argObject.oid=parseInt(Y.get("#ezcomments_comment_oid").getAttribute("value"));
         ezcommentsCommentView.currentData.request = argObject;
-        
+
         if(ezcommentsCommentView.events.fire("initdata"))
         {
             var result = ezcommentsCommentView.refresh();
