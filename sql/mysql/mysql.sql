@@ -24,7 +24,9 @@ CREATE TABLE IF NOT EXISTS `ezcomment_notification` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `contentobject_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
+  `send_time` int(11) NOT NULL DEFAULT 0,
   `status` smallint(6) NOT NULL DEFAULT '1',
+  `comment_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 

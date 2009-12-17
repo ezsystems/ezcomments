@@ -1,6 +1,5 @@
 
 <div id="ezcomments_comment_view_addcomment" class="ezcomments-comment-view-addcomment">
-    <form onsubmit="return false;">
         <table>
             <tr><td colspan="2" class="ezcomments-comment-view-moduletitle">
                 Post Comment
@@ -34,10 +33,9 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2"><input type="submit" id="ezcomments_comment_view_addcomment_post" class="button" value="Post Comment" /></td>
+                <td colspan="2"><input type="button" id="ezcomments_comment_view_addcomment_post" class="button" value="Post Comment" /></td>
             </tr>
         </table>
-    </form>
 </div>
 {include name="view_page_ui" uri="design:comment/view_add_comment_extension.tpl"}
 
