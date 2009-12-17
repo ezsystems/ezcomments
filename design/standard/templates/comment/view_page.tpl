@@ -63,7 +63,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
             var pageStr = "";
             if ( (currentPage - pageSpace) > 1 )
             {
-                pageStr += "<a topage='1' href='#'>1</a> ";
+                pageStr += "<a topage='1' href='javascript:click(this)'>1</a> ";
                 if((currentPage-pageSpace-1)>1)
                 {
                     pageStr+=" ... ";
