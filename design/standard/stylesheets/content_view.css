@@ -42,6 +42,7 @@
     border-width:0px 0px 1px 0px;
     border-color:#e3e4e7 #e3e4e7 #cccccc #e3e4e7;
     border-style:solid solid dotted solid;
+    padding:2px;
 }
 
 .ezcomments-comment-view-addcomment{
@@ -85,11 +86,11 @@
 }
 
 .ezcomments-comment-view-moduletitle{
-    color:#ffffff;
-    background-color:#4192BD;
-    border-color:#999999 #999999 #ffffff #999999;
+    color:#000000;
+    background-image:url('../images/bg_module_title.jpg');
+    border-color:#999999 #999999 #cccccc #999999;
     border-width:0px 0px 1px 0px;
-    border-style:solid solid solid solid;
+    border-style:solid solid dotted solid;
     height:25px
 }
 .ezcomments-comment-view-addcomment-message{
