@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS `ezcomment` (
   `text` text NOT NULL,
   `status` int(11) NOT NULL,
   `notification` smallint(6) NOT NULL DEFAULT '0',
+  `title` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id_session_key_ip` (`user_id`,`session_key`,`ip`),
   KEY `contentobject_id_contentobject_attribute_id_lang_id_parentcom_id` (`contentobject_id`,`contentobject_attribute_id`,`language_id`,`parent_comment_id`)
@@ -24,6 +25,28 @@ CREATE TABLE IF NOT EXISTS `ezcomment_notification` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `contentobject_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
+  `send_time` int(11) NOT NULL DEFAULT 0,
   `status` smallint(6) NOT NULL DEFAULT '1',
+  `comment_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `ezcomment_subscriber` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `enabled` smallint(6) NOT NULL DEFAULT '1',
+  `hash_string` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `ezcomment_subscription` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL,
+  `subscriber_id` bigint(20) NOT NULL,
+  `sub_type` varchar(30) NOT NULL,
+  `sub_id` varchar(100) NOT NULL,
+  `sub_time` int(11) NOT NULL,
+  `enabled` smallint(6) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
