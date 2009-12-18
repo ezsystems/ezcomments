@@ -140,7 +140,9 @@ class ezcomServerFunctions extends ezjscServerFunctions
                 $row['notification'] = $comment->attribute('notification');
                 $row['text'] = $comment->attribute('text');
                 $row['object_name'] = $objectName;
-                $row['time'] = $comment->attribute('created');
+                $local = eZLocale::instance();
+                $time = $comment->attribute('created');
+                $row['time'] = $local->formatDateTime($time);
                 $resultComments[] = $row;
             }
             
@@ -309,8 +311,11 @@ class ezcomServerFunctions extends ezjscServerFunctions
                     $row = array();
                     $row['id'] = $comment->attribute( 'id' );
                     $row['oid'] = $comment->attribute( 'contentobject_id' );
-                    $row['modified'] = $comment->attribute( 'modified' );
-                    $row['created'] = $comment->attribute( 'created' );
+                    $local = eZLocale::instance();
+                    $modified = $comment->attribute( 'modified' );
+                    $row['modified'] = $local->formatDateTime( $modified );
+                    $created = $comment->attribute( 'created' );
+                    $row['created'] = $local->formatDateTime( $created );
                     $row['title'] = $comment->attribute( 'title' );
                     $row['text'] = $comment->attribute( 'text' );
                     $row['author'] = $comment->attribute( 'name' );

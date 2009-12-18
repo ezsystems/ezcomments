@@ -185,9 +185,8 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
            output += "</td>";
            output += "<td><p class=\"ezcomments-comment-text\">" + row["text"] + "</p>";
            output += "<p class=\"ezcomments-comment-list-objectname\"><span>To <a href=\"../" + row['content_url']+"\">" + row["object_name"] + "</a></span>";
-           var postTime = new Date();
-           postTime.setTime( row["time"] );
-           output += " on <span>" + postTime.toLocaleDateString() + "</span></p>";
+           var postTime = row["time"] ;
+           output += " on <span>" + postTime + "</span></p>";
            output +="</td></tr>";
          }
         uiComment.setContent(output); 
