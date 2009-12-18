@@ -7,7 +7,7 @@
 class ezcomSubscriber extends eZPersistentObject
 {
     /**
-     * Construct, use {@link ezcomSubscription::create()} to create new objects.
+     * Construct, use {@link ezcomSubscriber::create()} to create new objects.
      * 
      * @param array $row
      */
@@ -77,9 +77,9 @@ class ezcomSubscriber extends eZPersistentObject
         return $return;
     }
     
-/**
+    /**
      * Fetch ezcomSubscriber by given email
-     * 
+     *  
      * @param int $email
      * @return null|ezcomSubscriber
      */
@@ -90,7 +90,8 @@ class ezcomSubscriber extends eZPersistentObject
         return $return;
     }
     
-    /* Fetch ezcomSubscriber by given hashstring
+    /* 
+     * Fetch ezcomSubscriber by given hashstring
      * 
      * @param string $hashstring
      * @return null|ezcomSubscriber

@@ -5,7 +5,7 @@
 // Created on: <06-Dec-2009 00:00:00 xc>
 //
 // ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Star Rating
+// SOFTWARE NAME: eZ Comments
 // SOFTWARE RELEASE: 1.0-0
 // COPYRIGHT NOTICE: Copyright (C) 2009 eZ Systems AS
 // SOFTWARE LICENSE: GNU General Public License v2.0
@@ -29,7 +29,7 @@
 //
 
 /*
- * ezjscServerFunctions for ezstarrating (rating related)
+ * ezjscServerFunctions for ezcomments
  */
 
 class ezcomServerFunctions extends ezjscServerFunctions
@@ -334,7 +334,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
     {
         //1.vertify user
         
-        $userID = 14;
+        $userID = eZUser::currentUserID();
         //2. vertify data
         $argObject = null;
         $http = eZHTTPTool::instance();

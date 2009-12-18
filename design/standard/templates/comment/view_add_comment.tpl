@@ -1,3 +1,7 @@
+{def $user=fetch( 'user', 'current_user' )}
+    <input type="hidden" id="ezcomments_comment_view_addcomment_defname" value="{$user.login}" />
+    <input type="hidden" id="ezcomments_comment_view_addcomment_defemail" value="{$user.email}" />
+{/def}
 
 <div id="ezcomments_comment_view_addcomment" class="ezcomments-comment-view-addcomment">
         <table>
@@ -51,10 +55,17 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
             //var user = ezcommentsCommentView.currentData.user;
             ezcommentsCommentView.request.user = true;
             var userInfo = new Object();
-            userInfo.userID = 3;
-            userInfo.name = "Chen";
-            userInfo.email = "xc@ez.no";
-            userInfo.website = "http://ez.no";
+            var defName = Y.get("#ezcomments_comment_view_addcomment_defname");
+            var defEmail = Y.get("#ezcomments_comment_view_addcomment_defemail");
+            if(defName!="undefined" && defName!=null )
+            {
+                userInfo.name = defName.get("value");
+            }
+            if(defEmail!="undefined" && defEmail!=null )
+            {
+                userInfo.email = defEmail.get("value");
+            }
+                        
             userInfo.notified = true;
             ezcommentsCommentView.userInfo = userInfo;
         }
@@ -104,7 +115,10 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
             {
                 var emailInput = Y.get("#ezcomments_comment_view_addcomment_email");
                 emailInput.set('value',user.email);
-                emailInput.set('disabled',true);
+                if( user.email!="undefined" && user.email!=null && user.email!="" )
+                {
+                    emailInput.set('disabled',true);
+                }
             }
             
             if( user.notified != null )
