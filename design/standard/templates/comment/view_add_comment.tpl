@@ -173,7 +173,9 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
                         {
                             var resContent = r.responseJSON.content;
                             showAddingMessage(resContent);
-                            //3.refresh data
+                            //3.refresh data , jump to first page
+                            ezcommentsCommentView.request.targetPage = 1;
+                            ezcommentsCommentView.request.offset = 0;
                             ezcommentsCommentView.refresh();
                         }
                     }

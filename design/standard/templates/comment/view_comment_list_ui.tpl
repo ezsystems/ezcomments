@@ -24,7 +24,12 @@ YUI( YUI3_config ).use('node','event-custom-complex', function( Y )
                 }
                 output += "<div class=\"ezcomments-comment-view-commenttitle\"><span>"+"#"+index+"</span><span> "+title+"</span></div>";
                 output += "<div class=\"ezcomments-comment-view-commentbody\">"+row['text']+"</div>";
-                output += "<div class=\"ezcomments-comment-view-commentbottom\"><span>"+row['author']+" on "+ row['modified'] +"&nbsp;</span></div>";
+                var outputAuthor = row['author'];
+                if(row['website']!="undefined" && row['website']!=null && row['website']!="")
+                {
+                    outputAuthor = "<a href=\""+row['website']+"\">"+outputAuthor+"</a>";
+                }
+                output += "<div class=\"ezcomments-comment-view-commentbottom\"><span>"+outputAuthor+" on "+ row['modified'] +"&nbsp;</span></div>";
                 output += "</div><br />";
             }
             commentContainer.setContent(output);

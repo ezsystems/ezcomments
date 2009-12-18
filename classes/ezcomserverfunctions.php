@@ -142,13 +142,12 @@ class ezcomServerFunctions extends ezjscServerFunctions
                 $row['object_name'] = $objectName;
                 $local = eZLocale::instance();
                 $time = $comment->attribute('created');
-                $row['time'] = $local->formatDateTime($time);
+                $row['time'] = $local->formatShortDateTime($time);
                 $resultComments[] = $row;
             }
             
             $result['comments'] = $resultComments;
             $result['total_count'] = $totalCount;
-//            $result = $offset;
             $result = json_encode( $result );
 
         }
@@ -313,13 +312,14 @@ class ezcomServerFunctions extends ezjscServerFunctions
                     $row['oid'] = $comment->attribute( 'contentobject_id' );
                     $local = eZLocale::instance();
                     $modified = $comment->attribute( 'modified' );
-                    $row['modified'] = $local->formatDateTime( $modified );
+                    $row['modified'] = $local->formatShortDateTime( $modified );
                     $created = $comment->attribute( 'created' );
-                    $row['created'] = $local->formatDateTime( $created );
+                    $row['created'] = $local->formatShortDateTime( $created );
                     $row['title'] = $comment->attribute( 'title' );
                     $row['text'] = $comment->attribute( 'text' );
                     $row['author'] = $comment->attribute( 'name' );
                     $row['userid'] = $comment->attribute( 'user_id' );
+                    $row['website'] = $comment->attribute( 'url' );
                     $resultComments[] = $row;
                 }
                 $result['comments'] = $resultComments;
@@ -362,7 +362,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
         $comment = ezcomComment::create();
         $comment->setAttribute( 'title', $argObject->title );
         $comment->setAttribute( 'name', $argObject->name );
-        $comment->setAttribute( 'website', $argObject->website );
+        $comment->setAttribute( 'url', $argObject->website );
         $comment->setAttribute( 'email', $argObject->email );
         $comment->setAttribute( 'text', $argObject->content );
         $comment->setAttribute( 'user_id', $userID );

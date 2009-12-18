@@ -13,7 +13,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         if(e.currentTarget.get("tagName").toLowerCase()=="a")
         {
             var targetPage = parseInt(e.currentTarget.getAttribute("topage"));
-            var numPerPage = ezcommentsCommentView.currentData.numberPerPage;
+            var numPerPage = ezcommentsCommentView.request.numberPerPage;
             var offset= ( targetPage - 1 ) * numPerPage;
             ezcommentsCommentView.request.offset=offset;
             ezcommentsCommentView.request.targetPage=targetPage;
@@ -70,14 +70,14 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
             var pageStr = "";
             if ( (currentPage - pageSpace) > 1 )
             {
-                pageStr += "<a topage='1' href='javascript:click(this)'>1</a> ";
+                pageStr += "<a topage='1' href='javascript:;'>1</a> ";
                 if((currentPage-pageSpace-1)>1)
                 {
                     pageStr+=" ... ";
                 }
                 for(var i=currentPage - pageSpace;i<currentPage;i++)
                 {
-                    pageStr+=" <a topage='"+i+"' href='javascript:click(this)'>" + i + "</a> ";
+                    pageStr+=" <a topage='"+i+"' href='javascript:;'>" + i + "</a> ";
                 }
             }
             else
@@ -86,7 +86,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
                 {
                     if((currentPage-i)>0)
                     {
-                        pageStr+=" <a topage='" + (currentPage-i) +"' href='javascript:click(this)'>" + (currentPage-i) + "</a> ";
+                        pageStr+=" <a topage='" + (currentPage-i) +"' href='javascript:;'>" + (currentPage-i) + "</a> ";
                     }
                 }
             }
@@ -95,31 +95,31 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
             {
                 for(var i = (currentPage + 1);i <= totalPage ;i++)
                 {
-                    pageStr+=" <a topage='"+ i +"' href='javascript:click(this)'>" + i + "</a> ";
+                    pageStr+=" <a topage='"+ i +"' href='javascript:;'>" + i + "</a> ";
                 }
             }
             else
             {
                 for(var i=currentPage+1; i<=currentPage+pageSpace; i++)
                 {
-                    pageStr +=" <a topage='"+ i +"' href='javascript:click(this)'>" + i + "</a> ";
+                    pageStr +=" <a topage='"+ i +"' href='javascript:;'>" + i + "</a> ";
                 }
                 if((totalPage-currentPage-pageSpace)>1)
                 {
                     pageStr += " ... "
                 }
-                pageStr+="<a topage='"+ totalPage +"' href='javascript:click(this)'>"+totalPage+"</a>";
+                pageStr+="<a topage='"+ totalPage +"' href='javascript:;'>"+totalPage+"</a>";
             }
             
             if(currentPage>1)
             {
-                output += "<span> <a href=\"javascript:click(this)\" topage=\""+(currentPage-1)+"\" title=\"Previous page\"><</a> </span>";
+                output += "<span> <a href=\"javascript:;\" topage=\""+(currentPage-1)+"\" title=\"Previous page\"><</a> </span>";
             }
             
             output+=pageStr;
             if(currentPage<totalPage)
             {
-             output += "<span> <a href=\"javascript:click(this)\" title=\"Next page\" topage=\""+(currentPage+1)+"\">></a> </span>";
+             output += "<span> <a href=\"javascript:;\" title=\"Next page\" topage=\""+(currentPage+1)+"\">></a> </span>";
             }
             output+="</span>&nbsp;";
         }
