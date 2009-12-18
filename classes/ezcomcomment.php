@@ -158,6 +158,29 @@ class ezcomComment extends eZPersistentObject
            $limit = array();
            $limit = array( 'offset' => $offset, 'length' => $length );
         }
+        
+        $return = eZPersistentObject::fetchObjectList( self::definition(), null, $cond, $sorts, $limit );
+        return $return;
+    }
+    
+    static function fetchByEmail( $email, $sorts = null, $offset = null, $length = null, $notification = false, $status = false  )
+    {
+        $cond = array();
+        $cond['email'] = $email;
+        if ( $notification !== false )
+        {
+            $cond['notification'] = $notification;
+        }
+        if( $status !== false )
+        {
+            $cond['status'] = $status;
+        }
+        $limit = null;
+        if( !is_null( $offset ) )
+        {
+           $limit = array();
+           $limit = array( 'offset' => $offset, 'length' => $length );
+        }
         $return = eZPersistentObject::fetchObjectList( self::definition(), null, $cond, $sorts, $limit );
         return $return;
     }

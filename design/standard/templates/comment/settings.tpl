@@ -1,4 +1,4 @@
-{ezcss_require( 'notifications.css' )}
+{ezcss_require( 'settings.css' )}
 
 {ezscript_require( array( 'ezjsc::yui3', 'ezjsc::yui3io' ) )}
 
@@ -59,18 +59,21 @@ YUI( YUI3_config ).use('node', 'io-ez', 'event-custom-complex', function( Y )
 // -->
 </script>
 
-
 <div id="ezcomments_comments" class="ezcomments-comments">
-    <div class="ezcomments-comments-title">
-        <span>Comment Settings</span>
+    {if $subscriber}
+    <input type="hidden" id="ezcomments_comment_hashstring" value="{$subscriber.hash_string}">
+    <div>
+        <p>{$subscriber.email}</p>
     </div>
-    {include name="ezcomments_tabs" uri="design:comment/tabs.tpl"}
-    <div id="ezcomments_comment_message" style="text-align:center">
-    </div>
-    {include name="ezcomments_filter" uri="design:comment/filter.tpl"}
-    {include name="ezcomments_filter" uri="design:comment/paging.tpl"}
-    {include name="ezcomments_filter" uri="design:comment/comment_list.tpl"}
-    {include name="ezcomments_filter" uri="design:comment/tools.tpl"}
+    {else}
+        <input type="hidden" id="ezcomments_comment_hashstring" value="">
+    {/if}
+    {include name="ezcomments_tabs" uri="design:comment/settings_tabs.tpl"}
+    <div id="ezcomments_comment_message"></div>
+    {include name="ezcomments_filter" uri="design:comment/settings_filter.tpl"}
+    {include name="ezcomments_filter" uri="design:comment/settings_page.tpl"}
+    {include name="ezcomments_filter" uri="design:comment/settings_comment_list.tpl"}
+    {include name="ezcomments_filter" uri="design:comment/settings_tools.tpl"}
 </div>
 
 <script type="text/javascript">
@@ -139,8 +142,10 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
     {
         var argObject = new Object();
         argObject.offset = 0;
-        argObject.length = 3;
+        argObject.length = 10;
         argObject.targetPage = 1;
+        argObject.numberPerPage =10;
+        argObject.hashString = Y.get( '#ezcomments_comment_hashstring' ).get('value');
         ezcommentsComment.argObject = argObject;
         
         ezcommentsComment.events.fire("commentready",'#ezcomments_comments');
@@ -153,7 +158,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
     {
        var comments = ezcommentsComment.currentData.comments;
        var uiComment =  Y.get( '#ezcomments_comment_list' );
-       var output = "<tr class=\"ezcomments-comment-list-header\"><td>Notified</td><td>Comment</td><td>Content</td><td>Post Time</td></tr>";
+       var output = ""; 
        for( var i in comments)
        {
            var row = comments[i];
@@ -170,19 +175,19 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
            var notification = row["notification"];
            if( notification == 1)
            {
-              output += "<input type=\"checkbox\" checked />";
+              output += "<input type=\"checkbox\" checked />Notified";
            }
            else
            {
-             output += "<input type=\"checkbox\" />";
+             output += "<input type=\"checkbox\" />Notified";
            }
            output += "</td>";
-           output += "<td>" + row["text"] + "</td>";
-           output += "<td class=\"ezcomments-comment-list-objectname\"><a href=\"../" + row['content_url']+"\">" + row["object_name"] + "</a></td>";
+           output += "<td><p class=\"ezcomments-comment-text\">" + row["text"] + "</p>";
+           output += "<p class=\"ezcomments-comment-list-objectname\"><span>To <a href=\"../" + row['content_url']+"\">" + row["object_name"] + "</a></span>";
            var postTime = new Date();
            postTime.setTime( row["time"] );
-           output += "<td>" + postTime.toLocaleDateString() + "</td>";
-           output +="</tr>";
+           output += " on <span>" + postTime.toLocaleDateString() + "</span></p>";
+           output +="</td></tr>";
          }
         uiComment.setContent(output); 
     }

@@ -52,14 +52,14 @@ if ( !$isQuiet )
 // 1. check ezcomment_notification table
 $db = eZDB::instance();
 
-// 2. fetch content from content table and build mail content
 $now = new eZDateTime();
 $currentTime = $now->toTime()->timeStamp();
 //to be done: setting from setting.ini
-$sendingNumber = 1;
-$commentLength = 5;
-$mailContentType = 'text/html';
-$mailFrom = 'noreply@ez.no';
+$ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
+$sendingNumber = $ezcommentsINI->variable( 'notificationSettings', 'NotificationNumberPerExecuation' );
+$commentLength = $ezcommentsINI->variable( 'notificationSettings', 'CommentMailLength' );
+$mailContentType = $ezcommentsINI->variable( 'notificationSettings', 'MailContentType');
+$mailFrom = $ezcommentsINI->variable( 'notificationSettings', 'MailFrom' );
 
 $notifications = $db->arrayQuery( 'SELECT * FROM ezcomment_notification '.
                                    'WHERE status=1' .
@@ -71,6 +71,7 @@ $mailCount = 0;
 foreach ( $notifications as $notification )
 {
     
+     // 2. fetch content from content table and build mail content
      $contentObjectID = $notification['contentobject_id'];
      $contentLanguage = $notification['language_id'];
      $commentID = $notification['comment_id'];
@@ -134,7 +135,7 @@ foreach ( $notifications as $notification )
      $mailSubject = $tpl->fetch( 'design:comment/notification_subject.tpl' );
      $mailBody = $tpl->fetch( 'design:comment/notification.tpl' );
      
-     //send mail
+     // 3.send mail
      $mailParameters = array();
      $mailParameters['from'] = $mailFrom;
      $parameters['content_type'] = $mailContentType;

@@ -28,9 +28,9 @@
 $Module = array( 'name' => 'ezcom Module and Views' );
 
 $ViewList = array();
-$ViewList['notifications'] = array(
-       'script' => 'notifications.php',
-       'params' => array(),
+$ViewList['settings'] = array(
+       'script' => 'settings.php',
+       'params' => array('HashString'),
        );
 $ViewList['view'] = array(
        'script' => 'view.php',

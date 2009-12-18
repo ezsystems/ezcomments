@@ -33,13 +33,19 @@ require_once( 'kernel/common/template.php' );
 //1. check permission
 
 //2. get user's ID
+$tpl = templateInit();
+$hashString = $Params['HashString'];
+if( !is_null( $hashString ) )
+{
+    $subscriber = ezcomSubscriber::fetchByHashString($hashString);
+    $tpl->setVariable( 'subscriber', $subscriber );
+}
 
 //3. 
 
 //$commentList = ezcomComment::fetchForUser( 1 );
 
-$tpl = templateInit();
+
 $Result = array();
-//$tpl->setVariable( 'comment_list', $commentList );
-$Result['content'] = $tpl->fetch( 'design:comment/notifications.tpl' );
+$Result['content'] = $tpl->fetch( 'design:comment/settings.tpl' );
 ?>

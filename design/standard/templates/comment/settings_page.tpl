@@ -1,4 +1,5 @@
- <div id="ezcomments_comment_page" class="ezcomment-comment-page" currentpage="1" totalnumber="10" totalpages="4" numberperpage="3">
+ <div id="ezcomments_comment_page" class="ezcomment-comment-page">
+        <p>
         <span>Total comments </span>
         <span id="ezcomments_comment_page_totalnumber"></span>
         <span>,Page</span>
@@ -7,11 +8,12 @@
         /
         <span id="totalpage"></span>
         <span id="ezcomments_comment_page_buttons" class="ezcomments-comment-page-button">
-            <a href="#" id="ezcomments_comment_page_first" action="first">&nbsp;|<&nbsp;</a>
-            <a href="#" id="ezcomments_comment_page_previous" action="previous">&nbsp;<&nbsp;</a>
-            <a href="#" id="ezcomments_comment_page_next" action="next">&nbsp;>&nbsp;</a>
-            <a href="#" id="ezcomments_comment_page_last" action="last">&nbsp;>|&nbsp;</a>
+            <a href="javascript:click(this)" id="ezcomments_comment_page_first" action="first">&nbsp;|<&nbsp;</a> 
+            <a href="javascript:click(this)" id="ezcomments_comment_page_previous" action="previous">&nbsp;<&nbsp;</a> 
+            <a href="javascript:click(this)" id="ezcomments_comment_page_next" action="next">&nbsp;>&nbsp;</a> 
+            <a href="javascript:click(this)" id="ezcomments_comment_page_last" action="last">&nbsp;>|&nbsp;</a>
         </span>
+        </p>
 </div>
 
 <script type="text/javascript">
@@ -20,23 +22,6 @@
   
 YUI( YUI3_config ).use('node', 'json-stringify', 'json-stringify', 'io-ez', 'event-custom-complex', function( Y )
 {
-    //paging event test
-    var ezcommentsPageEvent = function()
-    {
-        this.publish("commentloaded",
-            {
-                emitFacade: true,
-                defaultFn: function(e) {
- 
-                }
-            }
-            );
-    }
-   
-    Y.augment(ezcommentsPageEvent,Y.EventTarget);
-    
-    ezcommentsComment.events.addTarget( new ezcommentsPageEvent() );
- 
     //register default page painting
      var ezcommentsFillCommentPage = function()
     {
@@ -45,11 +30,9 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'json-stringify', 'io-ez', 'eve
         
         var commentPage = Y.get( '#ezcomments_comment_page' );
         var currentPage = Y.get('#ezcomments_comment_page #currentpage');
-        commentPage.setAttribute( 'currentpage', argObject.targetPage );
         currentPage.setContent( argObject.targetPage );
         
-  
-        var numberPerPage = commentPage.getAttribute( 'numberperpage' );
+        var numberPerPage = argObject.numberPerPage;
         var totalPageNumber = Math.ceil( count / parseInt(numberPerPage) );
 
         var totalPage = Y.get('#ezcomments_comment_page #totalpage');
@@ -65,10 +48,11 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'json-stringify', 'io-ez', 'eve
     var ezcomments_jumpPage = function( e )
     {
         var action = e.currentTarget.getAttribute("action");
-        var currentPage = parseInt( Y.one('#ezcomments_comment_page').getAttribute('currentpage') );
-        var totalNumber = parseInt( Y.one('#ezcomments_comment_page').getAttribute('totalnumber') );
-        var totalPages = parseInt( Y.one('#ezcomments_comment_page').getAttribute('totalpages') );
-        var numberPerPage = parseInt( Y.one('#ezcomments_comment_page').getAttribute('numberperpage') );
+        var argObject = ezcommentsComment.argObject;
+        var currentPage = argObject.targetPage;
+        var totalNumber = ezcommentsComment.currentData.total_count;
+        var numberPerPage = argObject.numberPerPage;
+        var totalPages = Math.ceil( totalNumber / numberPerPage );
         switch ( action )
         {
             case "first":
@@ -80,37 +64,35 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'json-stringify', 'io-ez', 'eve
             case "previous":
                 if ( currentPage > 1 )
                 {
-                    jumpToPage( currentPage - 1, numberPerPage );
+                    jumpToPage( currentPage - 1 );
                 }
                 break;
             case "next":
                 if ( currentPage < totalPages )
                 {
-                    jumpToPage( currentPage + 1, numberPerPage );
+                    jumpToPage( currentPage + 1 );
                 }
                 break;
             case "last":
                 if ( currentPage < totalPages )
                 {
-                    jumpToPage( totalPages, numberPerPage );
+                    jumpToPage( totalPages );
                 }
                 break;
             default:
                 //to do: if action is number
-                jumpToPage( action, numberPerPage );
+                jumpToPage( action );
                 break;
         }
     }
     
-    var jumpToPage = function( targetPage, numberPerPage )
+    var jumpToPage = function( targetPage )
     {
-       var offset = parseInt( targetPage - 1 ) * numberPerPage;
-       var argObject = new Object();
+       var argObject = ezcommentsComment.argObject;
+       var offset = ( targetPage - 1 ) * argObject.numberPerPage;
        argObject.offset = offset;
-       
-       argObject.length = numberPerPage;
+       argObject.length = argObject.numberPerPage;
        argObject.targetPage = targetPage;
-       ezcommentsComment.argObject = argObject;
        ezcommentsComment.refresh();
     }
     

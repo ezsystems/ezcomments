@@ -89,6 +89,18 @@ class ezcomSubscriber extends eZPersistentObject
         $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
         return $return;
     }
+    
+    /* Fetch ezcomSubscriber by given hashstring
+     * 
+     * @param string $hashstring
+     * @return null|ezcomSubscriber
+     */
+    static function fetchByHashString( $hashString )
+    {
+        $cond = array( 'hash_string' => $hashString );
+        $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
+        return $return;
+    }
 }
 
 ?>

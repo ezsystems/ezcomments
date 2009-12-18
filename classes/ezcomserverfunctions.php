@@ -66,14 +66,6 @@ class ezcomServerFunctions extends ezjscServerFunctions
             $args = $http->postVariable( 'args' );
             $argObject = json_decode($args);
         }
-        if ( isset( $argObject->user_id ) )
-        {
-            $userID = $argObject->user_id;
-        }
-        else
-        {
-            $userID = eZUser::currentUserID();
-        }
             
         //3. check offset
         $defaultNumPerPage = $ezcommentsINI->variable( 'notificationSettings', 'NumberPerPage' );
@@ -99,13 +91,40 @@ class ezcomServerFunctions extends ezjscServerFunctions
         }
         
         //5. fetch comment
-        $comments = ezcomComment::fetchForUser( $userID, null, $offset, $length );
-        $db = eZDB::instance();
-        $countArray = $db->arrayQuery( 'select count(*) as count from ezcomment where user_id ='.$userID );
+        $comments = null;
+        $countArray = null;
+        $sorts = array( 'modified'=>'desc' );
+        if ( isset( $argObject->hashString ) && ( $argObject->hashString !== "" ) )
+        {
+            $subscriber = ezcomSubscriber::fetchByHashString( $argObject->hashString );
+            $email = $subscriber->attribute( 'email' );
+            
+            $comments = ezcomComment::fetchByEmail( $email, $sorts, $offset, $length );
+            $db = eZDB::instance();
+            $countArray = $db->arrayQuery( 'SELECT count(*) AS count FROM ezcomment '.
+                                           ' WHERE email =\''.$email . '\'');
+        }
+        else
+        {
+            $userID = eZUser::currentUserID();
+            if ( $userID != 0 )
+            {
+                $comments = ezcomComment::fetchForUser( $userID, $sorts, $offset, $length );
+                $db = eZDB::instance();
+                $countArray = $db->arrayQuery( 'SELECT count(*) AS count FROM ezcomment '.
+                                               ' WHERE  user_id =' . $userID );
+            }
+            else
+            {
+                return null;
+            }
+        }
+        
         $totalCount = $countArray[0]['count'];
         
         //6. build JSON object and return
         $result = array();
+        
         if( !is_null( $comments ) && is_array( $comments ) )
         {
             $resultComments = array();
@@ -124,6 +143,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
                 $row['time'] = $comment->attribute('created');
                 $resultComments[] = $row;
             }
+            
             $result['comments'] = $resultComments;
             $result['total_count'] = $totalCount;
 //            $result = $offset;
