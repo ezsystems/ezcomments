@@ -15,6 +15,6 @@ NotificationNumberPerExecuation=1
 
 [commentSettings]
 #-1 means not paging
-NumberPerPage=3
+NumberPerPage=7
 
 ?>

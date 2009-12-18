@@ -1,4 +1,5 @@
 <div id="ezcomments_comment_view_page"></div>
+<input type="hidden" id="ezcomments_comment_view_numperpage" value="{ezini( 'commentSettings', 'NumberPerPage', 'ezcomments.ini' )}" />
 <br />
 <script type="text/javascript">
 
@@ -12,10 +13,10 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         if(e.currentTarget.get("tagName").toLowerCase()=="a")
         {
             var targetPage = parseInt(e.currentTarget.getAttribute("topage"));
-            var numPerPage = ezcommentsCommentView.currentData.request.numberPerPage;
+            var numPerPage = ezcommentsCommentView.currentData.numberPerPage;
             var offset= ( targetPage - 1 ) * numPerPage;
-            ezcommentsCommentView.currentData.request.offset=offset;
-            ezcommentsCommentView.currentData.request.targetPage=targetPage;
+            ezcommentsCommentView.request.offset=offset;
+            ezcommentsCommentView.request.targetPage=targetPage;
             ezcommentsCommentView.refresh();
         }
    }
@@ -33,19 +34,25 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
                 var targetPage=params.substring(params.indexOf("p/")+2);
                 if(parseInt(targetPage)>=1)
                 {
-                    ezcommentsCommentView.currentData.request.targetPage=parseInt(targetPage);
-                    var numberPerPage = ezcommentsCommentView.currentData.request.numberPerPage;
-                    ezcommentsCommentView.currentData.request.offset=(targetPage-1)*numberPerPage;
+                    ezcommentsCommentView.request.targetPage=parseInt(targetPage);
+                    var numberPerPage = ezcommentsCommentView.request.numberPerPage;
+                    ezcommentsCommentView.request.offset=(targetPage-1)*numberPerPage;
                 }
             }
         }
     
    });
 
+   ezcommentsCommentView.events.on("load", function(){
+        var numPerPage = parseInt(Y.get("#ezcomments_comment_view_numperpage").get("value"));
+        ezcommentsCommentView.request.length = numPerPage;
+        ezcommentsCommentView.request.numberPerPage = numPerPage;
+   });
+   
    // Paint page after loading comment
    ezcommentsCommentView.events.on("commentloaded", function(e){
         var total_count = ezcommentsCommentView.currentData.result.total_count;
-        var request =  ezcommentsCommentView.currentData.request;
+        var request =  ezcommentsCommentView.request;
         var currentPage = request.targetPage;
         var numberPerPage = request.numberPerPage;
         var totalPage = Math.ceil(total_count/numberPerPage);

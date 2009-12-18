@@ -8,7 +8,7 @@
 YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex', function( Y )
 {
     ezcommentsCommentView.refresh = function(){
-        var args= Y.JSON.stringify( ezcommentsCommentView.currentData.request);
+        var args= Y.JSON.stringify( ezcommentsCommentView.request);
         var result = false;
         Y.io.ez( 'comment::get_view_comment_list', {
                 data: 'args='+args,
@@ -32,13 +32,10 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
 
    // Initialize data when after loading UI
    ezcommentsCommentView.events.on("load",function(){
-        var argObject = new Object();
+        var argObject = ezcommentsCommentView.request;
         argObject.offset = 0;
-        argObject.length = 5;
         argObject.targetPage = 1;
-        argObject.numberPerPage = 5;
         argObject.oid=parseInt(Y.get("#ezcomments_comment_oid").getAttribute("value"));
-        ezcommentsCommentView.currentData.request = argObject;
 
         if(ezcommentsCommentView.events.fire("initdata"))
         {
@@ -49,7 +46,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
     ezcommentsCommentView.events.on("commentloaded",function(e){
         var commentContainer = Y.get('#ezcomments_comment_view_comment');
         var result = ezcommentsCommentView.currentData.result;
-        var request = ezcommentsCommentView.currentData.request;
+        var request = ezcommentsCommentView.request;
         ezcommentsCommentView.events.fire("commentlist:paint",commentContainer, result, request);
     });
     
