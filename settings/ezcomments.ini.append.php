@@ -7,7 +7,7 @@ EnableNotification=true
 
 [notificationSettings]
 #-1 means not paging
-NumberPerPage=3
+NumberPerPage=8
 MailContentType=text/html
 MailFrom=noreply@ez.no
 CommentMailLength=200

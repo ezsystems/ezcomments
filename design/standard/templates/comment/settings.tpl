@@ -61,13 +61,14 @@ YUI( YUI3_config ).use('node', 'io-ez', 'event-custom-complex', function( Y )
 
 <div id="ezcomments_comments" class="ezcomments-comments">
     {if $subscriber}
-    <input type="hidden" id="ezcomments_comment_hashstring" value="{$subscriber.hash_string}">
+    <input type="hidden" id="ezcomments_comment_hashstring" value="{$subscriber.hash_string}" />
     <div>
         <p>{$subscriber.email}</p>
     </div>
     {else}
-        <input type="hidden" id="ezcomments_comment_hashstring" value="">
+        <input type="hidden" id="ezcomments_comment_hashstring" value="" />
     {/if}
+    <input type="hidden" id="ezcomments_comment_numperpage" value="{ezini( 'notificationSettings', 'NumberPerPage', 'ezcomments.ini' )}" />
     {include name="ezcomments_tabs" uri="design:comment/settings_tabs.tpl"}
     <div id="ezcomments_comment_message"></div>
     {include name="ezcomments_filter" uri="design:comment/settings_filter.tpl"}
@@ -142,10 +143,10 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
     {
         var argObject = new Object();
         argObject.offset = 0;
-        argObject.length = 10;
         argObject.targetPage = 1;
-        argObject.numberPerPage =10;
-        argObject.hashString = Y.get( '#ezcomments_comment_hashstring' ).get('value');
+        argObject.numberPerPage = parseInt(Y.get( "#ezcomments_comment_numperpage" ).get( "value" ));
+        argObject.length = argObject.numberPerPage;
+        argObject.hashString = Y.get( "#ezcomments_comment_hashstring" ).get( "value" );
         ezcommentsComment.argObject = argObject;
         
         ezcommentsComment.events.fire("commentready",'#ezcomments_comments');
