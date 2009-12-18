@@ -201,6 +201,26 @@ class ezcomComment extends eZPersistentObject
         
         }
     }
+
+    static function fetchByTime( $timefield, $time )
+    {
+        $cond = array();
+        if( $timefield == 'created' )
+        {
+            $cond['created'] = $time;
+        }
+        else if( $timefield == 'modified' )
+        {
+            $cond['modified'] = $time;
+        }
+        else
+        {
+            return null;
+        }
+        $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
+        return $return;
+    }
+    
     
     static function updateFields( $fields, $conditions )
     {

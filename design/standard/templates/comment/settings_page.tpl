@@ -8,10 +8,10 @@
         /
         <span id="totalpage"></span>
         <span id="ezcomments_comment_page_buttons" class="ezcomments-comment-page-button">
-            <a href="javascript:click(this)" id="ezcomments_comment_page_first" action="first">&nbsp;|<&nbsp;</a> 
-            <a href="javascript:click(this)" id="ezcomments_comment_page_previous" action="previous">&nbsp;<&nbsp;</a> 
-            <a href="javascript:click(this)" id="ezcomments_comment_page_next" action="next">&nbsp;>&nbsp;</a> 
-            <a href="javascript:click(this)" id="ezcomments_comment_page_last" action="last">&nbsp;>|&nbsp;</a>
+            <a href="javascript:click(this)" id="ezcomments_comment_page_first" action="first">|<</a> 
+            <a href="javascript:click(this)" id="ezcomments_comment_page_previous" action="previous"><</a> 
+            <a href="javascript:click(this)" id="ezcomments_comment_page_next" action="next">></a> 
+            <a href="javascript:click(this)" id="ezcomments_comment_page_last" action="last">>|</a>
         </span>
         </p>
 </div>

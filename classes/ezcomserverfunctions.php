@@ -93,7 +93,9 @@ class ezcomServerFunctions extends ezjscServerFunctions
         //5. fetch comment
         $comments = null;
         $countArray = null;
-        $sorts = array( 'modified'=>'desc' );
+        $defaultSortField = $ezcommentsINI->variable( 'notificationSettings', 'DefaultSortField' );
+        $defaultSortOrder = $ezcommentsINI->variable( 'notificationSettings', 'DefaultSortOrder' );
+        $sorts = array( $defaultSortField=>$defaultSortOrder );
         if ( isset( $argObject->hashString ) && ( $argObject->hashString !== "" ) )
         {
             $subscriber = ezcomSubscriber::fetchByHashString( $argObject->hashString );
@@ -291,7 +293,9 @@ class ezcomServerFunctions extends ezjscServerFunctions
         else
         {
             $contentobjectID = $argObject->oid;
-            $sorts = array( 'modified' => 'desc' );
+            $defaultSortField = $ezcommentsINI->variable( 'commentSettings', 'DefaultSortField' );
+            $defaultSortOrder = $ezcommentsINI->variable( 'commentSettings', 'DefaultSortOrder' );
+            $sorts = array( $defaultSortField=>$defaultSortOrder );
             $comments = ezcomComment::fetchByContentObjectID( $contentobjectID, $sorts, $offset, $length);
             $db = eZDB::instance();
             $countArray = $db->arrayQuery( 'SELECT count(*) AS count FROM ezcomment WHERE contentobject_id ='.$contentobjectID );
@@ -379,6 +383,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
             $comment->setAttribute( 'notification', 0 );
         }
         $comment->store();
+        $commentAdded = ezcomComment::fetchByTime( 'created', $currentTime);
         
         if( $argObject->notified === true )
         {
@@ -397,11 +402,14 @@ class ezcomServerFunctions extends ezjscServerFunctions
             
             //3.3 insert into subscription table
             // if there is no data in ezcomment_subscription with given contentobject_id and subscriber_id
+            //to do change the value
+            $languageID = 0;
+            $subID = $contentObjectID . '_' . $languageID;
             $db = eZDB::instance();
             $countArray = $db->arrayQuery( 'SELECT count(*) AS count
                                    FROM ezcomment_subscription
                                    WHERE 
-                                   sub_id=\'' . $contentObjectID . '\'
+                                   sub_id=\'' . $subID . '\'
                                    AND subscriber_id ='.$subscriber->attribute( 'id' ) );
             $totalCount = $countArray[0]['count'];
             if( $totalCount == '0' )
@@ -410,13 +418,19 @@ class ezcomServerFunctions extends ezjscServerFunctions
                 $subscription->setAttribute( 'user_id', $userID );
                 $subscription->setAttribute( 'subscriber_id', $subscriber->attribute( 'id' ) );
                 $subscription->setAttribute( 'sub_type', "ezcontentobject" );
-                $subscription->setAttribute( 'sub_id', $contentObjectID );
+                $subscription->setAttribute( 'sub_id', $subID );
                 $subscription->setAttribute( 'sub_time', $currentTime );
                 $subscription->store();
             }
         }
         
         //4. insert data into notification queue
+        
+        $notification = ezcomNotification::create();
+        $notification->setAttribute( 'contentobject_id', $contentObjectID );
+        $notification->setAttribute( 'language_id', $languageID );
+        $notification->setAttribute( 'comment_id', $commentAdded->attribute('id') );
+        $notification->store();
         // if there is data in ezcomment_subscription with same contentobject_id, put the contentobject_id and type into queue
          
         return "Comment added!";

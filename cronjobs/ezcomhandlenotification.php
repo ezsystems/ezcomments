@@ -81,7 +81,7 @@ foreach ( $notifications as $notification )
      if( is_null( $contentObject ) )
      {
          $cli->output( "Content doesn't exist, delete the notification. Content ID:" . $contentObjectID );
-         removeNotification( $notification['id'] );
+         $db->query( 'DELETE FROM ezcomment_notification WHERE id=' . $notification['id'] );
          continue;
      }
      
@@ -90,7 +90,7 @@ foreach ( $notifications as $notification )
      if( is_null( $comment ) )
      {
          $cli->output( "Comment doesn't exist, delete the notification. Comment ID:" . $commentID );
-         removeNotification( $notification['id'] );
+         $db->query( 'DELETE FROM ezcomment_notification WHERE id=' . $notification['id'] );
          continue;
      }
      
@@ -117,7 +117,7 @@ foreach ( $notifications as $notification )
      if( !is_array( $emailList ) )
      {
          $cli->output( "Subscription mail doesn't exist, delete the notification. Content ID:" . $contentObjectID );
-         removeNotification( $notification['id'] );
+         $db->query( 'DELETE FROM ezcomment_notification WHERE id=' . $notification['id'] );
          continue;
      }
      $emailAddressList = array();
@@ -130,7 +130,7 @@ foreach ( $notifications as $notification )
      
      require_once( 'kernel/common/template.php' );
      $tpl = templateInit();
-     $tpl->setVariable( 'contentObject', $contentObject );
+     $tpl->setVariable( 'content_object', $contentObject );
      $tpl->setVariable( 'comment', $comment );
      $mailSubject = $tpl->fetch( 'design:comment/notification_subject.tpl' );
      $mailBody = $tpl->fetch( 'design:comment/notification.tpl' );
@@ -140,11 +140,21 @@ foreach ( $notifications as $notification )
      $mailParameters['from'] = $mailFrom;
      $parameters['content_type'] = $mailContentType;
      $transport = eZNotificationTransport::instance( 'ezmail' );
+     ///////////For testing
+     $cli->output("Sending mail start....");
+     foreach($emailAddressList as $email)
+     {
+         $cli->output('email:'.$email);
+     }
+     $cli->output("Sending mail end....");
+     
+     //$result = true;
+     //////////For Testing end
      $result = $transport->send( $emailAddressList, $mailSubject, $mailBody, null, $parameters );
      
      if( $result )
      {
-         //removeNotification( $notification['id'] );
+         $db->query( 'DELETE FROM ezcomment_notification WHERE id=' . $notification['id'] );
          $notificationCount ++;
          $mailCount += count( $emailAddressList );
      }
@@ -157,10 +167,5 @@ foreach ( $notifications as $notification )
 
 $cli->output( 'Notification sent.Total email:' . $mailCount );
 
-
-function removeNotification( $id )
-{
-    $db->query( 'DELETE FROM ezcomment_notification WHERE id=' . $id );
-}
-
+    
 ?>
