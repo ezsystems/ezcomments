@@ -3,9 +3,4 @@
 [TemplateSettings]
 ExtensionAutoloadPath[]=ezcomcomments
 
-[RoleSettings]
-PolicyOmitList[]=comment/notifications
-PolicyOmitList[]=comment/view
-
-
 */ ?>
