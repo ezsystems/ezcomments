@@ -113,7 +113,7 @@ foreach ( $notifications as $notification )
                                       ' (SELECT subscriber_id'.
                                       ' FROM ezcomment_subscription'.
                                       ' WHERE enabled = 1'.
-                                      ' AND sub_id = \''. $subID .'\')' );
+                                      ' AND content_id = \''. $subID .'\')' );
      if( !is_array( $emailList ) )
      {
          $cli->output( "Subscription mail doesn't exist, delete the notification. Content ID:" . $contentObjectID );
@@ -141,16 +141,18 @@ foreach ( $notifications as $notification )
      $parameters['content_type'] = $mailContentType;
      $transport = eZNotificationTransport::instance( 'ezmail' );
      ///////////For testing
+     $cli->output("Runing time:" . date('l jS \of F Y h:i:s A',time()));
      $cli->output("Sending mail start....");
      foreach($emailAddressList as $email)
      {
          $cli->output('email:'.$email);
      }
+     $cli->output($mailBody);
      $cli->output("Sending mail end....");
      
      //$result = true;
      //////////For Testing end
-     $result = $transport->send( $emailAddressList, $mailSubject, $mailBody, null, $parameters );
+//     $result = $transport->send( $emailAddressList, $mailSubject, $mailBody, null, $parameters );
      
      if( $result )
      {

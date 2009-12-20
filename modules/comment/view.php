@@ -41,14 +41,19 @@ require_once( 'kernel/common/template.php' );
 $http = eZHTTPTool::instance();
 
 $ContentObjectID = $Params['ContentObjectID'];
-
+$contentObject = eZContentObject::fetch( $ContentObjectID );
 $tpl = templateInit();
 $tpl->setVariable("contentobject_id",$ContentObjectID);
 $tpl->setVariable("enabled",1);
 $tpl->setVariable("shown",1);
+$tpl->setVariable('language_id',2);
+$tpl->setVariable('contentobject',$contentObject);
 
 
 $Result = array();
 $Result['content'] = $tpl->fetch( 'design:comment/view.tpl' );
+$Result['path'] = array( array( 'url' => false,
+                                'text' => ezi18n( '', 'View comment' ) ) );
+
 return $Result;
 ?>

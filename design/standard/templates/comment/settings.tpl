@@ -58,7 +58,6 @@ YUI( YUI3_config ).use('node', 'io-ez', 'event-custom-complex', function( Y )
 {/literal}
 // -->
 </script>
-
 <div id="ezcomments_comments" class="ezcomments-comments">
     {if $subscriber}
     <input type="hidden" id="ezcomments_comment_hashstring" value="{$subscriber.hash_string}" />
@@ -183,7 +182,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
              output += "<input type=\"checkbox\" />Notified";
            }
            output += "</td>";
-           output += "<td><p class=\"ezcomments-comment-text\">" + row["text"] + "</p>";
+           output += "<td><p class=\"ezcomments-comment-text\" title=\""+row["text"]+"\">" + row["text"].substring(0,50) + "</p>";
            output += "<p class=\"ezcomments-comment-list-objectname\"><span>To <a href=\"../" + row['content_url']+"\">" + row["object_name"] + "</a></span>";
            var postTime = row["time"] ;
            output += " on <span>" + postTime + "</span></p>";

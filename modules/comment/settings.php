@@ -30,22 +30,22 @@
  */
 require_once( 'kernel/common/template.php' );
 
-//1. check permission
-
 //2. get user's ID
 $tpl = templateInit();
-$hashString = $Params['HashString'];
-if( !is_null( $hashString ) )
+
+$user = eZUser::currentUser();
+if($user->isAnonymous())
 {
-    $subscriber = ezcomSubscriber::fetchByHashString($hashString);
-    $tpl->setVariable( 'subscriber', $subscriber );
+    $hashString = $Params['HashString'];
+    if( !is_null( $hashString ) )
+    {
+        $subscriber = ezcomSubscriber::fetchByHashString($hashString);
+        $tpl->setVariable( 'subscriber', $subscriber );
+    }
 }
-
-//3. 
-
-//$commentList = ezcomComment::fetchForUser( 1 );
-
 
 $Result = array();
 $Result['content'] = $tpl->fetch( 'design:comment/settings.tpl' );
+$Result['path'] = array( array( 'url' => false,
+                                'text' => ezi18n( '', 'Comment settings' ) ) );
 ?>

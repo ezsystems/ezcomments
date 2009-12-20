@@ -6,7 +6,8 @@
 {$comment.text}
 <br />
 <br />
-For setting your subscription, please visit http://XXX/comment/setting
+For reply the content, please visit {$content_object.main_node.url_alias|ezurl(,'full')}
+For setting your subscription, please visit {'/comment/setting'|ezurl(,'full')}
 
 </p>
 <pre>

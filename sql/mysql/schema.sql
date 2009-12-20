@@ -44,9 +44,9 @@ CREATE TABLE IF NOT EXISTS `ezcomment_subscription` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL,
   `subscriber_id` bigint(20) NOT NULL,
-  `sub_type` varchar(30) NOT NULL,
-  `sub_id` varchar(100) NOT NULL,
-  `sub_time` int(11) NOT NULL,
+  `subscription_type` varchar(30) NOT NULL,
+  `content_id` varchar(100) NOT NULL,
+  `subscription_time` int(11) NOT NULL,
   `enabled` smallint(6) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;

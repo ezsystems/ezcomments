@@ -1,6 +1,14 @@
 {def $user=fetch( 'user', 'current_user' )}
+{def $anonymousUserID=ezini( 'UserSettings', 'AnonymousUserID')}
+    {if $user.contentobject_id|eq( $anonymousUserID )|not()}
     <input type="hidden" id="ezcomments_comment_view_addcomment_defname" value="{$user.login}" />
     <input type="hidden" id="ezcomments_comment_view_addcomment_defemail" value="{$user.email}" />
+    {else}
+    <input type="hidden" id="ezcomments_comment_view_addcomment_isanonymous" value="true" />
+    {/if}
+{/def $user $anonymousUserID}
+{def $DefaultNotified=ezini( 'commentSettings', 'DefaultNotified','ezcomments.ini')}
+    <input type="hidden" id="ezcomments_comment_view_addcomment_defnotified" value="{$DefaultNotified}" />
 {/def}
 
 <div id="ezcomments_comment_view_addcomment" class="ezcomments-comment-view-addcomment">
@@ -47,7 +55,7 @@
 
 <!--
 {literal}
-YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex', function( Y )
+YUI( YUI3_config ).use('node', 'json-stringify', 'cookie', 'io-ez', 'event-custom-complex', function( Y )
 {
     ezcommentsCommentView.events.on('load',function(e){
         if(ezcommentsCommentView.request.user == null)
@@ -57,16 +65,40 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
             var userInfo = new Object();
             var defName = Y.get("#ezcomments_comment_view_addcomment_defname");
             var defEmail = Y.get("#ezcomments_comment_view_addcomment_defemail");
+            var defWebsite = Y.get("#ezcomments_comment_view_addcomment_defwebsite");
+            var defNotified = Y.get("#ezcomments_comment_view_addcomment_defnotified");
             if(defName!="undefined" && defName!=null )
             {
                 userInfo.name = defName.get("value");
+            }
+            else
+            {
+                userInfo.name = "";
             }
             if(defEmail!="undefined" && defEmail!=null )
             {
                 userInfo.email = defEmail.get("value");
             }
-                        
-            userInfo.notified = true;
+            else
+            {
+                userInfo.email = "";
+            }
+            if(defWebsite!="undefined" && defWebsite!=null )
+            {
+                userInfo.website = defWebsite.get("value");
+            }
+            else
+            {
+                userInfo.website = "";
+            }
+            if(defNotified!="undefined" && defNotified.get("value")=="true" )
+            {
+                userInfo.notified = true;
+            }
+            else
+            {
+                userInfo.notified = false;
+            }
             ezcommentsCommentView.userInfo = userInfo;
         }
         Y.get('#ezcomments_comment_view_addcomment_post').on('click',addComment);
@@ -77,7 +109,11 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
     //show message in adding comment
     var showAddingMessage = function(message)
     {
-        Y.get( '#ezcomments_comment_view_addcomment_message' ).setContent( message );
+        var messageContent = "<p>"+message+"</p><p><input type='button' value='OK' id='ezcomments_comment_view_addcomment_messagebutton' class='button' /></p>";
+        Y.get( '#ezcomments_comment_view_addcomment_message' ).setContent( messageContent );
+        Y.get('#ezcomments_comment_view_addcomment_messagebutton').on('click',function(){
+            Y.get( '#ezcomments_comment_view_addcomment_message' ).setContent("");
+        });
     }
     ezcommentsCommentView.addComment.showMessage = showAddingMessage;
     
@@ -87,7 +123,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         var message = Y.get( '#ezcomments_comment_view_addcomment_message' );
         if( message.get('innerHTML')!="" )
         {
-            message.set("innerHTML","");
+            message.setContent("");
         }
     }
     ezcommentsCommentView.addComment.clearMessage = clearAddingMessage;
@@ -99,38 +135,69 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         {
             Y.get("#ezcomments_comment_view_addcomment_title").set('value','');
             Y.get("#ezcomments_comment_view_addcomment_content").set('value','');
-            clearAddingMessage();
-            // 1. init input form from user
+            // 1. init input form from user and cookies
             if( user.name != null )
             {
-                Y.get("#ezcomments_comment_view_addcomment_name").set('value',user.name);
+                if(user.name=="" && Y.Cookie.exists('ezcommentsName') )
+                {
+                    cookieName = Y.Cookie.get('ezcommentsName');
+                    Y.get("#ezcomments_comment_view_addcomment_name").set('value', cookieName);
+                }
+                else
+                {
+                    Y.get("#ezcomments_comment_view_addcomment_name").set('value', user.name);
+                }                
             }
             
             if( user.website != null )
             {
-                Y.get("#ezcomments_comment_view_addcomment_website").set('value',user.website);
+                if(user.website=="" && Y.Cookie.exists('ezcommentsWebsite') )
+                {
+                    cookieWebsite = Y.Cookie.get('ezcommentsWebsite');
+                    Y.get("#ezcomments_comment_view_addcomment_website").set('value', cookieWebsite);
+                }
+                else
+                {
+                    Y.get("#ezcomments_comment_view_addcomment_website").set('value',user.website);
+                }
             }
             
             if( user.email != null )
             {
-                var emailInput = Y.get("#ezcomments_comment_view_addcomment_email");
-                emailInput.set('value',user.email);
-                if( user.email!="undefined" && user.email!=null && user.email!="" )
+                if(user.email=="" && Y.Cookie.exists('ezcommentsEmail') )
                 {
-                    emailInput.set('disabled',true);
+                    cookieEmail = Y.Cookie.get('ezcommentsEmail');
+                    Y.get("#ezcomments_comment_view_addcomment_email").set('value', cookieEmail);
+                }
+                else
+                {
+                    var emailInput = Y.get("#ezcomments_comment_view_addcomment_email");
+                    emailInput.set('value',user.email);
+                    if( user.email!="undefined" && user.email!="" )
+                    {
+                        emailInput.set('disabled',true);
+                    }
                 }
             }
             
             if( user.notified != null )
             {
-                if( user.notified == true )
+                var notifiedInput = Y.get("#ezcomments_comment_view_addcomment_notified");
+                if( Y.Cookie.exists('ezcomments_notified') )
                 {
-                    var notifiedInput = Y.get("#ezcomments_comment_view_addcomment_notified");
+                    cookieNotified = Y.Cookie.get('ezcomments_notified');
+                    if( cookieNotified == true )
+                    {
+                         notifiedInput.set('checked',true);
+                    }
+                }
+                else
+                if( user.notified == true )
+                { 
                     notifiedInput.set('checked',true);
                 }
             }
             
-            // 2. init input form from cookies
         }        
     });
     
@@ -143,18 +210,12 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         argObject.email = Y.get("#ezcomments_comment_view_addcomment_email").get("value");
         argObject.content = Y.get("#ezcomments_comment_view_addcomment_content").get("value");
         argObject.oid = parseInt(Y.get("#ezcomments_comment_oid").get("value"));
-        
-        if( Y.get("#ezcomments_comment_view_addcomment_notified").get("value") == "on" )
-        {
-            argObject.notified = true;
-        }
-        else
-        {
-            argObject.notified = false;
-        }
-
+        argObject.language = parseInt(Y.get("#ezcomments_comment_language").get("value"));
+        argObject.notified = Y.get("#ezcomments_comment_view_addcomment_notified").get("checked");
+        argObject.vertified = null;
+        ezcommentsCommentView.events.fire("addcomment:vertify", argObject)
         //1.vertify field
-        if(ezcommentsCommentView.events.fire("addcomment:vertify", argObject))
+        if(argObject.vertified)
         {
             if(ezcommentsCommentView.events.fire("addcomment:beforerequest", argObject))
             {
@@ -172,9 +233,30 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
                         else
                         {
                             var resContent = r.responseJSON.content;
-                            showAddingMessage(resContent);
-                            //3.refresh data , jump to first page
-                            ezcommentsCommentView.refresh();
+                            var isObject = false;
+                            try
+                            {
+                                var resObject = Y.JSON.parse(resContent);
+                                if( resObject.type=="ezcomments_error")
+                                {
+                                    isObject = true;
+                                    showAddingMessage(resObject.code+":"+resObject.message);
+                                }
+                            }
+                            catch(e)
+                            {
+                            }
+                            if(!isObject)
+                            {
+                                showAddingMessage(resContent);
+                                //remember the cookie
+                                Y.Cookie.set("ezcommentsName", argObject.name);
+                                Y.Cookie.set("ezcommentsWebsite", argObject.website);
+                                Y.Cookie.set("ezcommentsEmail", argObject.email);
+                                Y.Cookie.set("ezcommentsNotified", argObject.notified);
+                                //3.refresh data , jump to first page
+                                ezcommentsCommentView.refresh();
+                            }
                         }
                     }
                     }

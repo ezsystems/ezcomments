@@ -35,6 +35,24 @@
 class ezcomServerFunctions extends ezjscServerFunctions
 {
     /**
+     * create an error object that will be used for client use
+     * @param string $message : message
+     * @param string $errorCode : error code defined, for instance com_01
+     * @return array : error object 
+     */
+    protected static function createErrorObject( $message, $errorCode = null )
+    {
+        $error = array();
+        $error['type'] = 'ezcomments_error';
+        $error['message'] = $message;
+        if( !is_null( $errorCode ) )
+        {
+            $error['code'] = $errorCode;
+        }
+        return json_encode( $error );
+    }
+    
+    /**
      * Get the comment list in view 'notification'.
      * Return format:
      * ===========================================
@@ -140,8 +158,8 @@ class ezcomServerFunctions extends ezjscServerFunctions
                 $row['contentobject_id'] = $contentobject_id;
                 $row['content_url'] = $contentObject->mainNode()->attribute( 'url_alias' );
                 $row['notification'] = $comment->attribute('notification');
-                $row['text'] = $comment->attribute('text');
-                $row['object_name'] = $objectName;
+                $row['text'] = nl2br( htmlspecialchars( $comment->attribute('text') ) );
+                $row['object_name'] = htmlspecialchars( $objectName );
                 $local = eZLocale::instance();
                 $time = $comment->attribute('created');
                 $row['time'] = $local->formatShortDateTime($time);
@@ -169,8 +187,9 @@ class ezcomServerFunctions extends ezjscServerFunctions
     {
         $http = eZHTTPTool::instance();
         
-        //1. check the permission
-        
+        //1. check user
+        $user = eZUser::currentUser();
+        $email = $user->attribute('email');
         //2. get parameters
         $argObject = null;
         if( $http->hasPostVariable( 'args' ) )
@@ -185,18 +204,19 @@ class ezcomServerFunctions extends ezjscServerFunctions
         $conditions = array();
         $updateResult = true;
         $message = "";
+        
         foreach( $argObject as $row )
         {
             $fields['notification'] = $row['notification'];
             $conditions['id'] = $row['id'];
             ezcomComment::updateFields( $fields, $conditions );
-            //to do: add error handle 
+            ezcomSubscription::cleanupSubscription( $email, null, $row['id']);
         }
         
         //4. return result
         if ( $updateResult )
         {
-            $message = "Update success";
+            $message .= "Update success";
         }
         else
         {
@@ -319,11 +339,11 @@ class ezcomServerFunctions extends ezjscServerFunctions
                     $row['modified'] = $local->formatShortDateTime( $modified );
                     $created = $comment->attribute( 'created' );
                     $row['created'] = $local->formatShortDateTime( $created );
-                    $row['title'] = $comment->attribute( 'title' );
-                    $row['text'] = $comment->attribute( 'text' );
+                    $row['title'] = htmlspecialchars( $comment->attribute( 'title' ) );
+                    $row['text'] = nl2br( htmlspecialchars( $comment->attribute( 'text' ) ) );
                     $row['author'] = $comment->attribute( 'name' );
                     $row['userid'] = $comment->attribute( 'user_id' );
-                    $row['website'] = $comment->attribute( 'url' );
+                    $row['website'] = htmlspecialchars( $comment->attribute( 'url' ) );
                     $resultComments[] = $row;
                 }
                 $result['comments'] = $resultComments;
@@ -341,9 +361,8 @@ class ezcomServerFunctions extends ezjscServerFunctions
      */
     public static function add_comment($args)
     {
-        //1.vertify user
-        
-        $userID = eZUser::currentUserID();
+        //1.get user
+        $user = eZUser::currentUser();
         //2. vertify data
         $argObject = null;
         $http = eZHTTPTool::instance();
@@ -354,22 +373,53 @@ class ezcomServerFunctions extends ezjscServerFunctions
         }
         else
         {
-            return "Parameter error!";
+            return self::createErrorObject( 'Parameter doesn\'t exist!', 'ezcom_add_001' );
         }
-        if( is_null($argObject) )
+        if( is_null( $argObject ) )
         {
-            return "Parameter is null!";
+            return self::createErrorObject( 'Parameter is empty!', 'ezcom_add_002');
+        }
+        if( !isset( $argObject->name ) ||  $argObject->name == '' )
+        {
+            return self::createErrorObject( 'Name is empty!', 'ezcom_add_002');
+        }
+        if( isset( $argObject->email ) )
+        {
+            if( eZMail::validate( $argObject->email ) == false )
+            {
+                return self::createErrorObject( 'Not a valid email address', 'ezcom_add_002' );
+            }
+        }
+        if( !isset( $argObject->content) || $argObject->content == '' )
+        {
+            return self::createErrorObject( 'Content can not be empty', 'ezcom_add_002' );
+        }
+        if ( !isset( $argObject->language ) || $argObject->language == '' || !is_int( $argObject->language ) )
+        {
+            return self::createErrorObject( 'Language can not be empty or string', 'ezcom_add_002' );
+        }
+        if ( !isset( $argObject->oid ) || $argObject->oid == '' || !is_int( $argObject->oid ) )
+        {
+            return self::createErrorObject( 'Object ID can not be empty or string', 'ezcom_add_002' );
         }
         $contentObjectID =  $argObject->oid;
+        
         //3. insert data
-        //3.1 insert into comment table
+        //3.1 convert data and insert into comment table
         $comment = ezcomComment::create();
-        $comment->setAttribute( 'title', $argObject->title );
+        if( isset( $argObject->title ) )
+        {
+            $comment->setAttribute( 'title', $argObject->title );
+        }
         $comment->setAttribute( 'name', $argObject->name );
-        $comment->setAttribute( 'url', $argObject->website );
+        if( isset( $argObject->website ) )
+        {
+            $comment->setAttribute( 'url', $argObject->website );
+        }
+        $comment->setAttribute( 'language_id', $argObject->language);
         $comment->setAttribute( 'email', $argObject->email );
         $comment->setAttribute( 'text', $argObject->content );
-        $comment->setAttribute( 'user_id', $userID );
+        $comment->setAttribute( 'user_id', $user->attribute( 'contentobject_id' ) );
         $comment->setAttribute( 'contentobject_id', $contentObjectID);
         $currentTime = time();
         $comment->setAttribute( 'created', $currentTime);
@@ -385,55 +435,68 @@ class ezcomServerFunctions extends ezjscServerFunctions
         $comment->store();
         $commentAdded = ezcomComment::fetchByTime( 'created', $currentTime);
         
+        $languageID = $argObject->language;
+        $contentID = $contentObjectID . '_' . $languageID;
+        $subscriptionType = 'ezcomcomment';
+        
+        $hasSubscription = false;
+        $subscriptionMessage = "";
         if( $argObject->notified === true )
         {
             //3.2 insert into subscriber
-            //if there is no data in subscriber for same email, save it
+            $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
             $subscriber = ezcomSubscriber::fetchByEmail( $argObject->email );
+            //if there is no data in subscriber for same email, save it
             if( is_null( $subscriber ) )
             {
                 $subscriber = ezcomSubscriber::create();
-                $subscriber->setAttribute( 'user_id', $userID );
+                $subscriber->setAttribute( 'user_id', $userID);
                 $subscriber->setAttribute( 'email', $argObject->email );
-                $subscriber->setAttribute( 'hash_string', uniqid() );
+                if( $user->isAnonymous() )
+                {
+                    $subscriber->setAttribute( 'hash_string', hash('md5',uniqid()) );
+                }
                 $subscriber->store();
                 $subscriber = ezcomSubscriber::fetchByEmail( $argObject->email );
             }
-            
+            else
+            {
+                if( $subscriber->attribute( 'enabled' ) === 0 )
+                {
+                    $subscriptionMessage = 'The email is disabled,
+                                 you won\'t receive notification
+                                  until it is activated!';
+                }
+            }
             //3.3 insert into subscription table
             // if there is no data in ezcomment_subscription with given contentobject_id and subscriber_id
-            //to do change the value
-            $languageID = 0;
-            $subID = $contentObjectID . '_' . $languageID;
-            $db = eZDB::instance();
-            $countArray = $db->arrayQuery( 'SELECT count(*) AS count
-                                   FROM ezcomment_subscription
-                                   WHERE 
-                                   sub_id=\'' . $subID . '\'
-                                   AND subscriber_id ='.$subscriber->attribute( 'id' ) );
-            $totalCount = $countArray[0]['count'];
-            if( $totalCount == '0' )
+            $hasSubscription = ezcomSubscription::exists( $contentID,
+                                            $argObject->email,
+                                            $subscriptionType);
+            if( $hasSubscription === false )
             {
                 $subscription = ezcomSubscription::create();
                 $subscription->setAttribute( 'user_id', $userID );
                 $subscription->setAttribute( 'subscriber_id', $subscriber->attribute( 'id' ) );
-                $subscription->setAttribute( 'sub_type', "ezcontentobject" );
-                $subscription->setAttribute( 'sub_id', $subID );
-                $subscription->setAttribute( 'sub_time', $currentTime );
+                $subscription->setAttribute( 'subscription_type', "ezcomcomment" );
+                $subscription->setAttribute( 'content_id', $contentID );
+                $subscription->setAttribute( 'subscription_time', $currentTime );
                 $subscription->store();
             }
         }
         
-        //4. insert data into notification queue
-        
-        $notification = ezcomNotification::create();
-        $notification->setAttribute( 'contentobject_id', $contentObjectID );
-        $notification->setAttribute( 'language_id', $languageID );
-        $notification->setAttribute( 'comment_id', $commentAdded->attribute('id') );
-        $notification->store();
-        // if there is data in ezcomment_subscription with same contentobject_id, put the contentobject_id and type into queue
+        // 3.4 insert data into notification queue
+        // and there is subscription,not adding to notification queue
+        if( ezcomSubscription::exists( $contentID, null,$subscriptionType ) )
+        {
+            $notification = ezcomNotification::create();
+            $notification->setAttribute( 'contentobject_id', $contentObjectID );
+            $notification->setAttribute( 'language_id', $languageID );
+            $notification->setAttribute( 'comment_id', $commentAdded->attribute('id') );
+            $notification->store();
+        }
          
-        return "Comment added!";
+        return 'Comment added!' . $subscriptionMessage;
     }
 
 }

@@ -13,6 +13,7 @@ YUI( YUI3_config ).use('node','event-custom-complex', function( Y )
     ezcommentsCommentView.events.on("addcomment:vertify",function(argObject){
         var result = true;
         var message = "";
+        
         if(argObject.name=="")
         {
             result = false;
@@ -28,15 +29,19 @@ YUI( YUI3_config ).use('node','event-custom-complex', function( Y )
             result = false;
             message += "Content can not be empty!<br />";
         }
-        
         if(result == false)
         {
             ezcommentsCommentView.addComment.showMessage(message);
-            return false;
         }
+        //when there is only one event
+        if(argObject.vertified == null)
+        {
+            argObject.vertified = result;
+        }
+        //when there are many registered events
         else
         {
-            return true;
+            argObject.vertified = result && argObject.vertified;
         }
        
     });

@@ -231,6 +231,7 @@ class ezcomComment extends eZPersistentObject
         //use try to catch the error
         eZPersistentObject::updateObjectList( $parameters );
     }
+    
 }
 
 ?>

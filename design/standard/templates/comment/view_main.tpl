@@ -67,7 +67,8 @@ YUI( YUI3_config ).use('node', 'io-ez', 'event-custom-complex', function( Y )
 <!--
 1.page
 -->
-<input type="hidden" id="ezcomments_comment_oid" value="{$contentobject_id}">
+<input type="hidden" id="ezcomments_comment_oid" value="{$contentobject_id}" />
+<input type="hidden" id="ezcomments_comment_language" value="{$language_id}" />
 <div id="ezcomments_comment_message"></div>
 {include name="view_page" uri="design:comment/view_page.tpl"}
 {include name="view_comment_list" uri="design:comment/view_comment_list.tpl"}
