@@ -85,17 +85,6 @@ class ezcomSubscription extends eZPersistentObject
         return $return;
     }
     
-    /**
-     * Get subscribers by a content id
-     * @param $contentID : the content ID given
-     * @return array : subscriber object array.
-     *     If there is no subscriber, return null
-     */
-    static function getSubscriberList( $contentID )
-    {
-         
-    }
-    
     
     /**
      * clean up subscription based on an email address,
@@ -160,15 +149,15 @@ class ezcomSubscription extends eZPersistentObject
     }
     
     /**
-     * Check if the subscription exists
+     * Check if the subscription exists by a given contentID
      * @param string $contentID : the ID of content subscribed
-     * @param string $email : email in table subscriber
-     * @param string $subscriptionType : type of the subscription 
+     * @param string $subscriptionType : type of the subscription
+     * @param string $email : email in table subscriber 
      * @param integer $enabled : 1/0 - check if the subscriber is enabled.
-     *                               Empty - not check if the subscriber is enabled 
+     *                               Empty/false - not check if the subscriber is enabled 
      * @return boolean: true if existing, false if not, null if error happens
      */
-    static function exists( $contentID , $email = null, $subscriptionType, $enabled = false )
+    static function exists( $contentID , $subscriptionType, $email = null, $enabled = false )
     {
         if( !isset( $contentID ) )
         {
@@ -193,21 +182,30 @@ class ezcomSubscription extends eZPersistentObject
                                        content_id = '$contentID'
                                        AND subscription_type = '$subscriptionType'
                                        AND subscriber_id IN 
-                                       (SELECT id from ezcomment_subscriber
+                                       (SELECT id FROM ezcomment_subscriber
                                        $emailString )");
         }
         else
         if( $enabled === 1 || $enabled === 0 )
         {
+          $enabledString = "enabled = $enabled";
+          if( $emailString != '' )
+          {
+              $enabledString = " AND " . $enabledString;
+          }
+          else
+          {
+              $enabledString = " WHERE " . $enabledString;
+          }
           $countArray = $db->arrayQuery( "SELECT count(*) AS count
                                        FROM ezcomment_subscription
                                        WHERE 
                                        content_id = '$contentID'
                                        AND subscription_type = '$subscriptionType'
                                        AND subscriber_id IN 
-                                       (SELECT id from ezcomment_subscriber
+                                       (SELECT id FROM ezcomment_subscriber
                                        $emailString 
-                                       AND enabled = $enabled)");
+                                       $enabledString)");
         }
         else
         {
@@ -217,6 +215,7 @@ class ezcomSubscription extends eZPersistentObject
         if( $totalCount === '0' )
         {
             return false;
+            
         }
         else
         {

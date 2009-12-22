@@ -1,6 +1,6 @@
 {def $user=fetch( 'user', 'current_user' )}
-{def $anonymousUserID=ezini( 'UserSettings', 'AnonymousUserID')}
-    {if $user.contentobject_id|eq( $anonymousUserID )|not()}
+{def $anonymousUserID=ezini('UserSettings', 'AnonymousUserID')}
+    {if $user.contentobject_id|eq($anonymousUserID)|not()}
     <input type="hidden" id="ezcomments_comment_view_addcomment_defname" value="{$user.login}" />
     <input type="hidden" id="ezcomments_comment_view_addcomment_defemail" value="{$user.email}" />
     {else}
@@ -250,10 +250,14 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'cookie', 'io-ez', 'event-custo
                             {
                                 showAddingMessage(resContent);
                                 //remember the cookie
-                                Y.Cookie.set("ezcommentsName", argObject.name);
-                                Y.Cookie.set("ezcommentsWebsite", argObject.website);
-                                Y.Cookie.set("ezcommentsEmail", argObject.email);
-                                Y.Cookie.set("ezcommentsNotified", argObject.notified);
+                                var isAnonymous = Y.get( "#ezcomments_comment_view_addcomment_isanonymous" ).get( "value" );
+                                if( isAnonymous=="false" )
+                                {
+                                    Y.Cookie.set("ezcommentsName", argObject.name);
+                                    Y.Cookie.set("ezcommentsWebsite", argObject.website);
+                                    Y.Cookie.set("ezcommentsEmail", argObject.email);
+                                    Y.Cookie.set("ezcommentsNotified", argObject.notified);
+                                }
                                 //3.refresh data , jump to first page
                                 ezcommentsCommentView.refresh();
                             }

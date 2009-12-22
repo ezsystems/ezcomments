@@ -36,8 +36,8 @@
  * 
  * // To be done
  * 1. warning
- * 2. subject is empty
- * 3. delete the data
+ * 2. bat sending
+ * 3. divide the sending part into other class instead of cronjob 
  * 4. undisclosed-recipients
  */
 $cli = eZCLI::instance();
@@ -133,7 +133,6 @@ foreach ( $notifications as $notification )
      $tpl->setVariable( 'content_object', $contentObject );
      $tpl->setVariable( 'comment', $comment );
      $mailSubject = $tpl->fetch( 'design:comment/notification_subject.tpl' );
-     $mailBody = $tpl->fetch( 'design:comment/notification.tpl' );
      
      // 3.send mail
      $mailParameters = array();
@@ -141,19 +140,23 @@ foreach ( $notifications as $notification )
      $parameters['content_type'] = $mailContentType;
      $transport = eZNotificationTransport::instance( 'ezmail' );
      ///////////For testing
-     $cli->output("Runing time:" . date('l jS \of F Y h:i:s A',time()));
-     $cli->output("Sending mail start....");
+//     $cli->output("Runing time:" . date('l jS \of F Y h:i:s A',time()));
+//     $cli->output("Sending mail start....");
+     $result = true;
      foreach($emailAddressList as $email)
      {
+         $tpl->setVariable( 'subscriber', ezcomSubscriber::fetchByEmail($email) );
+         $mailBody = $tpl->fetch( 'design:comment/notification.tpl' );
+         $itemResult = $transport->send( array($email), $mailSubject, $mailBody, null, $parameters );
+         $itemResult = true;
+         $result = $result & $itemResult; 
          $cli->output('email:'.$email);
+//         $cli->output($mailBody);
      }
-     $cli->output($mailBody);
-     $cli->output("Sending mail end....");
+//     $cli->output("Sending mail end....");
      
-     //$result = true;
      //////////For Testing end
-//     $result = $transport->send( $emailAddressList, $mailSubject, $mailBody, null, $parameters );
-     
+         
      if( $result )
      {
          $db->query( 'DELETE FROM ezcomment_notification WHERE id=' . $notification['id'] );

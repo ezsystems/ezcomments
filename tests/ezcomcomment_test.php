@@ -16,7 +16,7 @@ class ezcomCommentTest extends ezpDatabaseTestCase
     public function __construct()
     {
         parent::__construct();
-        $this->setName( "ezcommComment object test" );
+        $this->setName( "ezcomComment object test" );
     }
 
     public function setUp()
@@ -96,7 +96,7 @@ class ezcomCommentTest extends ezpDatabaseTestCase
         $comment->setAttribute( 'language_id', 2 );
         $comment->setAttribute( 'created', 21213423 );
         $comment->setAttribute( 'modified', 21321231 );
-        $comment->setAttribute( 'user_id', 14 );
+        $comment->setAttribute( 'user_id', 15 );
         $comment->setAttribute( 'session_key', 'a2e4822a98337283e39f7b60acf85ec9' );
         $comment->setAttribute( 'ip', '10.0.2.122' );
         $comment->setAttribute( 'name', 'xc' );
@@ -108,25 +108,25 @@ class ezcomCommentTest extends ezpDatabaseTestCase
         $comment->store();
         
         // Assert fetchForUser( userid )
-        $list = ezcomComment::fetchForUser( 14 );
+        $list = ezcomComment::fetchForUser( 15 );
         $this->assertType( 'array', $list );
         $this->assertType( 'ezcomComment', $list[0] );
-        $this->assertEquals( 12, $list[0]->attribute( 'contentobject_id' ) );
+        $this->assertEquals( 13, $list[0]->attribute( 'contentobject_id' ) );
         
         // Assert fetchForUser( userid, notification )
-        $list = ezcomComment::fetchForUser( 14, 0 );
+        $list = ezcomComment::fetchForUser( 15, 0 );
         $this->assertType( 'array', $list );
         $this->assertType( 'ezcomComment', $list[0] );
         $this->assertEquals( 13, $list[0]->attribute( 'contentobject_id' ) );
         
         // Assert fetchForUser( userid,notification, status )
-        $list = ezcomComment::fetchForUser( 14, false, 1 );
+        $list = ezcomComment::fetchForUser( 15, null, null, null, false, 1 );
         $this->assertType( 'array', $list );
         $this->assertType( 'ezcomComment', $list[0] );
         $this->assertEquals( 13, $list[0]->attribute( 'contentobject_id' ) );
         
         // Assert fetchForUser( userid ) when there is no record in database
-        $list = ezcomComment::fetchForUser( 15 );
+        $list = ezcomComment::fetchForUser( 16 );
         $this->assertType( 'array', $list );
         $this->assertSame( 0, count( $list ) );
     }

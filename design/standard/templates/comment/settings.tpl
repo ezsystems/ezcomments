@@ -183,7 +183,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
            }
            output += "</td>";
            output += "<td><p class=\"ezcomments-comment-text\" title=\""+row["text"]+"\">" + row["text"].substring(0,50) + "</p>";
-           output += "<p class=\"ezcomments-comment-list-objectname\"><span>To <a href=\"../" + row['content_url']+"\">" + row["object_name"] + "</a></span>";
+           output += "<p class=\"ezcomments-comment-list-objectname\"><span>To <a href=\"" + row['content_url']+"\">" + row["object_name"] + "</a></span>";
            var postTime = row["time"] ;
            output += " on <span>" + postTime + "</span></p>";
            output +="</td></tr>";

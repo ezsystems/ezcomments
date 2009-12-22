@@ -34,18 +34,31 @@ require_once( 'kernel/common/template.php' );
 $tpl = templateInit();
 
 $user = eZUser::currentUser();
+$Result = array();
+$displayTemplate = false;
+
 if($user->isAnonymous())
 {
     $hashString = $Params['HashString'];
-    if( !is_null( $hashString ) )
+    if( !is_null( $hashString ) && $hashString!="" )
     {
         $subscriber = ezcomSubscriber::fetchByHashString($hashString);
-        $tpl->setVariable( 'subscriber', $subscriber );
+        if( !is_null( $subscriber ) )
+        {
+            $tpl->setVariable( 'subscriber', $subscriber );
+            $displayTemplate = true;
+        }
+        
     }
 }
-
-$Result = array();
+else if($user->isLoggedin())
+{
+    $displayTemplate = true;
+}
+if( $displayTemplate )
+{
 $Result['content'] = $tpl->fetch( 'design:comment/settings.tpl' );
+}
 $Result['path'] = array( array( 'url' => false,
                                 'text' => ezi18n( '', 'Comment settings' ) ) );
 ?>

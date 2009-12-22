@@ -156,7 +156,9 @@ class ezcomServerFunctions extends ezjscServerFunctions
                 $objectName =  $contentObject -> attribute( 'name' );
                 $row['id'] = $comment->attribute( 'id' );
                 $row['contentobject_id'] = $contentobject_id;
-                $row['content_url'] = $contentObject->mainNode()->attribute( 'url_alias' );
+                $url = $contentObject->mainNode()->attribute( 'url_alias' );
+                eZURI::transformURI( $url );
+                $row['content_url'] = $url;
                 $row['notification'] = $comment->attribute('notification');
                 $row['text'] = nl2br( htmlspecialchars( $comment->attribute('text') ) );
                 $row['object_name'] = htmlspecialchars( $objectName );
@@ -471,8 +473,8 @@ class ezcomServerFunctions extends ezjscServerFunctions
             //3.3 insert into subscription table
             // if there is no data in ezcomment_subscription with given contentobject_id and subscriber_id
             $hasSubscription = ezcomSubscription::exists( $contentID,
-                                            $argObject->email,
-                                            $subscriptionType);
+                                            $subscriptionType,
+                                            $argObject->email);
             if( $hasSubscription === false )
             {
                 $subscription = ezcomSubscription::create();
@@ -487,7 +489,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
         
         // 3.4 insert data into notification queue
         // and there is subscription,not adding to notification queue
-        if( ezcomSubscription::exists( $contentID, null,$subscriptionType ) )
+        if( ezcomSubscription::exists( $contentID, $subscriptionType ) )
         {
             $notification = ezcomNotification::create();
             $notification->setAttribute( 'contentobject_id', $contentObjectID );

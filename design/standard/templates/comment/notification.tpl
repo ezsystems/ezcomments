@@ -1,4 +1,8 @@
+{def $baseURL = ezini( 'notificationSettings', 'WebsiteURLBase', 'ezcomments.ini')}
+
 <p>
+Dear {$subscriber.email} <br />
+
 <u>{$comment.name}</u> posted a new comment on <a href="">{$content_object.name}. </a>
 </p>
 <p>
@@ -6,9 +10,9 @@
 {$comment.text}
 <br />
 <br />
-For reply the content, please visit {$content_object.main_node.url_alias|ezurl(,'full')}
-For setting your subscription, please visit {'/comment/setting'|ezurl(,'full')}
-
+<p>
+For reply the content, please visit <a href="{concat($baseURL, '/', $content_object.main_node.url_alias)}">{concat($baseURL, '/', $content_object.main_node.url_alias)}</a><br />
+For setting your subscription, please visit <a href="{concat($baseURL, '/comment/settings/',$subscriber.hash_string)}">{concat($baseURL, '/comment/settings/',$subscriber.hash_string)}</a>
 </p>
 <pre>
 -----------------------------
@@ -17,3 +21,4 @@ Best Regards
 eZ Systems
 <a href="http://ez.no">http://ez.no</a>
 </pre>
+{/undef}
