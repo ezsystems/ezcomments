@@ -232,6 +232,18 @@ class ezcomComment extends eZPersistentObject
         eZPersistentObject::updateObjectList( $parameters );
     }
     
+    /**
+     * count the comments by content object id
+     * @param int $contentObjectID
+     * @return int : count number
+     */
+    static function countByContent( $contentObjectID )
+    {
+        $cond = array();
+        $cond['contentobject_id'] = $contentObjectID;
+//        $cond['status'] = 1;
+        return eZPersistentObject::count( self::definition(), $cond );
+    }
 }
 
 ?>

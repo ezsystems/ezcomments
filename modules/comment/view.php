@@ -40,20 +40,73 @@ require_once( 'kernel/common/template.php' );
 
 $http = eZHTTPTool::instance();
 
-$ContentObjectID = $Params['ContentObjectID'];
-$contentObject = eZContentObject::fetch( $ContentObjectID );
+$mode = $Params['ViewMode'];
+
+$contentObjectID = $Params['ContentObjectID'];
+$contentObject = eZContentObject::fetch( $contentObjectID );
 $tpl = templateInit();
-$tpl->setVariable("contentobject_id",$ContentObjectID);
-$tpl->setVariable("enabled",1);
-$tpl->setVariable("shown",1);
-$tpl->setVariable('language_id',2);
 $tpl->setVariable('contentobject',$contentObject);
 
+if( $mode == 'ajax' )
+{
+    $tpl->setVariable("contentobject_id",$contentObjectID);
+    $tpl->setVariable("enabled",1);
+    $tpl->setVariable("shown",1);
+    $tpl->setVariable('language_id',2);
+    
+    $Result = array();
+    $Result['content'] = $tpl->fetch( 'design:comment/view.tpl' );
+    $Result['path'] = array( array( 'url' => false,
+                                    'text' => ezi18n( '', 'View comment' ) ) );
+    return $Result;
+}
+else if( $mode == 'standard' )
+{
+     //check the permission
+     $user = eZUser::currentUser();
+     $userID = $user->attribute( 'id' );
+     $Module = $Params['Module'];
+     $Page = $Params['Page'];
+     if( is_null( $Page ) )
+     {
+         $Page = 1;
+     }
+     //If the content can not be read by the user, the comment can't be as well
+     if( !$contentObject->canRead() )
+     {
+         return $Module->handleError( eZError::KERNEL_ACCESS_DENIED, 'kernel',
+                                     array( 'AccessList' => $contentObject->accessList( 'read' ) ) );
+     }
+     
+     // to do: consider the comment view cache
+     // get the comment list
+     $count = ezcomComment::countByContent( $contentObjectID );
+     
+     $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
+     $defaultNumPerPage = $ezcommentsINI->variable( 'commentSettings', 'NumberPerPage' );
+     
+     $offset =  ( $Page - 1 ) * $defaultNumPerPage;
+     
+     if( $offset > $count || $offset < 0 )
+     {
+         // to do: define error and output
+//         return $Module->handleError( eZError::KERNEL_ACCESS_DENIED, 'kernel',
+//                                     array( 'AccessList' => $contentObject->accessList( 'read' ) ) );
+     }
+     
+     $length = $defaultNumPerPage;
+     
+     $defaultSortField = $ezcommentsINI->variable( 'commentSettings', 'DefaultSortField' );
+     $defaultSortOrder = $ezcommentsINI->variable( 'commentSettings', 'DefaultSortOrder' );
+     $sorts = array( $defaultSortField => $defaultSortOrder );
+     
+     $comments = ezcomComment::fetchByContentObjectID( $contentObjectID, $sorts, $offset, $length);
+     $tpl->setVariable( 'comments', $comments );
+     $tpl->setVariable( 'total_count', $count );
+     $tpl->setVariable( 'total_page', ceil( $count / $defaultNumPerPage) );
+     $tpl->setVariable( 'current_page', $Page );
+     $Result['content'] = $tpl->fetch( 'design:comment/view_standard.tpl' );
+     return $Result;
+}
 
-$Result = array();
-$Result['content'] = $tpl->fetch( 'design:comment/view.tpl' );
-$Result['path'] = array( array( 'url' => false,
-                                'text' => ezi18n( '', 'View comment' ) ) );
-
-return $Result;
 ?>

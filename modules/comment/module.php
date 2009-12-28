@@ -33,7 +33,80 @@ $ViewList['settings'] = array(
        'params' => array('HashString'),
        );
 $ViewList['view'] = array(
+       'functions' => array( 'read' ),
        'script' => 'view.php',
-       'params' => array('ContentObjectID'),
+       'params' => array( 'ViewMode', 'ContentObjectID', 'Page' ),
        );
+       
+$ClassID = array(
+    'name'=> 'Class',
+    'values'=> array(),
+    'path' => 'classes/',
+    'file' => 'ezcontentclass.php',
+    'class' => 'eZContentClass',
+    'function' => 'fetchList',
+    'parameter' => array( 0, false, false, array( 'name' => 'asc' ) )
+    );
+    
+$SectionID = array(
+    'name'=> 'Section',
+    'values'=> array(),
+    'path' => 'classes/',
+    'file' => 'ezsection.php',
+    'class' => 'eZSection',
+    'function' => 'fetchList',
+    'parameter' => array( false )
+    );
+    
+$Assigned = array(
+    'name'=> 'Owner',
+    'values'=> array(
+        array(
+            'Name' => 'Self',
+            'value' => '1')
+        )
+    );
+    
+$Language = array(
+    'name'=> 'Language',
+    'values'=> array(),
+    'path' => 'classes/',
+    'file' => 'ezcontentlanguage.php',
+    'class' => 'eZContentLanguage',
+    'function' => 'fetchLimitationList',
+    'parameter' => array( false )
+    );
+    
+$Node = array(
+    'name'=> 'Node',
+    'values'=> array()
+    );
+    
+$Subtree = array(
+    'name'=> 'Subtree',
+    'values'=> array()
+    );
+    
+$FunctionList = array();
+$FunctionList['read'] = array( 'Class' => $ClassID,
+                               'Section' => $SectionID,
+                               'Owner' => $Assigned,
+                               'Language' => $Language,
+                               'Node' => $Node,
+                               'Subtree' => $Subtree );
+
+
+$FunctionList['edit'] = array( 'Class' => $ClassID,
+                               'Section' => $SectionID,
+                               'Owner' => $Assigned,
+                               'Language' => $Language,
+                               'Node' => $Node,
+                               'Subtree' => $Subtree );
+
+$FunctionList['remove'] = array( 'Class' => $ClassID,
+                               'Section' => $SectionID,
+                               'Owner' => $Assigned,
+                               'Language' => $Language,
+                               'Node' => $Node,
+                               'Subtree' => $Subtree );
 ?>
