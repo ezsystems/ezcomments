@@ -66,6 +66,15 @@ else if( $mode == 'standard' )
      $user = eZUser::currentUser();
      $userID = $user->attribute( 'id' );
      $Module = $Params['Module'];
+
+     if( $Module->isCurrentAction( 'PostComment' ) )
+     {
+         // validate data
+         
+         // insert into database
+         
+         // redirect URL
+     }
      $Page = $Params['Page'];
      if( is_null( $Page ) )
      {
@@ -101,10 +110,25 @@ else if( $mode == 'standard' )
      $sorts = array( $defaultSortField => $defaultSortOrder );
      
      $comments = ezcomComment::fetchByContentObjectID( $contentObjectID, $sorts, $offset, $length);
+     
+     $notified = false;
+     $defaultNotified = $ezcommentsINI->variable( 'commentSettings', 'EnableNotification' );
+     if( isset( $_COOKIE['ezcommentsNotified'] ) )
+     {
+         $notified = $_COOKIE['ezcommentsNotified'];
+     }
+     else
+     {
+         $notified = $defaultNotified;
+     }
+     
      $tpl->setVariable( 'comments', $comments );
      $tpl->setVariable( 'total_count', $count );
      $tpl->setVariable( 'total_page', ceil( $count / $defaultNumPerPage) );
      $tpl->setVariable( 'current_page', $Page );
+     $tpl->setVariable( 'number_per_page', $defaultNumPerPage );
+     $tpl->setVariable( 'notified', $notified );
+     
      $Result['content'] = $tpl->fetch( 'design:comment/view_standard.tpl' );
      return $Result;
 }

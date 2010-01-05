@@ -35,6 +35,10 @@ class ezcomNotification extends eZPersistentObject
                                                                         'datatype' => 'integer',
                                                                         'default' => 0,
                                                                         'required' => true ),
+                                                'send_time' => array( 'name' => 'SendTime',
+                                                                   'datatype' => 'integer',
+                                                                   'default' => 0,
+                                                                   'required' => true ),
                                                 'status' => array( 'name' => 'Status',
                                                                    'datatype' => 'integer',
                                                                    'default' => 1,
@@ -75,6 +79,37 @@ class ezcomNotification extends eZPersistentObject
         $cond = array( 'id' => $id );
         $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
         return $return;
+    }
+    
+    /**
+     * Fetch the list of notification
+     * @param $length: count of the notification to be fetched
+     * @param $status: the status of the notification
+     * @param $offset: offset
+     * @return notification list
+     */
+    static function fetchNotificationList( $status = 1, $length = null, $offset = 0, $sorts = null )
+    {
+        $cond = array();
+        if( is_null( $status ) )
+        {
+            $cond = null;
+        }
+        else
+        {
+        $cond['status'] = $status;
+        }
+        $limit = array();
+        if( is_null( $length ) )
+        {
+            $limit = null;
+        }
+        else
+        {
+            $limit['offset'] = $offset;
+            $limit['length'] = $length;
+        }
+        return eZPersistentObject::fetchObjectList( self::definition(), null, $cond, $sorts, $limit );
     }
 }
 

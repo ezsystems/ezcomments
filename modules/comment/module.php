@@ -35,6 +35,7 @@ $ViewList['settings'] = array(
 $ViewList['view'] = array(
        'functions' => array( 'read' ),
        'script' => 'view.php',
+       'single_post_actions' => array( 'PostCommentButton' => 'PostComment' ),
        'params' => array( 'ViewMode', 'ContentObjectID', 'Page' ),
        );
        
