@@ -71,9 +71,9 @@ YUI( YUI3_config ).use('node', 'io-ez', 'event-custom-complex', function( Y )
     {include name="ezcomments_tabs" uri="design:comment/settings_tabs.tpl"}
     <div id="ezcomments_comment_message"></div>
     {include name="ezcomments_filter" uri="design:comment/settings_filter.tpl"}
-    {include name="ezcomments_filter" uri="design:comment/settings_page.tpl"}
-    {include name="ezcomments_filter" uri="design:comment/settings_comment_list.tpl"}
-    {include name="ezcomments_filter" uri="design:comment/settings_tools.tpl"}
+    {include name="ezcomments_page" uri="design:comment/settings_page.tpl"}
+    {include name="ezcomments_comment_list" uri="design:comment/settings_comment_list.tpl"}
+    {include name="ezcomments_tools" uri="design:comment/settings_tools.tpl"}
 </div>
 
 <script type="text/javascript">

@@ -159,7 +159,7 @@ foreach ( $notifications as $notification )
          
      if( $result )
      {
-         $db->query( 'DELETE FROM ezcomment_notification WHERE id=' . $notification['id'] );
+         $db->query( 'DELETE FROM ezcomment_notification WHERE id = ' . $notification['id'] );
          $notificationCount ++;
          $mailCount += count( $emailAddressList );
      }
