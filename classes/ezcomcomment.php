@@ -251,6 +251,7 @@ class ezcomComment extends eZPersistentObject
      * @return true if the validation succeeds
      *         error message if the validation fails.
      */
+    //todo: chenage the static method into normal method
     static function validateInput( $comment )
     {
         if( is_null( $comment ) )
@@ -276,11 +277,11 @@ class ezcomComment extends eZPersistentObject
         {
             return ezi18n( 'comment/view/validateInput', 'Content is empty!' );
         }
-        if ( $comment->attribute( 'language_id' ) == '' || !is_int( $comment->attribute( 'language_id' ) ) )
+        if ( $comment->attribute( 'language_id' ) == '' || !is_numeric( $comment->attribute( 'language_id' ) ) )
         {
             return ezi18n( 'comment/view/validateInput', 'Language is empty or not int!' );
         }
-        if ( $comment->attribute( 'contentobject_id' ) == '' || !is_int( $comment->attribute( 'contentobject_id' ) ) )
+        if ( $comment->attribute( 'contentobject_id' ) == '' || !is_numeric( $comment->attribute( 'contentobject_id' ) ) )
         {
             return ezi18n( 'comment/view/validateInput', 'Object ID can not be empty or string!' );
         }
@@ -363,48 +364,8 @@ class ezcomComment extends eZPersistentObject
         $subscriptionMessage = "";
         if( $commentInput['notified'] === true )
         {
-            //2 insert into subscriber
-            $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
-            $subscriber = ezcomSubscriber::fetchByEmail( $commentInput['email'] );
-            //if there is no data in subscriber for same email, save it
-            if( is_null( $subscriber ) )
-            {
-                $subscriber = ezcomSubscriber::create();
-                $subscriber->setAttribute( 'user_id', $user->attribute( 'contentobject_id' ));
-                $subscriber->setAttribute( 'email', $commentInput['email'] );
-                if( $user->isAnonymous() )
-                {
-                    $subscriber->setAttribute( 'hash_string', hash('md5',uniqid()) );
-                }
-                $subscriber->store();
-                eZDebug::writeNotice( 'Subscriber doesn\'t exist, added one', 'Add comment', 'ezcomComment' );
-                $subscriber = ezcomSubscriber::fetchByEmail( $commentInput['email'] );
-            }
-            else
-            {
-                if( $subscriber->attribute( 'enabled' ) === 0 )
-                {
-                    $result['warnings'][] = ezi18n( 'comment/view/addcomment', 'The email is disabled,
-                                 you won\'t receive notification
-                                  until it is activated!' );
-                }
-            }
-            //3 insert into subscription table
-            // if there is no data in ezcomment_subscription with given contentobject_id and subscriber_id
-            $hasSubscription = ezcomSubscription::exists( $contentID,
-                                            $subscriptionType,
-                                            $commentInput['email']);
-            if( $hasSubscription === false )
-            {
-                $subscription = ezcomSubscription::create();
-                $subscription->setAttribute( 'user_id', $user->attribute( 'contentobject_id' ) );
-                $subscription->setAttribute( 'subscriber_id', $subscriber->attribute( 'id' ) );
-                $subscription->setAttribute( 'subscription_type', "ezcomcomment" );
-                $subscription->setAttribute( 'content_id', $contentID );
-                $subscription->setAttribute( 'subscription_time', $currentTime );
-                $subscription->store();
-                eZDebug::writeNotice( 'There is no subscription for the content and user, added one', 'Add comment', 'ecomComment' );
-            }
+            self::addSubscription( $commentInput['email'], $user,
+                     $contentID, $subscriptionType, $currentTime );
         }
         
         // 3.4 insert data into notification queue
@@ -421,6 +382,159 @@ class ezcomComment extends eZPersistentObject
         return $result;
     }
     
+    /**
+     * update one comment, and update the relavant subscription, notificaton queue
+     * @param $commentInput: comment input array.
+     *         'title': comment title
+     *         'url': website of the commenter
+     *         'text': comment content
+     *         'notified' boolean: notified for this content.
+     *               If there is change for notified, the notified has value, otherwise there is no 'notified' in array
+     * @param $commentParam: id or object of updated comment
+     * @param $user: the author user object
+     * @param $time: modified time
+     * @return boolean: true if succeed, false if failed
+     */
+    static function updateComment( $commentInput, $commentParam, $user, $time = null )
+    {
+        // todo: remove the notified field in comment, instead, use subscription 
+        //1. get the comment, update it
+        if( is_null( $commentInput ) || is_null( $commentParam ) || is_null( $user ) )
+        {
+            eZDebug::writeError( 'Parameter error in comment input!', 'ezcomments', 'ezcomComment' );
+            return false;
+        }
+        $comment = null;
+        if( gettype( $commentParam ) == 'object' )
+        {
+            if( get_class( $commentParam ) == 'ezcomComment' )
+            {
+                $comment = $commentParam;
+            }
+            else
+            {
+                eZDebug::writeError( 'Comment Param error.', 'ezcomment' );
+                return false;
+            }
+        }
+        else
+        {
+            if( is_null( $commentParam ) || !is_numeric( $commentParam ) )
+            {
+                eZDebug::writeError( 'Comment id is ilegal!', 'ezcomments', 'ezcomComment' );
+                return false;
+            }
+            $comment = ezcomComment::fetch( $commentParam );
+        }
+        if( isset( $commentInput['title'] ) )
+        {
+            $comment->setAttribute( 'title', $commentInput['title'] );
+        }
+        if( isset( $commentInput['url'] ) )
+        {
+            $comment->setAttribute( 'url', $commentInput['url'] );
+        }
+        if( isset( $commentInput['text'] ) )
+        {
+            $comment->setAttribute( 'text', $commentInput['text'] );
+        }
+        if( is_null( $time ) )
+        {
+            $time = time();
+        }
+        $comment->setAttribute( 'modified', $time );
+        if( isset( $commentInput['notified'] ) )
+        {
+            $comment->setAttribute( 'notified', $commentInput['notified'] );
+        }
+        $comment->store();
+        
+        //2. update subscription
+        // if notified is true, add subscription, else cleanup the subscription on the user and content
+        $contentID = $comment->attribute( 'contentobject_id' ) . '_' . $comment->attribute( 'language_id' );
+        $subscriptionType = 'ezcomcomment';
+        if( isset( $commentInput['notified'] ) )
+        {
+            if( $commentInput['notified'] === true )
+            {
+                self::addSubscription( $comment->attribute('email'), $user, $contentID,
+                             $subscriptionType, $time );
+            }
+            else
+            {
+                ezcomSubscription::cleanupSubscription( $comment->attribute('email'), $contentID );
+            }
+        }
+        //3. update queue. If there is subscription, add one record into queue table
+        // if there is subcription on this content, add one item into queue
+        if( ezcomSubscription::exists( $contentID, $subscriptionType ) )
+        {
+            $notification = ezcomNotification::create();
+            $notification->setAttribute( 'contentobject_id', $comment->attribute( 'contentobject_id' ) );
+            $notification->setAttribute( 'language_id', $comment->attribute( 'language_id' ) );
+            $notification->setAttribute( 'comment_id', $comment->attribute( 'id' ) );
+            $notification->store();
+            eZDebug::writeNotice( 'There is subscription, added a update notification into queue.', 'ezcomments' );
+        }
+        else
+        {
+            // todo: if there is no subscription on this content, consider to clean up the queue
+        }
+        return true;
+    }
+    
+    /**
+     * Add an subscription. 
+     * If there is no subscriber, add one.
+     * If there is no subscription for the content, add one
+     * @param $email: user's email
+     * @return void
+     */
+    protected static function addSubscription( $email, $user, $contentID, $subscriptionType, $currentTime )
+    {
+        //1. insert into subscriber
+        $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
+        $subscriber = ezcomSubscriber::fetchByEmail( $email );
+        //if there is no data in subscriber for same email, save it
+        if( is_null( $subscriber ) )
+        {
+            $subscriber = ezcomSubscriber::create();
+            $subscriber->setAttribute( 'user_id', $user->attribute( 'contentobject_id' ) );
+            $subscriber->setAttribute( 'email', $email );
+            if( $user->isAnonymous() )
+            {
+                $subscriber->setAttribute( 'hash_string', hash('md5',uniqid()) );
+            }
+            $subscriber->store();
+            eZDebug::writeNotice( 'Subscriber doesn\'t exist, added one', 'Add comment', 'ezcomComment' );
+            $subscriber = ezcomSubscriber::fetchByEmail( $email );
+        }
+        else
+        {
+            if( $subscriber->attribute( 'enabled' ) === 0 )
+            {
+                $result['warnings'][] = ezi18n( 'comment/view/addcomment', 'The email is disabled,
+                             you won\'t receive notification
+                              until it is activated!' );
+            }
+        }
+        //3 insert into subscription table
+        // if there is no data in ezcomment_subscription with given contentobject_id and subscriber_id
+        $hasSubscription = ezcomSubscription::exists( $contentID,
+                                        $subscriptionType,
+                                        $email );
+        if( $hasSubscription === false )
+        {
+            $subscription = ezcomSubscription::create();
+            $subscription->setAttribute( 'user_id', $user->attribute( 'contentobject_id' ) );
+            $subscription->setAttribute( 'subscriber_id', $subscriber->attribute( 'id' ) );
+            $subscription->setAttribute( 'subscription_type', $subscriptionType );
+            $subscription->setAttribute( 'content_id', $contentID );
+            $subscription->setAttribute( 'subscription_time', $currentTime );
+            $subscription->store();
+            eZDebug::writeNotice( 'There is no subscription for the content and user, added one', 'Add comment', 'ecomComment' );
+        }
+    } 
 }
 
 ?>

@@ -111,6 +111,20 @@ class ezcomNotification extends eZPersistentObject
         }
         return eZPersistentObject::fetchObjectList( self::definition(), null, $cond, $sorts, $limit );
     }
+    
+    /**
+     * clean up the notification quque
+     * @param unknown_type $contentObjectID
+     * @param unknown_type $languageID
+     * @param unknown_type $commentID
+     * @return unknown_type
+     */
+    public static function cleanUpNotification( $contentObjectID, $language )
+    {
+        //1. fetch the queue, judge if there is data
+        
+        //
+    }
 }
 
 ?>

@@ -38,6 +38,12 @@ $ViewList['view'] = array(
        'single_post_actions' => array( 'PostCommentButton' => 'PostComment' ),
        'params' => array( 'ViewMode', 'ContentObjectID', 'Page' ),
        );
+$ViewList['edit'] = array(
+       'functions' => array( 'edit' ),
+       'script' => 'edit.php',
+       'single_post_actions' => array( 'UpdateCommentButton' => 'UpdateComment' ),
+       'params' => array( 'CommentID' ),
+       );
        
 $ClassID = array(
     'name'=> 'Class',

@@ -1,0 +1,47 @@
+.ezcomments-comment-edit{
+    border-width:1px 1px 1px 1px;
+    border-color:#e3e4e7 #e3e4e7 #e3e4e7 #e3e4e7;
+    border-style:solid solid solid solid;
+    width:100%;
+}
+
+.ezcomments-comment-edit-moduletitle{
+    color:#ffffff;
+    background-color:#4192BD;
+    border-color:#999999 #999999 #ffffff #999999;
+    border-width:0px 0px 1px 0px;
+    border-style:solid solid solid solid;
+    height:25px
+}
+
+.ezcomments-comment-edit table{
+    width:100%;
+    border-collapse:collapse;
+    background-color:#ffffff
+}
+
+.ezcomments-comment-edit td{
+    padding:3px;
+}
+
+.ezcomments-comment-edit-left{
+    width:80px
+}
+
+.ezcomments-comment-edit-textarea{
+    width:80%;
+    height:100px
+}
+
+.ezcomments-comment-edit-title{
+    width:300px
+}
+
+.ezcomments-comment-edit-email{
+    width:200px
+}
+.ezcomments-comment-edit-message{
+    color:#ff0000;
+    background-color:#ffffff;
+    text-align:center
+}

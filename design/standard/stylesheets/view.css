@@ -110,3 +110,7 @@
 .ezcomments-comment-view-addcomment-mandatorymessage{
     font-style:italic;
 }
+
+.ezcomments-comment-view-commenttool{
+    text-align:right;
+}

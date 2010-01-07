@@ -33,11 +33,15 @@ require_once( 'kernel/common/template.php' );
 $http = eZHTTPTool::instance();
 
 $mode = $Params['ViewMode'];
-
 // to do: change the language using parameter
 $language = 'eng-US';
-$languageID =3;
+$languageID = 3;
 
+if( !is_numeric( $Params['ContentObjectID'] ) )
+{
+    eZDebug::writeError( 'The parameter ContentObjectID is not a number!', 'ezcomments' );
+    return;
+}
 $contentObjectID = (int)$Params['ContentObjectID'];
 $contentObject = eZContentObject::fetch( $contentObjectID );
 $objectAttributes = $contentObject->fetchDataMap( false, $language );
@@ -119,7 +123,7 @@ else if( $mode == 'standard' )
                 if( $http->variable( 'ezcomments_comment_view_addcomment_rememberme' ) == 'on' )
                 {
                    // cookie expire data 1 year
-                   $expireTime = time() + 60*60*24*365;
+                   $expireTime = time() + 60 * 60 * 24 * 365;
                    //save name, email, website into cookie
                    setcookie( 'ezcommentsRemember', 1, $expireTime );
                    setcookie( 'ezcommentsName', $comment->attribute( 'name' ), $expireTime );
@@ -164,11 +168,24 @@ else if( $mode == 'standard' )
              }
          }
      }
-     $Page = $Params['Page'];
-     if( is_null( $Page ) )
+     $Page = null;
+     if( !is_null( $Params['Page'] ) )
+     {
+         if( !is_numeric( $Params['Page'] ) )
+         {
+             eZDebug::writeError( 'The parameter for page is not a number!', 'ezcomments' );
+             return;
+         }
+         else
+         {
+            $Page = $Params['Page'];
+         }
+     }
+     else
      {
          $Page = 1;
      }
+
     // to do:  consider
     //If the content can not be read by the user, the comment can't be as well
     //     if( !$contentObject->canRead() )
@@ -187,8 +204,8 @@ else if( $mode == 'standard' )
      
      if( $offset > $count || $offset < 0 )
      {
-         $tpl->setVariable( 'hasError', true );
-         $tpl->setVariable( 'errorMessage', ezi18n( 'comment/view/addcomment', 'offset overflowed' ) );
+         eZDebug::writeError( 'Offset overflowed!', 'ezcomments' );
+         return;
      }
      
      $length = $defaultNumPerPage;

@@ -87,8 +87,11 @@ class ezcomSubscription extends eZPersistentObject
     
     
     /**
-     * clean up subscription based on an email address,
-     *  make the subscription consistent, there should be either contentID or commentID
+     * clean up subscription based on an email address and content,
+     *  make the subscription consistent.
+     *  example: 
+     *      cleanup subscription on content: cleanupSubscription( $email, $contentID )
+     *      cleanup subscription on comment: cleanupSubscription( $email, null, $commentID )
      * @param string $email
      * @return true - there is subscription deleted
      *         false - no subscription deleted

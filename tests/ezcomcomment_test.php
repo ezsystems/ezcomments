@@ -304,5 +304,80 @@ class ezcomCommentTest extends ezpDatabaseTestCase
         $this->assertEquals( $comment->attribute( 'id' ), $notifications[0]->attribute( 'comment_id' ) );
         $this->assertEquals( $languageID, $notifications[0]->attribute( 'language_id' ) );
     }
+    
+    /**
+     * Test updateComment method
+     * Test cases:
+     *      1) update title, website, text
+     *         the title, name, website, text will be updated
+     *      2) update notified to be true
+     *         if there is subscription for the user and content, nothing changed
+     *         if there is no subscription for the user and content, add one subscription
+     *         there will be a new notification in notification queue.
+     *      3) update notified to be false
+     *         if there is no notified for the user and content, delete subscription
+     *         if there is still notified for the user and content, keep the subscription 
+     */
+    public function testUpdateComment()
+    {
+        //add comment&subscription
+        $input = array();
+        $input['name'] = 'xc';
+        $input['email'] = 'xcccccc@ez.no';
+        $input['text'] = 'This is a test comment for updating:)';
+        $input['notified'] = false;
+        $user = eZUser::currentUser();
+        $contentObjectID = 219;
+        $languageID = 3;
+        $time = time() + 9;
+        $result = ezcomComment::addComment( $input, $user, $contentObjectID, $languageID, $time );
+        $comment = ezcomComment::fetchByTime( 'created', $time );
+        
+        // 1. update title, name, website, text
+        $commentInput = array();
+        $commentInput['title'] = 'title changed:)';
+        $commentInput['text'] = 'text \' changed?11';
+        $commentInput['url'] = 'http://dfsfsdf.com';
+        $updateResult = ezcomComment::updateComment( $commentInput, $comment->attribute( 'id' ), $user );
+        $this->assertTrue( $updateResult );
+        $updatedComment = ezcomComment::fetchByTime( 'created', $time );
+        $this->assertEquals( $commentInput['title'], $updatedComment->attribute( 'title' ) );
+        $this->assertEquals( $commentInput['text'], $updatedComment->attribute( 'text' ) );
+        $this->assertEquals( $commentInput['url'], $updatedComment->attribute( 'url' ) );
+        $this->assertFalse( ezcomComment::updateComment( null, 1, null ) );
+        
+        $subscriber = ezcomSubscriber::fetchByEmail( $input['email'] );
+        $this->assertNull( $subscriber );
+        
+        $hasSubscription = ezcomSubscription::exists( $contentObjectID . '_' . $languageID, 
+                                            'ezcomcomment', $input['email'] );
+        $this->assertFalse( $hasSubscription );
+        
+        // 2. update notified true
+        $commentInput =array();
+        $commentInput['notified'] = true;
+        $updateResult = ezcomComment::updateComment( $commentInput, $comment->attribute( 'id' ), $user );
+        $this->assertTrue( $updateResult );
+        $subscriber = ezcomSubscriber::fetchByEmail( $input['email'] );
+        $this->assertNotNull( $subscriber );
+        $hasSubscription = ezcomSubscription::exists( $contentObjectID . '_' . $languageID, 
+                                            'ezcomcomment', $input['email'] );
+        $this->assertTrue( $hasSubscription );
+        
+        //3. update notfied false, the subscriber will be kept, the subscription will be deleted
+        $commentInput['notified'] = false;
+        $updateResult = ezcomComment::updateComment( $commentInput, $comment->attribute( 'id' ), $user );
+        $subscriber = ezcomSubscriber::fetchByEmail( $input['email'] );
+        $this->assertNotNull( $subscriber );
+        $hasSubscription = ezcomSubscription::exists( $contentObjectID . '_' . $languageID, 
+                                            'ezcomcomment', $input['email'] );
+        $this->assertFalse( $hasSubscription );
+    }
+    
+    // todo: finished the test case
+    public function testAddSubscription()
+    {
+        
+    }
 }
 ?>
