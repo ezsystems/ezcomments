@@ -343,6 +343,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
                     $row['created'] = $local->formatShortDateTime( $created );
                     $row['title'] = htmlspecialchars( $comment->attribute( 'title' ) );
                     $row['text'] = nl2br( htmlspecialchars( $comment->attribute( 'text' ) ) );
+//                    $row['text'] = $comment->attribute( 'text' );
                     $row['author'] = $comment->attribute( 'name' );
                     $row['userid'] = $comment->attribute( 'user_id' );
                     $row['website'] = htmlspecialchars( $comment->attribute( 'url' ) );
@@ -501,4 +502,13 @@ class ezcomServerFunctions extends ezjscServerFunctions
         return 'Comment added!' . $subscriptionMessage;
     }
 
+    public static function update_comment( $args )
+    {
+        //1. check the permission
+        
+        //2. validate input
+        
+        //3. update data
+        return 'Comment updated!';
+    }
 }

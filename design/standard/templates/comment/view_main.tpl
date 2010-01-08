@@ -70,6 +70,7 @@ YUI( YUI3_config ).use('node', 'io-ez', 'event-custom-complex', function( Y )
 <input type="hidden" id="ezcomments_comment_oid" value="{$contentobject_id}" />
 <input type="hidden" id="ezcomments_comment_language" value="{$language_id}" />
 <div id="ezcomments_comment_message"></div>
+<div id="ezcomments_comment_extension"></div>
 {include name="view_page" uri="design:comment/view_page.tpl"}
 {include name="view_comment_list" uri="design:comment/view_comment_list.tpl"}
 {if $enabled|eq(1)}

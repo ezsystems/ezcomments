@@ -32,6 +32,7 @@
 
 .ezcomments-comment-view-commentbody{
     color:#000000;
+    overflow:hidden;
     padding:3px
 }
 
@@ -39,10 +40,15 @@
     font-style:italic;
     text-align:right;
     color:#666666;
+    padding:2px;
+}
+
+.ezcomments-comment-view-commenttool{
+    text-align:right;
+    padding:2px;
     border-width:0px 0px 1px 0px;
     border-color:#e3e4e7 #e3e4e7 #cccccc #e3e4e7;
     border-style:solid solid dotted solid;
-    padding:2px;
 }
 
 .ezcomments-comment-view-addcomment{
@@ -103,4 +109,44 @@
     text-align:center;
     color:#ff0000;
     font-style:italic
+}
+
+.ezcomments-comment-extension{
+    position:absolute;
+    background-color:#eeeeee;
+    width:400px;
+    height:300px;
+}
+
+.ezcomments-comment-extension-edit{
+    border-color:#999999 #999999 #cccccc #999999;
+    border-width:1px 1px 1px 1px;
+    border-style:solid solid solid solid;
+    font-size:0.85em
+}
+.ezcomments-comment-extension-edit table{
+    width:100%;
+    height:100%;
+    padding:3px;
+}
+
+.ezcomments-comment-extension-edit td{
+    padding:2px;
+}
+
+.ezcomments-comment-view-edit-left{
+    width:80px
+}
+
+.ezcomments-comment-extension-edit-title{
+    width: 120px
+}
+
+.ezcomments-comment-extension-edit-website{
+    width: 100px
+}
+
+.ezcomments-comment-extension-edit-content{
+    width: 90%;
+    height: 150px
 }
