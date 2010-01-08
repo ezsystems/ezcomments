@@ -41,7 +41,8 @@ $ViewList['view'] = array(
 $ViewList['edit'] = array(
        'functions' => array( 'edit' ),
        'script' => 'edit.php',
-       'single_post_actions' => array( 'UpdateCommentButton' => 'UpdateComment' ),
+       'single_post_actions' => array( 'UpdateCommentButton' => 'UpdateComment',
+                                       'CancelButton'=>'Cancel' ),
        'params' => array( 'CommentID' ),
        );
        

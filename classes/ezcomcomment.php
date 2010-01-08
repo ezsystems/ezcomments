@@ -445,7 +445,7 @@ class ezcomComment extends eZPersistentObject
         $comment->setAttribute( 'modified', $time );
         if( isset( $commentInput['notified'] ) )
         {
-            $comment->setAttribute( 'notified', $commentInput['notified'] );
+            $comment->setAttribute( 'notification', $commentInput['notified'] );
         }
         $comment->store();
         

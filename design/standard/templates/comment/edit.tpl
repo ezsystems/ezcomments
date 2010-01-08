@@ -30,7 +30,7 @@
                 <tr>
                     <td>{'Website:'|i18n( 'design/standard/ezcomments/view_standard' )}</td>
                     <td>
-                        <input type="text" class="ezcomments-comment-edit-website" maxlength="100" id="ezcomments_comment_edit_website" name="ezcomments_comment_edit_website" value="{$comment.website|wash}" />
+                        <input type="text" class="ezcomments-comment-edit-website" maxlength="100" id="ezcomments_comment_edit_website" name="ezcomments_comment_edit_website" value="{$comment.url|wash}" />
                     </td>
                 </tr>
                 <tr>
@@ -43,6 +43,7 @@
                     <td>{'Content:'|i18n( 'design/standard/ezcomments/view_standard' )}</td>
                     <td>
                         <textarea class="ezcomments-comment-edit-textarea" id="ezcomments_comment_edit_content" name="ezcomments_comment_edit_content">{$comment.text|wash}</textarea>
+                        <span class="ezcomments-comment-edit-mandatorymessage">*</span>
                     </td>
                 </tr>
                 <tr>
@@ -57,7 +58,7 @@
                 <tr>
                     <td colspan="2">
                         <input type="submit" value="{'Update Comment'|i18n(' design/standard/ezcomments/view_standard' )}" class="button" id="ezcomments_comment_edit_submit" name="UpdateCommentButton" />
-                        <input type="submit" value="{'Cancel'|i18n(' design/standard/ezcomments/view_standard' )}" class="button" id="ezcomments_comment_edit_cancel" name="CancelCommentButton" />
+                        <input type="submit" value="{'Cancel'|i18n(' design/standard/ezcomments/view_standard' )}" class="button" id="ezcomments_comment_edit_cancel" name="CancelButton" />
                     </td>
                 </tr>
             </table>

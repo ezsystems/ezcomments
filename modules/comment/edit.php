@@ -54,7 +54,6 @@ if( is_null( $comment ) )
 if( $Module->isCurrentAction( 'UpdateComment' ) )
 {
     //1. get the form values
-    echo $http->sessionVariable( "LastAccessesURI" );
     $title = $http->variable( 'ezcomments_comment_edit_title' );
     $name = $http->variable( 'ezcomments_comment_edit_name' );
     $website = $http->variable( 'ezcomments_comment_edit_website' );
@@ -68,7 +67,6 @@ if( $Module->isCurrentAction( 'UpdateComment' ) )
             $notified = true;
         }
     }
-    
     //2. validate input
     $clientComment = ezcomComment::create();
     $clientComment->setAttribute( 'contentobject_id', $comment->attribute( 'contentobject_id' ) );
@@ -110,20 +108,29 @@ if( $Module->isCurrentAction( 'UpdateComment' ) )
     }
     else
     {  
-        //Todo: jump to another url
-        $tpl->setVariable( 'message', 'Update succeeds' );
+        $redirectionURI = $http->variable('ezcomments_comment_redirect_uri');
+        $Module->redirectTo( $redirectionURI ); 
     }
     return showComment( $comment, $tpl );
 }
 else if( $Module->isCurrentAction('Cancel') )
 {
-    //Todo: handle the return part 
+     $redirectionURI = $http->variable('ezcomments_comment_redirect_uri');
+     $Module->redirectTo( $redirectionURI ); 
 }
 else
 {
-    $redirectURI = $http->sessionVariable( 'LastAccessesURI' );
-    $tpl->setVariable( 'redirect_uri', $redirectURI );
-    return showComment( $comment, $tpl );
+     $redirectURI = null;
+     if ( $http->hasSessionVariable( "LastAccessesURI" ) )
+     {
+         $redirectURI = $http->sessionVariable( 'LastAccessesURI' );
+     }
+     else
+     {
+         $redirectURI = '/comment/standard/' . $commentID;
+     }
+     $tpl->setVariable( 'redirect_uri', $redirectURI );
+     return showComment( $comment, $tpl );
 }
 
 /**

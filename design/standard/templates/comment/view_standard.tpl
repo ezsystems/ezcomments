@@ -82,7 +82,7 @@
                 <span>{$comments.$index.title|wash()}</span>
             </div>
             <div class="ezcomments-comment-view-commentbody">
-                {$comments.$index.text|wash()}
+                {$comments.$index.text|wash()|nl2br()}
             </div>
             <div class="ezcomments-comment-view-commentbottom">
                 <span>
@@ -153,6 +153,7 @@
                         <td>{'Content:'|i18n( 'design/standard/ezcomments/view_standard' )}</td>
                         <td>
                             <textarea class="ezcomments-comment-view-addcomment-textarea" id="ezcomments_comment_view_addcomment_content" name="ezcomments_comment_view_addcomment_content"></textarea>
+                            <span class="ezcomments-comment-view-addcomment-mandatorymessage">*</span>
                         </td>
                     </tr>
                     <tr>
