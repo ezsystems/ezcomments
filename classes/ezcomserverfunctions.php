@@ -53,6 +53,36 @@ class ezcomServerFunctions extends ezjscServerFunctions
     }
     
     /**
+     * get comment by id
+     * @param unknown_type $args
+     * @return array: comment object
+     *         string: error message
+     */
+    static function get_comment( $args )
+    {
+        //todo: check permission for edit
+        $http = eZHTTPTool::instance();
+        $commentID = null;
+        if( $http->hasVariable( 'commentID' ) )
+        {
+            $commentID = trim( $http->variable( 'commentID' ) );
+        }
+        if( !is_numeric( $commentID ) )
+        {
+            return ezi18n( 'comment/getcomment', 'comment id is null!' );
+        }
+        $comment = ezcomComment::fetch( $commentID );
+        $result = array();
+        $result['id'] = $comment->attribute( 'id' );
+        $result['title'] = $comment->attribute( 'title' );
+        $result['website'] = $comment->attribute( 'url' );
+        $result['notification'] = $comment->attribute( 'notification' );
+        $result['content'] = $comment->attribute( 'text' );
+        $result['time'] = $comment->attribute('created');
+        return json_encode( $result );
+    }
+    
+    /**
      * Get the comment list in view 'notification'.
      * Return format:
      * ===========================================
@@ -504,11 +534,92 @@ class ezcomServerFunctions extends ezjscServerFunctions
 
     public static function update_comment( $args )
     {
+        $http = eZHTTPTool::instance();
+        $argObject = null;
+        if( $http->hasPostVariable( 'args' ) )
+        {
+            $args = $http->postVariable( 'args' );
+            $argObject = json_decode($args);
+        }
+        $result = array();
+        $result['result'] = false;
+        if( is_null( $argObject ) )
+        {
+            $result['message'] = ezi18n( 'ezcomments/updatecomment', 'parameter is null!' );
+            return json_encode( $result );
+        }
+        if( !isset( $argObject->commentID ) )
+        {
+            $result['message'] = ezi18n( 'ezcomments/updatecomment', 'commentID is null!' );
+            return json_encode( $result );
+        }
+        $commentID = $argObject->commentID;
+        if( !is_numeric( $commentID ) )
+        {
+            $result['message'] = ezi18n( 'ezcomments/updatecomment', 'commentID is not a number!' );
+            return json_encode( $result );
+        }
         //1. check the permission
+        $user = eZUser::currentUser();
         
         //2. validate input
-        
+        $comment = ezcomComment::fetch( $commentID );
+        $clientComment = clone $comment;
+        if( isset( $argObject->title ) )
+        {
+            $clientComment->setAttribute( 'title', $argObject->title );
+        }
+        if( isset( $argObject->website ) )
+        {
+            $clientComment->setAttribute( 'url', $argObject->website );
+        }
+        if( isset( $argObject->content ) )
+        {
+            $clientComment->setAttribute( 'text', $argObject->content );
+        }
+        $validateResult = ezcomComment::validateInput( $clientComment );
+        if( $validateResult !== true )
+        {
+            $result['message'] = $validateResult;
+            return json_encode( $result );
+        }
         //3. update data
-        return 'Comment updated!';
+        $commentInput = array();
+        if( $clientComment->attribute( 'title' ) != $comment->attribute( 'title' ) )
+        {
+            $commentInput['title'] = $clientComment->attribute('title');
+        }
+        if( $clientComment->attribute( 'url' ) != $comment->attribute( 'url' ) )
+        {
+            $commentInput['url'] = $clientComment->attribute('title');
+        }
+        if( $clientComment->attribute( 'text' ) != $comment->attribute( 'text' ) )
+        {
+            $commentInput['text'] = $clientComment->attribute('text');
+        }
+        
+        $updateResult = ezcomComment::updateComment( $commentInput, $comment, $user, time() );
+        if( $updateResult === true )
+        {
+            $result['result'] = true;
+            return json_encode( $result );
+        }
+        else
+        {
+            
+        }
+//        return 'Comment updated!';
+    }
+    
+    /**
+     * delete a comment
+     * @param $commentID: commentID
+     * @return unknown_type
+     */
+    public static function delete_comment( $commentID )
+    {
+        //todo: check delete permission
+        
+        return true;
     }
 }
