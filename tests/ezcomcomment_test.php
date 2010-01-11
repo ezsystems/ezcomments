@@ -379,5 +379,36 @@ class ezcomCommentTest extends ezpDatabaseTestCase
     {
         
     }
+    
+    public function testDeleteCommentWithSubscription()
+    {
+        // 1.1 create comment and subscription
+        $input = array();
+        $input['name'] = 'xc';
+        $input['email'] = 'ccccc@ez.no';
+        $input['text'] = 'This is a test comment for deleting!';
+        $input['notified'] = true;
+        $user = eZUser::currentUser();
+        $time = time() + 10;
+        $contentObjectID = 222;
+        $languageID = 3;
+        ezcomComment::addComment( $input, $user, $contentObjectID, $languageID, $time );
+        $comment = ezcomComment::fetchByTime( 'created', $time );
+        $commentID = $comment->attribute( 'id' );
+        // 1.2 delete the comment
+        $this->assertTrue( ezcomSubscription::exists( $contentObjectID . '_' . $languageID, 'ezcomcomment', $input['email'] ) );
+        ezcomComment::deleteCommentWithSubscription( $commentID );
+        $this->assertNull( ezcomComment::fetch( $commentID ) );
+        $this->assertFalse( ezcomSubscription::exists( $contentObjectID . '_' . $languageID, 'ezcomcomment', $input['email'] ) );
+        // 2.1 create comment without subscription
+        $input['notified'] = false;
+        ezcomComment::addComment( $input, $user, $contentObjectID, $languageID, $time );
+        $comment = ezcomComment::fetchByTime( 'created', $time );
+        $commentID = $comment->attribute( 'id' );
+        // 2.2 delete the comment
+        $this->assertFalse( ezcomSubscription::exists( $contentObjectID . '_' . $languageID, 'ezcomcomment', $input['email'] ) );
+        ezcomComment::deleteCommentWithSubscription( $commentID );
+        $this->assertNull( ezcomComment::fetch( $commentID ) );
+    }
 }
 ?>

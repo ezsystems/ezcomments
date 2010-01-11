@@ -484,6 +484,58 @@ class ezcomComment extends eZPersistentObject
     }
     
     /**
+     * delete comment 
+     * @param string/int $commentID
+     * @return true if succeed, false if failed.
+     */
+    public static function deleteComment( $commentID )
+    {
+        $cond = array();
+        $cond['id'] = $commentID;
+        $return = eZPersistentObject::remove();
+    }
+    
+    /**
+     * delete comment and clean up subscription related, notification queue 
+     * @param string/int $commentID
+     * @return true if succeed, false if failed
+     */
+    public static function deleteCommentWithSubscription( $commentID )
+    {
+        if( is_null( $commentID ) )
+        {
+            eZDebug::writeError( 'The comment id is empty!', 'Delete Comment', ezcomComment );
+            return false;
+        }
+        $comment = ezcomComment::fetch( $commentID );
+        $email = $comment->attribute( 'email' );
+        $notification = $comment->attribute( 'notification' );
+        // 1. remove comment
+        $comment->remove();
+        
+        // 2. clean up subscription
+        if( $notification )
+        {
+            eZDebug::writeNotice( 'The comment to be deleted has notification', 'Delete comment' );
+            $contentID = $comment->attribute( 'contentobject_id' ) . '_'. $comment->attribute( 'language_id' );
+            $cleanupResult = ezcomSubscription::cleanupSubscription( $email, $contentID );
+            if( $cleanupResult === true )
+            {
+                eZDebug::writeNotice( 'The subscription has been cleaned up', 'Delete comment' );
+            }
+            else if( $cleanupResult === false )
+            {
+                eZDebug::writeNotice( 'There is no subscription to be cleaned up', 'Delete comment' );
+            }
+            else
+            {
+                eZDebug::writeWarning( 'Cleaning up subscription error', 'Delete comment' );
+            }
+        }
+        //3. todo: clean up the queue
+        return true;
+    }
+    /**
      * Add an subscription. 
      * If there is no subscriber, add one.
      * If there is no subscription for the content, add one
@@ -534,7 +586,8 @@ class ezcomComment extends eZPersistentObject
             $subscription->store();
             eZDebug::writeNotice( 'There is no subscription for the content and user, added one', 'Add comment', 'ecomComment' );
         }
-    } 
+    }
+     
 }
 
 ?>

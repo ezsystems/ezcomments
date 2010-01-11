@@ -614,12 +614,27 @@ class ezcomServerFunctions extends ezjscServerFunctions
     /**
      * delete a comment
      * @param $commentID: commentID
-     * @return unknown_type
+     * @return true,
+     *       error string
      */
     public static function delete_comment( $commentID )
     {
         //todo: check delete permission
         
-        return true;
+        $http = eZHTTPTool::instance();
+        $commentID = null;
+        if( $http->hasVariable( 'commentID' ) )
+        {
+            $commentID = $http->variable( 'commentID' );
+        }
+        if( is_null( $commentID ) )
+        {
+            return ezi18n( 'comment/deletecomment', 'Parameter is empty' );
+        }
+        if( !is_numeric( $commentID ) )
+        {
+            return ezi18n( 'comment/deletecomment', 'Parameter is not a number' );
+        }
+        return ezcomComment::deleteCommentWithSubscription( $commentID );
     }
 }

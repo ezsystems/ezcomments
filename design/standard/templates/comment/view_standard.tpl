@@ -99,7 +99,7 @@
             </div>
             <div class="ezcomments-comment-view-commenttool">
                 <span><a href={concat('/comment/edit/',$comments.$index.id)|ezurl}>{'Edit'|i18n('design/standard/ezcomments/view_standard')}</a></span>
-                <span><a href=>{'Delete'|i18n('design/standard/ezcomments/view_standard')}</a></span>
+                <span><a href={concat('/comment/delete/',$comments.$index.id)|ezurl}>{'Delete'|i18n('design/standard/ezcomments/view_standard')}</a></span>
             </div>
         </div>
         <br />

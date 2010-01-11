@@ -83,7 +83,7 @@ YUI( YUI3_config ).use('node','event-custom-complex','overlay','io-ez','json-str
     {
         var output = "<div id=\"ezcomments_comment_extension_delete\" class=\"ezcomments-comment-extension-delete\">";
         output += "<div>Delete comment?</div>";
-        output += "<div><input type=\"button\" id=\"ezcomments_comment_extension_delete_submit\" class=\"button\" value=\"Delete\" /><input id=\"ezcomments_comment_extension_delete_cancel\" type=\"button\" class=\"button\" value=\"Cancel\" />";
+        output += "<div><input type=\"button\" id=\"ezcomments_comment_extension_delete_submit\" class=\"button\" value=\"Delete\" /> <input id=\"ezcomments_comment_extension_delete_cancel\" type=\"button\" class=\"button\" value=\"Cancel\" />";
         output += "</div>";
         outputToPanel( output );
     }

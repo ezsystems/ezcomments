@@ -45,6 +45,13 @@ $ViewList['edit'] = array(
                                        'CancelButton'=>'Cancel' ),
        'params' => array( 'CommentID' ),
        );
+$ViewList['delete'] = array(
+       'functions' => array( 'delete' ),
+       'script' => 'delete.php',
+       'single_post_actions' => array( 'DeleteCommentButton' => 'DeleteComment',
+                                       'CancelButton'=>'Cancel' ),
+       'params' => array( 'CommentID' ),
+       );
        
 $ClassID = array(
     'name'=> 'Class',
@@ -111,7 +118,7 @@ $FunctionList['edit'] = array( 'Class' => $ClassID,
                                'Node' => $Node,
                                'Subtree' => $Subtree );
 
-$FunctionList['remove'] = array( 'Class' => $ClassID,
+$FunctionList['delete'] = array( 'Class' => $ClassID,
                                'Section' => $SectionID,
                                'Owner' => $Assigned,
                                'Language' => $Language,
