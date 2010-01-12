@@ -150,3 +150,8 @@
     width: 90%;
     height: 150px
 }
+
+.ezcomments-comment-view-all{
+    text-align:right;
+    font-style:italic
+}

@@ -14,7 +14,7 @@
 {for 0 to $comments|count|sub( 1 ) as $index}
         {include name="comment_item" comment=$comments.$index index=$index base_index=0 uri="design:comment/view_standard_comment_item.tpl"}
 {/for}
-<div>
+<div class="ezcomments-comment-view-all">
   {if $total_count|gt(count($comments))}
       <a href={concat('/comment/view/standard/',$contentobject_id,'/',$language_id)|ezurl}>
         {concat('View all %total_count comments')|i18n('comment/view',,hash( '%total_count', $total_count ))}
