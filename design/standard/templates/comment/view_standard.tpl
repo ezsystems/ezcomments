@@ -75,40 +75,13 @@
      </div>
     {undef $page_prefix}
     {* outputting comments starts*}
-    
     {for 0 to $comments|count|sub( 1 ) as $index}
-        <div class="ezcomments-comment-view-comment" id="ezcomments_comment_view_commentitem">
-            <div class="ezcomments-comment-view-commenttitle">
-                <span>#{$current_page|sub( 1 )|mul( $number_per_page )|sum( $index )|sum(1) }</span>
-                <span>{$comments.$index.title|wash()}</span>
-            </div>
-            <div class="ezcomments-comment-view-commentbody">
-                {$comments.$index.text|wash()|nl2br()}
-            </div>
-            <div class="ezcomments-comment-view-commentbottom">
-                <span>
-                    {if $comments.$index.url|eq( '' )}
-                        {$comments.$index.name|wash()}
-                    {else}
-                        <a href="{$comments.$index.url}">
-                            {$comments.$index.name|wash()}
-                        </a>
-                    {/if}
-                    {'on'|i18n(' design/standard/ezcomments/view_standard' )}
-                    {$comments.$index.created|l10n( 'shortdatetime' )}
-                </span>
-            </div>
-            <div class="ezcomments-comment-view-commenttool">
-                <span><a href={concat('/comment/edit/',$comments.$index.id)|ezurl}>{'Edit'|i18n('design/standard/ezcomments/view_standard')}</a></span>
-                <span><a href={concat('/comment/delete/',$comments.$index.id)|ezurl}>{'Delete'|i18n('design/standard/ezcomments/view_standard')}</a></span>
-            </div>
-        </div>
-        <br />
+        {include name="comment_item" comment=$comments.$index index=$index base_index=$current_page|sub( 1 )|mul( $number_per_page ) uri="design:comment/view_standard_comment_item.tpl"}
     {/for}
     {* outputting comments ends *}
     
     {* outputting adding comment starts*}
-    {if $objectattribute.data_int}
+        {if $objectattribute.data_int}
         {def $user=fetch( 'user', 'current_user' )}
         {def $anonymousUserID=ezini('UserSettings', 'AnonymousUserID')}
         {def $isAnonymous=$user.contentobject_id|eq($anonymousUserID)}
@@ -180,5 +153,5 @@
         </form>
         {undef $user $anonymousID $isAnonymous}
      {/if}
-     {* outputting adding comment ends *}
+    {* outputting adding comment ends *}
 {/if}
