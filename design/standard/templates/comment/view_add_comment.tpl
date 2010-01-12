@@ -6,10 +6,10 @@
     {else}
     <input type="hidden" id="ezcomments_comment_view_addcomment_isanonymous" value="true" />
     {/if}
-{/def $user $anonymousUserID}
+{undef $user $anonymousUserID}
 {def $DefaultNotified=ezini( 'commentSettings', 'DefaultNotified','ezcomments.ini')}
     <input type="hidden" id="ezcomments_comment_view_addcomment_defnotified" value="{$DefaultNotified}" />
-{/def}
+{undef $DefaultNotified}
 
 <div id="ezcomments_comment_view_addcomment" class="ezcomments-comment-view-addcomment">
         <table>
