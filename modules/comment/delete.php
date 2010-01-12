@@ -41,12 +41,12 @@ if( $Module->isCurrentAction( 'DeleteComment' ) )
     if( $deleteResult === true )
     {
         $redirectURI = null;
-        if ( $http->hasSessionVariable( "LastAccessesURI" ) )
+        if ( $http->hasVariable( "ezcomments_comment_delete_redirecturi" ) )
         {
-         $redirectURI = $http->sessionVariable( 'LastAccessesURI' );
+         $redirectURI = $http->variable( 'ezcomments_comment_delete_redirecturi' );
         }
         //todo: deal with the case that there is no last Access URI
-        $Module->redirectTo( $redirectionURI );
+        $Module->redirectTo( $redirectURI );
     }
     else
     {
@@ -58,12 +58,13 @@ else if( $Module->isCurrentAction( 'Cancel' ) )
 {
      $http = eZHTTPTool::instance();
      $redirectURI = null;
-     if ( $http->hasSessionVariable( "LastAccessesURI" ) )
+     if ( $http->hasVariable( "ezcomments_comment_delete_redirecturi" ) )
      {
-         $redirectURI = $http->sessionVariable( 'LastAccessesURI' );
+         $redirectURI = $http->variable( 'ezcomments_comment_delete_redirecturi' );
      }
      //todo: deal with the case that there is no last Access URI
-     $Module->redirectTo( $redirectionURI ); 
+     $Module->redirectTo( $redirectURI ); 
+     return;
 }
 else
 {
@@ -84,6 +85,17 @@ function showDeleteForm( $tpl, $commentID )
         return;
     }
     $tpl->setVariable( 'comment_id', $commentID );
+    $redirectURI = null;
+    $http = eZHTTPTool::instance();
+    if ( $http->hasSessionVariable( "LastAccessesURI" ) )
+    {
+        $redirectURI = $http->sessionVariable( 'LastAccessesURI' );
+    }
+    if( is_null( $redirectURI ) )
+    {
+        //todo: handle the redirectURI
+    }
+    $tpl->setVariable( 'redirect_uri', $redirectURI );
     $Result = array();
     $Result['path'] = array( array( 'url' => false,
                             'text' => ezi18n( 'comment/delete', 'Delete comment' ) ) );
