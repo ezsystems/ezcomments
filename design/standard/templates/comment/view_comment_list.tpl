@@ -36,7 +36,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         argObject.offset = 0;
         argObject.targetPage = 1;
         argObject.oid=parseInt(Y.get("#ezcomments_comment_oid").getAttribute("value"));
-
+        argObject.lid=parseInt(Y.get("#ezcomments_comment_language").getAttribute("value"));
         if(ezcommentsCommentView.events.fire("initdata"))
         {
             var result = ezcommentsCommentView.refresh();

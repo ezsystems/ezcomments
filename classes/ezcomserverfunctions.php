@@ -344,14 +344,16 @@ class ezcomServerFunctions extends ezjscServerFunctions
         }
         else
         {
-            $contentobjectID = $argObject->oid;
+            $contentObjectID = $argObject->oid;
+            $languageID = $argObject->lid;
             $defaultSortField = $ezcommentsINI->variable( 'commentSettings', 'DefaultSortField' );
             $defaultSortOrder = $ezcommentsINI->variable( 'commentSettings', 'DefaultSortOrder' );
             $sorts = array( $defaultSortField=>$defaultSortOrder );
-            $comments = ezcomComment::fetchByContentObjectID( $contentobjectID, $sorts, $offset, $length);
+            $comments = ezcomComment::fetchByContentObjectID( $contentObjectID, $languageID, $sorts, $offset, $length);
             $db = eZDB::instance();
-            $countArray = $db->arrayQuery( 'SELECT count(*) AS count FROM ezcomment WHERE contentobject_id ='.$contentobjectID );
-            $totalCount = $countArray[0]['count'];
+//            $countArray = $db->arrayQuery( 'SELECT count(*) AS count FROM ezcomment WHERE contentobject_id ='.$contentobjectID );
+//            $totalCount = $countArray[0]['count'];
+            $totalCount = ezcomComment::countByContent( $contentObjectID, $languageID );
             
             $result = array();
             if( $comments == null )

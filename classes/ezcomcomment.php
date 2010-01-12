@@ -185,10 +185,11 @@ class ezcomComment extends eZPersistentObject
         return $return;
     }
     
-    static function fetchByContentObjectID($contentobject_id, $sorts = null, $offset = null, $length = null)
+    static function fetchByContentObjectID( $contentObjectID, $languageID, $sorts = null, $offset = null, $length = null )
     {
         $cond = array();
-        $cond['contentobject_id'] = $contentobject_id;
+        $cond['contentobject_id'] = $contentObjectID;
+        $cond['language_id'] = $languageID;
         if( is_null( $offset ) || is_null( $length ) )
         {
             return null;
@@ -237,10 +238,14 @@ class ezcomComment extends eZPersistentObject
      * @param int $contentObjectID
      * @return int : count number
      */
-    static function countByContent( $contentObjectID )
+    static function countByContent( $contentObjectID, $languageID = false )
     {
         $cond = array();
         $cond['contentobject_id'] = $contentObjectID;
+        if( $languageID !== false )
+        {
+            $cond['language_id'] = $languageID;
+        }
 //        $cond['status'] = 1;
         return eZPersistentObject::count( self::definition(), $cond );
     }
@@ -293,7 +298,7 @@ class ezcomComment extends eZPersistentObject
      * Add comment into ezcomment table and related data into ezcomment_subscriber,
      *                                                        ezcomment_subscription,
      *                                                        ezcomment_notification
-     * The adding doesn't validte the data in http
+     * The adding doesn't validate the data in http
      * 1) Add a comment into ezcomment table
      * 2) If 'notified' is true
      *      add the user as a subscriber if subscriber with same email doesn't exist
@@ -587,7 +592,6 @@ class ezcomComment extends eZPersistentObject
             eZDebug::writeNotice( 'There is no subscription for the content and user, added one', 'Add comment', 'ecomComment' );
         }
     }
-     
 }
 
 ?>

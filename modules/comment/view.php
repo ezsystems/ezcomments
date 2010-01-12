@@ -33,10 +33,8 @@ require_once( 'kernel/common/template.php' );
 $http = eZHTTPTool::instance();
 
 $mode = $Params['ViewMode'];
-// to do: change the language using parameter
-$language = 'eng-US';
-$languageID = 3;
 
+// fetch the content object
 if( !is_numeric( $Params['ContentObjectID'] ) )
 {
     eZDebug::writeError( 'The parameter ContentObjectID is not a number!', 'ezcomments' );
@@ -44,7 +42,31 @@ if( !is_numeric( $Params['ContentObjectID'] ) )
 }
 $contentObjectID = (int)$Params['ContentObjectID'];
 $contentObject = eZContentObject::fetch( $contentObjectID );
-$objectAttributes = $contentObject->fetchDataMap( false, $language );
+
+// fetch the language
+if( is_null( $Params['LanguageID'] ) )
+{
+    $languageID = $contentObjectID->attribute( 'initial_language_id' );
+}
+else
+{
+    $languageID = $Params['LanguageID'];
+    if( !is_numeric( $languageID ) )
+    {
+        eZDebug::writeError( 'Language ID is not a number!', 'ezcomments' );
+        return;
+    }
+}
+$language = eZContentLanguage::fetch( $languageID );
+if( $language === false )
+{
+    eZDebug::writeError( 'Language doesn\'t exist!', 'ezcomments'  );
+    return;
+}
+$languageCode = $language->attribute( 'locale' );
+
+// fetch the content object attribute
+$objectAttributes = $contentObject->fetchDataMap( false, $languageCode );
 $objectAttribute = null;
 foreach( $objectAttributes as $attribute )
 {
@@ -65,12 +87,12 @@ if( is_null( $objectAttribute ) )
 $tpl = templateInit();
 $tpl->setVariable( 'contentobject', $contentObject );
 $tpl->setVariable( 'objectattribute', $objectAttribute );
+$tpl->setVariable( 'language_id', $languageID );
 if( $mode == 'ajax' )
 {
     $tpl->setVariable( 'contentobject_id', $contentObjectID );
     $tpl->setVariable( 'enabled', $objectAttribute->attribute( 'data_int' ) );
     $tpl->setVariable( 'shown', $objectAttribute->attribute( 'data_float' ) );
-    $tpl->setVariable( 'language_id', $languageID );
     
     $Result = array();
     $Result['content'] = $tpl->fetch( 'design:comment/view.tpl' );
@@ -195,7 +217,7 @@ else if( $mode == 'standard' )
      
      // to do: consider the comment view cache
      // get the comment list
-     $count = ezcomComment::countByContent( $contentObjectID );
+     $count = ezcomComment::countByContent( $contentObjectID, $languageID );
      
      $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
      $defaultNumPerPage = $ezcommentsINI->variable( 'commentSettings', 'NumberPerPage' );
@@ -214,9 +236,8 @@ else if( $mode == 'standard' )
      $defaultSortOrder = $ezcommentsINI->variable( 'commentSettings', 'DefaultSortOrder' );
      $sorts = array( $defaultSortField => $defaultSortOrder );
      
-     $comments = ezcomComment::fetchByContentObjectID( $contentObjectID, $sorts, $offset, $length);
+     $comments = ezcomComment::fetchByContentObjectID( $contentObjectID, $languageID, $sorts, $offset, $length);
      //is anonymous
-     
      
      //notified option
      $notified = false;
