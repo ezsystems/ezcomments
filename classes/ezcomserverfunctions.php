@@ -351,8 +351,6 @@ class ezcomServerFunctions extends ezjscServerFunctions
             $sorts = array( $defaultSortField=>$defaultSortOrder );
             $comments = ezcomComment::fetchByContentObjectID( $contentObjectID, $languageID, $sorts, $offset, $length);
             $db = eZDB::instance();
-//            $countArray = $db->arrayQuery( 'SELECT count(*) AS count FROM ezcomment WHERE contentobject_id ='.$contentobjectID );
-//            $totalCount = $countArray[0]['count'];
             $totalCount = ezcomComment::countByContent( $contentObjectID, $languageID );
             
             $result = array();

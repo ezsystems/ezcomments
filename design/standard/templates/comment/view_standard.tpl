@@ -7,7 +7,7 @@
 {*outputting content ends*}
 
 {*outputting pages starts*}
-    {def $page_prefix=concat( "comment/view/standard/", $contentobject.id, "/", $languageid  ,"/")}
+    {def $page_prefix=concat( "comment/view/standard/", $contentobject.id, "/", $language_id ,"/")}
     <div id="ezcomments_comment_view_page" class="ezcomments-comment-view-page">
        <p>
          <span>{'Total comments:'|i18n( 'design/standard/ezcomments/view_standard' )}</span>
@@ -112,7 +112,7 @@
         {def $user=fetch( 'user', 'current_user' )}
         {def $anonymousUserID=ezini('UserSettings', 'AnonymousUserID')}
         {def $isAnonymous=$user.contentobject_id|eq($anonymousUserID)}
-        <form method="post" action={concat('comment/view/standard/',$contentobject.id,'/',$languageid)|ezurl()}>
+        <form method="post" action={concat('comment/view/standard/',$contentobject.id,'/',$language_id)|ezurl()}>
         <div class="ezcomments-comment-view-addcomment" id="ezcomments_comment_view_addcomment">
                 <table>
                     <tr>

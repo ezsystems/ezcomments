@@ -46,7 +46,7 @@ $contentObject = eZContentObject::fetch( $contentObjectID );
 // fetch the language
 if( is_null( $Params['LanguageID'] ) )
 {
-    $languageID = $contentObjectID->attribute( 'initial_language_id' );
+    $languageID = $contentObject->attribute( 'initial_language_id' );
 }
 else
 {
