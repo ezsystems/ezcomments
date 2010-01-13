@@ -38,6 +38,11 @@ $ViewList['view'] = array(
        'single_post_actions' => array( 'PostCommentButton' => 'PostComment' ),
        'params' => array( 'ViewMode', 'ContentObjectID', 'LanguageID','Page' ),
        );
+$ViewList['add'] = array(
+       'functions' => array( 'add' ),
+       'script' => 'add.php',
+       'params' => array(),
+       );
 $ViewList['edit'] = array(
        'functions' => array( 'edit' ),
        'script' => 'edit.php',
@@ -52,6 +57,7 @@ $ViewList['delete'] = array(
                                        'CancelButton'=>'Cancel' ),
        'params' => array( 'CommentID' ),
        );
+
        
 $ClassID = array(
     'name'=> 'Class',
@@ -109,7 +115,12 @@ $FunctionList['read'] = array( 'Class' => $ClassID,
                                'Language' => $Language,
                                'Node' => $Node,
                                'Subtree' => $Subtree );
-
+$FunctionList['add'] = array( 'Class' => $ClassID,
+                               'Section' => $SectionID,
+                               'Owner' => $Assigned,
+                               'Language' => $Language,
+                               'Node' => $Node,
+                               'Subtree' => $Subtree );
 
 $FunctionList['edit'] = array( 'Class' => $ClassID,
                                'Section' => $SectionID,

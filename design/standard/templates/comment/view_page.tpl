@@ -126,7 +126,10 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         output+="</p>";
         viewPage.addClass("ezcomments-comment-view-page");
         viewPage.setContent(output);
-        Y.on('click', jumpPage, '#ezcomments_comment_view_page a')
+        if(Y.get('#ezcomments_comment_view_page a')!=null)
+        {
+            Y.on('click', jumpPage, '#ezcomments_comment_view_page a');
+        }
    });
 });
 
