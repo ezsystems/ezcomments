@@ -3,4 +3,7 @@
 [TemplateSettings]
 ExtensionAutoloadPath[]=ezcomcomments
 
+[RegionalSettings]
+TranslationExtensions[]=ezcomments
+
 */ ?>

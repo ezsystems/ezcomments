@@ -17,10 +17,10 @@
 <div class="ezcomments-comment-view-all">
   {if $total_count|gt(count($comments))}
       <a href={concat('/comment/view/standard/',$contentobject_id,'/',$language_id)|ezurl}>
-        {concat('View all %total_count comments')|i18n('comment/view',,hash( '%total_count', $total_count ))}
+        {concat('View all %total_count comments')|i18n('extension/ezcomments/view',,hash( '%total_count', $total_count ))}
       </a>
   {else}    
-        {'Total %total_count comments'|i18n('comment/view',, hash( '%total_count', $total_count ))}
+        {'Total %total_count comments'|i18n('extension/ezcomments/view',, hash( '%total_count', $total_count ))}
   {/if}
 </div>
 {undef $comments $total_count $length $sortOrder $sortField}

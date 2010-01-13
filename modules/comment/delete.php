@@ -50,7 +50,7 @@ if( $Module->isCurrentAction( 'DeleteComment' ) )
     }
     else
     {
-        $tpl->setVariable( 'error_message', ezi18n( 'comment/delete', 'Deleting failed' ) );
+        $tpl->setVariable( 'error_message', ezi18n( 'extension/ezcomments/delete', 'Deleting failed!' ) );
         return showDeleteForm( $commentID );
     }
 }
@@ -98,7 +98,7 @@ function showDeleteForm( $tpl, $commentID )
     $tpl->setVariable( 'redirect_uri', $redirectURI );
     $Result = array();
     $Result['path'] = array( array( 'url' => false,
-                            'text' => ezi18n( 'comment/delete', 'Delete comment' ) ) );
+                            'text' => ezi18n( 'extension/ezcomments/delete', 'Delete comment' ) ) );
     $Result['content'] = $tpl->fetch( 'design:comment/delete.tpl' );
     return $Result;
 }

@@ -3,6 +3,7 @@
     {if $user.contentobject_id|eq($anonymousUserID)|not()}
     <input type="hidden" id="ezcomments_comment_view_addcomment_defname" value="{$user.login}" />
     <input type="hidden" id="ezcomments_comment_view_addcomment_defemail" value="{$user.email}" />
+    <input type="hidden" id="ezcomments_comment_view_addcomment_isanonymous" value="false" />
     {else}
     <input type="hidden" id="ezcomments_comment_view_addcomment_isanonymous" value="true" />
     {/if}
@@ -129,6 +130,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'cookie', 'io-ez', 'event-custo
     ezcommentsCommentView.addComment.clearMessage = clearAddingMessage;
     
     ezcommentsCommentView.events.on('commentloaded',function(e){
+        
         var user = ezcommentsCommentView.userInfo;
         var addCommentContainer = Y.get('#ezcomments_comment_view_addcomment');
         if(ezcommentsCommentView.events.fire("addcomment:initui", addCommentContainer, user))

@@ -104,7 +104,7 @@ if( $Module->isCurrentAction( 'UpdateComment' ) )
     $updateResult = ezcomComment::updateComment( $commentUpdated, $comment, $user, time() );
     if( !$updateResult )
     {
-        $tpl->setVariable( 'message', ezi18n( 'comment/edit', 'Update failed') );
+        $tpl->setVariable( 'message', ezi18n( 'extension/ezcomments/edit', 'Updating failed!') );
     }
     else
     {  
@@ -144,7 +144,7 @@ function showComment( $comment, $tpl )
     $tpl->setVariable( 'comment', $comment );
     $Result = array();
     $Result['path'] = array( array( 'url' => false,
-                                        'text' => ezi18n( 'comment/edit', 'Edit comment' ) ) );
+                                        'text' => ezi18n( 'extension/ezcomments/edit', 'Edit comment' ) ) );
     $Result['content'] = $tpl->fetch( 'design:comment/edit.tpl' );
     return $Result;    
 }

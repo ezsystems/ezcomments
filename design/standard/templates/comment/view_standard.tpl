@@ -10,12 +10,12 @@
     {def $page_prefix=concat( "comment/view/standard/", $contentobject.id, "/", $language_id ,"/")}
     <div id="ezcomments_comment_view_page" class="ezcomments-comment-view-page">
        <p>
-         <span>{'Total comments:'|i18n( 'design/standard/ezcomments/view_standard' )}</span>
+         <span>{'Total comments:'|i18n( 'extension/ezcomments/view/page' )}</span>
          <span>{$total_count}</span> <span>, </span>
-         <span>{'Pages:'|i18n( 'design/standard/ezcomments/view_standard' )}</span>
+         <span>{'Pages:'|i18n( 'extension/ezcomments/view/page' )}</span>
          {if $current_page|gt( 1 )}
              <span>
-              <a title="{"Previous page"|i18n( 'design/standard/ezcomments/view_standard' )}" href={concat( $page_prefix ,$current_page|sub( 1 ) )|ezurl()}>
+              <a title="{"Previous page"|i18n( 'extension/ezcomments/view/page' )}" href={concat( $page_prefix ,$current_page|sub( 1 ) )|ezurl()}>
                <
               </a> &nbsp;
              </span>
@@ -65,7 +65,7 @@
          *}
          {if $current_page|lt($total_page)}
              <span>
-              <a title="{"Next page"|i18n('design/standard/ezcomments/view_standard')}" href={concat( $page_prefix,$current_page|sum( 1 ) )|ezurl()}>
+              <a title="{"Next page"|i18n('extension/ezcomments/view/page')}" href={concat( $page_prefix,$current_page|sum( 1 ) )|ezurl()}>
                >
               </a> 
              </span>
@@ -90,48 +90,48 @@
                 <table>
                     <tr>
                         <td class="ezcomments-comment-view-moduletitle" colspan="2">
-                            {'Post Comment'|i18n( 'design/standard/ezcomments/view_standard' )}
+                            {'Post comment'|i18n( 'extension/ezcomments/add' )}
                         </td>
                     </tr>
                     {if and( $hasError|null()|not(), $hasError|eq( 1 ))}
                         <tr><td class="ezcomments-comment-view-addcomment-message" colspan="2">{$errorMessage}</td></tr>
                     {/if}
                     <tr>
-                        <td class="ezcomments-comment-view-addcomment-left">{'Title:'|i18n( 'design/standard/ezcomments/view_standard' )}</td>
+                        <td class="ezcomments-comment-view-addcomment-left">{'Title:'|i18n( 'extension/ezcomments/commentform' )}</td>
                         <td>
                             <input type="text" class="ezcomments-comment-view-addcomment-title" maxlength="100" id="ezcomments_comment_view_addcomment_title" name="ezcomments_comment_view_addcomment_title" />
                         </td>
                     </tr>
                     <tr>
-                        <td>{'Name:'|i18n( 'design/standard/ezcomments/view_standard' )}</td>
+                        <td>{'Name:'|i18n( 'extension/ezcomments/commentform' )}</td>
                         <td>
                             <input type="text" class="ezcomments-comment-view-addcomment-name" maxlength="50" id="ezcomments_comment_view_addcomment_name" name="ezcomments_comment_view_addcomment_name" value="{$comment_name}" />
                             <span class="ezcomments-comment-view-addcomment-mandatorymessage">*</span>
                         </td>
                     </tr>
                     <tr>
-                        <td>{'Website:'|i18n( 'design/standard/ezcomments/view_standard' )}</td>
+                        <td>{'Website:'|i18n( 'extension/ezcomments/commentform' )}</td>
                         <td>
                             <input type="text" class="ezcomments-comment-view-addcomment-website" maxlength="100" id="ezcomments_comment_view_addcomment_website" name="ezcomments_comment_view_addcomment_website" value="{$comment_website}" />
                         </td>
                     </tr>
                     <tr>
-                        <td>{'Email:'|i18n( 'design/standard/ezcomments/view_standard' )}</td>
+                        <td>{'Email:'|i18n( 'extension/ezcomments/commentform' )}</td>
                         <td>
                             <input type="text" maxlength="100" class="ezcomments-comment-view-addcomment-email" id="ezcomments_comment_view_addcomment_email" name="ezcomments_comment_view_addcomment_email" {if $is_anonymous|not()} disabled="true" {/if} value="{$comment_email}" /> 
                             <span class="ezcomments-comment-view-addcomment-mandatorymessage">*</span>
-                            <span class="ezcomments-comment-view-addcomment-mandatorymessage">( The Email address will not be shown )</span>
+                            <span class="ezcomments-comment-view-addcomment-mandatorymessage">{'( The Email address will not be shown )'|i18n( 'extension/ezcomments/commentform' )}</span>
                         </td>
                     </tr>
                     <tr>
-                        <td>{'Content:'|i18n( 'design/standard/ezcomments/view_standard' )}</td>
+                        <td>{'Content:'|i18n( 'extension/ezcomments/commentform' )}</td>
                         <td>
                             <textarea class="ezcomments-comment-view-addcomment-textarea" id="ezcomments_comment_view_addcomment_content" name="ezcomments_comment_view_addcomment_content"></textarea>
                             <span class="ezcomments-comment-view-addcomment-mandatorymessage">*</span>
                         </td>
                     </tr>
                     <tr>
-                        <td>{'Notified:'|i18n( 'design/standard/ezcomments/view_standard' )}</td>
+                        <td>{'Notified:'|i18n( 'extension/ezcomments/commentform' )}</td>
                         <td>
                             <input type="checkbox" id="ezcomments_comment_view_addcomment_notified" name="ezcomments_comment_view_addcomment_notified" {if $comment_notified}checked{/if} />
                         </td>
@@ -141,10 +141,10 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <input type="submit" value="{'Post Comment'|i18n(' design/standard/ezcomments/view_standard' )}" class="button" id="ezcomments_comment_view_addcomment_post" name="PostCommentButton" />
+                            <input type="submit" value="{'Post comment'|i18n('extension/ezcomments/add' )}" class="button" id="ezcomments_comment_view_addcomment_post" name="PostCommentButton" />
                             {if $is_anonymous}
                                 <input type="checkbox" name="ezcomments_comment_view_addcomment_rememberme" {if $comment_remember}checked="true"{/if} />
-                                {'Remember me'|i18n( 'design/standard/ezcomments/view_standard' )}
+                                {'Remember me'|i18n( 'extension/ezcomments/commentform' )}
                             {/if}
                         </td>
                     </tr>

@@ -15,13 +15,13 @@
                             {$comment.name|wash()}
                         </a>
                     {/if}
-                    {'on'|i18n(' design/standard/ezcomments/view_standard' )}
-                    {$comments.created|l10n( 'shortdatetime' )}
+                    {'on'|i18n('extension/ezcomments/view')}
+                    {$comment.created|l10n( 'shortdatetime' )}
                 </span>
             </div>
             <div class="ezcomments-comment-view-commenttool">
-                <span><a href={concat('/comment/edit/',$comment.id)|ezurl}>{'Edit'|i18n('design/standard/ezcomments/view_standard')}</a></span>
-                <span><a href={concat('/comment/delete/',$comment.id)|ezurl}>{'Delete'|i18n('design/standard/ezcomments/view_standard')}</a></span>
+                <span><a href={concat('/comment/edit/',$comment.id)|ezurl}>{'Edit'|i18n('extension/ezcomments/view')}</a></span>
+                <span><a href={concat('/comment/delete/',$comment.id)|ezurl}>{'Delete'|i18n('extension/ezcomments/view')}</a></span>
             </div>
 </div>
 <br />

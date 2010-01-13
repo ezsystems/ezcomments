@@ -7,7 +7,6 @@ YUI( YUI3_config ).use('node','event-custom-complex','overlay','io-ez','json-str
     ezcommentsCommentView.events.on("commentlist:paint",function(commentContainer,result, request){
         var currentPage = request.targetPage;
         var numberPerPage = request.numberPerPage;
-
         if( result != null && result!="undefined" )
         {
             var output = "";

@@ -97,7 +97,7 @@ if( $mode == 'ajax' )
     $Result = array();
     $Result['content'] = $tpl->fetch( 'design:comment/view.tpl' );
     $Result['path'] = array( array( 'url' => false,
-                                    'text' => ezi18n( 'comment/view', 'View comment' ) ) );
+                                    'text' => ezi18n( 'extension/ezcomments/view', 'View comment' ) ) );
     return $Result;
 }
 else if( $mode == 'standard' )
@@ -294,7 +294,7 @@ else if( $mode == 'standard' )
      
      $Result['content'] = $tpl->fetch( 'design:comment/view_standard.tpl' );
      $Result['path'] = array( array( 'url' => false,
-                                    'text' => ezi18n( 'comment/view', 'View comment' ) ) );
+                                    'text' => ezi18n( 'extension/ezcomments/view', 'View comment' ) ) );
      return $Result;
 }
 ?>
