@@ -58,13 +58,13 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
         var totalPage = Math.ceil(total_count/numberPerPage);
         
         var viewPage = Y.get('#ezcomments_comment_view_page');
-        var output = "<p><span>Total comments:</span>";
+        var output = "<p><span>"+"Total comments:".ezi18n('view/page','total_page')+"</span>";
         output += "<span>"+total_count+"</span> ";
         if( totalPage > 1 )
         {
          
             
-            output += "<span>, </span><span>Pages:</span>";
+            output += "<span>, </span><span>"+'Pages:'.ezi18n('view/page','pages')+"</span>";
             
             var pageSpace = 2;
             var pageStr = "";
@@ -113,13 +113,13 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
             
             if(currentPage>1)
             {
-                output += "<span> <a href=\"javascript:;\" topage=\""+(currentPage-1)+"\" title=\"Previous page\"><</a> </span>";
+                output += "<span> <a href=\"javascript:;\" topage=\""+(currentPage-1)+"\" title=\""+"Previous page".ezi18n('view/page','previous_page')+"\"><</a> </span>";
             }
             
             output+=pageStr;
             if(currentPage<totalPage)
             {
-             output += "<span> <a href=\"javascript:;\" title=\"Next page\" topage=\""+(currentPage+1)+"\">></a> </span>";
+             output += "<span> <a href=\"javascript:;\" title=\""+"Next page".ezi18n('view/page','next_page')+"\" topage=\""+(currentPage+1)+"\">></a> </span>";
             }
             output+="</span>&nbsp;";
         }

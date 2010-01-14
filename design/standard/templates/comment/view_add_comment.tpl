@@ -15,30 +15,44 @@
 <div id="ezcomments_comment_view_addcomment" class="ezcomments-comment-view-addcomment">
         <table>
             <tr><td colspan="2" class="ezcomments-comment-view-moduletitle">
-                Post Comment
+                <script type="text/javascript">document.write('Post comment'.ezi18n('add','post_comment'));</script>
             </td></tr>
             <tr>
-                <td class="ezcomments-comment-view-addcomment-left">Title:</td>
+                <td class="ezcomments-comment-view-addcomment-left">
+                    <script type="text/javascript">document.write('Title:'.ezi18n('form','name'));</script>
+                </td>
                 <td><input type="text" id="ezcomments_comment_view_addcomment_title" maxlength="100" class="ezcomments-comment-view-addcomment-title" /></td>
             </tr>
             <tr>
-                <td>Name:</td>
+                <td>
+                 <script type="text/javascript">document.write('Name:'.ezi18n('form','name'));</script>
+                </td>
                 <td><input type="text" id="ezcomments_comment_view_addcomment_name" maxlength="50" class="ezcomments-comment-view-addcomment-name" /></td>
             </tr>
             <tr>
-                <td>Website:</td>
+                <td>
+                    <script type="text/javascript">document.write('Website:'.ezi18n('form','website'));</script>
+                </td>
                 <td><input type="text" id="ezcomments_comment_view_addcomment_website"  maxlength="100" class="ezcomments-comment-view-addcomment-website" /></td>
             </tr>
             <tr>
-                <td>Email:</td>
-                <td><input type="text" id="ezcomments_comment_view_addcomment_email" class="ezcomments-comment-view-addcomment-email" maxlength="100" /> ( The Email address will not be shown ) </td>
+                <td>
+                    <script type="text/javascript">document.write('Email:'.ezi18n('form','email'));</script>
+                </td>
+                <td><input type="text" id="ezcomments_comment_view_addcomment_email" class="ezcomments-comment-view-addcomment-email" maxlength="100" />
+                     <script type="text/javascript">document.write(' ( The Email address will not be shown ) '.ezi18n('form','email_mandatory_message'));</script>
+                </td>
             </tr>
             <tr>
-                <td>Content:</td>
+                <td>
+                    <script type="text/javascript">document.write('Content:'.ezi18n('form','content'));</script>
+                </td>
                 <td><textarea id="ezcomments_comment_view_addcomment_content" class="ezcomments-comment-view-addcomment-textarea"></textarea></td>
             </tr>
             <tr>
-                <td>Notified:</td>
+                <td>
+                    <script type="text/javascript">document.write('Notified:'.ezi18n('form','notified'));</script>
+                </td>
                 <td><input id="ezcomments_comment_view_addcomment_notified" type="checkbox" /></td>
             </tr>
             <tr>
@@ -46,7 +60,9 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2"><input type="button" id="ezcomments_comment_view_addcomment_post" class="button" value="Post Comment" /></td>
+                <td colspan="2">
+                <script type="text/javascript">document.write("<input type=\"button\" id=\"ezcomments_comment_view_addcomment_post\" class=\"button\" value=\""+
+                "Post comment".ezi18n('action','add_comment')+"\" />");</script></td>
             </tr>
         </table>
 </div>

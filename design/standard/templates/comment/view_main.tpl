@@ -64,6 +64,35 @@ YUI( YUI3_config ).use('node', 'io-ez', 'event-custom-complex', function( Y )
 {/literal}
 // -->
 </script>
+
+{*fetch language*}
+{ezscript('comment::i18n::view::ezcommentsCommentView.languageArray')}
+{*fetch language*}
+
+<script type="text/javascript">
+{literal}
+ String.prototype.ezi18n = function( context, identifier ){
+        var contextArray = ezcommentsCommentView.languageArray[context];
+        if( contextArray =='undefined' || contextArray == null )
+        {
+            return this;
+        }
+        else
+        {
+            var result = contextArray[identifier];
+            if( result == 'undefined' || result == null )
+            {
+                return this;
+            }
+            else
+            {
+                return result;
+            }
+        }
+    };
+{/literal}
+</script>
+
 <!--
 1.page
 -->

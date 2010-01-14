@@ -29,7 +29,14 @@ YUI( YUI3_config ).use('node','event-custom-complex','overlay','io-ez','json-str
                 }
                 output += "<div class=\"ezcomments-comment-view-commentbottom\"><span>"+outputAuthor+" on "+ row['created'] +"&nbsp;</span></div>";
                 //todo: check the permission
-                output += "<div class=\"ezcomments-comment-view-commenttool\"><span><a href=\"javascript:;\" id=\"ezcomments_comment_view_edit\" commentid=\""+row['id']+"\">Edit</a></span> <span><a id=\"ezcomments_comment_view_delete\" href=\"javascript:;\" commentid=\""+row['id']+"\">Delete</a></span></div>";
+                output += "<div class=\"ezcomments-comment-view-commenttool\">"+
+                                "<span>"+
+                                    "<a href=\"javascript:;\" id=\"ezcomments_comment_view_edit\" commentid=\""+row['id']+"\">"+"Edit".ezi18n('view','edit')+"</a>"+
+                                "</span> "+ 
+                                "<span>"+
+                                    "<a id=\"ezcomments_comment_view_delete\" href=\"javascript:;\" commentid=\""+row['id']+"\">"+"Delete".ezi18n('view','delete')+"</a>"+
+                                "</span>"+
+                            "</div>";
                 output += "</div><br />";
             }
             commentContainer.setContent(output);
@@ -81,8 +88,8 @@ YUI( YUI3_config ).use('node','event-custom-complex','overlay','io-ez','json-str
     var showDeleteForm = function( commentID )
     {
         var output = "<div id=\"ezcomments_comment_extension_delete\" class=\"ezcomments-comment-extension-delete\">";
-        output += "<div>Delete comment?</div>";
-        output += "<div><input type=\"button\" id=\"ezcomments_comment_extension_delete_submit\" class=\"button\" value=\"Delete\" /> <input id=\"ezcomments_comment_extension_delete_cancel\" type=\"button\" class=\"button\" value=\"Cancel\" />";
+        output += "<div>"+"Delete comment?".ezi18n('delete','confirmation_message')+"</div>";
+        output += "<div><input type=\"button\" id=\"ezcomments_comment_extension_delete_submit\" class=\"button\" value=\""+"Delete".ezi18n('action','delete')+"\" /> <input id=\"ezcomments_comment_extension_delete_cancel\" type=\"button\" class=\"button\" value=\""+"Cancel".ezi18n('action','cancel')+"\" />";
         output += "</div>";
         outputToPanel( output );
     }
@@ -91,13 +98,13 @@ YUI( YUI3_config ).use('node','event-custom-complex','overlay','io-ez','json-str
     {
         var output = "<div id=\"ezcomments_comment_extension_edit\" class=\"ezcomments-comment-extension-edit\">";
         output += "<table>";
-        output += "<tr><td>Edit Comment</td></tr>";
-        output += "<tr><td class=\"ezcomments-comment-view-edit-left\">Title:</td><td><input type=\"text\" class=\"ezcomments-comment-extension-edit-title\" id=\"ezcomments-comment-extension-edit-title\" value=\""+comment.title+"\" /></td></tr>";
-        output += "<tr><td>Website:</td><td><input type=\"text\" class=\"ezcomments-comment-extension-edit-website\" id=\"ezcomments-comment-extension-edit-website\" value=\""+comment.website+"\" /></td></tr>";
-        output += "<tr><td>Comment:</td><td><textarea class=\"ezcomments-comment-extension-edit-content\" id=\"ezcomments-comment-extension-edit-content\">"+comment.content+"</textarea></td></tr>";
-        output += "<tr><td>Notified:</td><td><input type=\"checkbox\" id=\"ezcomments-comment-extension-edit-notified\" /></td></tr>";
-        output += "<tr><td colspan=\"2\"><input type=\"button\" id=\"ezcomments_comment_extension_edit_update\" class=\"button\" value=\"Update Comment\" />";
-        output += " <input type=\"button\" id=\"ezcomments_comment_extension_edit_cancel\" class=\"button\" value=\"Cancel\" />";
+        output += "<tr><td>"+"Edit comment".ezi18n('edit','edit_comment')+"</td></tr>";
+        output += "<tr><td class=\"ezcomments-comment-view-edit-left\">"+"Title:".ezi18n('form','title')+"</td><td><input type=\"text\" class=\"ezcomments-comment-extension-edit-title\" id=\"ezcomments-comment-extension-edit-title\" value=\""+comment.title+"\" /></td></tr>";
+        output += "<tr><td>"+"Website:".ezi18n('form','website')+"</td><td><input type=\"text\" class=\"ezcomments-comment-extension-edit-website\" id=\"ezcomments-comment-extension-edit-website\" value=\""+comment.website+"\" /></td></tr>";
+        output += "<tr><td>"+"Content:".ezi18n('form','content')+"</td><td><textarea class=\"ezcomments-comment-extension-edit-content\" id=\"ezcomments-comment-extension-edit-content\">"+comment.content+"</textarea></td></tr>";
+        output += "<tr><td>"+"Notified:".ezi18n('form','notified')+"</td><td><input type=\"checkbox\" id=\"ezcomments-comment-extension-edit-notified\" /></td></tr>";
+        output += "<tr><td colspan=\"2\"><input type=\"button\" id=\"ezcomments_comment_extension_edit_update\" class=\"button\" value=\""+"Update comment".ezi18n('action','update_comment')+"\" />";
+        output += " <input type=\"button\" id=\"ezcomments_comment_extension_edit_cancel\" class=\"button\" value=\""+"Cancel".ezi18n('action','cancel')+"\" />";
         output += "</td></tr>";
         output += "</table>";
         output += "</div>";
@@ -176,7 +183,7 @@ YUI( YUI3_config ).use('node','event-custom-complex','overlay','io-ez','json-str
     function removeDeleteForm()
     {
         Y.get('#ezcomments_comment_extension_delete').remove();
-            Y.get('#ezcomments_comment_extension').removeClass('ezcomments-comment-extension');
+        Y.get('#ezcomments_comment_extension').removeClass('ezcomments-comment-extension');
     }
 });
 

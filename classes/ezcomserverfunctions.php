@@ -637,4 +637,57 @@ class ezcomServerFunctions extends ezjscServerFunctions
         }
         return ezcomComment::deleteCommentWithSubscription( $commentID );
     }
+    
+    /**
+     * get translations
+     * @param string args: 
+     *  $args[0] : language,
+     *  $args[1] : string of an ajax page
+     *  $args[2] : client variable 
+     * @return json string (array object)
+     */
+    public static function i18n( $args )
+    {
+        if( is_null( $args ) || $args == '' )
+        {
+            return null;
+        }
+        if( count( $args ) != 2 )
+        {
+            return null;
+        }
+        $page = $args[0];
+        $varName = $args[1];
+        $langArray = array();
+        if( $page == 'view' )
+        {
+            $langArray['view'] = array( 'edit'=>ezi18n('extension/ezcomments/view','Edit'), 
+                                        'delete'=>ezi18n('extension/ezcomments/view','Delete')
+                                       );
+            $langArray['view/page'] = array( 'total_page'=>ezi18n('extension/ezcomments/view/page','Total comments:'),
+                                             'pages'=>ezi18n('extension/ezcomments/view/page','Pages:'),
+                                             'previous_page'=>ezi18n('extension/ezcomments/view/page','Previous page'),
+                                             'next_page'=>ezi18n('extension/ezcomments/view/page','Next page')
+                                       );
+            $langArray['edit'] = array( 'edit_comment'=>ezi18n('extension/ezcomments/edit','Edit comment'),
+                                        'delete'=>ezi18n('extension/ezcomments/edit','Delete comment')
+                                       );
+            $langArray['form'] = array( 'title'=>ezi18n('extension/ezcomments/commentform','Title:'),
+                                        'name'=>ezi18n('extension/ezcomments/commentform','Name:'), 
+                                        'website'=>ezi18n('extension/ezcomments/commentform','Website:'), 
+                                        'email'=>ezi18n('extension/ezcomments/commentform','Email:'), 
+                                        'content'=>ezi18n('extension/ezcomments/commentform','Content:'), 
+                                        'notified'=>ezi18n('extension/ezcomments/commentform','Notified:'), 
+                                        'email_mandatory_message'=>ezi18n('extension/ezcomments/commentform','( The Email address will not be shown )' )
+                                      );
+            $langArray['action'] = array( 'update_comment'=>ezi18n('extension/ezcomments/action','Update comment'),
+                                          'delete'=>ezi18n('extension/ezcomments/action','Delete'),
+                                          'cancel'=>ezi18n('extension/ezcomments/action','Cancel'),
+                                          'add_comment'=>ezi18n('extension/ezcomments/action','Post comment') );
+            $langArray['delete'] = array( 'confirmation_message'=>ezi18n('extension/ezcomments/delete','Delete comment?') );
+            $langArray['add'] = array( 'post_comment'=>ezi18n('extension/ezcomments/add','Post comment') );
+        }
+        $result = $varName . '=' . json_encode( $langArray );
+        return $result;
+    }
 }
