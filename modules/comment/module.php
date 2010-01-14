@@ -1,9 +1,9 @@
 <?php
 //
-// Created on: <8-Dec-2009 00:00:00 xc>
+// Created on: <08-Dec-2009 00:00:00 xc>
 //
 // ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ JSCore extension for eZ Publish
+// SOFTWARE NAME: eZ Comments extension for eZ Publish
 // SOFTWARE RELEASE: 1.0-1
 // COPYRIGHT NOTICE: Copyright (C) 2009 eZ Systems AS
 // SOFTWARE LICENSE: GNU General Public License v2.0
@@ -29,6 +29,7 @@ $Module = array( 'name' => 'ezcom Module and Views' );
 
 $ViewList = array();
 $ViewList['settings'] = array(
+       'functions' => array( 'settings' ),
        'script' => 'settings.php',
        'params' => array('HashString'),
        );
@@ -135,4 +136,5 @@ $FunctionList['delete'] = array( 'Class' => $ClassID,
                                'Language' => $Language,
                                'Node' => $Node,
                                'Subtree' => $Subtree );
+$FunctionList['settings'] = array();
 ?>

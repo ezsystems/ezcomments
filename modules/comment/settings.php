@@ -25,6 +25,7 @@
 // 
 // ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
 //
+
 /**
  *  Logic for view notification to set set user notifications
  */

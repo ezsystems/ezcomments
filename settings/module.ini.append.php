@@ -4,5 +4,4 @@
 ExtensionRepositories[]=ezcomments
 ModuleList[]=comment
 
-
 */ ?>

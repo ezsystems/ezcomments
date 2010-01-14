@@ -5,7 +5,7 @@
 // Created on: <17-Dec-2009 13:12:00 xc>
 //
 // ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Publish
+// SOFTWARE NAME: eZ Comments extension for eZ Publish
 // SOFTWARE RELEASE: 4.3.x
 // COPYRIGHT NOTICE: Copyright (C) 1999-2009 eZ Systems AS
 // SOFTWARE LICENSE: GNU General Public License v2.0

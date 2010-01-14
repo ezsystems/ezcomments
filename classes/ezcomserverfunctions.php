@@ -1,11 +1,11 @@
 <?php
 //
-// Definition of ezsrServerFunctions class
+// Definition of ezcomServerFunctions class
 //
 // Created on: <06-Dec-2009 00:00:00 xc>
 //
 // ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Comments
+// SOFTWARE NAME: eZ Comments extension for eZ Publish
 // SOFTWARE RELEASE: 1.0-0
 // COPYRIGHT NOTICE: Copyright (C) 2009 eZ Systems AS
 // SOFTWARE LICENSE: GNU General Public License v2.0
