@@ -116,7 +116,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
         }
             
         //3. check offset
-        $defaultNumPerPage = $ezcommentsINI->variable( 'notificationSettings', 'NumberPerPage' );
+        $defaultNumPerPage = $ezcommentsINI->variable( 'NotificationSettings', 'NumberPerPage' );
         if( $defaultNumPerPage != '-1' )
         {
             if ( isset( $argObject->offset ) )
@@ -141,8 +141,8 @@ class ezcomServerFunctions extends ezjscServerFunctions
         //5. fetch comment
         $comments = null;
         $countArray = null;
-        $defaultSortField = $ezcommentsINI->variable( 'notificationSettings', 'DefaultSortField' );
-        $defaultSortOrder = $ezcommentsINI->variable( 'notificationSettings', 'DefaultSortOrder' );
+        $defaultSortField = $ezcommentsINI->variable( 'NotificationSettings', 'DefaultSortField' );
+        $defaultSortOrder = $ezcommentsINI->variable( 'NotificationSettings', 'DefaultSortOrder' );
         $sorts = array( $defaultSortField=>$defaultSortOrder );
         if ( isset( $argObject->hashString ) && ( $argObject->hashString !== "" ) )
         {
@@ -313,7 +313,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
 //        }
             
         //3. check offset
-        $defaultNumPerPage = $ezcommentsINI->variable( 'commentSettings', 'NumberPerPage' );
+        $defaultNumPerPage = $ezcommentsINI->variable( 'CommentSettings', 'NumberPerPage' );
         if( $defaultNumPerPage != '-1' )
         {
             if ( isset( $argObject->offset ) )
@@ -346,8 +346,8 @@ class ezcomServerFunctions extends ezjscServerFunctions
         {
             $contentObjectID = $argObject->oid;
             $languageID = $argObject->lid;
-            $defaultSortField = $ezcommentsINI->variable( 'commentSettings', 'DefaultSortField' );
-            $defaultSortOrder = $ezcommentsINI->variable( 'commentSettings', 'DefaultSortOrder' );
+            $defaultSortField = $ezcommentsINI->variable( 'CommentSettings', 'DefaultSortField' );
+            $defaultSortOrder = $ezcommentsINI->variable( 'CommentSettings', 'DefaultSortOrder' );
             $sorts = array( $defaultSortField=>$defaultSortOrder );
             $comments = ezcomComment::fetchByContentObjectID( $contentObjectID, $languageID, $sorts, $offset, $length);
             $db = eZDB::instance();

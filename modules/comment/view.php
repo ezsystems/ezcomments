@@ -220,7 +220,7 @@ else if( $mode == 'standard' )
      $count = ezcomComment::countByContent( $contentObjectID, $languageID );
      
      $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
-     $defaultNumPerPage = $ezcommentsINI->variable( 'commentSettings', 'NumberPerPage' );
+     $defaultNumPerPage = $ezcommentsINI->variable( 'CommentSettings', 'NumberPerPage' );
      
      $offset =  ( $Page - 1 ) * $defaultNumPerPage;
      
@@ -232,8 +232,8 @@ else if( $mode == 'standard' )
      
      $length = $defaultNumPerPage;
      
-     $defaultSortField = $ezcommentsINI->variable( 'commentSettings', 'DefaultSortField' );
-     $defaultSortOrder = $ezcommentsINI->variable( 'commentSettings', 'DefaultSortOrder' );
+     $defaultSortField = $ezcommentsINI->variable( 'CommentSettings', 'DefaultSortField' );
+     $defaultSortOrder = $ezcommentsINI->variable( 'CommentSettings', 'DefaultSortOrder' );
      $sorts = array( $defaultSortField => $defaultSortOrder );
      
      $comments = ezcomComment::fetchByContentObjectID( $contentObjectID, $languageID, $sorts, $offset, $length);
@@ -241,7 +241,7 @@ else if( $mode == 'standard' )
      
      //notified option
      $notified = false;
-     $defaultNotified = $ezcommentsINI->variable( 'ezcommentsSettings', 'EnableNotification' );
+     $defaultNotified = $ezcommentsINI->variable( 'GlobalSettings', 'EnableNotification' );
      $notified = null;
      $name = '';
      $website = '';

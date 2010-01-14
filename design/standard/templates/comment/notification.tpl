@@ -1,4 +1,4 @@
-{def $baseURL = ezini( 'notificationSettings', 'WebsiteURLBase', 'ezcomments.ini')}
+{def $baseURL = ezini( 'NotificationSettings', 'WebsiteURLBase', 'ezcomments.ini')}
 
 <p>
 Dear {$subscriber.email} <br />

@@ -67,7 +67,7 @@ YUI( YUI3_config ).use('node', 'io-ez', 'event-custom-complex', function( Y )
     {else}
         <input type="hidden" id="ezcomments_comment_hashstring" value="" />
     {/if}
-    <input type="hidden" id="ezcomments_comment_numperpage" value="{ezini( 'notificationSettings', 'NumberPerPage', 'ezcomments.ini' )}" />
+    <input type="hidden" id="ezcomments_comment_numperpage" value="{ezini( 'NotificationSettings', 'NumberPerPage', 'ezcomments.ini' )}" />
     {include name="ezcomments_tabs" uri="design:comment/settings_tabs.tpl"}
     <div id="ezcomments_comment_message"></div>
     {include name="ezcomments_filter" uri="design:comment/settings_filter.tpl"}

@@ -1,5 +1,5 @@
 <div id="ezcomments_comment_view_page"></div>
-<input type="hidden" id="ezcomments_comment_view_numperpage" value="{ezini( 'commentSettings', 'NumberPerPage', 'ezcomments.ini' )}" />
+<input type="hidden" id="ezcomments_comment_view_numperpage" value="{ezini( 'CommentSettings', 'NumberPerPage', 'ezcomments.ini' )}" />
 <br />
 <script type="text/javascript">
 

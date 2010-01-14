@@ -6,7 +6,7 @@ if data_int equals 1, then enable commenting,
  if data_int equals null, follow default setting *}
 
 {if $enabled|is_null()}
-    {if ezini( 'ezcommentsSettings', 'DefaultEnabled', 'ezcomments.ini' )|eq( 'true' )}
+    {if ezini( 'GlobalSettings', 'DefaultEnabled', 'ezcomments.ini' )|eq( 'true' )}
         <input type="checkbox" id="ezcomcomment_enabled_{$attribute.id}" name="{$attribute_base}_ezcomcomments_enabled_{$attribute.id}" checked="true" />
     {else}
         <input type="checkbox" id="ezcomcomment_enabled_{$attribute.id}" name="{$attribute_base}_ezcomcomments_enabled_{$attribute.id}" />
@@ -30,7 +30,7 @@ if data_float equals 1, then show comments,
 {elseif $shown|eq( -1 )}
     <input type="checkbox" id="ezcomcomment_shown_{$attribute.id}" name="{$attribute_base}_ezcomcomments_shown_{$attribute.id}" />
 {else}
-    {if ezini( 'ezcommentsSettings', 'DefaultShown', 'ezcomments.ini' )|eq( 'true' )}
+    {if ezini( 'GlobalSettings', 'DefaultShown', 'ezcomments.ini' )|eq( 'true' )}
         <input type="checkbox" id="ezcomcomment_shown_{$attribute.id}" name="{$attribute_base}_ezcomcomments_shown_{$attribute.id}" checked="true" />
     {else}
         <input type="checkbox" id="ezcomcomment_shown_{$attribute.id}" name="{$attribute_base}_ezcomcomments_shown_{$attribute.id}" />

@@ -2,9 +2,9 @@
 {*fetch the count*}
 {def $contentobject_id=$contentobject_attribute.contentobject_id}
 {def $language_id=$contentobject_attribute.language_id}
-{def $sortField = ezini( 'ezcommentsSettings', 'DefaultEmbededSortField', 'ezcomments.ini' )}
-{def $sortOrder = ezini( 'ezcommentsSettings', 'DefaultEmbededSortOrder', 'ezcomments.ini' )}
-{def $length = ezini( 'ezcommentsSettings', 'DefaultEmbededCount', 'ezcomments.ini' )}
+{def $sortField = ezini( 'GlobalSettings', 'DefaultEmbededSortField', 'ezcomments.ini' )}
+{def $sortOrder = ezini( 'GlobalSettings', 'DefaultEmbededSortOrder', 'ezcomments.ini' )}
+{def $length = ezini( 'GlobalSettings', 'DefaultEmbededCount', 'ezcomments.ini' )}
 
 {def $total_count=fetch( comment, comment_count, hash( 'contentobject_id', $contentobject_id, 'language_id', $language_id ) )}
 {*fetch the comments*}

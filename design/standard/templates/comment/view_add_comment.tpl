@@ -8,7 +8,7 @@
     <input type="hidden" id="ezcomments_comment_view_addcomment_isanonymous" value="true" />
     {/if}
 {undef $user $anonymousUserID}
-{def $DefaultNotified=ezini( 'commentSettings', 'DefaultNotified','ezcomments.ini')}
+{def $DefaultNotified=ezini( 'CommentSettings', 'DefaultNotified','ezcomments.ini')}
     <input type="hidden" id="ezcomments_comment_view_addcomment_defnotified" value="{$DefaultNotified}" />
 {undef $DefaultNotified}
 

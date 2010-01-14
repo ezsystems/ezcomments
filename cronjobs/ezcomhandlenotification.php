@@ -56,10 +56,10 @@ $now = new eZDateTime();
 $currentTime = $now->toTime()->timeStamp();
 //to be done: setting from setting.ini
 $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
-$sendingNumber = $ezcommentsINI->variable( 'notificationSettings', 'NotificationNumberPerExecuation' );
-$commentLength = $ezcommentsINI->variable( 'notificationSettings', 'CommentMailLength' );
-$mailContentType = $ezcommentsINI->variable( 'notificationSettings', 'MailContentType');
-$mailFrom = $ezcommentsINI->variable( 'notificationSettings', 'MailFrom' );
+$sendingNumber = $ezcommentsINI->variable( 'NotificationSettings', 'NotificationNumberPerExecuation' );
+$commentLength = $ezcommentsINI->variable( 'NotificationSettings', 'CommentMailLength' );
+$mailContentType = $ezcommentsINI->variable( 'NotificationSettings', 'MailContentType');
+$mailFrom = $ezcommentsINI->variable( 'NotificationSettings', 'MailFrom' );
 
 $notifications = $db->arrayQuery( 'SELECT * FROM ezcomment_notification '.
                                    'WHERE status=1' .
