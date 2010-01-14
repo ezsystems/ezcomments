@@ -118,7 +118,12 @@
                     <tr>
                         <td>{'Email:'|i18n( 'extension/ezcomments/commentform' )}</td>
                         <td>
-                            <input type="text" maxlength="100" class="ezcomments-comment-view-addcomment-email" id="ezcomments_comment_view_addcomment_email" name="ezcomments_comment_view_addcomment_email" {if $is_anonymous|not()} disabled="true" {/if} value="{$comment_email}" /> 
+                           {if $is_anonymous|not()}
+                             <input type="text" maxlength="100" class="ezcomments-comment-view-addcomment-email" id="ezcomments_comment_view_addcomment_email" disabled="true" value="{$comment_email}" />
+                             <input type="hidden" name="ezcomments_comment_view_addcomment_email" value="{$comment_email}" />
+                           {else}
+                              <input type="text" maxlength="100" class="ezcomments-comment-view-addcomment-email" id="ezcomments_comment_view_addcomment_email" name="ezcomments_comment_view_addcomment_email" value="{$comment_email}" />
+                           {/if} 
                             <span class="ezcomments-comment-view-addcomment-mandatorymessage">*</span>
                             <span class="ezcomments-comment-view-addcomment-mandatorymessage">{'( The Email address will not be shown )'|i18n( 'extension/ezcomments/commentform' )}</span>
                         </td>
