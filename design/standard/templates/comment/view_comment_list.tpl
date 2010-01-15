@@ -1,6 +1,4 @@
-
-<div id="ezcomments_comment_view_comment">
-</div>
+<div id="ezcomments_comment_view_comment"></div>
 {include name="view_page_ui" uri="design:comment/view_comment_list_ui.tpl"}
 <script type="text/javascript">
 <!--

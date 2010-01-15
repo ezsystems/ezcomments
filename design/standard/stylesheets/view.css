@@ -29,6 +29,16 @@
     border-color:#e3e4e7 #e3e4e7 #e3e4e7 #e3e4e7;
     border-style:solid solid solid solid
 }
+.ezcomments-comment-view-nocomment{
+    text-align:center;
+    font-style:italic;
+    height:30px;
+    background-color:#ffffff
+}
+
+.ezcomments-comment-view-nocomment p{
+    text-valign:middle
+}
 
 .ezcomments-comment-view-commenttitle{
     height:22px;

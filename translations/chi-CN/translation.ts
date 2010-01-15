@@ -44,6 +44,13 @@
     </message>
 </context>
 <context>
+    <name>extension/ezcomments/view</name>
+    <message>
+        <source>There is no comment!</source>
+        <translation>目前没有评论！</translation>
+    </message>
+</context>
+<context>
     <name>extension/ezcomments/view/page</name>
     <message>
         <source>Total comments:</source>

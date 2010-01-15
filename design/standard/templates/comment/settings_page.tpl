@@ -1,19 +1,19 @@
- <div id="ezcomments_comment_page" class="ezcomment-comment-page">
-        <p>
-        <span>Total comments </span>
-        <span id="ezcomments_comment_page_totalnumber"></span>
-        <span>,Page</span>
-        <span id="ezcomments_comment_page_index">
-        <span id="currentpage"></span>
-        /
-        <span id="totalpage"></span>
-        <span id="ezcomments_comment_page_buttons" class="ezcomments-comment-page-button">
-            <a href="javascript:click(this)" id="ezcomments_comment_page_first" action="first">|<</a> 
-            <a href="javascript:click(this)" id="ezcomments_comment_page_previous" action="previous"><</a> 
-            <a href="javascript:click(this)" id="ezcomments_comment_page_next" action="next">></a> 
-            <a href="javascript:click(this)" id="ezcomments_comment_page_last" action="last">>|</a>
-        </span>
-        </p>
+<div id="ezcomments_comment_page" class="ezcomment-comment-page">
+    <p>
+    <span>Total comments </span>
+    <span id="ezcomments_comment_page_totalnumber"></span>
+    <span>,Page</span>
+    <span id="ezcomments_comment_page_index">
+    <span id="currentpage"></span>
+    /
+    <span id="totalpage"></span>
+    <span id="ezcomments_comment_page_buttons" class="ezcomments-comment-page-button">
+        <a href="javascript:click(this)" id="ezcomments_comment_page_first" action="first">|<</a> 
+        <a href="javascript:click(this)" id="ezcomments_comment_page_previous" action="previous"><</a> 
+        <a href="javascript:click(this)" id="ezcomments_comment_page_next" action="next">></a> 
+        <a href="javascript:click(this)" id="ezcomments_comment_page_last" action="last">>|</a>
+    </span>
+    </p>
 </div>
 
 <script type="text/javascript">

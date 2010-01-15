@@ -6,7 +6,7 @@
     {/if}
 </p>
 </div>
-<form method="post" action={concat('/comment/edit/', $comment.id)|ezurl()}>
+<form method="post" action={concat( '/comment/edit/', $comment.id )|ezurl}>
     <input type="hidden" name="ezcomments_comment_redirect_uri" value="{$redirect_uri}" />
     <div class="ezcomments-comment-edit" id="ezcomments_comment_edit">
             <table>

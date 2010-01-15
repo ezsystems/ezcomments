@@ -1,16 +1,16 @@
-{* outputting adding comment starts*}
+{* Adding comment START *}
 {def $user=fetch( 'user', 'current_user' )}
-{def $anonymousUserID=ezini('UserSettings', 'AnonymousUserID')}
-{def $is_anonymous=$user.contentobject_id|eq($anonymousUserID)}
-{def $comment_name='' $comment_website='' $comment_email='' $comment_notified=true}
+{def $anonymous_user_id=ezini('UserSettings', 'AnonymousUserID')}
+{def $is_anonymous=$user.contentobject_id|eq($anonymous_user_id)}
+{def $comment_name="" $comment_website="" $comment_email="" $comment_notified=true}
 {if $is_anonymous}
-
+{* TODO：fetch cookies *}
 {else}
 {set $comment_name=$user.login}
 {set $comment_email=$user.email}
-{set $comment_notified=ezini('CommentSettings', 'DefaultNotified','ezcomments.ini')}
+{set $comment_notified=ezini( 'CommentSettings', 'DefaultNotified', 'ezcomments.ini' )}
 {/if}
-<form method="post" action={'comment/add'|ezurl()}>
+<form method="post" action={'comment/add'|ezurl}>
 <input type="hidden" name="ContentObjectID" value="{$contentobject_id}" />
 <input type="hidden" name="LanguageID" value="{$language_id}" />
 <input type="hidden" name="RedirectURI" value={$redirect_uri} />
@@ -63,7 +63,7 @@
             <tr>
                 <td>{'Notified:'|i18n( 'extension/ezcomments/commentform' )}</td>
                 <td>
-                    <input type="checkbox" id="ezcomments_comment_view_addcomment_notified" name="ezcomments_comment_view_addcomment_notified" {if $comment_notified|eq(true)}checked{/if} />
+                    <input type="checkbox" id="ezcomments_comment_view_addcomment_notified" name="ezcomments_comment_view_addcomment_notified" {if $comment_notified|eq( true )}checked{/if} />
                 </td>
             </tr>
             <tr>
@@ -71,7 +71,7 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <input type="submit" value="{'Post comment'|i18n('extension/ezcomments/add' )}" class="button" id="ezcomments_comment_view_addcomment_post" name="PostCommentButton" />
+                    <input type="submit" value="{'Post comment'|i18n( 'extension/ezcomments/add' )}" class="button" id="ezcomments_comment_view_addcomment_post" name="PostCommentButton" />
                     {if $is_anonymous}
                         <input type="checkbox" name="ezcomments_comment_view_addcomment_rememberme" {if $comment_remember}checked="true"{/if} />
                         {'Remember me'|i18n( 'extension/ezcomments/commentform' )}
@@ -81,6 +81,6 @@
         </table>
 </div>
 </form>
-{undef $comment_name $comment_website $comment_email}
-{undef $user $anonymousID $isAnonymous}
-{* outputting adding comment ends *}
+{undef $comment_name $comment_website $comment_email $comment_notified}
+{undef $user $anonymous_user_id $is_anonymous}
+{* Adding comment END *}

@@ -1,16 +1,17 @@
 {def $user=fetch( 'user', 'current_user' )}
-{def $anonymousUserID=ezini('UserSettings', 'AnonymousUserID')}
-    {if $user.contentobject_id|eq($anonymousUserID)|not()}
+{def $anonymous_user_id=ezini( 'UserSettings', 'AnonymousUserID' )}
+    {if $user.contentobject_id|eq( $anonymous_user_id )|not()}
     <input type="hidden" id="ezcomments_comment_view_addcomment_defname" value="{$user.login}" />
     <input type="hidden" id="ezcomments_comment_view_addcomment_defemail" value="{$user.email}" />
     <input type="hidden" id="ezcomments_comment_view_addcomment_isanonymous" value="false" />
     {else}
     <input type="hidden" id="ezcomments_comment_view_addcomment_isanonymous" value="true" />
     {/if}
-{undef $user $anonymousUserID}
-{def $DefaultNotified=ezini( 'CommentSettings', 'DefaultNotified','ezcomments.ini')}
-    <input type="hidden" id="ezcomments_comment_view_addcomment_defnotified" value="{$DefaultNotified}" />
-{undef $DefaultNotified}
+{undef $user $anonymous_user_id}
+
+{def $default_notified=ezini( 'CommentSettings', 'DefaultNotified', 'ezcomments.ini' )}
+    <input type="hidden" id="ezcomments_comment_view_addcomment_defnotified" value="{$default_notified}" />
+{undef $default_notified}
 
 <div id="ezcomments_comment_view_addcomment" class="ezcomments-comment-view-addcomment">
         <table>
@@ -19,7 +20,7 @@
             </td></tr>
             <tr>
                 <td class="ezcomments-comment-view-addcomment-left">
-                    <script type="text/javascript">document.write('Title:'.ezi18n('form','name'));</script>
+                    <script type="text/javascript">document.write('Title:'.ezi18n('form','title'));</script>
                 </td>
                 <td><input type="text" id="ezcomments_comment_view_addcomment_title" maxlength="100" class="ezcomments-comment-view-addcomment-title" /></td>
             </tr>

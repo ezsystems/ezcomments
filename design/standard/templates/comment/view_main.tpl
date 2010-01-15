@@ -65,9 +65,9 @@ YUI( YUI3_config ).use('node', 'io-ez', 'event-custom-complex', function( Y )
 // -->
 </script>
 
-{*fetch language*}
+{* Fetching translation array START *}
 {ezscript('comment::i18n::view::ezcommentsCommentView.languageArray')}
-{*fetch language*}
+{* Fetching translation array END *}
 
 <script type="text/javascript">
 {literal}
@@ -93,9 +93,6 @@ YUI( YUI3_config ).use('node', 'io-ez', 'event-custom-complex', function( Y )
 {/literal}
 </script>
 
-<!--
-1.page
--->
 <input type="hidden" id="ezcomments_comment_oid" value="{$contentobject_id}" />
 <input type="hidden" id="ezcomments_comment_language" value="{$language_id}" />
 <div id="ezcomments_comment_message"></div>
