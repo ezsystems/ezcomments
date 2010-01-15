@@ -175,11 +175,11 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'io-ez', 'event-custom-complex'
            var notification = row["notification"];
            if( notification == 1)
            {
-              output += "<input type=\"checkbox\" checked />Notified";
+              output += "<input id=\"ezcomments_comment_list_notified\" class=\"ezcomments-comment-list-notified\" type=\"checkbox\" checked />Notified";
            }
            else
            {
-             output += "<input type=\"checkbox\" />Notified";
+             output += "<input id=\"ezcomments_comment_list_notified\" class=\"ezcomments-comment-list-notified\" type=\"checkbox\" />Notified";
            }
            output += "</td>";
            output += "<td><p class=\"ezcomments-comment-text\" title=\""+row["text"]+"\">" + row["text"].substring(0,50) + "</p>";

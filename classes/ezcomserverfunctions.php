@@ -221,7 +221,6 @@ class ezcomServerFunctions extends ezjscServerFunctions
         
         //1. check user
         $user = eZUser::currentUser();
-        $email = $user->attribute('email');
         //2. get parameters
         $argObject = null;
         if( $http->hasPostVariable( 'args' ) )
@@ -231,13 +230,24 @@ class ezcomServerFunctions extends ezjscServerFunctions
         }
         $message = null;
         
+        $email = null;
+        if( !$user->isAnonymous() )
+        {
+            $email = $user->attribute('email');
+        }
+        else
+        {
+            $subscriber = ezcomSubscriber::fetchByHashString( $argObject['hashString'] );
+            $email = $subscriber->attribute( 'email' );
+        }
+        
         //3. buid update parameters and execute update
         $fields = array();
         $conditions = array();
         $updateResult = true;
         $message = "";
         
-        foreach( $argObject as $row )
+        foreach( $argObject['rows'] as $row )
         {
             $fields['notification'] = $row['notification'];
             $conditions['id'] = $row['id'];
@@ -248,11 +258,11 @@ class ezcomServerFunctions extends ezjscServerFunctions
         //4. return result
         if ( $updateResult )
         {
-            $message .= "Update success";
+            $message .= "Update succeeded!";
         }
         else
         {
-            $message = "Update error";
+            $message = "Update failed!";
         }
         return $message;
     }

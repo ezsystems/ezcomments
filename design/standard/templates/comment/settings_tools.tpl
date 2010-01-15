@@ -17,7 +17,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'json-stringify', 'io-ez', 'eve
         var trs = Y.all('#ezcomments_comment_list tr');
         for( var i=0;i < trs.size(); i++)
         {
-            var obj = trs.item( i ).one( 'input' );
+            var obj = Y.all( '#ezcomments_comment_list tr input' ).item(i);
             obj.set( 'checked', checked );
         }
     }
@@ -35,7 +35,7 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'json-stringify', 'io-ez', 'eve
         for( var i in currentData.comments )
         {
             var row = (currentData.comments)[i];
-            var uiValue = commentsTR.item(i).one( 'input' ).get( 'checked' );
+            var uiValue = Y.all( '#ezcomments_comment_list tr input' ).item(i).get( 'checked' );
             uiValueInt = (uiValue) ? 1 : 0; 
             if ( uiValueInt != row['notification'] )
             {
@@ -45,7 +45,13 @@ YUI( YUI3_config ).use('node', 'json-stringify', 'json-stringify', 'io-ez', 'eve
                 argArray.push( obj );
             }
         } 
-        var args=Y.JSON.stringify(argArray);
+        var argObject = new Object();
+        argObject.rows = argArray;
+        if(Y.get("#ezcomments_comment_hashstring")!=null)
+        {
+          argObject.hashString = Y.get("#ezcomments_comment_hashstring").get('value');
+        }
+        var args=Y.JSON.stringify(argObject);
         Y.io.ez( 'comment::update_notification_comment', {
             data: 'args='+args,
             on: {success: function( id,r )

@@ -167,7 +167,7 @@ $tpl = templateInit();
      $commentInput['url'] = $comment->attribute( 'url' );
      $commentInput['text'] = $comment->attribute( 'text' );
      $commentInput['email'] = $comment->attribute( 'email' );
-     if( $http->variable( 'ezcomments_comment_view_addcomment_content' ) == 'on')
+     if( $http->variable( 'ezcomments_comment_view_addcomment_notified' ) == 'on')
      {
          $commentInput['notified'] = true;
      }
