@@ -109,88 +109,88 @@ else if( $mode == 'standard' )
      $userID = $user->attribute( 'contentobject_id' );
      $Module = $Params['Module'];
 
-     if( $Module->isCurrentAction( 'PostComment' ) )
-     {
-         // if the comment is not shown or enables commenting
-         if( ( $objectAttribute->attribute( 'data_float' ) != '1.0' ) ||
-                 ( $objectAttribute->attribute( 'data_int' ) != 1 ) )
-         {
-              eZDebug::writeError( 'Adding comment error, comment not shown or diabled!', 'Add comment' );
-              return;
-         }
-         // validate data
-         $comment = ezcomComment::create();
-         $title = $http->variable( 'ezcomments_comment_view_addcomment_title' );
-         $comment->setAttribute( 'title', $title );
-         $name = $http->variable( 'ezcomments_comment_view_addcomment_name' );
-         $comment->setAttribute( 'name', $name );
-         $website = $http->variable( 'ezcomments_comment_view_addcomment_website' );
-         $comment->setAttribute( 'url', $website );
-         $email = $http->variable( 'ezcomments_comment_view_addcomment_email' );
-         $comment->setAttribute( 'email', $email );
-         $content = $http->variable( 'ezcomments_comment_view_addcomment_content' );
-         $comment->setAttribute( 'text', $content );
-         $comment->setAttribute( 'contentobject_id', $contentObjectID );
-         $comment->setAttribute( 'language_id', $languageID );
-         $validateResult = ezcomComment::validateInput( $comment );
-         if( $validateResult !== true )
-         {
-             $tpl->setVariable( 'hasError', true );
-             $tpl->setVariable( 'errorMessage', $validateResult );
-         }
-         else
-         {
-             // deal with cookie
-             if( $http->hasVariable( 'ezcomments_comment_view_addcomment_rememberme' ) )
-             {
-                if( $http->variable( 'ezcomments_comment_view_addcomment_rememberme' ) == 'on' )
-                {
-                   // cookie expire data 1 year
-                   $expireTime = time() + 60 * 60 * 24 * 365;
-                   //save name, email, website into cookie
-                   setcookie( 'ezcommentsRemember', 1, $expireTime );
-                   setcookie( 'ezcommentsName', $comment->attribute( 'name' ), $expireTime );
-                   setcookie( 'ezcommentsWebsite', $comment->attribute( 'url' ), $expireTime );
-                   setcookie( 'ezcommentsEmail', $comment->attribute( 'email' ), $expireTime );
-                }
-                else
-                {
-                $deleteTime = time() - 60;
-                setcookie( 'ezcommentsRemember', 0, $deleteTime );
-                setcookie( 'ezcommentsName', '', $deleteTime );
-                setcookie( 'ezcommentsWebsite', '', $deleteTime );
-                setcookie( 'ezcommentsEmail', '', $deleteTime );
-                }
-             }
-             // add into database
-             $commentInput = array();
-             $commentInput['title'] = $comment->attribute( 'title' );
-             $commentInput['name'] = $comment->attribute( 'name' );
-             $commentInput['url'] = $comment->attribute( 'url' );
-             $commentInput['text'] = $comment->attribute( 'text' );
-             $commentInput['email'] = $comment->attribute( 'email' );
-             if( $http->variable( 'ezcomments_comment_view_addcomment_content' ) == 'on')
-             {
-                 $commentInput['notified'] = true;
-             }
-             else
-             {
-                 $commentInput['notified'] = false;
-             }
-             $addingResult = ezcomComment::addComment( $commentInput, $user, $contentObjectID, $languageID, time() );
-             
-             // redirect URL
-             if( $addingResult['result'] === true )
-             {
-                 
-             }
-             else
-             {
-                 $tpl->setVariable( 'hasError', true );
-                 $tpl->setVariable( 'errorMessage', $validateResult['errors'] );
-             }
-         }
-     }
+//     if( $Module->isCurrentAction( 'PostComment' ) )
+//     {
+//         // if the comment is not shown or enables commenting
+//         if( ( $objectAttribute->attribute( 'data_float' ) != '1.0' ) ||
+//                 ( $objectAttribute->attribute( 'data_int' ) != 1 ) )
+//         {
+//              eZDebug::writeError( 'Adding comment error, comment not shown or diabled!', 'Add comment' );
+//              return;
+//         }
+//         // validate data
+//         $comment = ezcomComment::create();
+//         $title = $http->variable( 'ezcomments_comment_view_addcomment_title' );
+//         $comment->setAttribute( 'title', $title );
+//         $name = $http->variable( 'ezcomments_comment_view_addcomment_name' );
+//         $comment->setAttribute( 'name', $name );
+//         $website = $http->variable( 'ezcomments_comment_view_addcomment_website' );
+//         $comment->setAttribute( 'url', $website );
+//         $email = $http->variable( 'ezcomments_comment_view_addcomment_email' );
+//         $comment->setAttribute( 'email', $email );
+//         $content = $http->variable( 'ezcomments_comment_view_addcomment_content' );
+//         $comment->setAttribute( 'text', $content );
+//         $comment->setAttribute( 'contentobject_id', $contentObjectID );
+//         $comment->setAttribute( 'language_id', $languageID );
+//         $validateResult = ezcomComment::validateInput( $comment );
+//         if( $validateResult !== true )
+//         {
+//             $tpl->setVariable( 'hasError', true );
+//             $tpl->setVariable( 'errorMessage', $validateResult );
+//         }
+//         else
+//         {
+//             // deal with cookie
+//             if( $http->hasVariable( 'ezcomments_comment_view_addcomment_rememberme' ) )
+//             {
+//                if( $http->variable( 'ezcomments_comment_view_addcomment_rememberme' ) == 'on' )
+//                {
+//                   // cookie expire data 1 year
+//                   $expireTime = time() + 60 * 60 * 24 * 365;
+//                   //save name, email, website into cookie
+//                   setcookie( 'ezcommentsRemember', 1, $expireTime );
+//                   setcookie( 'ezcommentsName', $comment->attribute( 'name' ), $expireTime );
+//                   setcookie( 'ezcommentsWebsite', $comment->attribute( 'url' ), $expireTime );
+//                   setcookie( 'ezcommentsEmail', $comment->attribute( 'email' ), $expireTime );
+//                }
+//                else
+//                {
+//                $deleteTime = time() - 60;
+//                setcookie( 'ezcommentsRemember', 0, $deleteTime );
+//                setcookie( 'ezcommentsName', '', $deleteTime );
+//                setcookie( 'ezcommentsWebsite', '', $deleteTime );
+//                setcookie( 'ezcommentsEmail', '', $deleteTime );
+//                }
+//             }
+//             // add into database
+//             $commentInput = array();
+//             $commentInput['title'] = $comment->attribute( 'title' );
+//             $commentInput['name'] = $comment->attribute( 'name' );
+//             $commentInput['url'] = $comment->attribute( 'url' );
+//             $commentInput['text'] = $comment->attribute( 'text' );
+//             $commentInput['email'] = $comment->attribute( 'email' );
+//             if( $http->variable( 'ezcomments_comment_view_addcomment_content' ) == 'on')
+//             {
+//                 $commentInput['notified'] = true;
+//             }
+//             else
+//             {
+//                 $commentInput['notified'] = false;
+//             }
+//             $addingResult = ezcomComment::addComment( $commentInput, $user, $contentObjectID, $languageID, time() );
+//             
+//             // redirect URL
+//             if( $addingResult['result'] === true )
+//             {
+//                 
+//             }
+//             else
+//             {
+//                 $tpl->setVariable( 'hasError', true );
+//                 $tpl->setVariable( 'errorMessage', $validateResult['errors'] );
+//             }
+//         }
+//     }
      $Page = null;
      if( !is_null( $Params['Page'] ) )
      {
@@ -240,58 +240,57 @@ else if( $mode == 'standard' )
      $comments = ezcomComment::fetchByContentObjectID( $contentObjectID, $languageID, $sorts, $offset, $length);
      //is anonymous
      
-     //notified option
-     $notified = false;
-     $defaultNotified = $ezcommentsINI->variable( 'GlobalSettings', 'EnableNotification' );
-     $notified = null;
-     $name = '';
-     $website = '';
-     $email = ''; 
-     $remember = true;
-     if( $user->isAnonymous() )
-     {
-         if( isset( $_COOKIE['ezcommentsName'] ) )
-         {
-             $name = $_COOKIE['ezcommentsName'];
-         }
-         if( isset( $_COOKIE['ezcommentsWebsite'] ) )
-         {
-             $website = $_COOKIE['ezcommentsWebsite'];
-         }
-         if( isset( $_COOKIE['ezcommentsEmail'] ) )
-         {
-             $email = $_COOKIE['ezcommentsEmail'];
-         }
-         if( isset( $_COOKIE['ezcommentsNotified'] ) )
-         {
-             $notified = $_COOKIE['ezcommentsNotified'];
-         }
-         else
-         {
-             $notified = $defaultNotified;
-         }
-         if( isset( $_COOKIE['ezcommentsRemember'] ) )
-         {
-            $remember = ( boolean )$_COOKIE['ezcommentsRemember'];
-         }
-     }
-     else
-     {
-         $name = $user->attribute( 'name' );
-         $email = $user->attribute( 'email' );
-         $notified = $defaultNotified;
-     }
+//     //notified option
+//     $notified = false;
+//     $defaultNotified = $ezcommentsINI->variable( 'GlobalSettings', 'EnableNotification' );
+//     $notified = null;
+//     $name = '';
+//     $website = '';
+//     $email = ''; 
+//     $remember = true;
+//     if( $user->isAnonymous() )
+//     {
+//         if( isset( $_COOKIE['ezcommentsName'] ) )
+//         {
+//             $name = $_COOKIE['ezcommentsName'];
+//         }
+//         if( isset( $_COOKIE['ezcommentsWebsite'] ) )
+//         {
+//             $website = $_COOKIE['ezcommentsWebsite'];
+//         }
+//         if( isset( $_COOKIE['ezcommentsEmail'] ) )
+//         {
+//             $email = $_COOKIE['ezcommentsEmail'];
+//         }
+//         if( isset( $_COOKIE['ezcommentsNotified'] ) )
+//         {
+//             $notified = $_COOKIE['ezcommentsNotified'];
+//         }
+//         else
+//         {
+//             $notified = $defaultNotified;
+//         }
+//         if( isset( $_COOKIE['ezcommentsRemember'] ) )
+//         {
+//            $remember = ( boolean )$_COOKIE['ezcommentsRemember'];
+//         }
+//     }
+//     else
+//     {
+//         $email = $user->attribute( 'email' );
+//         $notified = $defaultNotified;
+//     }
      $tpl->setVariable( 'comments', $comments );
      $tpl->setVariable( 'total_count', $count );
      $tpl->setVariable( 'total_page', ceil( $count / $defaultNumPerPage) );
      $tpl->setVariable( 'current_page', $Page );
      $tpl->setVariable( 'number_per_page', $defaultNumPerPage );
-     $tpl->setVariable( 'is_anonymous', $user->isAnonymous() );
-     $tpl->setVariable( 'comment_name', $name );
-     $tpl->setVariable( 'comment_email', $email );
-     $tpl->setVariable( 'comment_website', $website );
-     $tpl->setVariable( 'comment_notified', $notified );
-     $tpl->setVariable( 'comment_remember', $remember );
+//     $tpl->setVariable( 'is_anonymous', $user->isAnonymous() );
+//     $tpl->setVariable( 'comment_name', $name );
+//     $tpl->setVariable( 'comment_email', $email );
+//     $tpl->setVariable( 'comment_website', $website );
+//     $tpl->setVariable( 'comment_notified', $notified );
+//     $tpl->setVariable( 'comment_remember', $remember );
      
      $Result['content'] = $tpl->fetch( 'design:comment/view_standard.tpl' );
      $Result['path'] = array( array( 'url' => false,

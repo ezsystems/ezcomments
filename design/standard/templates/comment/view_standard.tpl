@@ -76,87 +76,13 @@
     {undef $page_prefix}
     {* outputting comments starts*}
     {for 0 to $comments|count|sub( 1 ) as $index}
-        {include name="comment_item" comment=$comments.$index index=$index base_index=$current_page|sub( 1 )|mul( $number_per_page ) uri="design:comment/view_standard_comment_item.tpl"}
+        {include name="CommentItem" comment=$comments.$index index=$index base_index=$current_page|sub( 1 )|mul( $number_per_page ) uri="design:comment/view_standard_comment_item.tpl"}
     {/for}
     {* outputting comments ends *}
     
-    {* outputting adding comment starts*}
-        {if $objectattribute.data_int}
-        {def $user=fetch( 'user', 'current_user' )}
-        {def $anonymousUserID=ezini('UserSettings', 'AnonymousUserID')}
-        {def $isAnonymous=$user.contentobject_id|eq($anonymousUserID)}
-        <form method="post" action={concat('comment/view/standard/',$contentobject.id,'/',$language_id)|ezurl()}>
-        <div class="ezcomments-comment-view-addcomment" id="ezcomments_comment_view_addcomment">
-                <table>
-                    <tr>
-                        <td class="ezcomments-comment-view-moduletitle" colspan="2">
-                            {'Post comment'|i18n( 'extension/ezcomments/add' )}
-                        </td>
-                    </tr>
-                    {if and( $hasError|null()|not(), $hasError|eq( 1 ))}
-                        <tr><td class="ezcomments-comment-view-addcomment-message" colspan="2">{$errorMessage}</td></tr>
-                    {/if}
-                    <tr>
-                        <td class="ezcomments-comment-view-addcomment-left">{'Title:'|i18n( 'extension/ezcomments/commentform' )}</td>
-                        <td>
-                            <input type="text" class="ezcomments-comment-view-addcomment-title" maxlength="100" id="ezcomments_comment_view_addcomment_title" name="ezcomments_comment_view_addcomment_title" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{'Name:'|i18n( 'extension/ezcomments/commentform' )}</td>
-                        <td>
-                            <input type="text" class="ezcomments-comment-view-addcomment-name" maxlength="50" id="ezcomments_comment_view_addcomment_name" name="ezcomments_comment_view_addcomment_name" value="{$comment_name}" />
-                            <span class="ezcomments-comment-view-addcomment-mandatorymessage">*</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{'Website:'|i18n( 'extension/ezcomments/commentform' )}</td>
-                        <td>
-                            <input type="text" class="ezcomments-comment-view-addcomment-website" maxlength="100" id="ezcomments_comment_view_addcomment_website" name="ezcomments_comment_view_addcomment_website" value="{$comment_website}" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{'Email:'|i18n( 'extension/ezcomments/commentform' )}</td>
-                        <td>
-                           {if $is_anonymous|not()}
-                             <input type="text" maxlength="100" class="ezcomments-comment-view-addcomment-email" id="ezcomments_comment_view_addcomment_email" disabled="true" value="{$comment_email}" />
-                             <input type="hidden" name="ezcomments_comment_view_addcomment_email" value="{$comment_email}" />
-                           {else}
-                              <input type="text" maxlength="100" class="ezcomments-comment-view-addcomment-email" id="ezcomments_comment_view_addcomment_email" name="ezcomments_comment_view_addcomment_email" value="{$comment_email}" />
-                           {/if} 
-                            <span class="ezcomments-comment-view-addcomment-mandatorymessage">*</span>
-                            <span class="ezcomments-comment-view-addcomment-mandatorymessage">{'( The Email address will not be shown )'|i18n( 'extension/ezcomments/commentform' )}</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{'Content:'|i18n( 'extension/ezcomments/commentform' )}</td>
-                        <td>
-                            <textarea class="ezcomments-comment-view-addcomment-textarea" id="ezcomments_comment_view_addcomment_content" name="ezcomments_comment_view_addcomment_content"></textarea>
-                            <span class="ezcomments-comment-view-addcomment-mandatorymessage">*</span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{'Notified:'|i18n( 'extension/ezcomments/commentform' )}</td>
-                        <td>
-                            <input type="checkbox" id="ezcomments_comment_view_addcomment_notified" name="ezcomments_comment_view_addcomment_notified" {if $comment_notified}checked{/if} />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="ezcomments-comment-view-addcomment-message" id="ezcomments_comment_view_addcomment_message" colspan="2" />
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <input type="submit" value="{'Post comment'|i18n('extension/ezcomments/add' )}" class="button" id="ezcomments_comment_view_addcomment_post" name="PostCommentButton" />
-                            {if $is_anonymous}
-                                <input type="checkbox" name="ezcomments_comment_view_addcomment_rememberme" {if $comment_remember}checked="true"{/if} />
-                                {'Remember me'|i18n( 'extension/ezcomments/commentform' )}
-                            {/if}
-                        </td>
-                    </tr>
-                </table>
-        </div>
-        </form>
-        {undef $user $anonymousID $isAnonymous}
-     {/if}
-    {* outputting adding comment ends *}
+    {* adding comment form *}
+    {if $objectattribute.data_int}
+        {include name="AddComment" uri="design:comment/add_comment.tpl" redirect_uri=concat('comment/view/standard/',$contentobject.id,'/',$language_id) contentobject_id=$contentobject.id language_id=$language_id}
+    {/if}
+    {* adding comment ends *}
 {/if}

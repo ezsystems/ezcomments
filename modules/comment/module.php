@@ -36,11 +36,11 @@ $ViewList['settings'] = array(
 $ViewList['view'] = array(
        'functions' => array( 'read' ),
        'script' => 'view.php',
-       'single_post_actions' => array( 'PostCommentButton' => 'PostComment' ),
        'params' => array( 'ViewMode', 'ContentObjectID', 'LanguageID','Page' ),
        );
 $ViewList['add'] = array(
        'functions' => array( 'add' ),
+       'single_post_actions' => array( 'BackButton' => 'Back' ),
        'script' => 'add.php',
        'params' => array(),
        );
