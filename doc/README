@@ -1,0 +1,24 @@
+
+Installation
+------------
+Copy the ezcomments extension to your existing eZ Publish installation, then enable it in the Administration Interface (in the Extensions menu under the Setup tab).
+
+
+Ajax and standard mode
+------------
+There are two mode in ezcomments. In standard mode, all the request refresh the page. In ajax mode the request will not refresh the entire page.
+
+Change the default view in content to be ajax mode:
+In settings/ezcomments.ini
+DefaultViewMode=ajax 
+
+Change the default view in content to be standard mode:
+DefaultViewMode=standard
+
+
+Subscrioption activation
+-------------
+By default it needs activation in subscription process. To disable this feature, 
+in settings/ezcomments.ini
+SubscriptionActivated=true
+
