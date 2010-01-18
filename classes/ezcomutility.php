@@ -49,6 +49,11 @@ class ezcomUtility
         return hash( 'md5', uniqid( '', true ) );
     }
     
+    /**
+     * create new instance of the object
+     * TODO: load the class dynamically
+     * @return ezcomUtility
+     */
     public static function instance()
     {
         return new ezcomUtility();

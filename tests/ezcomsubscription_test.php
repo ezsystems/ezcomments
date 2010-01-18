@@ -39,7 +39,7 @@ class ezcomSubscriptionTest extends ezpDatabaseTestCase
     public function __construct()
     {
         parent::__construct();
-        $this->setName( "ezcommSubscription object test" );
+        $this->setName( "ezcomSubscription object test" );
     }
 
     public function setUp()

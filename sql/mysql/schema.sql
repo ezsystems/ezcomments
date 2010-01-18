@@ -48,6 +48,6 @@ CREATE TABLE IF NOT EXISTS `ezcomment_subscription` (
   `content_id` varchar(100) NOT NULL,
   `subscription_time` int(11) NOT NULL,
   `enabled` smallint(6) NOT NULL DEFAULT 1,
-  'hash_string' varchar(50),
+  `hash_string` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
