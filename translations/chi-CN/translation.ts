@@ -204,4 +204,60 @@
         <translation>删除失败！</translation>
     </message>
 </context>
+<context>
+    <name>extension/ezcomments/activate/email</name>
+    <message>
+        <source>Subscribe comment</source>
+        <translation>订阅评论</translation>
+    </message>
+</context>
+<context>
+    <name>extension/ezcomments/activate/email</name>
+    <message>
+        <source>Dear %email,</source>
+        <translation>尊敬的 %email,</translation>
+    </message>
+</context>
+<context>
+    <name>extension/ezcomments/activate/email</name>
+    <message>
+        <source>You have subscribed the comment update of content. Before you get notification on the content, you need to confirm the subscription.</source>
+        <translation>您已经订阅了评论更新服务， 在您使用订阅前， 您需要激活这个订阅。 </translation>
+    </message>
+</context>
+<context>
+    <name>extension/ezcomments/activate/email</name>
+    <message>
+        <source>Please click the link to activate.</source>
+        <translation>请点击此链接激活</translation>
+    </message>
+</context>
+<context>
+    <name>extension/ezcomments/activate/email</name>
+    <message>
+        <source>The activation will expire after %expiry_days days.</source>
+        <translation>此激活链接将于%expiry_days天后失效。</translation>
+    </message>
+</context>
+<context>
+    <name>extension/ezcomments/activate/email</name>
+    <message>
+        <source>The activation will expire after %expiry_hours hours.</source>
+        <translation>此激活链接将于%expiry_hours小时后失效。</translation>
+    </message>
+</context>
+<context>
+    <name>extension/ezcomments/activate/email</name>
+    <message>
+        <source>If you don't want to receive the subscription email, igore this email.</source>
+        <translation>如果你不想收到订阅邮件，请忽略这封邮件。</translation>
+    </message>
+</context>
+<context>
+    <name>extension/ezcomments/activate/email</name>
+    <message>
+        <source>You can go to your setting page to manage your subscription.</source>
+        <translation>如果您想管理您的订阅，请进入设置页面。</translation>
+    </message>
+</context>
 </TS>

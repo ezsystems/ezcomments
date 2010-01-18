@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `ezcomment_notification` (
   `contentobject_id` int(11) NOT NULL,
   `language_id` int(11) NOT NULL,
   `send_time` int(11) NOT NULL DEFAULT 0,
-  `status` smallint(6) NOT NULL DEFAULT 1,
+  `status` smallint(6) NOT NULL DEFAULT '1',
   `comment_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `ezcomment_subscriber` (
   `user_id` int(11) NOT NULL,
   `email` varchar(50) NOT NULL,
   `enabled` smallint(6) NOT NULL DEFAULT '1',
-  `hash_string` varchar(50) NOT NULL,
+  `hash_string` varchar(50),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
@@ -48,5 +48,6 @@ CREATE TABLE IF NOT EXISTS `ezcomment_subscription` (
   `content_id` varchar(100) NOT NULL,
   `subscription_time` int(11) NOT NULL,
   `enabled` smallint(6) NOT NULL DEFAULT 1,
+  'hash_string' varchar(50),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;

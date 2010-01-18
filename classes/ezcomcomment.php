@@ -616,7 +616,29 @@ class ezcomComment extends eZPersistentObject
             $subscription->setAttribute( 'subscription_type', $subscriptionType );
             $subscription->setAttribute( 'content_id', $contentID );
             $subscription->setAttribute( 'subscription_time', $currentTime );
+            
+            $defaultActivated = $ezcommentsINI->variable( 'CommentSettings', 'SubscriptionActivated' );
+            if( $defaultActivated === 'true' )
+            {
+                $subscription->setAttribute( 'enabled', 1 );
+            }
+            else
+            {
+                $subscription->setAttribute( 'enabled', 0 );
+                $utility = ezcomUtility::instance();
+                $subscription->setAttribute( 'hash_string', $utility->generateSubscriptionHashString( $subscription ) );
+            }
             $subscription->store();
+            if( $defaultActivated !== 'true' )
+            {
+                $result = ezcomSubscriptionManager::sendActivationEmail( eZContentObject::fetch( $contentID),
+                                                                         $subscriber, 
+                                                                         $subscription );
+                if( !$result )
+                {
+                    eZDebug::writeError( 'The mail sending failed', 'Add comment', 'ezcomComment' );
+                }
+            }
             eZDebug::writeNotice( 'There is no subscription for the content and user, added one', 'Add comment', 'ecomComment' );
         }
     }

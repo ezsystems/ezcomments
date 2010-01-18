@@ -1,0 +1,1 @@
+{'Subscribe comment'|i18n( 'extension/ezcomments/activate/email' )} - {$contentobject.name}

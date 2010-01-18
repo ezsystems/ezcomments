@@ -54,8 +54,10 @@ $db = eZDB::instance();
 
 $now = new eZDateTime();
 $currentTime = $now->toTime()->timeStamp();
-//to be done: setting from setting.ini
 $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
+
+
+
 $sendingNumber = $ezcommentsINI->variable( 'NotificationSettings', 'NotificationNumberPerExecuation' );
 $commentLength = $ezcommentsINI->variable( 'NotificationSettings', 'CommentMailLength' );
 $mailContentType = $ezcommentsINI->variable( 'NotificationSettings', 'MailContentType');

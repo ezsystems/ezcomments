@@ -43,7 +43,7 @@
             <tr>
                 <td>{'Email:'|i18n( 'extension/ezcomments/commentform' )}</td>
                 <td>
-                   {if $is_anonymous|not()}
+                   {if $is_anonymous|not}
                      <input type="text" maxlength="100" class="ezcomments-comment-view-addcomment-email" id="ezcomments_comment_view_addcomment_email" disabled="true" value="{$comment_email}" />
                      <input type="hidden" name="ezcomments_comment_view_addcomment_email" value="{$comment_email}" />
                    {else}

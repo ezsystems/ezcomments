@@ -31,7 +31,7 @@ $ViewList = array();
 $ViewList['settings'] = array(
        'functions' => array( 'settings' ),
        'script' => 'settings.php',
-       'params' => array('HashString'),
+       'params' => array( 'HashString' ),
        );
 $ViewList['view'] = array(
        'functions' => array( 'read' ),
@@ -50,6 +50,12 @@ $ViewList['edit'] = array(
        'single_post_actions' => array( 'UpdateCommentButton' => 'UpdateComment',
                                        'CancelButton'=>'Cancel' ),
        'params' => array( 'CommentID' ),
+       );
+$ViewList['activate'] = array(
+       'functions' => array( 'activate' ),
+       'script' => 'activate.php',
+       'single_post_actions' => array( 'RedirectButton'=>'Redirect' ),
+       'params' => array( 'HashString' ),
        );
 $ViewList['delete'] = array(
        'functions' => array( 'delete' ),
@@ -137,4 +143,5 @@ $FunctionList['delete'] = array( 'Class' => $ClassID,
                                'Node' => $Node,
                                'Subtree' => $Subtree );
 $FunctionList['settings'] = array();
+$FunctionList['activate'] = array();
 ?>

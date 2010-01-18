@@ -130,6 +130,7 @@ class ezcomSubscriber extends eZPersistentObject
         return $return;
     }
     
+    
 }
 
 ?>

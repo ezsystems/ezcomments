@@ -4,7 +4,7 @@
 
     {include name="CommentContent" contentobject=$contentobject uri="design:comment/view_standard_content.tpl"}
     
-    {include name="CommentPage" contentobject=$contentobject language_id=$language_id total_count=$total_count total_page=$total_page page_length=$page_length current_page=$current_page uri="design:comment/view_standard_page.tpl"}
+    {include name="CommentPage" contentobject=$contentobject language_id=$language_id total_count=$total_count total_page=$total_page current_page=$current_page uri="design:comment/view_standard_page.tpl"}
     
     {if $comments|count|gt( 0 )}
         {for 0 to $comments|count|sub( 1 ) as $index}

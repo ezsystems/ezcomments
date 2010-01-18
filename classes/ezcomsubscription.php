@@ -77,6 +77,10 @@ class ezcomSubscription extends eZPersistentObject
                                                 'enabled' => array( 'name' => 'Enabled',
                                                                    'datatype' => 'integer',
                                                                    'default' => 1,
+                                                                   'required' => true ),
+                                                'hash_string' => array( 'name' => 'HashString',
+                                                                   'datatype' => 'string',
+                                                                   'default' => '',
                                                                    'required' => true ) ),
                              'keys' => array( 'id' ),
                              'function_attributes' => array(),
@@ -112,6 +116,56 @@ class ezcomSubscription extends eZPersistentObject
         return $return;
     }
     
+    /**
+     * fetch the subscription object by hash_string
+     * @return null / ezcomSubscription object
+     */
+    static function fetchByHashString( $hashString )
+    {
+        $cond = array( 'hash_string'=>$hashString );
+        $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
+        return $return;
+    }
+    
+    /**
+     * get the count of subscription in a subscriber ID
+     * @param $subscriberID
+     * @param $status
+     * @return unknown_type
+     */
+    static function countWithSubscriberID( $subscriberID, $status = null )
+    {
+        $cond = array();
+        if( $languageID !== false )
+        {
+            $cond['subscriber_id'] = $subscriberID;
+        }
+        if( !is_null( $status ) )
+        {
+            $cond['status'] = $status;
+        }
+        $count = eZPersistentObject::count( self::definition(), $cond );
+        return $count;
+    }
+    
+    /**
+     * enable the subscription
+     * @return true: enabled
+     *         false: alreaday enabled
+     */
+    public function enable()
+    {
+        if( $this->attribute( 'enabled' ) )
+        {
+            return false;
+        }
+        else
+        {
+            $this->setAttribute( 'enabled', 1 );
+            $this->store();
+            return true;
+        }
+    }
     
     /**
      * clean up subscription based on an email address and content,
