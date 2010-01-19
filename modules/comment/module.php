@@ -36,7 +36,7 @@ $ViewList['settings'] = array(
 $ViewList['view'] = array(
        'functions' => array( 'read' ),
        'script' => 'view.php',
-       'params' => array( 'ViewMode', 'ContentObjectID', 'LanguageID','Page' ),
+       'params' => array( 'ViewMode', 'ContentObjectID', 'LanguageID', 'Page' ),
        );
 $ViewList['add'] = array(
        'functions' => array( 'add' ),
@@ -52,7 +52,7 @@ $ViewList['edit'] = array(
        'params' => array( 'CommentID' ),
        );
 $ViewList['activate'] = array(
-       'functions' => array( 'activate' ),
+       'functions' => array( ' ' ),
        'script' => 'activate.php',
        'single_post_actions' => array( 'RedirectButton'=>'Redirect' ),
        'params' => array( 'HashString' ),
@@ -67,7 +67,7 @@ $ViewList['delete'] = array(
 
        
 $ClassID = array(
-    'name'=> 'Class',
+    'name'=> 'Content Class',
     'values'=> array(),
     'path' => 'classes/',
     'file' => 'ezcontentclass.php',
@@ -87,7 +87,7 @@ $SectionID = array(
     );
     
 $Assigned = array(
-    'name'=> 'Owner',
+    'name'=> 'Content Owner',
     'values'=> array(
         array(
             'Name' => 'Self',
@@ -96,7 +96,7 @@ $Assigned = array(
     );
     
 $Language = array(
-    'name'=> 'Language',
+    'name'=> 'Content Language',
     'values'=> array(),
     'path' => 'classes/',
     'file' => 'ezcontentlanguage.php',
@@ -114,6 +114,17 @@ $Subtree = array(
     'name'=> 'Subtree',
     'values'=> array()
     );
+
+$Creator = array(
+    'name' => 'Comment creator',
+    'values' => array(
+            array(
+                'Name' => 'Self',
+                'value' => '1'
+                )
+        )
+    );
+
     
 $FunctionList = array();
 $FunctionList['read'] = array( 'Class' => $ClassID,
@@ -133,13 +144,15 @@ $FunctionList['edit'] = array( 'Class' => $ClassID,
                                'Section' => $SectionID,
                                'Owner' => $Assigned,
                                'Language' => $Language,
+                               'Creator' => $Creator,
                                'Node' => $Node,
-                               'Subtree' => $Subtree );
+                               'Subtree' => $Subtree);
 
 $FunctionList['delete'] = array( 'Class' => $ClassID,
                                'Section' => $SectionID,
                                'Owner' => $Assigned,
                                'Language' => $Language,
+                               'Creator' => $Creator,
                                'Node' => $Node,
                                'Subtree' => $Subtree );
 $FunctionList['settings'] = array();

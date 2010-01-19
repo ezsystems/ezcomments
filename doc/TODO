@@ -25,3 +25,8 @@ how to build test data file
 Thinking
 -------------------
 1. How to load the sub class dynamically and efficiently, using global or static(might be just one request, instead of all the request)
+
+
+2010-01-19
+1. how to load class dynamically
+2. how to send notification mail content - relted (change ezcomnotificationmanager)
