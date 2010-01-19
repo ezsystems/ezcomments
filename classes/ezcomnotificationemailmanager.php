@@ -35,7 +35,7 @@ class ezcomNotificationEmailManager extends ezcomNotificationManager
     var $emailFrom = '';
     
     
-    protected function executeSending( $subject, $body, $subscriber )
+    public function executeSending( $subject, $body, $subscriber )
     {
         $email = $subscriber->attribute( 'email' );
         $parameters = array();

@@ -37,6 +37,16 @@ abstract class ezcomNotificationManager
     var $multiBodyTemplatePath ='design:comment/notification_multi_body.tpl';
     
     protected static $instance;
+
+    /**
+    * Execute sending action. It can be in email, or notification in ez publish
+    * 
+    * @param string $subject
+    * @param string $body
+    * @param ezcomSubscriber $subscriber
+    * @return void
+    */
+    abstract public function executeSending( $subject, $body, $subscriber );
     
     /**
      * send notification to the subscribers.
@@ -84,7 +94,7 @@ abstract class ezcomNotificationManager
      * @param $tpl
      * @return void
      */
-    public function sendNotificationInEachComment( $subscriber, $contentObject, $comment, $tpl = null )
+    protected function sendNotificationInEachComment( $subscriber, $contentObject, $comment, $tpl = null )
     {
          if( is_null( $tpl ) )
          {
@@ -109,7 +119,7 @@ abstract class ezcomNotificationManager
      * @param $tpl
      * @return void
      */
-    public function sendNotificationInOne( $subscriber, $contentObject, $commentList, $tpl = null )
+    protected function sendNotificationInOne( $subscriber, $contentObject, $commentList, $tpl = null )
     {
          if( is_null( $tpl ) )
          {
@@ -125,24 +135,17 @@ abstract class ezcomNotificationManager
     }
     
     /**
-     * Execute sending action. It can be in email, or notification in ez publish
-     * 
-     * @param string $subject
-     * @param string $body
-     * @param ezcomSubscriber $subscriber
-     * @return void
-     */
-    abstract protected function executeSending( $subject, $body, $subscriber );
-    
-    
-    /**
-     * create instance of the object
+     * create instance of the object 
+     * @param string $className
      * @return ezcomNotificationManager
      */
-    public static function instance()
+    public static function instance( $className = null )
     {
-        $ini = eZINI::instance( 'ezcomments.ini' );
-        $className = $ini->variable( 'NotificationSettings', 'NotificationManagerClass' );
+        if( is_null( $className ) )
+        {
+            $ini = eZINI::instance( 'ezcomments.ini' );
+            $className = $ini->variable( 'NotificationSettings', 'NotificationManagerClass' );
+        }
         if( !isset( self::$instance ) )
         {
             self::$instance = new $className;

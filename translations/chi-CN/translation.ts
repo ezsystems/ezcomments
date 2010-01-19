@@ -260,4 +260,11 @@
         <translation>如果您想管理您的订阅，请进入设置页面。</translation>
     </message>
 </context>
+<context>
+    <name>extension/ezcomments/notification/email</name>
+    <message>
+        <source>New comment</source>
+        <translation>新的评论</translation>
+    </message>
+</context>
 </TS>
