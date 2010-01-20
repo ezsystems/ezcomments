@@ -1,5 +1,4 @@
 <?php
- 
 $FunctionList = array();
 $FunctionList['comment_list'] = array( 'name' => 'comment_list',
                                                   'operation_types' => array( 'read' ),
@@ -53,5 +52,13 @@ $FunctionList['comment_count'] = array( 'name' => 'comment_count',
                                                           'default'  => 0
                                                       )
                                                   )
+                                             );
+$FunctionList['comment_cookie'] = array( 'name' => 'comment_cookie',
+                                                  'operation_types' => array( 'read' ),
+                                                  'call_method' => array( 'include_file' => 'extension/ezcomments/classes/ezcomcookiemanager',
+                                                  'class' => 'ezcomCookieManager',
+                                                  'method' => 'fetch' ),
+                                                  'parameter_type' => 'standard',
+                                                  'parameters' => array()
                                              );
 ?>

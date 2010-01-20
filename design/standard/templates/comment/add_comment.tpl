@@ -2,9 +2,17 @@
 {def $user=fetch( 'user', 'current_user' )}
 {def $anonymous_user_id=ezini('UserSettings', 'AnonymousUserID')}
 {def $is_anonymous=$user.contentobject_id|eq($anonymous_user_id)}
-{def $comment_name="" $comment_website="" $comment_email="" $comment_notified=true}
+{def $comment_name='' $comment_website='' $comment_email='' $comment_remember='' $comment_notified=true}
 {if $is_anonymous}
-{* TODO：fetch cookies *}
+    {def $cookies = fetch( 'comment', 'comment_cookie' )}
+        {if count( $cookies )|gt(0)}
+            {set $comment_name=$cookies.name}
+            {set $comment_website=$cookies.website}
+            {set $comment_email=$cookies.email}
+            {set $comment_notified=$cookies.notified}
+            {set $comment_remember='1'}
+        {/if}
+    {undef $cookies}
 {else}
 {set $comment_name=$user.login}
 {set $comment_email=$user.email}
@@ -81,6 +89,6 @@
         </table>
 </div>
 </form>
-{undef $comment_name $comment_website $comment_email $comment_notified}
+{undef $comment_name $comment_website $comment_email $comment_notified $comment_remember}
 {undef $user $anonymous_user_id $is_anonymous}
 {* Adding comment END *}

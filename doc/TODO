@@ -34,3 +34,7 @@ Thinking
 1. Try to make the unit test data xmlized, instead of putting all the test data into test code. 
 2. In ezcomNotificationManager, if we should use __get and __set for property.
 3. The static in PHP is per request, I'm a little worried about the performance and doubt that how much the singleton can improve.
+4. support cookie
+5. make language as separate field in subscription table
+5. permission
+6. change the ezcomCookieManager into singleton

@@ -2,7 +2,7 @@
 //
 // Definition of ezcomCommentManager class
 //
-// Created on: <20-Jan-2009 00:00:00 xc>
+// Created on: <20-Jan-2009 12:00:00 xc>
 //
 // ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
 // SOFTWARE NAME: eZ Comments extension for eZ Publish
@@ -65,15 +65,15 @@ abstract class ezcomCommentManager
      *                                                        ezcomment_notification
      * The adding doesn't validate the data in http
      * 1) Add a comment into ezcomment table
-     * 2) If 'notified' is true
+     * 2) If 'notification' is true
      *      add the user as a subscriber if subscriber with same email doesn't exist
      *      otherwise get the subscriber
-     * 3) If 'notified' is true
+     * 3) If 'notification' is true
      *    if the subscription with user's email and contentid doesn't exist, add a new subscription,
      * 4) If there is subscription, add the comment into notifiction queue
      *  
      * @param $comment: ezcomComment object which has not been stored
-     *        title, name, url, email, created, modified, text, notified
+     *        title, name, url, email, created, modified, text, notification
      * @param $user: user object
      * @param $contentObjectID: id of the content object
      * @param $languageID: language id of the content object
@@ -110,7 +110,7 @@ abstract class ezcomCommentManager
         $contentID = $comment->attribute( 'contentobject_id' ) . '_' . $comment->attribute( 'language_id' );
         $subscriptionType = 'ezcomcomment';
         //add subscription
-        if( $comment->attribute( 'notified' ) )
+        if( $comment->attribute( 'notification' ) )
         {
             $subscription = ezcomSubscriptionManager::instance();
             $subscription->addSubscription( $comment->attribute('email'), $user,
@@ -129,7 +129,6 @@ abstract class ezcomCommentManager
         }
         return true;
     }
-    
     
     /**
      * create an instance of ezcomCommentManager

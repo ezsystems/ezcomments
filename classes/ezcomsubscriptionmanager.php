@@ -34,8 +34,7 @@ class ezcomSubscriptionManager
     public $params = null;
     public $tpl = null;
     public $module = null;
-    protected $instance = null;
-    
+    protected static $instance = null;
     
     function __construct( $tpl = null, $module = null, $params = null )
     {

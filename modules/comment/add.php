@@ -142,8 +142,19 @@ $tpl = templateInit();
  if( $addingResult === true )
  {
      //remember cookies
-     $cookieManager = ezcomCookieManager::instance();
-     $cookieManager->storeCookie();
+     if( $user->isAnonymous() )
+     {
+         $cookieManager = ezcomCookieManager::instance();
+         if( $http->hasVariable( 'ezcomments_comment_view_addcomment_rememberme') &&
+                 $http->variable( 'ezcomments_comment_view_addcomment_rememberme' ) == 'on' )
+         {
+             $cookieManager->storeCookie( $comment );
+         }
+         else
+         {
+             $cookieManager->clearCookie();
+         }
+     }
      //clear cache
      eZContentCacheManager::clearContentCache( $contentObjectID );
      $tpl->setVariable( 'success', true );
@@ -153,76 +164,8 @@ $tpl = templateInit();
  {
     $tpl->setVariable( 'error_message', $addingResult );
  }
-$Result['path'] = array( array( 'url' => false,
+ $Result['path'] = array( array( 'url' => false,
                             'text' => ezi18n( 'extension/ezcomments/add', 'Add comment' ) ) );
-$Result['content'] = $tpl->fetch( 'design:comment/add.tpl' );
-return $Result;
-// $validateResult = ezcomComment::validateInput( $comment );
-// if( $validateResult !== true )
-// {
-//     $tpl->setVariable( 'error_message', $validateResult );
-//     $tpl->setVariable( 'redirect_uri', $redirectURI );
-//     $Result['path'] = array( array( 'url' => false,
-//                                    'text' => ezi18n( 'extension/ezcomments/add', 'Add comment' ) ) );
-//     $Result['content'] = $tpl->fetch( 'design:comment/add.tpl' );
-//     return $Result;
-// }
-// else
-// {
-//     // deal with cookie
-//     if( $http->hasVariable( 'ezcomments_comment_view_addcomment_rememberme' ) )
-//     {
-//        if( $http->variable( 'ezcomments_comment_view_addcomment_rememberme' ) == 'on' )
-//        {
-//           // cookie expire data 1 year
-//           $expireTime = time() + 60 * 60 * 24 * 365;
-//           //save name, email, website into cookie
-//           setcookie( 'ezcommentsRemember', 1, $expireTime );
-//           setcookie( 'ezcommentsName', $comment->attribute( 'name' ), $expireTime );
-//           setcookie( 'ezcommentsWebsite', $comment->attribute( 'url' ), $expireTime );
-//           setcookie( 'ezcommentsEmail', $comment->attribute( 'email' ), $expireTime );
-//        }
-//        else
-//        {
-//        $deleteTime = time() - 60;
-//        setcookie( 'ezcommentsRemember', 0, $deleteTime );
-//        setcookie( 'ezcommentsName', '', $deleteTime );
-//        setcookie( 'ezcommentsWebsite', '', $deleteTime );
-//        setcookie( 'ezcommentsEmail', '', $deleteTime );
-//        }
-//     }
-//     // add into database
-//     $commentInput = array();
-//     $commentInput['title'] = $comment->attribute( 'title' );
-//     $commentInput['name'] = $comment->attribute( 'name' );
-//     $commentInput['url'] = $comment->attribute( 'url' );
-//     $commentInput['text'] = $comment->attribute( 'text' );
-//     $commentInput['email'] = $comment->attribute( 'email' );
-//     if( $http->variable( 'ezcomments_comment_view_addcomment_notified' ) == 'on')
-//     {
-//         $commentInput['notified'] = true;
-//     }
-//     else
-//     {
-//         $commentInput['notified'] = false;
-//     }
-//     $addingResult = ezcomComment::addComment( $commentInput, $user, $contentObjectID, $languageID, time() );
-//     
-//     // redirect URL
-//     if( $addingResult['result'] === true )
-//     {
-//         //clear cache
-//         eZContentCacheManager::clearContentCache( $contentObjectID );
-//         $tpl->setVariable( 'success', true );
-//         $tpl->setVariable( 'redirect_uri', $redirectURI );
-//     }
-//     else
-//     {
-//         $tpl->setVariable( 'error_message', $validateResult['errors'] );
-//     }
-//     $Result['path'] = array( array( 'url' => false,
-//                                    'text' => ezi18n( 'extension/ezcomments/add', 'Add comment' ) ) );
-//     $Result['content'] = $tpl->fetch( 'design:comment/add.tpl' );
-//     return $Result;
-// }
+ $Result['content'] = $tpl->fetch( 'design:comment/add.tpl' );
+ return $Result;
 ?>

@@ -34,6 +34,7 @@
  */
 class ezcomUtility
 {
+    
     public function generateSusbcriberHashString( $input )
     {
         
