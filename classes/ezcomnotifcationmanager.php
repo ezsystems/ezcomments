@@ -31,10 +31,10 @@
  */
 abstract class ezcomNotificationManager
 {
-    var $subjectTemplatePath = 'design:comment/notification_subject.tpl';
-    var $bodyTemplatePath = 'design:comment/notification_body.tpl';
-    var $multiSubjectTemplatePath = 'design:comment/notification_multi_subject.tpl';
-    var $multiBodyTemplatePath ='design:comment/notification_multi_body.tpl';
+    public $subjectTemplatePath = 'design:comment/notification_subject.tpl';
+    public $bodyTemplatePath = 'design:comment/notification_body.tpl';
+    public $multiSubjectTemplatePath = 'design:comment/notification_multi_subject.tpl';
+    public $multiBodyTemplatePath ='design:comment/notification_multi_body.tpl';
     
     protected static $instance;
 
@@ -47,46 +47,6 @@ abstract class ezcomNotificationManager
     * @return void
     */
     abstract public function executeSending( $subject, $body, $subscriber );
-    
-//    /**
-//     * send notification to the subscribers.
-//     * If commentsInOne is true, when commentList has more than 1 comment, send notification in one notification
-//     * Otherwise send comment one by one
-//     * @param $subscriberList the subscribers to send to
-//     * @param $contentObject contentobject subscribed
-//     * @param $commentList updated comment list, it can be null when sending many comments in one notification
-//     * @param $commentsInOne if send all the comments in one email 
-//     */
-//    public function sendNotification( $subscriberList, $contentObject, $commentList, $commentsInOne = false )
-//    {
-//        require_once( 'kernel/common/template.php' );
-//        $tpl = templateInit();
-//        if( $commentsInOne === true )
-//        {
-//            eZDebug::writeNotice( 'Send all comment in one notification! contentobject id:' . $contentObject->attribute( 'id' ) );
-//        }
-//        else
-//        {
-//            eZDebug::writeNotice( 'Send comment one by one! contentobject id:' . $contentObject->attribute( 'id' ) );
-//        }
-//        foreach( $subscriberList as $subscriber )
-//        {
-//            if( $commentsInOne === true )
-//            {
-//                $this->sendNotificationInOne( $subscriber, $contentObject, $commentList, $tpl );
-//            }
-//            else
-//            {
-//                foreach( $commentList as $comment )
-//                {
-//                    if( $comment->attribute('email') != $subscriber->attribute( 'email' ) )
-//                    {
-//                        $this->sendNotificationInEachComment( $subscriber, $contentObject, $comment, $tpl );
-//                    }
-//                }
-//            }
-//        }
-//    }
     
     /**
      * send one notification with one comment by one comment
@@ -154,7 +114,7 @@ abstract class ezcomNotificationManager
         }
         if( !isset( self::$instance ) )
         {
-            self::$instance = new $className;
+            self::$instance = new $className();
         }
         return self::$instance;
     }
@@ -171,6 +131,6 @@ abstract class ezcomNotificationManager
             $ini = eZINI::instance( 'ezcomments.ini' );
             $className = $ini->variable( 'NotificationSettings', 'NotificationManagerClass' );
         }
-        return  new $className;
+        return  new $className();
     }
 }

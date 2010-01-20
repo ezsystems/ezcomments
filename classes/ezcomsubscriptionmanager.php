@@ -31,12 +31,13 @@
  */
 class ezcomSubscriptionManager
 {
-    var $params = null;
-    var $tpl = null;
-    var $module = null;
+    public $params = null;
+    public $tpl = null;
+    public $module = null;
+    protected $instance = null;
     
     
-    function __construct( $tpl, $module, $params )
+    function __construct( $tpl = null, $module = null, $params = null )
     {
         $this->tpl = $tpl;
         $this->module = $module;
@@ -67,9 +68,7 @@ class ezcomSubscriptionManager
             }
             
             $subscriber = ezcomSubscriber::fetch( $subscription->attribute( 'subscriber_id' ) );
-            //for test
-            self::sendActivationEmail( eZContentObject::fetch( 158 ), $subscriber, $subscription );
-            //
+            
             if( $subscriber->attribute( 'enabled' ) )
             {
                 $subscription->enable();
@@ -80,6 +79,80 @@ class ezcomSubscriptionManager
                 $this->tpl->setVariable( 'error_message', ezi18n( 'extension/ezcomments/activate', 
                                       'The subscriber is disabled!' ) );
             }
+        }
+    }
+    
+    /**
+    * Add an subscription. 
+    * If there is no subscriber, add one.
+    * If there is no subscription for the content, add one
+    * @param $email: user's email
+    * @return void
+    */
+    public function addSubscription( $email, $user, $contentID, $subscriptionType, $currentTime )
+    {
+        //1. insert into subscriber
+        $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
+        $subscriber = ezcomSubscriber::fetchByEmail( $email );
+        //if there is no data in subscriber for same email, save it
+        if( is_null( $subscriber ) )
+        {
+            $subscriber = ezcomSubscriber::create();
+            $subscriber->setAttribute( 'user_id', $user->attribute( 'contentobject_id' ) );
+            $subscriber->setAttribute( 'email', $email );
+            if( $user->isAnonymous() )
+            {
+                $subscriber->setAttribute( 'hash_string', hash('md5',uniqid()) );
+            }
+            $subscriber->store();
+            eZDebug::writeNotice( 'Subscriber doesn\'t exist, added one', 'Add comment', 'ezcomComment' );
+            $subscriber = ezcomSubscriber::fetchByEmail( $email );
+        }
+        else
+        {
+            if( $subscriber->attribute( 'enabled' ) === 0 )
+            {
+                $result['warnings'][] = ezi18n( 'comment/view/addcomment', 'The email is disabled,
+                             you won\'t receive notification
+                              until it is activated!' );
+            }
+        }
+        //3 insert into subscription table
+        // if there is no data in ezcomment_subscription with given contentobject_id and subscriber_id
+        $hasSubscription = ezcomSubscription::exists( $contentID,
+                                        $subscriptionType,
+                                        $email );
+        if( $hasSubscription === false )
+        {
+            $subscription = ezcomSubscription::create();
+            $subscription->setAttribute( 'user_id', $user->attribute( 'contentobject_id' ) );
+            $subscription->setAttribute( 'subscriber_id', $subscriber->attribute( 'id' ) );
+            $subscription->setAttribute( 'subscription_type', $subscriptionType );
+            $subscription->setAttribute( 'content_id', $contentID );
+            $subscription->setAttribute( 'subscription_time', $currentTime );
+            $defaultActivated = $ezcommentsINI->variable( 'CommentSettings', 'SubscriptionActivated' );
+        
+            if( $user->isAnonymous() && $defaultActivated !== 'true' )
+            {
+                $subscription->setAttribute( 'enabled', 0 );
+                $utility = ezcomUtility::instance();
+                $subscription->setAttribute( 'hash_string', $utility->generateSubscriptionHashString( $subscription ) );
+                $subscription->store();
+                
+                $result = ezcomSubscriptionManager::sendActivationEmail( eZContentObject::fetch( $contentID),
+                                                                         $subscriber, 
+                                                                         $subscription );
+                if( !$result )
+                {
+                    eZDebug::writeError( 'The mail sending failed', 'Add comment', 'ezcomComment' );
+                }
+            }
+            else
+            {
+                $subscription->setAttribute( 'enabled', 1 );
+                $subscription->store();
+            }
+            eZDebug::writeNotice( 'There is no subscription for the content and user, added one', 'Add comment', 'ecomComment' );
         }
     }
     
@@ -141,9 +214,27 @@ class ezcomSubscriptionManager
      * method for creating object
      * @return ezcomSubscriptionManager
      */
-    public static function instance( $tpl, $module, $params )
+    public static function instance( $tpl = null, $module = null, $params = null, $className = null )
     {
-        return new ezcomSubscriptionManager( $tpl, $module, $params );
+        $object = null;
+        if( is_null( $className ) )
+        {
+            $ini = eZINI::instance( 'ezcomments.ini' );
+            $className = $ini->variable( 'ManagerClasses', 'SubscriberManagerClass' );
+        }
+        
+        if( !is_null( self::$instance ) )
+        {
+            $object = self::$instance;
+        }
+        else
+        {
+            $object = new $className();
+            $object->tpl = $tpl;
+            $object->module = $module;
+            $object->params = $params;
+        }
+        return $object;
     }
     
 }
