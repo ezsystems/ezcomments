@@ -48,42 +48,45 @@ abstract class ezcomNotificationManager
     */
     abstract public function executeSending( $subject, $body, $subscriber );
     
-    /**
-     * send notification to the subscribers.
-     * If commentsInOne is true, when commentList has more than 1 comment, send notification in one notification
-     * Otherwise send comment one by one
-     * @param $subscriberList the subscribers to send to
-     * @param $contentObject contentobject subscribed
-     * @param $commentList updated comment list
-     * @param $commentsInOne if send all the comments in one email 
-     */
-    public function sendNotification( $subscriberList, $contentObject, $commentList, $commentsInOne = false )
-    {
-        require_once( 'kernel/common/template.php' );
-        $tpl = templateInit();
-        if( $commentsInOne === true )
-        {
-            eZDebug::writeNotice( 'Send all comment in one notification! contentobject id:' . $contentObject->attribute( 'id' ) );
-        }
-        else
-        {
-            eZDebug::writeNotice( 'Send comment one by one! contentobject id:' . $contentObject->attribute( 'id' ) );
-        }
-        foreach( $subscriberList as $subscriber )
-        {
-            if( $commentsInOne === true && ( count( $commentList ) > 0 ) )
-            {
-                $this->sendNotificationInOne( $subscriber, $contentObject, $commentList, $tpl );
-            }
-            else
-            {
-                foreach( $commentList as $comment )
-                {
-                    $this->sendNotificationInEachComment( $subscriber, $contentObject, $comment, $tpl );
-                }
-            }
-        }
-    }
+//    /**
+//     * send notification to the subscribers.
+//     * If commentsInOne is true, when commentList has more than 1 comment, send notification in one notification
+//     * Otherwise send comment one by one
+//     * @param $subscriberList the subscribers to send to
+//     * @param $contentObject contentobject subscribed
+//     * @param $commentList updated comment list, it can be null when sending many comments in one notification
+//     * @param $commentsInOne if send all the comments in one email 
+//     */
+//    public function sendNotification( $subscriberList, $contentObject, $commentList, $commentsInOne = false )
+//    {
+//        require_once( 'kernel/common/template.php' );
+//        $tpl = templateInit();
+//        if( $commentsInOne === true )
+//        {
+//            eZDebug::writeNotice( 'Send all comment in one notification! contentobject id:' . $contentObject->attribute( 'id' ) );
+//        }
+//        else
+//        {
+//            eZDebug::writeNotice( 'Send comment one by one! contentobject id:' . $contentObject->attribute( 'id' ) );
+//        }
+//        foreach( $subscriberList as $subscriber )
+//        {
+//            if( $commentsInOne === true )
+//            {
+//                $this->sendNotificationInOne( $subscriber, $contentObject, $commentList, $tpl );
+//            }
+//            else
+//            {
+//                foreach( $commentList as $comment )
+//                {
+//                    if( $comment->attribute('email') != $subscriber->attribute( 'email' ) )
+//                    {
+//                        $this->sendNotificationInEachComment( $subscriber, $contentObject, $comment, $tpl );
+//                    }
+//                }
+//            }
+//        }
+//    }
     
     /**
      * send one notification with one comment by one comment
@@ -94,7 +97,7 @@ abstract class ezcomNotificationManager
      * @param $tpl
      * @return void
      */
-    protected function sendNotificationInEachComment( $subscriber, $contentObject, $comment, $tpl = null )
+    public function sendNotificationInMany( $subscriber, $contentObject, $comment, $tpl = null )
     {
          if( is_null( $tpl ) )
          {
@@ -115,11 +118,11 @@ abstract class ezcomNotificationManager
      * Exception if error happens
      * @param $subscriber
      * @param $contentObject
-     * @param $commentList
+     * @param $commentList comment list to the subscriber, which can be null.
      * @param $tpl
      * @return void
      */
-    protected function sendNotificationInOne( $subscriber, $contentObject, $commentList, $tpl = null )
+    public function sendNotificationInOne( $subscriber, $contentObject, $commentList = null, $tpl = null )
     {
          if( is_null( $tpl ) )
          {
@@ -128,7 +131,10 @@ abstract class ezcomNotificationManager
          }
          $tpl->setVariable( 'subscriber', $subscriber );
          $tpl->setVariable( 'contentobject', $contentObject );
-         $tpl->setVariable( 'comment_list', $commentList );
+         if( !is_null( $commentList ) )
+         {
+            $tpl->setVariable( 'comment_list', $commentList );
+         }
          $subject = $tpl->fetch( $this->multiSubjectTemplatePath );
          $body = $tpl->fetch( $this->multiBodyTemplatePath );
          $this->executeSending( $subject, $body, $subscriber );
@@ -151,5 +157,20 @@ abstract class ezcomNotificationManager
             self::$instance = new $className;
         }
         return self::$instance;
+    }
+    
+    /**
+     * create instance of the object without using singleton 
+     * @param string $className
+     * @return ezcomNotificationManager
+     */
+    public static function create( $className = null )
+    {
+        if( is_null( $className ) )
+        {
+            $ini = eZINI::instance( 'ezcomments.ini' );
+            $className = $ini->variable( 'NotificationSettings', 'NotificationManagerClass' );
+        }
+        return  new $className;
     }
 }

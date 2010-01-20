@@ -86,7 +86,7 @@ foreach( $contentObjectIDList as $contentObjectArray )
     {
         $subscriberList[] = ezcomSubscriber::fetch( $subscription['subscriber_id'] );
     }
-         
+
     //fetch comment list
     $commentList = array();
     foreach ( $notifications as $notification )
@@ -106,7 +106,23 @@ foreach( $contentObjectIDList as $contentObjectArray )
     {
         $notificationManager = ezcomNotificationManager::instance();
         $commentsInOne = $ezcommentsINI->variable( 'NotificationSettings', 'CommentsInOne' );
-        $notificationManager->sendNotification( $subscriberList, $contentObject, $commentList, $commentsInOne === 'true' );
+        foreach( $subscriberList as $subscriber )
+        {
+            if( $commentsInOne !== 'true' )
+            {
+                foreach( $commentList as $comment )
+                {
+                    if( $comment->attribute('email') != $subscriber->attribute( 'email' ) )
+                    {
+                        $notificationManager->sendNotificationInMany( $subscriber, $contentObject, $comment );
+                    }
+                }
+            }
+            else
+            {
+                $notificationManager->sendNotificationInOne( $subscriber, $contentObject );
+            }
+        }
     }
     catch( Exception $ex )
     {

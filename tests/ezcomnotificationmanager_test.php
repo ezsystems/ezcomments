@@ -5,7 +5,7 @@
 // ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
 // SOFTWARE NAME: eZ Comments extension for eZ Publish
 // SOFTWARE RELEASE: 1.0-1
-// COPYRIGHT NOTICE: Copyright (C) 2009 eZ Systems AS
+// COPYRIGHT NOTICE: Copyright (C) 2010 eZ Systems AS
 // SOFTWARE LICENSE: GNU General Public License v2.0
 // NOTICE: >
 //   This program is free software; you can redistribute it and/or
@@ -25,19 +25,20 @@
 // 
 // ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
 //
-class ezcomNotificationManagerTest
+
+class ezcomNotificationManagerTest extends ezpDatabaseTestCase
 {
- /**
-     * Path to the DB schema.
-     * 
-     * @var array
-     */
+    /**
+    * Path to the DB schema.
+    * 
+    * @var array
+    */
     protected $sqlFiles = array( array( 'extension/ezcomments/sql/', 'schema.sql' ) );
     
     public function __construct()
     {
         parent::__construct();
-        $this->setName( "ezcomSubscriptionManager object test" );
+        $this->setName( "ezcomNotificationManager object test" );
     }
     
     public function setUp()
@@ -46,11 +47,16 @@ class ezcomNotificationManagerTest
         ezpTestDatabaseHelper::insertSqlData( $this->sharedFixture, $this->sqlFiles );
     }
     
+    
     /**
      * Add a content object, a user
      * Add 3 comments, one of which is notificed
      * assert sending notification one comment by one comment
      * assert sending nofication with all comments in one notification
+     * 
+     * NB: in the user mail account, he/she should be able to get 4 mail in this case.
+     * 1 mail for all comments notification
+     * 3 mail for 3 comments notification  
      * 
      * email account needed
      * 
@@ -62,6 +68,7 @@ class ezcomNotificationManagerTest
         $content = new ezpObject( 'article' );
         $content->publish();
         $contentObject = $content->object;
+        $languageID = 2;
         
         $userObject = new ezpObject( 'user' );
         $userObject->publish();
@@ -71,29 +78,27 @@ class ezcomNotificationManagerTest
         $input = array();
         $input['email'] = 'xc@ez.no';
         $input['name'] = 'xc';
-        $input['content'] = 'notification test1!';
+        $input['text'] = 'notification test1!';
         $input['notified'] = true;
         $time = time();
-        $languageID = 2;
+        
         ezcomComment::addComment( $input, $user, $contentObject->attribute( 'id' ), $languageID, $time );
         
         $input = array();
         $input['email'] = 'xc@ez.no';
         $input['name'] = 'xc';
-        $input['content'] = 'notification test2!';
+        $input['text'] = 'notification test2!';
         $input['notified'] = false;
-        $languageID = 2;
         ezcomComment::addComment( $input, $user, $contentObject->attribute( 'id' ), $languageID, $time );
         
         $input = array();
         $input['email'] = 'xc@ez.no';
         $input['name'] = 'xc';
-        $input['content'] = 'notification test3!';
+        $input['text'] = 'notification test3!';
         $input['notified'] = false;
-        $languageID = 2;
         ezcomComment::addComment( $input, $user, $contentObject->attribute( 'id' ), $languageID, $time );
         
-        //3. send notification
+        //get subscriber list and comment list
         $db = eZDB::instance();
         $contentID = $contentObject->attribute( 'id' ) . '_' . $languageID;
         $subscriberIDArray = $db->arrayQuery( "SELECT subscriber_id".
@@ -102,7 +107,7 @@ class ezcomNotificationManagerTest
         $subscriberList = array();
         foreach( $subscriberIDArray as $subscriberID )
         {
-            $subscriberList[] = ezcomSubscriber::fetch( $subscriberID['id'] );
+            $subscriberList[] = ezcomSubscriber::fetch( $subscriberID['subscriber_id'] );
         }
         
         $commentIDArray = $db->arrayQuery( "SELECT comment_id ".
@@ -112,16 +117,28 @@ class ezcomNotificationManagerTest
         {
             $commentList[] = ezcomComment::fetch( $commentIDArray['comment_id'] );
         }
-        
         $notificationManager = ezcomNotificationManager::instance();
+        // test sending all in one mail
+        foreach( $subscriberList as $subscriber )
+        {
+            $notificationManager->sendNotificationInOne( $subscriber, $contentObject );
+        }
         
-        $notificationManager->sendNotification( $subscriberList, $contentObject, $commentList, true );
-        $notificationManager->sendNotification( $subscriberList, $contentObject, $commentList, false );
+        //test sending one by one
+        foreach( $subscriberList as $subscriber )
+        {
+            foreach( $commentList as $comment )
+            {
+                $notificationManager->sendNotificationInMany( $subscriber, $contentObject, $comment );
+            }
+        }
     }
+    
     
     /**
      * Test executeSending method via email
      * email account needed 
+     * NB: the user should be able to get one mail with 'email testing' as the subject 
      * @return
      */
     public function testExuecuteSending()
@@ -134,5 +151,4 @@ class ezcomNotificationManagerTest
         $notificationManager->executeSending( 'email testing!', 'email test subject', $subscriber );
     }
 }
-
 ?>

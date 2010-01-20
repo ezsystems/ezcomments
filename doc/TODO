@@ -29,3 +29,6 @@ Thinking
 
 2010-01-19
 2. how to send notification mail content - related (change ezcomnotificationmanager)
+
+2010-01-20
+1. Try to make the unit test data xmlized, instead of putting all the test data into test code. 

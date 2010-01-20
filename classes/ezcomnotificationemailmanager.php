@@ -34,7 +34,22 @@ class ezcomNotificationEmailManager extends ezcomNotificationManager
     var $emailContentType = 'text/html';
     var $emailFrom = '';
     
+    /**
+     * construct
+     * Load the configuration from ini file 
+     */
+    public function __construct()
+    {
+        //load configuration from ini
+        $ini = eZINI::instance( 'ezcomments.ini' );
+        $this->emailContentType = $ini->variable( 'NotificationSettings', 'MailContentType' );
+        $this->emailFrom = $ini->variable( 'NotificationSettings', 'MailFrom' );
+    }
     
+    /**
+     * Execute sending process in Email
+     * @see extension/ezcomments/classes/ezcomNotificationManager#executeSending($subject, $body, $subscriber)
+     */
     public function executeSending( $subject, $body, $subscriber )
     {
         $email = $subscriber->attribute( 'email' );
