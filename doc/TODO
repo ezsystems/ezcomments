@@ -38,3 +38,8 @@ Thinking
 5. make language as separate field in subscription table
 5. permission
 6. change the ezcomCookieManager into singleton
+
+2010-01-21
+1.put cache-block into comment list, add form.
+2.install sql script when enabling the extension
+3.

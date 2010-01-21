@@ -112,10 +112,16 @@
     color:#ff0000
 }
 
+.ezcomments-comment-view-no-permission p{
+    background-color:#ffffff;
+    text-align:center;
+    font-style:italic;
+    height:50px
+}
 .ezcomments-comment-view-disabled{
     text-align:center;
     color:#ff0000;
-    font-style:italic
+    font-style:italic;
 }
 .ezcomments-comment-view-addcomment-mandatorymessage{
     font-style:italic;

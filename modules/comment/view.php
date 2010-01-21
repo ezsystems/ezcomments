@@ -89,6 +89,7 @@ $tpl = templateInit();
 $tpl->setVariable( 'contentobject', $contentObject );
 $tpl->setVariable( 'objectattribute', $objectAttribute );
 $tpl->setVariable( 'language_id', $languageID );
+$tpl->setVariable( 'language_code', $languageCode );
 if( $mode == 'ajax' )
 {
     $tpl->setVariable( 'contentobject_id', $contentObjectID );
@@ -156,48 +157,7 @@ else if( $mode == 'standard' )
      $sorts = array( $defaultSortField => $defaultSortOrder );
      
      $comments = ezcomComment::fetchByContentObjectID( $contentObjectID, $languageID, $sorts, $offset, $length);
-     //is anonymous
      
-//     //notified option
-//     $notified = false;
-//     $defaultNotified = $ezcommentsINI->variable( 'GlobalSettings', 'EnableNotification' );
-//     $notified = null;
-//     $name = '';
-//     $website = '';
-//     $email = ''; 
-//     $remember = true;
-//     if( $user->isAnonymous() )
-//     {
-//         if( isset( $_COOKIE['ezcommentsName'] ) )
-//         {
-//             $name = $_COOKIE['ezcommentsName'];
-//         }
-//         if( isset( $_COOKIE['ezcommentsWebsite'] ) )
-//         {
-//             $website = $_COOKIE['ezcommentsWebsite'];
-//         }
-//         if( isset( $_COOKIE['ezcommentsEmail'] ) )
-//         {
-//             $email = $_COOKIE['ezcommentsEmail'];
-//         }
-//         if( isset( $_COOKIE['ezcommentsNotified'] ) )
-//         {
-//             $notified = $_COOKIE['ezcommentsNotified'];
-//         }
-//         else
-//         {
-//             $notified = $defaultNotified;
-//         }
-//         if( isset( $_COOKIE['ezcommentsRemember'] ) )
-//         {
-//            $remember = ( boolean )$_COOKIE['ezcommentsRemember'];
-//         }
-//     }
-//     else
-//     {
-//         $email = $user->attribute( 'email' );
-//         $notified = $defaultNotified;
-//     }
      $tpl->setVariable( 'comments', $comments );
      $tpl->setVariable( 'total_count', $count );
      $tpl->setVariable( 'total_page', ceil( $count / $defaultNumPerPage) );

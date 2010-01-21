@@ -64,10 +64,9 @@ $ViewList['delete'] = array(
                                        'CancelButton'=>'Cancel' ),
        'params' => array( 'CommentID' ),
        );
-
        
 $ClassID = array(
-    'name'=> 'Content Class',
+    'name'=> 'Class',
     'values'=> array(),
     'path' => 'classes/',
     'file' => 'ezcontentclass.php',
@@ -87,7 +86,7 @@ $SectionID = array(
     );
     
 $Assigned = array(
-    'name'=> 'Content Owner',
+    'name'=> 'Owner',
     'values'=> array(
         array(
             'Name' => 'Self',
@@ -96,7 +95,7 @@ $Assigned = array(
     );
     
 $Language = array(
-    'name'=> 'Content Language',
+    'name'=> 'Language',
     'values'=> array(),
     'path' => 'classes/',
     'file' => 'ezcontentlanguage.php',

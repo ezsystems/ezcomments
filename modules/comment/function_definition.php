@@ -61,4 +61,33 @@ $FunctionList['comment_cookie'] = array( 'name' => 'comment_cookie',
                                                   'parameter_type' => 'standard',
                                                   'parameters' => array()
                                              );
+$FunctionList['has_access_to_function'] = array( 'name' => 'has_access_to_function',
+                                                  'operation_types' => array( 'read' ),
+                                                  'call_method' => array( 'include_file' => 'extension/ezcomments/classes/ezcomPermission',
+                                                  'class' => 'ezcomPermission',
+                                                  'method' => 'has_access_to_function' ),
+                                                  'parameter_type' => 'standard',
+                                                  'parameters' => array(
+                                                   array( 'name'=> 'function',
+                                                          'type'=>'string',
+                                                          'required'=> true,
+                                                          'default'=> ''
+                                                    ),
+                                                      array( 'name'=> 'contentobject',
+                                                          'type'=>'object',
+                                                          'required'=>true,
+                                                          'default'=> null
+                                                    ),
+                                                   array( 'name'=> 'language_code',
+                                                          'type'=> 'integer',
+                                                          'required' => true,
+                                                          'default'  => 0
+                                                      ),
+                                                   array( 'name'=> 'comment',
+                                                          'type'=> 'object',
+                                                          'required' => false,
+                                                          'default'  => null
+                                                      )
+                                                  )
+                                             );
 ?>
