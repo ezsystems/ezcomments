@@ -35,12 +35,12 @@
 class ezcomPermission
 {
     protected static $moduleName = 'comment';
-    protected static $classKey = 'Class';
-    protected static $sectionKey = 'Section';
-    protected static $ownerKey = 'Owner';
-    protected static $languageKey = 'Language';
+    protected static $classKey = 'ContentClass';
+    protected static $sectionKey = 'ContentSection';
+    protected static $ownerKey = 'ContentOwner';
+    protected static $languageKey = 'ContentLanguage';
     protected static $nodeKey = 'Node';
-    protected static $subtreeKey = 'Subtrees';
+    protected static $subtreeKey = 'Subtree';
     protected static $commentCreatorKey = 'CommentCreator';
     protected static $instance = null;
 
@@ -130,7 +130,7 @@ class ezcomPermission
         }
     }
     
-    public static function has_access_to_function( $functionName, $contentObject, $languageCode, $comment = null )
+    public static function hasAccessToFunction( $functionName, $contentObject, $languageCode, $comment = null )
     {
         $user = eZUser::currentUser();
         $permission = ezcomPermission::instance();

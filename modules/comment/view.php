@@ -90,6 +90,15 @@ $tpl->setVariable( 'contentobject', $contentObject );
 $tpl->setVariable( 'objectattribute', $objectAttribute );
 $tpl->setVariable( 'language_id', $languageID );
 $tpl->setVariable( 'language_code', $languageCode );
+
+$canAdd = false;
+$canAddResult = ezcomPermission::hasAccessToFunction( 'add', $contentObject, $languageCode );
+$canAdd = $canAddResult['result'];
+
+$canRead = false;
+$canReadResult = ezcomPermission::hasAccessToFunction( 'read', $contentObject, $languageCode );
+$canRead = $canReadResult['result'];
+
 if( $mode == 'ajax' )
 {
     $tpl->setVariable( 'contentobject_id', $contentObjectID );
@@ -128,20 +137,13 @@ else if( $mode == 'standard' )
          $Page = 1;
      }
 
-    // to do:  consider
-    //If the content can not be read by the user, the comment can't be as well
-    //     if( !$contentObject->canRead() )
-    //     {
-    //         
-    //     }
-     
-     // to do: consider the comment view cache
+     $tpl->setVariable( 'can_add', $canAdd );
+     $tpl->setVariable( 'can_read', $canRead );
      // get the comment list
      $count = ezcomComment::countByContent( $contentObjectID, $languageID );
      
      $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
      $defaultNumPerPage = $ezcommentsINI->variable( 'CommentSettings', 'NumberPerPage' );
-     
      $offset =  ( $Page - 1 ) * $defaultNumPerPage;
      
      if( $offset > $count || $offset < 0 )
@@ -163,12 +165,6 @@ else if( $mode == 'standard' )
      $tpl->setVariable( 'total_page', ceil( $count / $defaultNumPerPage) );
      $tpl->setVariable( 'current_page', $Page );
      $tpl->setVariable( 'number_per_page', $defaultNumPerPage );
-//     $tpl->setVariable( 'is_anonymous', $user->isAnonymous() );
-//     $tpl->setVariable( 'comment_name', $name );
-//     $tpl->setVariable( 'comment_email', $email );
-//     $tpl->setVariable( 'comment_website', $website );
-//     $tpl->setVariable( 'comment_notified', $notified );
-//     $tpl->setVariable( 'comment_remember', $remember );
      
      $Result['content'] = $tpl->fetch( 'design:comment/view_standard.tpl' );
      $Result['path'] = array( array( 'url' => false,

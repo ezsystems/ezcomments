@@ -27,14 +27,18 @@
 //
 require_once( 'kernel/common/template.php' );
 
-//TODO:check the permission
-
 $module = $Params['Module'];
 
 $http = eZHTTPTool::instance();
 
-$redirectURI = $http->variable( 'RedirectURI' );
-
+if( $http->hasPostVariable( 'RedirectURI' ) )
+{
+$redirectURI = $http->postVariable( 'RedirectURI' );
+}
+else
+{
+    return;
+}
 if( $module->isCurrentAction( 'Back' ) )
 {
      $module->redirectTo( $redirectURI );
@@ -45,9 +49,9 @@ $user = eZUser::currentUser();
 $userID = $user->attribute( 'contentobject_id' );
 
 $contentObjectID = null;
-if( $http->hasVariable( 'ContentObjectID' ) )
+if( $http->hasPostVariable( 'ContentObjectID' ) )
 {
-    $contentObjectID = $http->variable('ContentObjectID');
+    $contentObjectID = $http->postVariable('ContentObjectID');
 }
 else
 {
@@ -55,9 +59,9 @@ else
 }
 
 $languageID = null;
-if( $http->hasVariable( 'LanguageID' ) )
+if( $http->hasPostVariable( 'LanguageID' ) )
 {
-    $languageID = $http->variable('LanguageID');
+    $languageID = $http->postVariable('LanguageID');
 }
 else
 {
@@ -145,8 +149,8 @@ $tpl = templateInit();
      if( $user->isAnonymous() )
      {
          $cookieManager = ezcomCookieManager::instance();
-         if( $http->hasVariable( 'ezcomments_comment_view_addcomment_rememberme') &&
-                 $http->variable( 'ezcomments_comment_view_addcomment_rememberme' ) == 'on' )
+         if( $http->hasPostVariable( 'ezcomments_comment_view_addcomment_rememberme') &&
+                 $http->postVariable( 'ezcomments_comment_view_addcomment_rememberme' ) == 'on' )
          {
              $cookieManager->storeCookie( $comment );
          }

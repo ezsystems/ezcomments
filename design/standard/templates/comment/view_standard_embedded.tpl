@@ -20,7 +20,13 @@
         {* Comment item START *}
         {if $comments|count|gt( 0 )}
             {for 0 to $comments|count|sub( 1 ) as $index}
-                    {include name="CommentItem" comment=$comments.$index index=$index base_index=0 uri="design:comment/view_standard_comment_item.tpl"}
+                    {include name="CommentItem"
+                         contentobject=$contentobject
+                         language_code=$language_code
+                         comment=$comments.$index
+                         index=$index
+                         base_index=0
+                         uri="design:comment/view_standard_comment_item.tpl"}
             {/for}
             <div class="ezcomments-comment-view-all">
               {if $total_count|gt( count( $comments ) )}
@@ -35,25 +41,6 @@
         {/if}
         {* Comment item END *}
         
-        {* Adding comment form START *}
-        {if $contentobject_attribute.data_int}
-            {def $can_add = fetch( 'comment', 'has_access_to_function', hash( 'function', 'add',
-                                                                           'contentobject', $contentobject,
-                                                                           'language_code', $contentobject_attribute.language_code,
-                                                                            ) )}
-            {if $can_add}
-                {include name="AddComment" uri="design:comment/add_comment.tpl" redirect_uri=$contentobject_attribute.object.main_node.url_alias contentobject_id=$contentobject.id language_id=$language_id}
-            {else}
-                <div class="ezcomments-comment-view-no-permission">
-                        <p>
-                            {'You don\'t have access to post comment here!'|i18n( 'extension/ezcomments/view' )}
-                        </p>
-                </div>
-            {/if}
-            {undef $can_add}
-        {/if}
-        {* Adding comment form END *}
-        
         {undef $comments $total_count $default_shown_length $sort_order $sort_field}
     {else}
         <div class="ezcomments-comment-view-no-permission">
@@ -63,5 +50,25 @@
         </div>
     {/if}
     {undef $can_read}
+    
+    {* Adding comment form START *}
+    {if $contentobject_attribute.data_int}
+        {def $can_add = fetch( 'comment', 'has_access_to_function', hash( 'function', 'add',
+                                                                       'contentobject', $contentobject,
+                                                                       'language_code', $contentobject_attribute.language_code,
+                                                                        ) )}
+        {if $can_add}
+            {include name="AddComment" uri="design:comment/add_comment.tpl" redirect_uri=$contentobject.main_node.url_alias contentobject_id=$contentobject.id language_id=$language_id}
+        {else}
+            <div class="ezcomments-comment-view-no-permission">
+                    <p>
+                        {'You don\'t have access to post comment here!'|i18n( 'extension/ezcomments/view' )}
+                    </p>
+            </div>
+        {/if}
+        {undef $can_add}
+    {/if}
+    {* Adding comment form END *}
+    
     {undef $contentobject $language_id $language_code}
 {/if}

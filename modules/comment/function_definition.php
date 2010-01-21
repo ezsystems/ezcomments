@@ -65,7 +65,7 @@ $FunctionList['has_access_to_function'] = array( 'name' => 'has_access_to_functi
                                                   'operation_types' => array( 'read' ),
                                                   'call_method' => array( 'include_file' => 'extension/ezcomments/classes/ezcomPermission',
                                                   'class' => 'ezcomPermission',
-                                                  'method' => 'has_access_to_function' ),
+                                                  'method' => 'hasAccessToFunction' ),
                                                   'parameter_type' => 'standard',
                                                   'parameters' => array(
                                                    array( 'name'=> 'function',

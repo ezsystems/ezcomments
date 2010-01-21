@@ -29,7 +29,6 @@ require_once( 'kernel/common/template.php' );
 $tpl = templateInit();
 $user = eZUser::currentUser();
 $http = eZHttpTool::instance();
-// todo: check the permission
 
 // get the action parameter
 $Module = $Params['Module'];
@@ -51,18 +50,36 @@ if( is_null( $comment ) )
     eZDebug::writeError( 'The comment doesn\'t exist!', 'ezcomments' );
     return;
 }
+
+//check the permission
+$contentObject = $comment->contentObject();
+$languageID = $comment->attribute( 'language_id' );
+$languageCode = eZContentLanguage::fetch( $languageID )->attribute( 'locale' );
+$canEdit = false;
+$canEditResult = ezcomPermission::hasAccessToFunction( 'edit', $contentObject, $languageCode );
+$canEdit = $canEditResult['result'];
+
+$tpl->setVariable( 'can_edit', $canEdit );
+if( !$canEdit )
+{
+    $Result['path'] = array( array( 'url' => false,
+                                    'text' => ezi18n( 'extension/ezcomments/edit', 'Edit comment' ) ) );
+    $Result['content'] = $tpl->fetch( 'design:comment/edit.tpl' );
+    return $Result;
+}
+
 if( $Module->isCurrentAction( 'UpdateComment' ) )
 {
     //1. get the form values
-    $title = $http->variable( 'ezcomments_comment_edit_title' );
-    $name = $http->variable( 'ezcomments_comment_edit_name' );
-    $website = $http->variable( 'ezcomments_comment_edit_website' );
-    $email = $http->variable( 'ezcomments_comment_edit_email' );
-    $content = $http->variable( 'ezcomments_comment_edit_content' );
+    $title = $http->postVariable( 'ezcomments_comment_edit_title' );
+    $name = $http->postVariable( 'ezcomments_comment_edit_name' );
+    $website = $http->postVariable( 'ezcomments_comment_edit_website' );
+    $email = $http->postVariable( 'ezcomments_comment_edit_email' );
+    $content = $http->postVariable( 'ezcomments_comment_edit_content' );
     $notified = false;
-    if( $http->hasVariable( 'ezcomments_comment_edit_notified' ) )
+    if( $http->hasPostVariable( 'ezcomments_comment_edit_notified' ) )
     {
-        if( $http->variable( 'ezcomments_comment_edit_notified' ) == 'on' )
+        if( $http->postVariable( 'ezcomments_comment_edit_notified' ) == 'on' )
         {
             $notified = true;
         }
@@ -108,14 +125,14 @@ if( $Module->isCurrentAction( 'UpdateComment' ) )
     }
     else
     {  
-        $redirectionURI = $http->variable('ezcomments_comment_redirect_uri');
+        $redirectionURI = $http->postVariable('ezcomments_comment_redirect_uri');
         $Module->redirectTo( $redirectionURI ); 
     }
     return showComment( $comment, $tpl );
 }
 else if( $Module->isCurrentAction('Cancel') )
 {
-     $redirectionURI = $http->variable('ezcomments_comment_redirect_uri');
+     $redirectionURI = $http->postVariable('ezcomments_comment_redirect_uri');
      $Module->redirectTo( $redirectionURI ); 
 }
 else

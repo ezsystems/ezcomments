@@ -42,4 +42,6 @@ Thinking
 2010-01-21
 1.put cache-block into comment list, add form.
 2.install sql script when enabling the extension
-3.
+3.structurize the view.php edit.php,etc to make it more readable
+4.question: should I check permission and content status in add.php ?
+5.delete permission checking in delete.php and delete.tpl

@@ -113,10 +113,10 @@
 }
 
 .ezcomments-comment-view-no-permission p{
+    padding:4px;
     background-color:#ffffff;
     text-align:center;
     font-style:italic;
-    height:50px
 }
 .ezcomments-comment-view-disabled{
     text-align:center;

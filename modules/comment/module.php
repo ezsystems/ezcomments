@@ -66,7 +66,7 @@ $ViewList['delete'] = array(
        );
        
 $ClassID = array(
-    'name'=> 'Class',
+    'name'=> 'ContentClass',
     'values'=> array(),
     'path' => 'classes/',
     'file' => 'ezcontentclass.php',
@@ -76,7 +76,7 @@ $ClassID = array(
     );
     
 $SectionID = array(
-    'name'=> 'Section',
+    'name'=> 'ContentSection',
     'values'=> array(),
     'path' => 'classes/',
     'file' => 'ezsection.php',
@@ -86,7 +86,7 @@ $SectionID = array(
     );
     
 $Assigned = array(
-    'name'=> 'Owner',
+    'name'=> 'ContentOwner',
     'values'=> array(
         array(
             'Name' => 'Self',
@@ -95,7 +95,7 @@ $Assigned = array(
     );
     
 $Language = array(
-    'name'=> 'Language',
+    'name'=> 'ContentLanguage',
     'values'=> array(),
     'path' => 'classes/',
     'file' => 'ezcontentlanguage.php',
@@ -115,7 +115,7 @@ $Subtree = array(
     );
 
 $Creator = array(
-    'name' => 'Comment creator',
+    'name' => 'CommentCreator',
     'values' => array(
             array(
                 'Name' => 'Self',
@@ -126,32 +126,32 @@ $Creator = array(
 
     
 $FunctionList = array();
-$FunctionList['read'] = array( 'Class' => $ClassID,
-                               'Section' => $SectionID,
-                               'Owner' => $Assigned,
-                               'Language' => $Language,
+$FunctionList['read'] = array( 'ContentClass' => $ClassID,
+                               'ContentSection' => $SectionID,
+                               'ContentOwner' => $Assigned,
+                               'ContentLanguage' => $Language,
                                'Node' => $Node,
                                'Subtree' => $Subtree );
-$FunctionList['add'] = array( 'Class' => $ClassID,
-                               'Section' => $SectionID,
-                               'Owner' => $Assigned,
-                               'Language' => $Language,
+$FunctionList['add'] = array( 'ContentClass' => $ClassID,
+                               'ContentSection' => $SectionID,
+                               'ContentOwner' => $Assigned,
+                               'ContentLanguage' => $Language,
                                'Node' => $Node,
                                'Subtree' => $Subtree );
 
-$FunctionList['edit'] = array( 'Class' => $ClassID,
-                               'Section' => $SectionID,
-                               'Owner' => $Assigned,
-                               'Language' => $Language,
-                               'Creator' => $Creator,
+$FunctionList['edit'] = array( 'ContentClass' => $ClassID,
+                               'ContentSection' => $SectionID,
+                               'ContentOwner' => $Assigned,
+                               'ContentLanguage' => $Language,
+                               'CommentCreator' => $Creator,
                                'Node' => $Node,
                                'Subtree' => $Subtree);
 
-$FunctionList['delete'] = array( 'Class' => $ClassID,
-                               'Section' => $SectionID,
-                               'Owner' => $Assigned,
-                               'Language' => $Language,
-                               'Creator' => $Creator,
+$FunctionList['delete'] = array( 'ContentClass' => $ClassID,
+                               'ContentSection' => $SectionID,
+                               'ContentOwner' => $Assigned,
+                               'ContentLanguage' => $Language,
+                               'CommentCreator' => $Creator,
                                'Node' => $Node,
                                'Subtree' => $Subtree );
 $FunctionList['settings'] = array();
