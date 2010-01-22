@@ -67,7 +67,7 @@
             </tr>
         </table>
 </div>
-{include name="view_page_ui" uri="design:comment/view_add_comment_extension.tpl"}
+{include name="view_page_ui" uri="design:comment/ajax/view_add_comment_extension.tpl"}
 
 <script type="text/javascript">
 

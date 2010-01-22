@@ -26,7 +26,7 @@
                          comment=$comments.$index
                          index=$index
                          base_index=0
-                         uri="design:comment/view_standard_comment_item.tpl"}
+                         uri="design:comment/view/comment_item.tpl"}
             {/for}
             <div class="ezcomments-comment-view-all">
               {if $total_count|gt( count( $comments ) )}

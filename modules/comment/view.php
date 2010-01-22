@@ -106,7 +106,7 @@ if( $mode == 'ajax' )
     $tpl->setVariable( 'shown', $objectAttribute->attribute( 'data_float' ) );
     
     $Result = array();
-    $Result['content'] = $tpl->fetch( 'design:comment/view.tpl' );
+    $Result['content'] = $tpl->fetch( 'design:comment/ajax/view.tpl' );
     $Result['path'] = array( array( 'url' => false,
                                     'text' => ezi18n( 'extension/ezcomments/view', 'View comment' ) ) );
     return $Result;
@@ -166,7 +166,7 @@ else if( $mode == 'standard' )
      $tpl->setVariable( 'current_page', $Page );
      $tpl->setVariable( 'number_per_page', $defaultNumPerPage );
      
-     $Result['content'] = $tpl->fetch( 'design:comment/view_standard.tpl' );
+     $Result['content'] = $tpl->fetch( 'design:comment/view/view.tpl' );
      $Result['path'] = array( array( 'url' => false,
                                     'text' => ezi18n( 'extension/ezcomments/view', 'View comment' ) ) );
      return $Result;
