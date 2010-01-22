@@ -6,9 +6,6 @@ Dear {$subscriber.email}
 <p>
 There are updates from <a href={$contentobject.main_node.url_alias}>{$contentobject.name}. </a>
 </p>
-<p>
-{count( $comment_list )} comments have been posted.<br>
-<br />
 <br />
 <p>
 For reply the content, please visit 
