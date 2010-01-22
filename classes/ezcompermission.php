@@ -66,7 +66,7 @@ class ezcomPermission
                     // deal with limitation checking
                     $resultItem = $this->checkPermission( $user, $limitationKey, $limitation,
                                                      $contentObject, $languageCode, $comment );
-                    ezDebug::writeNotice( 'Permission checking result: key: ' . $limitationKey .
+                    ezDebug::writeNotice( 'Permission checking result in ' . $functionName . ': key: ' . $limitationKey .
                                              ', result: ' . $resultItem, 'ezcomPermission' );
                     $checkingResult = $checkingResult & $resultItem;
                 }
@@ -113,17 +113,21 @@ class ezcomPermission
             case self::$languageKey:
                 return in_array( $languageCode, $limitation );
             case self::$nodeKey:
+                //TODO: check permission of node
                 return true;
             case self::$subtreeKey:
                 return true;
+                //TODO: check permission of subtree
             case self::$commentCreatorKey:
-                if( $user->isAnonymous )
+                if( $user->isAnonymous() )
                 {
                     return false;
                 }
                 else
                 {
-                    return $user == $comment->attribute( 'user_id' );
+                    $userID = $user->attribute( 'contentobject_id' );
+                    $commentUserID = $comment->attribute( 'user_id' );
+                    return  $userID == $commentUserID ;
                 }
             default:
                 return false;
@@ -134,7 +138,7 @@ class ezcomPermission
     {
         $user = eZUser::currentUser();
         $permission = ezcomPermission::instance();
-        $result = $permission->hasFunctionAccess( $user, $functionName, $contentObject, $languageCode, $comment = null );
+        $result = $permission->hasFunctionAccess( $user, $functionName, $contentObject, $languageCode, $comment );
         return array( 'result' => $result );
     }
     

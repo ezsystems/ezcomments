@@ -56,7 +56,7 @@ $contentObject = $comment->contentObject();
 $languageID = $comment->attribute( 'language_id' );
 $languageCode = eZContentLanguage::fetch( $languageID )->attribute( 'locale' );
 $canEdit = false;
-$canEditResult = ezcomPermission::hasAccessToFunction( 'edit', $contentObject, $languageCode );
+$canEditResult = ezcomPermission::hasAccessToFunction( 'edit', $contentObject, $languageCode, $comment );
 $canEdit = $canEditResult['result'];
 
 $tpl->setVariable( 'can_edit', $canEdit );
@@ -71,15 +71,15 @@ if( !$canEdit )
 if( $Module->isCurrentAction( 'UpdateComment' ) )
 {
     //1. get the form values
-    $title = $http->postVariable( 'ezcomments_comment_edit_title' );
-    $name = $http->postVariable( 'ezcomments_comment_edit_name' );
-    $website = $http->postVariable( 'ezcomments_comment_edit_website' );
-    $email = $http->postVariable( 'ezcomments_comment_edit_email' );
-    $content = $http->postVariable( 'ezcomments_comment_edit_content' );
+    $title = $http->postVariable( 'CommentTitle' );
+    $name = $http->postVariable( 'CommentName' );
+    $website = $http->postVariable( 'CommentWebsite' );
+    $email = $http->postVariable( 'CommentEmail' );
+    $content = $http->postVariable( 'CommentContent' );
     $notified = false;
-    if( $http->hasPostVariable( 'ezcomments_comment_edit_notified' ) )
+    if( $http->hasPostVariable( 'CommentNotified' ) )
     {
-        if( $http->postVariable( 'ezcomments_comment_edit_notified' ) == 'on' )
+        if( $http->postVariable( 'CommentNotified' ) == 'on' )
         {
             $notified = true;
         }
@@ -94,7 +94,8 @@ if( $Module->isCurrentAction( 'UpdateComment' ) )
     $clientComment->setAttribute( 'email', $comment->attribute( 'email' ) );
     $clientComment->setAttribute( 'text', $content );
     $clientComment->setAttribute( 'notification', $notified );
-    $validateResult = ezcomComment::validateInput( $clientComment );
+    $commentManger = ezcomCommentManager::instance();
+    $validateResult = $commentManger->validateInput( $clientComment );
     if( $validateResult !== true )
     {
         $tpl->setVariable( 'message', $validateResult );

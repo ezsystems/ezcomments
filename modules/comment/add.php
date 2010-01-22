@@ -33,7 +33,7 @@ $http = eZHTTPTool::instance();
 
 if( $http->hasPostVariable( 'RedirectURI' ) )
 {
-$redirectURI = $http->postVariable( 'RedirectURI' );
+    $redirectURI = $http->postVariable( 'RedirectURI' );
 }
 else
 {
@@ -117,17 +117,18 @@ $tpl = templateInit();
  }
  
  $comment = ezcomComment::create();
- $title = $http->postVariable( 'ezcomments_comment_view_addcomment_title' );
+ $title = $http->postVariable( 'CommentTitle' );
  $comment->setAttribute( 'title', $title );
- $name = $http->postVariable( 'ezcomments_comment_view_addcomment_name' );
+ $name = $http->postVariable( 'CommentName' );
  $comment->setAttribute( 'name', $name );
- $website = $http->postVariable( 'ezcomments_comment_view_addcomment_website' );
+ $website = $http->postVariable( 'CommentWebsite' );
  $comment->setAttribute( 'url', $website );
- $email = $http->postVariable( 'ezcomments_comment_view_addcomment_email' );
+ $email = $http->postVariable( 'CommentEmail' );
  $comment->setAttribute( 'email', $email );
- $content = $http->postVariable( 'ezcomments_comment_view_addcomment_content' );
+ $content = $http->postVariable( 'CommentContent' );
  $comment->setAttribute( 'text', $content );
- if( $http->postVariable( 'ezcomments_comment_view_addcomment_notified' ) == 'on')
+ if( $http->hasPostVariable( 'CommentNotified' ) &&
+         $http->postVariable( 'CommentNotified' ) == 'on')
  {
      $comment->setAttribute( 'notification', true );
  }
@@ -138,6 +139,7 @@ $tpl = templateInit();
  $comment->setAttribute( 'contentobject_id', $contentObjectID );
  $comment->setAttribute( 'language_id', $languageID );
  $currentTime = time();
+ $comment->setAttribute( 'user_id', $user->attribute( 'contentobject_id' ) );
  $comment->setAttribute( 'created', $currentTime);
  $comment->setAttribute( 'modified', $currentTime);
  $commentManager = ezcomCommentManager::instance();
@@ -149,8 +151,8 @@ $tpl = templateInit();
      if( $user->isAnonymous() )
      {
          $cookieManager = ezcomCookieManager::instance();
-         if( $http->hasPostVariable( 'ezcomments_comment_view_addcomment_rememberme') &&
-                 $http->postVariable( 'ezcomments_comment_view_addcomment_rememberme' ) == 'on' )
+         if( $http->hasPostVariable( 'CommentRememberme') &&
+                 $http->postVariable( 'CommentRememberme' ) == 'on' )
          {
              $cookieManager->storeCookie( $comment );
          }

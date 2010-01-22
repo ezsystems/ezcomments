@@ -21,4 +21,3 @@ Subscrioption activation
 By default it needs activation in subscription process. To disable this feature, 
 in settings/ezcomments.ini
 SubscriptionActivated=true
-

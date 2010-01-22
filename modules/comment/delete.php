@@ -33,17 +33,17 @@ if( $Module->isCurrentAction( 'DeleteComment' ) )
 {
     $http = eZHTTPTool::instance();
     $commentID = null;
-    if( $http->hasVariable( 'ezcomments_comment_delete_commentid' ) )
+    if( $http->hasPostVariable( 'CommentID' ) )
     {
-        $commentID = $http->variable( 'ezcomments_comment_delete_commentid' );
+        $commentID = $http->postVariable( 'CommentID' );
     }
     $deleteResult = ezcomComment::deleteCommentWithSubscription( $commentID );
     if( $deleteResult === true )
     {
         $redirectURI = null;
-        if ( $http->hasVariable( "ezcomments_comment_delete_redirecturi" ) )
+        if ( $http->hasPostVariable( "RedirectURI" ) )
         {
-         $redirectURI = $http->variable( 'ezcomments_comment_delete_redirecturi' );
+            $redirectURI = $http->postVariable( 'RedirectURI' );
         }
         //todo: deal with the case that there is no last Access URI
         $Module->redirectTo( $redirectURI );
@@ -58,9 +58,9 @@ else if( $Module->isCurrentAction( 'Cancel' ) )
 {
      $http = eZHTTPTool::instance();
      $redirectURI = null;
-     if ( $http->hasVariable( "ezcomments_comment_delete_redirecturi" ) )
+     if ( $http->hasPostVariable( "RedirectURI" ) )
      {
-         $redirectURI = $http->variable( 'ezcomments_comment_delete_redirecturi' );
+         $redirectURI = $http->postVariable( 'RedirectURI' );
      }
      //todo: deal with the case that there is no last Access URI
      $Module->redirectTo( $redirectURI ); 

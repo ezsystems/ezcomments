@@ -1,7 +1,7 @@
 {ezcss_require( 'delete.css' )}
-<form action="{'/comment/delete'|ezurl}" method="post">
-    <input type="hidden" name="ezcomments_comment_delete_commentid" value="{$comment_id}" />
-    <input type="hidden" name="ezcomments_comment_delete_redirecturi" value={$redirect_uri} />
+<form action="{'/comment/delete'|ezurl}" method="post" name="CommentDelete">
+    <input type="hidden" name="CommentID" value="{$comment_id}" />
+    <input type="hidden" name="RedirectURI" value={$redirect_uri} />
     {if is_set($error_message)}
         <div>{$error_message}</div>
     {/if}
