@@ -1,1 +1,1 @@
-ezcomments need ezjscore extension
+ - ezcomments needs ezjscore extension if the ajax mode is used.

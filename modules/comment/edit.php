@@ -126,6 +126,8 @@ if( $Module->isCurrentAction( 'UpdateComment' ) )
     }
     else
     {  
+        //clean up cache
+        eZContentCacheManager::clearContentCache( $contentObject->attribute( 'id' ) );
         $redirectionURI = $http->postVariable('ezcomments_comment_redirect_uri');
         $Module->redirectTo( $redirectionURI ); 
     }

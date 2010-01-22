@@ -46,3 +46,15 @@ Thinking
 4.question: should I check permission and content status in add.php ?
 5.delete permission checking in delete.php and delete.tpl
 6.issue: if the user can only view one language(A)'s comment, when viewing the comments in A, if the user click another language(B), then click the content, the user can't see.
+
+2010-01-22
+1. create interfaces to support further extension.
+possible extensions:
+   - add fields
+   - delete/hide fields
+   - add limitations
+   - 
+
+2. when adding/edit/deleting the comment, check if the commenting is enabled and comments are visible
+
+3. clean up WebsiteURLBase in ezcomments.ini

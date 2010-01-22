@@ -39,7 +39,7 @@ if( $Module->isCurrentAction( 'DeleteComment' ) )
     }
     $deleteResult = ezcomComment::deleteCommentWithSubscription( $commentID );
     if( $deleteResult === true )
-    {
+    {        
         $redirectURI = null;
         if ( $http->hasPostVariable( "RedirectURI" ) )
         {

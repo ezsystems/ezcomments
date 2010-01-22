@@ -294,7 +294,7 @@ class ezcomComment extends eZPersistentObject
      */
     static function updateComment( $commentInput, $commentParam, $user, $time = null )
     {
-        // todo: remove the notified field in comment, instead, use subscription 
+        // TODO: remove the notified field in comment, instead, use subscription 
         //1. get the comment, update it
         if( is_null( $commentInput ) || is_null( $commentParam ) || is_null( $user ) )
         {
@@ -430,6 +430,9 @@ class ezcomComment extends eZPersistentObject
             }
         }
         //3. todo: clean up the queue
+        
+        //clean up cache
+        eZContentCacheManager::clearContentCache( $comment->attribute( 'contentobject_id' ) );
         return true;
     }
    
