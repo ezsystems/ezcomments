@@ -19,34 +19,37 @@
         
         {* Comment item START *}
         {if $comments|count|gt( 0 )}
-            {for 0 to $comments|count|sub( 1 ) as $index}
-                    {include name="CommentItem"
-                         contentobject=$contentobject
-                         language_code=$language_code
-                         comment=$comments.$index
-                         index=$index
-                         base_index=0
-                         uri="design:comment/view/comment_item.tpl"}
-            {/for}
-            <div class="ezcomments-comment-view-all">
-              {if $total_count|gt( count( $comments ) )}
-                  <a href={concat( '/comment/view/standard/', $contentobject.id, '/', $language_id )|ezurl}>
-                    {concat( 'View all %total_count comments' )|i18n( 'extension/ezcomments/view', , hash( '%total_count', $total_count ) )}
-                  </a>
-              {else}
-                {'Total %total_count comments'|i18n( 'extension/ezcomments/view', , hash( '%total_count', $total_count ) )}
-              {/if}
+            <div class="ezcom-view-list">
+                {for 0 to $comments|count|sub( 1 ) as $index}
+                        {include name="CommentItem"
+                             contentobject=$contentobject
+                             language_code=$language_code
+                             comment=$comments.$index
+                             index=$index
+                             base_index=0
+                             uri="design:comment/view/comment_item.tpl"}
+                {/for}
+                <div class="ezcom-view-all">
+                  <p>
+                      {if $total_count|gt( count( $comments ) )}
+                          <a href={concat( '/comment/view/standard/', $contentobject.id, '/', $language_id )|ezurl}>
+                            {concat( 'View all %total_count comments' )|i18n( 'extension/ezcomments/view', , hash( '%total_count', $total_count ) )}
+                          </a>
+                      {else}
+                        {'Total %total_count comments'|i18n( 'extension/ezcomments/view', , hash( '%total_count', $total_count ) )}
+                      {/if}
+                  </p>
+                </div>
             </div>
-            <br />
         {/if}
         {* Comment item END *}
         
         {undef $comments $total_count $default_shown_length $sort_order $sort_field}
     {else}
-        <div class="ezcomments-comment-view-no-permission">
-                <p>
+        <div class="message-error">
+            <p>
                     {'You don\'t have access to view comment here!'|i18n( 'extension/ezcomments/view' )}
-                </p>
+            </p>
         </div>
     {/if}
     {undef $can_read}
@@ -60,7 +63,7 @@
         {if $can_add}
             {include name="AddComment" uri="design:comment/add_comment.tpl" redirect_uri=$contentobject.main_node.url_alias contentobject_id=$contentobject.id language_id=$language_id}
         {else}
-            <div class="ezcomments-comment-view-no-permission">
+            <div class="message-error">
                     <p>
                         {'You don\'t have access to post comment here!'|i18n( 'extension/ezcomments/view' )}
                     </p>

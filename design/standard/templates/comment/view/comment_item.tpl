@@ -1,12 +1,20 @@
-<div class="ezcomments-comment-view-comment" id="ezcomments_comment_view_commentitem">
-            <div class="ezcomments-comment-view-commenttitle">
-                <span>#{$base_index|sum($index)|sum(1)}</span>
-                <span>{$comment.title|wash}</span>
+<div class="ezcom-view-comment" id="ezcomments_comment_view_commentitem">
+            <div class="ezcom-comment-index">
+                <span><a name="{concat( 'c', $index|sum(1) )}"></a>
+                #{$base_index|sum($index)|sum(1)}
+                </span>
             </div>
-            <div class="ezcomments-comment-view-commentbody">
-                {$comment.text|wash|nl2br}
+            <div class="ezcom-comment-title">
+                <span>
+                    {$comment.title|wash}
+                </span>
             </div>
-            <div class="ezcomments-comment-view-commentbottom">
+            <div class="ezcom-comment-body">
+                <p>
+                  {$comment.text|wash|nl2br}
+                </p>
+            </div>
+            <div class="ezcom-comment-author">
                 <span>
                     {if $comment.url|eq( '' )}
                         {$comment.name|wash}
@@ -30,7 +38,7 @@
                                                                        'comment', $comment
                                                                         ) )}
             {if or( $can_edit, $can_delete )}
-                <div class="ezcomments-comment-view-commenttool">
+                <div class="ezcom-comment-tool">
                     {if $can_edit}
                         <span>
                             <a href={concat('/comment/edit/',$comment.id)|ezurl}>
@@ -49,4 +57,3 @@
             {/if}
             {undef $can_edit $can_delete}
 </div>
-<br />

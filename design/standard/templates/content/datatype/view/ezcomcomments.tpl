@@ -1,6 +1,6 @@
 {def $enabled = $attribute.data_int $shown = $attribute.data_float}
 {if $shown|eq(1)}
-    {ezcss_require( 'content_view.css' )}
+    {ezcss_require( 'comment.css' )}
     {def $defaultMode = ezini( 'GlobalSettings', 'DefaultViewMode', 'ezcomments.ini' )}
     {if $defaultMode|eq('ajax')}
         {if has_access_to_limitation( 'ezjscore', 'call', hash( 'FunctionList', 'ezcomments_enabled' ) )}

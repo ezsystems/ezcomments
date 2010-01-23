@@ -51,10 +51,18 @@ Thinking
 1. create interfaces to support further extension.
 possible extensions:
    - add fields
+        - the adding should can  be extendable in
+            - view fetch, view template
+            - adding(before adding), validating
+            - update fetch, update template, update(before updating)
    - delete/hide fields
    - add limitations
    - 
 
 2. when adding/edit/deleting the comment, check if the commenting is enabled and comments are visible
-
 3. clean up WebsiteURLBase in ezcomments.ini
+4. the email doesn't have 'to' 
+5. support '+' in ajax mode (This is json's problem, which replace + with space)
+
+2010-01-23
+1.in edit view post variable

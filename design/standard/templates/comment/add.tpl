@@ -1,8 +1,12 @@
-{ezcss_require( 'view.css' )}
-<div class="ezcomments-comment-view-addcomment-message">
+{ezcss_require( 'comment.css' )}
+<div class="ezcom-add-result">
   {if is_set($error_message)}
-    {$error_message}
-    <input type="button" onclick="history.back();" class="button" value="{'Back'|i18n( 'view/action' )}" />
+    <div class="message-error">
+        <p>
+            {$error_message}
+        </p>
+        <input type="button" onclick="history.back();" class="button" value="{'Back'|i18n( 'view/action' )}" />
+    </div>
   {/if}
   {if $success|eq( 1 )}
     {'Posting succeeds!'|i18n( 'extension/ezcomments/add' )}

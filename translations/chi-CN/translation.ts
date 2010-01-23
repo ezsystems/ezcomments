@@ -110,7 +110,7 @@
     <name>extension/ezcomments/commentform</name>
     <message>
         <source>Email:</source>
-        <translation>邮箱</translation>
+        <translation>邮箱:</translation>
     </message>
 </context>
 <context>
@@ -123,7 +123,7 @@
 <context>
     <name>extension/ezcomments/commentform</name>
     <message>
-        <source>Notified:</source>
+        <source>Notified</source>
         <translation>接收通知</translation>
     </message>
 </context>
