@@ -64,7 +64,7 @@
                         <input type="checkbox"
                                id="ezcomments_comment_edit_notified"
                                name="CommentNotified"
-                               {if $comment.notification}checked{/if} />
+                               {if $notified}checked{/if} />
                         {'Notified'|i18n( 'extension/ezcomments/commentform' )}
                     </label>
                 </div>

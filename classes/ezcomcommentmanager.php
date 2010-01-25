@@ -41,6 +41,7 @@ abstract class ezcomCommentManager
      */
     public $tpl = null;
     
+    
     protected static $instance;
     
     /**
@@ -130,6 +131,77 @@ abstract class ezcomCommentManager
         return true;
     }
     
+    /**
+     * Update the comment
+     * @param $comment comment to be updated
+     * @param $notified change the notification
+     * @param $time  
+     * @param $user user to change
+     * @return 
+     */
+    public function updateComment( $comment, $user=null, $time = null , $notified = null )
+    {
+        $validationResult = $this->validateInput( $comment );
+        if( $validationResult !== true )
+        {
+            return $validationResult;
+        }
+        $currentTime = null;
+        if( is_null( $time ) )
+        {
+            $currentTime = time();
+        }
+        else
+        {
+            $currentTime = $time;
+        }
+        $comment->store();
+        
+        if( is_null( $user ) )
+        {
+            $user = eZUser::fetch( $comment->attribute( 'user_id' ) );
+        }
+        
+         //2. update subscription
+        // if notified is true, add subscription, else cleanup the subscription on the user and content
+        $contentID = $comment->attribute( 'contentobject_id' ) . '_' . $comment->attribute( 'language_id' );
+        $subscriptionType = 'ezcomcomment';
+        if( !is_null( $notified ) )
+        {
+            if( $notified === true )
+            {
+                $subscriptionManager = ezcomSubscriptionManager::instance();
+                $subscriptionManager->addSubscription( $comment->attribute( 'email' ), $user, $contentID,
+                             $subscriptionType, $time );
+            }
+            else
+            {
+                $subscriber = ezcomSubscriber::fetchByEmail( $comment->attribute( 'email' ) );
+                $cond = array();
+                $cond['subscriber_id'] = $subscriber->attribute( 'id' );
+                $cond['content_id'] = $contentID;
+                $cond['subscription_type'] = 'ezcomcomment';
+                $subscription = ezcomSubscription::fetchByCond( $cond );
+                $subscription->remove();
+            }
+        }
+        //3. update queue. If there is subscription, add one record into queue table
+        // if there is subcription on this content, add one item into queue
+        if( ezcomSubscription::exists( $contentID, $subscriptionType ) )
+        {
+            $notification = ezcomNotification::create();
+            $notification->setAttribute( 'contentobject_id', $comment->attribute( 'contentobject_id' ) );
+            $notification->setAttribute( 'language_id', $comment->attribute( 'language_id' ) );
+            $notification->setAttribute( 'comment_id', $comment->attribute( 'id' ) );
+            $notification->store();
+            eZDebug::writeNotice( 'There is subscription, added a update notification into queue.', 'ezcomments' );
+        }
+        else
+        {
+            // todo: if there is no subscription on this content, consider to clean up the queue
+        }
+        return true;
+    }
     
     /**
      * create an instance of ezcomCommentManager

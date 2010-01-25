@@ -72,3 +72,9 @@ possible extensions:
    2) design and show
    3) update
 4. Consider the sql injection
+
+2010-01-25
+1. setting, how to implement paging in a best way. now using 'limit', which can only be used in mysql
+2. language problem, it only show the content of current language site
+3. update as a notification type
+

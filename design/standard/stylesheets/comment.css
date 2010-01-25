@@ -91,7 +91,7 @@ div.ezcom-full{
 }
 
 div.ezcom-full div.ezcom-view-comment{
-    border:1px solid #cccccc;
+    border:1px solid #D4D4D4;
     margin-bottom:20px;
 }
 
@@ -205,9 +205,13 @@ div.ezcom-setting-row{
     border-bottom:1px solid #cccccc;
 }
 
-
 div.ezcom-setting{
     background-color:#ffffff
+}
+
+div.ezcom-setting-mail{
+    font-size:1.25em;
+    padding:1px
 }
 
 /*-----SETTING------*/

@@ -1,5 +1,12 @@
 {ezcss_require( 'comment.css' )}
 <div id="ezcom_setting" class="ezcom-setting">
+    {if $subscriber.hash_string}
+        <div class="ezcom-setting-mail">
+            <p>
+                {$subscriber.email}
+            </p>
+        </div>
+    {/if}
     {def $number_perpage = ezini( 'NotificationSettings', 'NumberPerPage', 'ezcomments.ini' )}
     {if $number_perpage|eq( '-1' )|not}
         {def $total_page = $total_count|div( $number_perpage )|ceil}

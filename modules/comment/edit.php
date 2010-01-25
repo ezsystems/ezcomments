@@ -58,8 +58,12 @@ $languageCode = eZContentLanguage::fetch( $languageID )->attribute( 'locale' );
 $canEdit = false;
 $canEditResult = ezcomPermission::hasAccessToFunction( 'edit', $contentObject, $languageCode, $comment );
 $canEdit = $canEditResult['result'];
-
 $tpl->setVariable( 'can_edit', $canEdit );
+
+$contentID = $comment->attribute( 'contentobject_id' ) . '_' . $languageID;
+$notified = ezcomSubscription::exists( $contentID, 'ezcomcomment', $comment->attribute( 'email' ) );
+$tpl->setVariable( 'notified', $notified );
+
 if( !$canEdit )
 {
     $Result['path'] = array( array( 'url' => false,
@@ -76,53 +80,36 @@ if( $Module->isCurrentAction( 'UpdateComment' ) )
     $website = $http->postVariable( 'CommentWebsite' );
     $email = $http->postVariable( 'CommentEmail' );
     $content = $http->postVariable( 'CommentContent' );
-    $notified = false;
+    $clientNotified = false;
     if( $http->hasPostVariable( 'CommentNotified' ) )
     {
         if( $http->postVariable( 'CommentNotified' ) == 'on' )
         {
-            $notified = true;
+            $clientNotified = true;
         }
     }
-    //2. validate input
-    $clientComment = ezcomComment::create();
-    $clientComment->setAttribute( 'contentobject_id', $comment->attribute( 'contentobject_id' ) );
-    $clientComment->setAttribute( 'language_id', $comment->attribute( 'language_id' ) );
-    $clientComment->setAttribute( 'title', $title );
-    $clientComment->setAttribute( 'name', $comment->attribute( 'name' ) );
-    $clientComment->setAttribute( 'url', $website );
-    $clientComment->setAttribute( 'email', $comment->attribute( 'email' ) );
-    $clientComment->setAttribute( 'text', $content );
-    $clientComment->setAttribute( 'notification', $notified );
-    $commentManger = ezcomCommentManager::instance();
-    $validateResult = $commentManger->validateInput( $clientComment );
-    if( $validateResult !== true )
+    
+    $comment->setAttribute( 'title', $title );
+    $comment->setAttribute( 'url', $website );
+    $comment->setAttribute( 'text', $content );
+    $comment->setAttribute( 'notification', $notified );
+    $time = time();
+    $comment->setAttribute( 'modified', $time );
+    $commentManager = ezcomCommentManager::instance();
+    
+    $existSusbcription = ezcomSubscription::exists( $contentID, 'ezcomcomment', $comment->attribute( 'email' ) );
+    $updateResult = null;
+    if( $clientNotified == $notified )
     {
-        $tpl->setVariable( 'message', $validateResult );
-        return showComment( $comment, $tpl );
+        $updateResult = $commentManager->updateComment( $comment, null, $time ); 
     }
-    //3. compare the value with database and update comment
-    $commentUpdated = array();
-    if( $title != $comment->attribute( 'title' ) )
+    else
     {
-        $commentUpdated['title'] = $title;
+        $updateResult = $commentManager->updateComment( $comment, null, $time, $clientNotified );
     }
-    if( $website != $comment->attribute( 'url' ) )
+    if( $updateResult !== true )
     {
-        $commentUpdated['url'] = $website;
-    }
-    if( $content != $comment->attribute( 'text' ) )
-    {
-        $commentUpdated['text'] = $content;
-    }
-    if( $notified != $comment->attribute( 'notification' ) )
-    {
-        $commentUpdated['notified'] = $notified;
-    }
-    $updateResult = ezcomComment::updateComment( $commentUpdated, $comment, $user, time() );
-    if( !$updateResult )
-    {
-        $tpl->setVariable( 'message', ezi18n( 'extension/ezcomments/edit', 'Updating failed!') );
+        $tpl->setVariable( 'message', ezi18n( 'extension/ezcomments/edit', 'Updating failed!') . $updateResult );
     }
     else
     {  
