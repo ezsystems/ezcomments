@@ -77,4 +77,5 @@ possible extensions:
 1. setting, how to implement paging in a best way. now using 'limit', which can only be used in mysql
 2. language problem, it only show the content of current language site
 3. update as a notification type
-
+meetting
+1. header licenes

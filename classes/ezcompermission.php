@@ -35,12 +35,7 @@
 class ezcomPermission
 {
     protected static $moduleName = 'comment';
-    protected static $classKey = 'ContentClass';
     protected static $sectionKey = 'ContentSection';
-    protected static $ownerKey = 'ContentOwner';
-    protected static $languageKey = 'ContentLanguage';
-    protected static $nodeKey = 'Node';
-    protected static $subtreeKey = 'Subtree';
     protected static $commentCreatorKey = 'CommentCreator';
     protected static $instance = null;
 
@@ -90,34 +85,10 @@ class ezcomPermission
     {
         switch( $limitationKey )
         {
-            case self::$classKey:
-                //check class
-                 $contentClassID = $contentObject->attribute( 'contentclass_id' );
-                 return in_array( $contentClassID, $limitation );
             case self::$sectionKey:
                 //check section
                 $contentSectionID = $contentObject->attribute( 'section_id' ); 
                 return in_array( $contentSectionID, $limitation );
-            case self::$ownerKey:
-                //check owner
-                $result = false;
-                $ownerID = $contentObject->attribute( 'owner_id' );
-                if( in_array( '1', $limitation ) )
-                {
-                    if( $user->attribute( 'contentobject_id' ) == $ownerID )
-                    {
-                        $result = true;
-                    }
-                }
-                return $result;
-            case self::$languageKey:
-                return in_array( $languageCode, $limitation );
-            case self::$nodeKey:
-                //TODO: check permission of node
-                return true;
-            case self::$subtreeKey:
-                return true;
-                //TODO: check permission of subtree
             case self::$commentCreatorKey:
                 if( $user->isAnonymous() )
                 {
