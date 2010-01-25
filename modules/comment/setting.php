@@ -34,19 +34,42 @@ $ini = eZINI::instance( 'ezcomments.ini' );
 $hashStringLength = $ini->variable( 'NotificationSettings' ,'SubscriberHashStringLength' );
 $hashString = null;
 $page = 1;
-if( is_null( $Params['Page'] ) && !is_null( $Params['HashString'] ) )
+
+if( $user->isAnonymous() )
 {
-    if( strlen( $Params['HashString'] ) == $hashStringLength )
+    $hashString = $Params[ 'HashString' ];
+    if( !is_null( $Params['Page'] ) )
     {
-        $hashString = $Params['HashString'];
+        $page = $Params['Page'];
     }
-    else
+}
+else
+{
+    if( !is_null( $Params['Page'] ) )
     {
-        $page = $Params['HashString'];
+        $page = $Params['Page'];
     }
 }
 $tpl->setVariable( 'current_page', $page );
 
+//TODO: validate hashstring and page
+$subscriber = null;
+if( !$user->isAnonymous() )
+{
+    $email = $user->attribute( 'email' );
+    $subscriber = ezcomSubscriber::fetchByEmail( $email );
+}
+else
+{
+    $subscriber = ezcomSubscriber::fetchByHashString( $hashString );
+}
+if( is_null( $subscriber ) )
+{
+    return;
+}
+$tpl->setVariable( 'subscriber',  $subscriber );
+
+$email = $subscriber->attribute( 'email' );
 $module = $Params['Module'];
 if( $module->isCurrentAction( 'Save' ) )
 {
@@ -93,10 +116,10 @@ if( $module->isCurrentAction( 'Save' ) )
                 }
             }
         }
+        $tpl->setVariable( 'update_success', 1 );
     }
 }
 //1.fetch Contents
-$email = $user->attribute( 'email' );
 $contentObjectIDList = ezcomComment::fetchContentObjectByEmail( $email, false, null, null, null);
 $contentObjectList = array();
 if( is_array( $contentObjectIDList ) )
@@ -113,14 +136,10 @@ if( is_array( $contentObjectIDList ) )
     }
 }
 
-$subscriber = ezcomSubscriber::fetchByEmail( $email );
-
 $totalCount = ezcomComment::countContentObjectByEmail( $email );
-
 
 $tpl->setVariable( 'contentobject_list',  $contentObjectList );
 $tpl->setVariable( 'total_count',  $totalCount );
-$tpl->setVariable( 'subscriber',  $subscriber );
 
 $Result['content'] = $tpl->fetch( 'design:comment/setting.tpl' );
 $Result['path'] = array( array( 'url' => false,
