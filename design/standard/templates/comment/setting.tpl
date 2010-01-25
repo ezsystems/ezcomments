@@ -37,7 +37,7 @@
         <div class="ezcom-setting-head">
             <div class="ezcom-setting-select">
                 <span>
-                    <label><input type="checkbox" /></label>
+                    {'Select'|i18n( 'extension/comment/setting' )}
                 </span>
             </div>
             <div class="ezcom-setting-content">

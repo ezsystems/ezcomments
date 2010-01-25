@@ -17,8 +17,8 @@ For reply the content, please visit
 </a>
 <br />
 For setting your subscription, please visit 
-<a href="{concat( $base_url, '/comment/settings/', $subscriber.hash_string )}">
-    {concat( $base_url, '/comment/settings/', $subscriber.hash_string )}
+<a href="{concat( $base_url, '/comment/setting/', $subscriber.hash_string )}">
+    {concat( $base_url, '/comment/setting/', $subscriber.hash_string )}
 </a>
 </p>
 <pre>

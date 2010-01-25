@@ -42,17 +42,27 @@ if( $user->isAnonymous() )
     {
         $page = $Params['Page'];
     }
+    if( is_null( $hashString ) || strlen( $hashString ) != $hashStringLength )
+    {
+        return;
+    }
 }
 else
 {
-    if( !is_null( $Params['Page'] ) )
+    if( !is_null( $Params['HashString'] ) )
     {
-        $page = $Params['Page'];
+        $page = $Params['HashString'];
     }
 }
 $tpl->setVariable( 'current_page', $page );
+//TODO: validate page
+if( !is_numeric( $page ) )
+{
+    eZDebug::writeError( 'Page is not numeric!', 'Setting' );
+    return;
+}
+//TODO: support paging
 
-//TODO: validate hashstring and page
 $subscriber = null;
 if( !$user->isAnonymous() )
 {
