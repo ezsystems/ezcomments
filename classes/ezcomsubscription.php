@@ -116,6 +116,11 @@ class ezcomSubscription extends eZPersistentObject
         return $return;
     }
     
+    static function fetchByCond( $cond )
+    {
+        return eZPersistentObject::fetchObject( self::definition(), null, $cond );
+    }
+    
     /**
      * fetch the subscription object by hash_string
      * @return null / ezcomSubscription object
@@ -123,9 +128,10 @@ class ezcomSubscription extends eZPersistentObject
     static function fetchByHashString( $hashString )
     {
         $cond = array( 'hash_string'=>$hashString );
-        $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
+        $return = self::fetchByCond( $cond );
         return $return;
     }
+    
     
     /**
      * get the count of subscription in a subscriber ID
@@ -299,7 +305,6 @@ class ezcomSubscription extends eZPersistentObject
         if( $totalCount === '0' )
         {
             return false;
-            
         }
         else
         {

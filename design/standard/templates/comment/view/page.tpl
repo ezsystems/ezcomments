@@ -1,7 +1,6 @@
 {def $page_prefix=concat( "comment/view/standard/", $contentobject.id, "/", $language_id ,"/")}
 {if $total_count|gt( 0 )}
     <div id="ezcomments_comment_view_page" class="ezcom-page">
-       <p>
          <span>{'Total comments:'|i18n( 'extension/ezcomments/view/page' )}</span>
          <span>{$total_count}</span> <span>, </span>
          <span>{'Pages:'|i18n( 'extension/ezcomments/view/page' )}</span>
@@ -58,8 +57,6 @@
               <a title="{"Next page"|i18n('extension/ezcomments/view/page')}" href={concat( $page_prefix,$current_page|sum( 1 ) )|ezurl}>></a> 
              </span>
          {/if}
-         &nbsp;
-       </p>
      </div>
     {undef $page_prefix}
 {/if}

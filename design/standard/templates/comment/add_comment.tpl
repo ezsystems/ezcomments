@@ -83,7 +83,8 @@
             </div>
          {/if}
         <div class="ezcom-field">
-            <input type="submit" value="{'Post comment'|i18n( 'extension/ezcomments/add' )}" class="button" id="ezcomments_comment_view_addcomment_post" name="PostCommentButton" />
+            <input type="submit" value="{'Post comment'|i18n( 'extension/ezcomments/action' )}" class="button" id="ezcomments_comment_view_addcomment_post" name="PostCommentButton" />
+            <input type="reset" class="button" value="{'Reset form'|i18n( 'extension/ezcomments/action' )}" />
         </div>
 </div>
 </form>

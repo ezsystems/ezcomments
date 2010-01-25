@@ -130,6 +130,7 @@ abstract class ezcomCommentManager
         return true;
     }
     
+    
     /**
      * create an instance of ezcomCommentManager
      * @return ezcomCommentManager

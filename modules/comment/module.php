@@ -33,6 +33,13 @@ $ViewList['settings'] = array(
        'script' => 'settings.php',
        'params' => array( 'HashString' ),
        );
+$ViewList['setting'] = array(
+       'functions' => array( 'setting' ),
+       'single_post_actions' => array( 'SaveButton' => 'Save' ),
+       'script' => 'setting.php',
+       'params' => array( 'HashString', 'Page' ),
+       );
+       
 $ViewList['view'] = array(
        'functions' => array( 'read' ),
        'script' => 'view.php',
@@ -155,5 +162,6 @@ $FunctionList['delete'] = array( 'ContentClass' => $ClassID,
                                'Node' => $Node,
                                'Subtree' => $Subtree );
 $FunctionList['settings'] = array();
+$FunctionList['setting'] = array();
 $FunctionList['activate'] = array();
 ?>

@@ -278,6 +278,87 @@ class ezcomComment extends eZPersistentObject
         return eZPersistentObject::count( self::definition(), $cond );
     }
     
+    /**
+     * fetch the count of contentobject the user commented on 
+     * @param $email user's email
+     * @param $status status of comment
+     * @return count
+     */
+    static function countContentObjectByEmail( $email, $status = false )
+    {
+        $statusString = "";
+        if( $status !== false )
+        {
+            $statusString = " AND status = $status";
+        }
+        $sql = "SELECT COUNT(*) as row_count FROM " .
+               "( SELECT DISTINCT contentobject_id, language_id ".
+               " FROM ezcomment " .
+               " WHERE email='$email'" .
+               "$statusString" . 
+               ") as contentobject";
+        $db = eZDB::instance();
+        $result = $db->arrayQuery( $sql );
+        return $result[0]['row_count']; 
+    }
+    
+    /**
+     * fetch content object from email
+     * 
+     */
+    static function fetchContentObjectByEmail( $email, $status = false, $sorts ,$offset = null, $length = null, $asObject = false )
+    {        
+//        $objectDef = eZContentObject::definition();
+//        //TODO: change the grouping way
+//        //NOTE: there might be a bug in group API: using $grouping insead of Def['grouping'] doesn't work
+//        $objectDef['grouping'] = array( 'id', 'language_id' );
+////        $objectDef['fields']['comment_count'] = 
+//        $commentDef = self::definition();
+//        $fields = array();
+//        $conds = array( $commentDef['name'] . '.email' => $email );
+//        $limit = null;
+//        if( !( is_null ( $offset ) && is_null ( $length ) ) )
+//        {
+//            if( is_null( $offset ) )
+//            {
+//                $offset = 0;
+//            }
+//            $limit = array( 'offset' => $offset, 'length'=>$length );
+//        }
+//        $customFields = array( $objectDef['name'] . '.*',
+//                        array( 'operation' => $commentDef['name'] . '.language_id',
+//                            'name' => 'language_id' ),
+//                        array( 'operation' => 'COUNT( ' . $commentDef['name'] . '.id )',
+//                            'name' => 'comment_count' ) );
+//        $customTables = array( $commentDef['name'] );
+//        $statusString = '';
+//        if( $status !== false )
+//        {
+//            $statusString = ' AND ' . $commentDef['name'] . '.status = ' . $status;
+//        }
+//        
+//        $customConds = ' AND ' . $objectDef['name'] . '.id = ' . $commentDef['name'] . '.contentobject_id' .
+//                       $statusString ;
+//        $result = eZPersistentObject::fetchObjectList( $objectDef, 
+//                                                         $fields,
+//                                                         $conds,
+//                                                         $sorts,
+//                                                         $limit,
+//                                                         $asObject,
+//                                                         false,
+//                                                         $customFields,
+//                                                         $customTables,
+//                                                         $customConds);
+        $db = eZDB::instance();
+        $sql = "SELECT contentobject_id, language_id" . 
+                ", COUNT(id) as comment_count" .
+                " FROM ezcomment " .
+                " WHERE email='$email'" . 
+                " GROUP BY contentobject_id, language_id";
+        $result = $db->arrayQuery( $sql );
+        return $result;
+    }
+    
     
     /**
      * update one comment, and update the relavant subscription, notificaton queue

@@ -79,13 +79,6 @@
     </message>
 </context>
 <context>
-    <name>extension/ezcomments/add</name>
-    <message>
-        <source>Post comment</source>
-        <translation>发表评论</translation>
-    </message>
-</context>
-<context>
     <name>extension/ezcomments/commentform</name>
     <message>
         <source>Title:</source>
@@ -146,6 +139,13 @@
     <message>
         <source>Post comment</source>
         <translation>发表评论</translation>
+    </message>
+</context>
+<context>
+    <name>extension/ezcomments/action</name>
+    <message>
+        <source>Reset form</source>
+        <translation>重置表单</translation>
     </message>
 </context>
 <context>

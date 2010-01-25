@@ -66,3 +66,9 @@ possible extensions:
 
 2010-01-23
 1.in edit view post variable
+2.support locale datetime
+3. Implementation of setting 
+   1) fetch contents
+   2) design and show
+   3) update
+4. Consider the sql injection
