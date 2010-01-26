@@ -120,7 +120,19 @@ foreach( $contentObjectIDList as $contentObjectArray )
             }
             else
             {
-                $notificationManager->sendNotificationInOne( $subscriber, $contentObject );
+                // only send mail to the subscriber that didn't comment.
+                $isAuthor = false;
+                foreach( $commentList as $comment )
+                {
+                    if( $comment->attribute('email') == $subscriber->attribute( 'email' ) )
+                    {
+                        $isAuthor = true;
+                    }
+                }
+                if( !$isAuthor )
+                {
+                    $notificationManager->sendNotificationInOne( $subscriber, $contentObject );
+                }
             }
         }
     }

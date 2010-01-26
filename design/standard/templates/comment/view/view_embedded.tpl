@@ -1,4 +1,4 @@
-{if $contentobject_attribute.data_float}
+{if $contentobject_attribute.content.show_comments}
     {def $contentobject=$contentobject_attribute.object}
     {def $language_id=$contentobject_attribute.language_id}
     {def $language_code=$contentobject_attribute.language_code}
@@ -55,7 +55,7 @@
     {undef $can_read}
     
     {* Adding comment form START *}
-    {if $contentobject_attribute.data_int}
+    {if $contentobject_attribute.content.enable_comment}
         {def $can_add = fetch( 'comment', 'has_access_to_function', hash( 'function', 'add',
                                                                        'contentobject', $contentobject,
                                                                        'language_code', $contentobject_attribute.language_code,

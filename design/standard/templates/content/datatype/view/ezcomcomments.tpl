@@ -1,4 +1,4 @@
-{def $enabled = $attribute.data_int $shown = $attribute.data_float}
+{def $enabled = $attribute.content.enable_comment $shown = $attribute.content.show_comments}
 {if $shown|eq(1)}
     {ezcss_require( 'comment.css' )}
     {def $defaultMode = ezini( 'GlobalSettings', 'DefaultViewMode', 'ezcomments.ini' )}

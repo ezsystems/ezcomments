@@ -109,8 +109,8 @@ if( is_null( $objectAttribute ) )
 $tpl = templateInit();
 
  // if the comment is not shown or enables commenting
- if( ( $objectAttribute->attribute( 'data_float' ) != '1.0' ) ||
-         ( $objectAttribute->attribute( 'data_int' ) != 1 ) )
+ $content = $objectAttribute->attribute('content');
+ if( $content['show_comments'] != 1 || $content['enable_comment'] != 1 )
  {
       eZDebug::writeError( 'Adding comment error, comment not shown or diabled!', 'Add comment' );
       return;
