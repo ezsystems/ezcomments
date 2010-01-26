@@ -101,7 +101,9 @@ class ezcomSubscriptionManager
             $subscriber->setAttribute( 'email', $email );
             if( $user->isAnonymous() )
             {
-                $subscriber->setAttribute( 'hash_string', hash('md5',uniqid()) );
+                $util = ezcomUtility::instance();
+                $hashString = $util->generateSusbcriberHashString( $subscriber );
+                $subscriber->setAttribute( 'hash_string', $hashString );
             }
             $subscriber->store();
             eZDebug::writeNotice( 'Subscriber doesn\'t exist, added one', 'Add comment', 'ezcomComment' );

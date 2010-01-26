@@ -1,5 +1,5 @@
-{def $base_url=ezini( 'NotificationSettings', 'WebsiteURLBase', 'ezcomments.ini' )}
-
+{def $base_url=ezini( 'SiteSettings', 'SiteURL' )}
+{let $base_url=concat( 'http://', $base_url )}
 <p>
 Dear {$subscriber.email} 
 <br />

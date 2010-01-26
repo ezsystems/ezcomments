@@ -31,15 +31,16 @@ $module = $Params['Module'];
 
 $http = eZHTTPTool::instance();
 
-if( $http->hasPostVariable( 'RedirectURI' ) )
+if( $http->hasVariable( 'RedirectURI' ) )
 {
-    $redirectURI = $http->postVariable( 'RedirectURI' );
+    $redirectURI = $http->variable( 'RedirectURI' );
 }
 else
 {
     return;
 }
-if( $module->isCurrentAction( 'Back' ) )
+if( $http->hasVariable( 'BackButton' ) &&
+      $http->variable( 'BackButton') == 'Back') 
 {
      $module->redirectTo( $redirectURI );
      return;

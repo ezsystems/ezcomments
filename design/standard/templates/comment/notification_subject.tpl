@@ -1,1 +1,1 @@
-New comment - {$content_object.name}
+New comment - {$contentobject.name}

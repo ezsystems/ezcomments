@@ -1,9 +1,9 @@
-{def $base_url=ezini( 'NotificationSettings', 'WebsiteURLBase', 'ezcomments.ini' )}
-
+{def $base_url=ezini( 'SiteSettings', 'SiteURL' )}
+{let $base_url=concat( 'http://', $base_url )}
 <p>
 Dear {$subscriber.email} <br />
 
-<u>{$comment.name}</u> posted a new comment on <a href="">{$content_object.name}. </a>
+<u>{$comment.name}</u> posted a new comment on <a href="">{$contentobject.name}. </a>
 </p>
 <p>
 <b>Comment summary</b>:<br>

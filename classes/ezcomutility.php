@@ -35,9 +35,9 @@
 class ezcomUtility
 {
     
-    public function generateSusbcriberHashString( $input )
+    public function generateSusbcriberHashString( $subscriber )
     {
-        
+        return strtoupper( hash( 'md5', uniqid( '', true ). time() ) );
     }
     
     /**
@@ -47,7 +47,7 @@ class ezcomUtility
      */
     public function generateSubscriptionHashString( $subscription )
     {
-        return hash( 'md5', uniqid( '', true ) );
+        return strtoupper( hash( 'md5', uniqid( '', true ). time() ) );
     }
     
     /**

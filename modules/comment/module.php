@@ -47,7 +47,6 @@ $ViewList['view'] = array(
        );
 $ViewList['add'] = array(
        'functions' => array( 'add' ),
-       'single_post_actions' => array( 'BackButton' => 'Back' ),
        'script' => 'add.php',
        'params' => array(),
        );
