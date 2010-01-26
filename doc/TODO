@@ -77,5 +77,11 @@ possible extensions:
 1. setting, how to implement paging in a best way. now using 'limit', which can only be used in mysql
 2. language problem, it only show the content of current language site
 3. update as a notification type
-meetting
-1. header licenes
+4. meetting
+   - header licenes
+5. put the user name into cookie
+
+2010-01-24
+1. test the subscription,
+2. design hiding form, extending fields
+3. find the cache solution

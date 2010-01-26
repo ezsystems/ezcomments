@@ -41,16 +41,62 @@ abstract class ezcomCommentManager
      */
     public $tpl = null;
     
-    
     protected static $instance;
     
     /**
      * @param $comment
      * @param $user
-     * @return true continue add
-     * false stop add
+     * @return true if action succeeds
+     *        string if the action has error
      */
-    public abstract function beforeAddingComment( $comment, $user );
+    public function beforeAddingComment( $comment, $user )
+    {
+        return true;
+    }
+    
+    /**
+     * action after adding comment
+     * @param $comment
+     * @return true if action succeeds
+     *        string if the action has error
+     */
+    public function afterAddingComment( $comment )
+    {
+        return true;
+    }
+    
+    /**
+     * action before updating comment
+     * @param $comment
+     * @param $notified
+     * @return true if action succeeds
+     *        string if the action has error
+     */
+    public function beforeUpdatingComment( $comment, $notified )
+    {
+        return true;
+    }
+    
+    /**
+     * action after updating comment
+     * @param $comment
+     * @param $notified
+     * @return true if action succeeds
+     *        string if the action has error
+    public function afterUpdatingComment( $comment, $notified )
+    {
+        return true;
+    }
+    
+    /**
+     * action after deleting comment
+     * @param $comment
+     * true if action succeeds
+     *        string if the action has error
+    public function afterDeletingComment( $comment )
+    {
+        return true;
+    }
     
     /**
      * @param $comment: a comment object
@@ -61,23 +107,11 @@ abstract class ezcomCommentManager
     
     
     /**
-     * Add comment into ezcomment table and related data into ezcomment_subscriber,
-     *                                                        ezcomment_subscription,
-     *                                                        ezcomment_notification
+     * Add comment into ezcomment table and do action 
      * The adding doesn't validate the data in http
-     * 1) Add a comment into ezcomment table
-     * 2) If 'notification' is true
-     *      add the user as a subscriber if subscriber with same email doesn't exist
-     *      otherwise get the subscriber
-     * 3) If 'notification' is true
-     *    if the subscription with user's email and contentid doesn't exist, add a new subscription,
-     * 4) If there is subscription, add the comment into notifiction queue
-     *  
      * @param $comment: ezcomComment object which has not been stored
      *        title, name, url, email, created, modified, text, notification
      * @param $user: user object
-     * @param $contentObjectID: id of the content object
-     * @param $languageID: language id of the content object
      * @param $time: comment time
      * @return  true : if adding succeeds
      *          false otherwise
@@ -107,27 +141,7 @@ abstract class ezcomCommentManager
         }
         $comment->store();
         eZDebug::writeNotice( 'Comment has been added into ezcomment table', 'Add comment', 'ezcomComment' );
-        
-        $contentID = $comment->attribute( 'contentobject_id' ) . '_' . $comment->attribute( 'language_id' );
-        $subscriptionType = 'ezcomcomment';
-        //add subscription
-        if( $comment->attribute( 'notification' ) )
-        {
-            $subscription = ezcomSubscriptionManager::instance();
-            $subscription->addSubscription( $comment->attribute('email'), $user,
-                                          $contentID, $subscriptionType, $currentTime );
-        }
-        // insert data into notification queue
-        // if there is no subscription,not adding to notification queue
-        if( ezcomSubscription::exists( $contentID, $subscriptionType ) )
-        {
-            $notification = ezcomNotification::create();
-            $notification->setAttribute( 'contentobject_id', $comment->attribute('contentobject_id') );
-            $notification->setAttribute( 'language_id', $comment->attribute( 'language_id' ) );
-            $notification->setAttribute( 'comment_id', $comment->attribute( 'id' ) );
-            $notification->store();
-            eZDebug::writeNotice( 'Notification has been added into queue', 'Add comment', 'ezcomComment' );
-        }
+        $this->afterAddingComment( $comment );
         return true;
     }
     
@@ -155,52 +169,32 @@ abstract class ezcomCommentManager
         {
             $currentTime = $time;
         }
+        $beforeUpdating = $this->beforeUpdatingComment( $comment, $notified );
+        if( $beforeUpdating !== true )
+        {
+            return $beforeUpdating;
+        }
         $comment->store();
         
-        if( is_null( $user ) )
+        $afterUpdating = $this->afterUpdatingComment( $comment, $notified );
+        if( $afterUpdating !== true )
         {
-            $user = eZUser::fetch( $comment->attribute( 'user_id' ) );
-        }
-        
-         //2. update subscription
-        // if notified is true, add subscription, else cleanup the subscription on the user and content
-        $contentID = $comment->attribute( 'contentobject_id' ) . '_' . $comment->attribute( 'language_id' );
-        $subscriptionType = 'ezcomcomment';
-        if( !is_null( $notified ) )
-        {
-            if( $notified === true )
-            {
-                $subscriptionManager = ezcomSubscriptionManager::instance();
-                $subscriptionManager->addSubscription( $comment->attribute( 'email' ), $user, $contentID,
-                             $subscriptionType, $time );
-            }
-            else
-            {
-                $subscriber = ezcomSubscriber::fetchByEmail( $comment->attribute( 'email' ) );
-                $cond = array();
-                $cond['subscriber_id'] = $subscriber->attribute( 'id' );
-                $cond['content_id'] = $contentID;
-                $cond['subscription_type'] = 'ezcomcomment';
-                $subscription = ezcomSubscription::fetchByCond( $cond );
-                $subscription->remove();
-            }
-        }
-        //3. update queue. If there is subscription, add one record into queue table
-        // if there is subcription on this content, add one item into queue
-        if( ezcomSubscription::exists( $contentID, $subscriptionType ) )
-        {
-            $notification = ezcomNotification::create();
-            $notification->setAttribute( 'contentobject_id', $comment->attribute( 'contentobject_id' ) );
-            $notification->setAttribute( 'language_id', $comment->attribute( 'language_id' ) );
-            $notification->setAttribute( 'comment_id', $comment->attribute( 'id' ) );
-            $notification->store();
-            eZDebug::writeNotice( 'There is subscription, added a update notification into queue.', 'ezcomments' );
-        }
-        else
-        {
-            // todo: if there is no subscription on this content, consider to clean up the queue
+            return $afterUpdating;
         }
         return true;
+    }
+    
+    /**
+     * delete comment. Based on the settings, judge if deleting the subscription if all the comments have been deleted.
+     * @param $commentID
+     * @return 
+     */
+    public function deleteComment( $comment )
+    {
+        $comment->remove();
+        
+        $result = $this->afterDeletingComment( $comment );
+        return $result;
     }
     
     /**

@@ -129,8 +129,6 @@ class ezcomSubscriber extends eZPersistentObject
         $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
         return $return;
     }
-    
-    
 }
 
 ?>

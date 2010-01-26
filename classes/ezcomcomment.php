@@ -257,7 +257,6 @@ class ezcomComment extends eZPersistentObject
         $parameters['definition'] = self::definition();
         $parameters['update_fields'] = $fields;
         $parameters['conditions'] = $conditions;
-        //use try to catch the error
         eZPersistentObject::updateObjectList( $parameters );
     }
     
@@ -266,7 +265,7 @@ class ezcomComment extends eZPersistentObject
      * @param int $contentObjectID
      * @return int : count number
      */
-    static function countByContent( $contentObjectID, $languageID = false )
+    static function countByContent( $contentObjectID, $languageID = false, $status = null )
     {
         $cond = array();
         $cond['contentobject_id'] = $contentObjectID;
@@ -274,7 +273,10 @@ class ezcomComment extends eZPersistentObject
         {
             $cond['language_id'] = $languageID;
         }
-//        $cond['status'] = 1;
+        if( !is_null( $status ) )
+        {
+            $cond['status'] = $status;
+        }
         return eZPersistentObject::count( self::definition(), $cond );
     }
     
@@ -461,49 +463,49 @@ class ezcomComment extends eZPersistentObject
 //        return true;
 //    }
     
-    /**
-     * delete comment and clean up subscription related, notification queue 
-     * @param string/int $commentID
-     * @return true if succeed, false if failed
-     */
-    public static function deleteCommentWithSubscription( $commentID )
-    {
-        if( is_null( $commentID ) )
-        {
-            eZDebug::writeError( 'The comment id is empty!', 'Delete Comment', ezcomComment );
-            return false;
-        }
-        $comment = ezcomComment::fetch( $commentID );
-        $email = $comment->attribute( 'email' );
-        $notification = $comment->attribute( 'notification' );
-        // 1. remove comment
-        $comment->remove();
-        
-        // 2. clean up subscription
-        if( $notification )
-        {
-            eZDebug::writeNotice( 'The comment to be deleted has notification', 'Delete comment' );
-            $contentID = $comment->attribute( 'contentobject_id' ) . '_'. $comment->attribute( 'language_id' );
-            $cleanupResult = ezcomSubscription::cleanupSubscription( $email, $contentID );
-            if( $cleanupResult === true )
-            {
-                eZDebug::writeNotice( 'The subscription has been cleaned up', 'Delete comment' );
-            }
-            else if( $cleanupResult === false )
-            {
-                eZDebug::writeNotice( 'There is no subscription to be cleaned up', 'Delete comment' );
-            }
-            else
-            {
-                eZDebug::writeWarning( 'Cleaning up subscription error', 'Delete comment' );
-            }
-        }
-        //3. todo: clean up the queue
-        
-        //clean up cache
-        eZContentCacheManager::clearContentCache( $comment->attribute( 'contentobject_id' ) );
-        return true;
-    }
+//    /**
+//     * delete comment and clean up subscription related, notification queue 
+//     * @param string/int $commentID
+//     * @return true if succeed, false if failed
+//     */
+//    public static function deleteCommentWithSubscription( $commentID )
+//    {
+//        if( is_null( $commentID ) )
+//        {
+//            eZDebug::writeError( 'The comment id is empty!', 'Delete Comment', ezcomComment );
+//            return false;
+//        }
+//        $comment = ezcomComment::fetch( $commentID );
+//        $email = $comment->attribute( 'email' );
+//        $notification = $comment->attribute( 'notification' );
+//        // 1. remove comment
+//        $comment->remove();
+//        
+//        // 2. clean up subscription
+//        if( $notification )
+//        {
+//            eZDebug::writeNotice( 'The comment to be deleted has notification', 'Delete comment' );
+//            $contentID = $comment->attribute( 'contentobject_id' ) . '_'. $comment->attribute( 'language_id' );
+//            $cleanupResult = ezcomSubscription::cleanupSubscription( $email, $contentID );
+//            if( $cleanupResult === true )
+//            {
+//                eZDebug::writeNotice( 'The subscription has been cleaned up', 'Delete comment' );
+//            }
+//            else if( $cleanupResult === false )
+//            {
+//                eZDebug::writeNotice( 'There is no subscription to be cleaned up', 'Delete comment' );
+//            }
+//            else
+//            {
+//                eZDebug::writeWarning( 'Cleaning up subscription error', 'Delete comment' );
+//            }
+//        }
+//        //3. todo: clean up the queue
+//        
+//        //clean up cache
+//        eZContentCacheManager::clearContentCache( $comment->attribute( 'contentobject_id' ) );
+//        return true;
+//    }
    
 }
 

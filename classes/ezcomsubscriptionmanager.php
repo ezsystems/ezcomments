@@ -210,6 +210,25 @@ class ezcomSubscriptionManager
     }
     
     /**
+     * delete the subscription given the subscriber's email
+     * @param $email
+     * @param $contentObjectID
+     * @param $languageID
+     * @return unknown_type
+     */
+    public function deleteSubscription( $email, $contentObjectID, $languageID )
+    {
+        $contentID = $contentObjectID . '_' . $languageID;
+        $subscriber = ezcomSubscriber::fetchByEmail( $email );
+        $cond = array();
+        $cond['subscriber_id'] = $subscriber->attribute( 'id' );
+        $cond['content_id'] = $contentID;
+        $cond['subscription_type'] = 'ezcomcomment';
+        $subscription = ezcomSubscription::fetchByCond( $cond );
+        $subscription->remove();
+    }
+    
+    /**
      * method for creating object
      * @return ezcomSubscriptionManager
      */

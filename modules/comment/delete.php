@@ -37,9 +37,14 @@ if( $Module->isCurrentAction( 'DeleteComment' ) )
     {
         $commentID = $http->postVariable( 'CommentID' );
     }
-    $deleteResult = ezcomComment::deleteCommentWithSubscription( $commentID );
+    $comment = ezcomComment::fetch( $commentID );
+    $commentManager = ezcomCommentManager::instance();
+    $deleteResult = $commentManager->deleteComment( $comment );
     if( $deleteResult === true )
-    {        
+    {   
+        //clean up cache
+        eZContentCacheManager::clearContentCache( $comment->attribute( 'contentobject_id' ) );
+        
         $redirectURI = null;
         if ( $http->hasPostVariable( "RedirectURI" ) )
         {

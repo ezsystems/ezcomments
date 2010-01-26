@@ -132,7 +132,6 @@ class ezcomSubscription extends eZPersistentObject
         return $return;
     }
     
-    
     /**
      * get the count of subscription in a subscriber ID
      * @param $subscriberID
