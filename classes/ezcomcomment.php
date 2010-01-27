@@ -168,29 +168,6 @@ class ezcomComment extends eZPersistentObject
         return $return;
     }
 
-    static function fetchForUser( $userID, $sorts = null, $offset = null, $length = null, $notification = false, $status = false  )
-    {
-        $cond = array();
-        $cond['user_id'] = $userID;
-        if ( $notification !== false )
-        {
-            $cond['notification'] = $notification;
-        }
-        if( $status !== false )
-        {
-            $cond['status'] = $status;
-        }
-        $limit = null;
-        if( !is_null( $offset ) )
-        {
-           $limit = array();
-           $limit = array( 'offset' => $offset, 'length' => $length );
-        }
-
-        $return = eZPersistentObject::fetchObjectList( self::definition(), null, $cond, $sorts, $limit );
-        return $return;
-    }
-
     static function fetchByEmail( $email, $sorts = null, $offset = null, $length = null, $notification = false, $status = false  )
     {
         $cond = array();
@@ -229,35 +206,6 @@ class ezcomComment extends eZPersistentObject
             return $return;
 
         }
-    }
-
-    static function fetchByTime( $timefield, $time )
-    {
-        $cond = array();
-        if( $timefield == 'created' )
-        {
-            $cond['created'] = $time;
-        }
-        else if( $timefield == 'modified' )
-        {
-            $cond['modified'] = $time;
-        }
-        else
-        {
-            return null;
-        }
-        $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
-        return $return;
-    }
-
-
-    static function updateFields( $fields, $conditions )
-    {
-        $parameters = array();
-        $parameters['definition'] = self::definition();
-        $parameters['update_fields'] = $fields;
-        $parameters['conditions'] = $conditions;
-        eZPersistentObject::updateObjectList( $parameters );
     }
 
     /**
@@ -310,48 +258,8 @@ class ezcomComment extends eZPersistentObject
      */
     static function fetchContentObjectByEmail( $email, $status = false, $sorts ,$offset = null, $length = null, $asObject = false )
     {
-//        $objectDef = eZContentObject::definition();
-//        //TODO: change the grouping way
-//        //NOTE: there might be a bug in group API: using $grouping insead of Def['grouping'] doesn't work
-//        $objectDef['grouping'] = array( 'id', 'language_id' );
-////        $objectDef['fields']['comment_count'] =
-//        $commentDef = self::definition();
-//        $fields = array();
-//        $conds = array( $commentDef['name'] . '.email' => $email );
-//        $limit = null;
-//        if( !( is_null ( $offset ) && is_null ( $length ) ) )
-//        {
-//            if( is_null( $offset ) )
-//            {
-//                $offset = 0;
-//            }
-//            $limit = array( 'offset' => $offset, 'length'=>$length );
-//        }
-//        $customFields = array( $objectDef['name'] . '.*',
-//                        array( 'operation' => $commentDef['name'] . '.language_id',
-//                            'name' => 'language_id' ),
-//                        array( 'operation' => 'COUNT( ' . $commentDef['name'] . '.id )',
-//                            'name' => 'comment_count' ) );
-//        $customTables = array( $commentDef['name'] );
-//        $statusString = '';
-//        if( $status !== false )
-//        {
-//            $statusString = ' AND ' . $commentDef['name'] . '.status = ' . $status;
-//        }
-//
-//        $customConds = ' AND ' . $objectDef['name'] . '.id = ' . $commentDef['name'] . '.contentobject_id' .
-//                       $statusString ;
-//        $result = eZPersistentObject::fetchObjectList( $objectDef,
-//                                                         $fields,
-//                                                         $conds,
-//                                                         $sorts,
-//                                                         $limit,
-//                                                         $asObject,
-//                                                         false,
-//                                                         $customFields,
-//                                                         $customTables,
-//                                                         $customConds);
         $db = eZDB::instance();
+
         $sql = "SELECT contentobject_id, language_id" .
                 ", COUNT(id) as comment_count" .
                 " FROM ezcomment " .
@@ -360,153 +268,6 @@ class ezcomComment extends eZPersistentObject
         $result = $db->arrayQuery( $sql );
         return $result;
     }
-
-
-//    /**
-//     * update one comment, and update the relavant subscription, notificaton queue
-//     * @param $commentInput: comment input array.
-//     *         'title': comment title
-//     *         'url': website of the commenter
-//     *         'text': comment content
-//     *         'notified' boolean: notified for this content.
-//     *               If there is change for notified, the notified has value, otherwise there is no 'notified' in array
-//     * @param $commentParam: id or object of updated comment
-//     * @param $user: the author user object
-//     * @param $time: modified time
-//     * @return boolean: true if succeed, false if failed
-//     */
-//    static function updateComment( $commentInput, $commentParam, $user, $time = null )
-//    {
-//        // TODO: remove the notified field in comment, instead, use subscription
-//        //1. get the comment, update it
-//        if( is_null( $commentInput ) || is_null( $commentParam ) || is_null( $user ) )
-//        {
-//            eZDebug::writeError( 'Parameter error in comment input!', 'ezcomments', 'ezcomComment' );
-//            return false;
-//        }
-//        $comment = null;
-//        if( gettype( $commentParam ) == 'object' )
-//        {
-//            if( get_class( $commentParam ) == 'ezcomComment' )
-//            {
-//                $comment = $commentParam;
-//            }
-//            else
-//            {
-//                eZDebug::writeError( 'Comment Param error.', 'ezcomment' );
-//                return false;
-//            }
-//        }
-//        else
-//        {
-//            if( is_null( $commentParam ) || !is_numeric( $commentParam ) )
-//            {
-//                eZDebug::writeError( 'Comment id is ilegal!', 'ezcomments', 'ezcomComment' );
-//                return false;
-//            }
-//            $comment = ezcomComment::fetch( $commentParam );
-//        }
-//        if( isset( $commentInput['title'] ) )
-//        {
-//            $comment->setAttribute( 'title', $commentInput['title'] );
-//        }
-//        if( isset( $commentInput['url'] ) )
-//        {
-//            $comment->setAttribute( 'url', $commentInput['url'] );
-//        }
-//        if( isset( $commentInput['text'] ) )
-//        {
-//            $comment->setAttribute( 'text', $commentInput['text'] );
-//        }
-//        if( is_null( $time ) )
-//        {
-//            $time = time();
-//        }
-//        $comment->setAttribute( 'modified', $time );
-//        if( isset( $commentInput['notified'] ) )
-//        {
-//            $comment->setAttribute( 'notification', $commentInput['notified'] );
-//        }
-//        $comment->store();
-//
-//        //2. update subscription
-//        // if notified is true, add subscription, else cleanup the subscription on the user and content
-//        $contentID = $comment->attribute( 'contentobject_id' ) . '_' . $comment->attribute( 'language_id' );
-//        $subscriptionType = 'ezcomcomment';
-//        if( isset( $commentInput['notified'] ) )
-//        {
-//            if( $commentInput['notified'] === true )
-//            {
-//                self::addSubscription( $comment->attribute('email'), $user, $contentID,
-//                             $subscriptionType, $time );
-//            }
-//            else
-//            {
-//                ezcomSubscription::cleanupSubscription( $comment->attribute('email'), $contentID );
-//            }
-//        }
-//        //3. update queue. If there is subscription, add one record into queue table
-//        // if there is subcription on this content, add one item into queue
-//        if( ezcomSubscription::exists( $contentID, $subscriptionType ) )
-//        {
-//            $notification = ezcomNotification::create();
-//            $notification->setAttribute( 'contentobject_id', $comment->attribute( 'contentobject_id' ) );
-//            $notification->setAttribute( 'language_id', $comment->attribute( 'language_id' ) );
-//            $notification->setAttribute( 'comment_id', $comment->attribute( 'id' ) );
-//            $notification->store();
-//            eZDebug::writeNotice( 'There is subscription, added a update notification into queue.', 'ezcomments' );
-//        }
-//        else
-//        {
-//            // todo: if there is no subscription on this content, consider to clean up the queue
-//        }
-//        return true;
-//    }
-
-//    /**
-//     * delete comment and clean up subscription related, notification queue
-//     * @param string/int $commentID
-//     * @return true if succeed, false if failed
-//     */
-//    public static function deleteCommentWithSubscription( $commentID )
-//    {
-//        if( is_null( $commentID ) )
-//        {
-//            eZDebug::writeError( 'The comment id is empty!', 'Delete Comment', ezcomComment );
-//            return false;
-//        }
-//        $comment = ezcomComment::fetch( $commentID );
-//        $email = $comment->attribute( 'email' );
-//        $notification = $comment->attribute( 'notification' );
-//        // 1. remove comment
-//        $comment->remove();
-//
-//        // 2. clean up subscription
-//        if( $notification )
-//        {
-//            eZDebug::writeNotice( 'The comment to be deleted has notification', 'Delete comment' );
-//            $contentID = $comment->attribute( 'contentobject_id' ) . '_'. $comment->attribute( 'language_id' );
-//            $cleanupResult = ezcomSubscription::cleanupSubscription( $email, $contentID );
-//            if( $cleanupResult === true )
-//            {
-//                eZDebug::writeNotice( 'The subscription has been cleaned up', 'Delete comment' );
-//            }
-//            else if( $cleanupResult === false )
-//            {
-//                eZDebug::writeNotice( 'There is no subscription to be cleaned up', 'Delete comment' );
-//            }
-//            else
-//            {
-//                eZDebug::writeWarning( 'Cleaning up subscription error', 'Delete comment' );
-//            }
-//        }
-//        //3. todo: clean up the queue
-//
-//        //clean up cache
-//        eZContentCacheManager::clearContentCache( $comment->attribute( 'contentobject_id' ) );
-//        return true;
-//    }
-
 }
 
 ?>
