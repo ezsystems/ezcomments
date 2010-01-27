@@ -1,3 +1,5 @@
+{default self_edit=false() self_delete=false()}
+
 <div class="ezcom-view-comment" id="ezcomments_comment_view_commentitem">
             <div class="ezcom-comment-index">
                 <span><a name="{concat( 'c', $index|sum(1) )}"></a>
@@ -28,30 +30,44 @@
                 </span>
             </div>
             {def $can_edit=fetch( 'comment', 'has_access_to_function', hash( 'function', 'edit',
-                                                                       'contentobject', $contentobject,
-                                                                       'language_code', $language_code,
-                                                                       'comment', $comment
-                                                                        ) )}
-            {def $can_delete=fetch( 'comment', 'has_access_to_function', hash( 'function', 'delete',
-                                                                       'contentobject', $contentobject,
-                                                                       'language_code', $language_code,
-                                                                       'comment', $comment
-                                                                        ) )}
-            {if or( $can_edit, $can_delete )}
+                                                                             'contentobject', $contentobject,
+                                                                             'language_code', $language_code,
+                                                                             'comment', $comment,
+                                                                             'scope', 'role' ) )
+                 $can_delete=fetch( 'comment', 'has_access_to_function', hash( 'function', 'delete',
+                                                                               'contentobject', $contentobject,
+                                                                               'language_code', $language_code,
+                                                                               'comment', $comment,
+                                                                               'scope', 'role' ) )
+                 $user_display_limit_class=concat( ' class="limitdisplay-user limitdisplay-user-', $comment.user_id, '"' )}
+                 
+            {if or( $can_edit, $can_self_edit, $can_delete, $can_self_delete )}
                 <div class="ezcom-comment-tool">
-                    {if $can_edit}
-                        <span>
-                            <a href={concat('/comment/edit/',$comment.id)|ezurl}>
+                    {if or( $can_edit, $can_self_edit )}
+                        {if and( $can_self_edit, not( $can_edit ) )}
+                            {def $displayAttribute=$user_display_limit_class}
+                        {else}
+                            {def $displayAttribute=''}
+                        {/if}
+                        <span{$displayAttribute}>
+                            <a href={concat( '/comment/edit/', $comment.id )|ezurl}>
                                 {'Edit'|i18n('extension/ezcomments/view')}
                             </a>
                         </span>
+                        {undef $displayAttribute}
                     {/if}
-                    {if $can_delete}
-                        <span>
-                            <a href={concat('/comment/delete/',$comment.id)|ezurl}>
+                    {if or( $can_delete, $can_self_delete )}
+                        {if and( $can_self_delete, not( $can_delete ) )}
+                            {def $displayAttribute=$user_display_limit_class}
+                        {else}
+                            {def $displayAttribute=''}
+                        {/if}
+                        <span {$displayAttribute}>
+                            <a href={concat( '/comment/delete/',$comment.id )|ezurl}>
                                 {'Delete'|i18n('extension/ezcomments/view')}
                             </a>
                         </span>
+                        {undef $displayAttribute}
                     {/if}
                 </div>
             {/if}

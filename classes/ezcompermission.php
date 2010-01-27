@@ -44,29 +44,30 @@ class ezcomPermission
      * 
      * return true if has, false if not
      */
-    public function hasFunctionAccess( $user, $functionName, $contentObject, $languageCode, $comment = null )
+    public function hasFunctionAccess( $user, $functionName, $contentObject, $languageCode, $comment = null, $scope = null )
     {
         $result = $user->hasAccessTo( self::$moduleName, $functionName );
+        
         if( $result['accessWord'] !== 'limited' )
         {
-            return $result['accessWord'] === 'yes';
+            return ( $result['accessWord'] === 'yes' ) and ( $scope !== 'personal' );
         }
         else
         {
-            $checkingResult = true;
             foreach( $result['policies'] as $limitationArray )
             {
                 foreach( $limitationArray as $limitationKey => $limitation )
                 {
                     // deal with limitation checking
                     $resultItem = $this->checkPermission( $user, $limitationKey, $limitation,
-                                                     $contentObject, $languageCode, $comment );
+                                                     $contentObject, $languageCode, $comment, $scope );
                     ezDebug::writeNotice( 'Permission checking result in ' . $functionName . ': key: ' . $limitationKey .
-                                             ', result: ' . $resultItem, 'ezcomPermission' );
-                    $checkingResult = $checkingResult & $resultItem;
+                                             ', result: ' . $resultItem, __METHOD__ );
+                    if ( $resultItem == true )
+                        return true;
                 }
             }
-            return $checkingResult;
+            return false;
         }
     }
     
@@ -78,18 +79,28 @@ class ezcomPermission
     * @param $limitation limitation array, for instance '{eng-GB,nor-NO}'
     * @param $contentObject contentobject of the comments
     * @param $languageCode language code of the content object
-    * @param $comment comment object if the permission is based on one comment.When the permission checking is for editing and delete, it's useful
+    * @param $comment comment object if the permaission is based on one comment.When the permission checking is for editing and delete, it's useful
     * @return true if the checking result is true, false otherwise
     */
-    protected function checkPermission( $user, $limitationKey, $limitation, $contentObject, $languageCode, $comment = null )
+    protected function checkPermission( $user, $limitationKey, $limitation, $contentObject, $languageCode, $comment = null, $scope = null )
     {
         switch( $limitationKey )
         {
+            // section limited policy
             case self::$sectionKey:
-                //check section
-                $contentSectionID = $contentObject->attribute( 'section_id' ); 
+                // this does not match when looking for personal policies
+                if ( $scope == 'personal' )
+                    return false;
+                
+                $contentSectionID = $contentObject->attribute( 'section_id' );
                 return in_array( $contentSectionID, $limitation );
+            
+            // owner limited policy
             case self::$commentCreatorKey:
+                // this does not match when looking for role wide policies
+                if ( $scope == 'role' )
+                    return false;
+                
                 if( $user->isAnonymous() )
                 {
                     return false;
@@ -98,18 +109,76 @@ class ezcomPermission
                 {
                     $userID = $user->attribute( 'contentobject_id' );
                     $commentUserID = $comment->attribute( 'user_id' );
-                    return  $userID == $commentUserID ;
+                    return ( $userID == $commentUserID );
                 }
             default:
                 return false;
         }
     }
     
-    public static function hasAccessToFunction( $functionName, $contentObject, $languageCode, $comment = null )
+    /**
+    * Checks if the current user has a 'self' edit/delete policy
+    * 
+    * @param eZContentObject $contentObject Used to check with a possible section
+    * 
+    * @return array An array with edit and delete as keys, and booleans as values
+    */
+    public static function selfPolicies( $contentObject )
+    {
+        $return = array( 'edit' => false, 'delete' => false );
+        $sectionID = $contentObject->attribute( 'section_id' );
+        
+        $user = eZUser::currentUser();
+        foreach( array_keys( $return ) as $functionName )
+        {
+            $policies = $user->hasAccessTo( self::$moduleName, $functionName );
+            
+            // unlimited policy, not personal
+            if( $policies['accessWord'] !== 'limited' )
+            {
+                $return[$functionName] = false;
+            }
+            else
+            {
+                // scan limited policies
+                foreach( $policies['policies'] as $limitationArray )
+                {
+                    // a self limitation exists
+                    if ( isset( $limitationArray[self::$commentCreatorKey] ) )
+                    {
+                        // but it also has a section limitation
+                        if ( isset( $limitationArray[self::$sectionKey] ) )
+                        {
+                            if ( in_array( $sectionID, $limitationArray[self::$sectionKey] ) )
+                            {
+                                $return[$functionName] = true;
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            $return[$functionName] = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        return array( 'result' => $return );
+    }
+    
+    /**
+    * @param $scope What access scope should be accepted.
+    *        Default is any, but possible values are:
+    *        - role: the permissions is identical for any user sharing the same role
+    *        - personal: the permission is limited by ownership (edit self for instance)
+    */
+    public static function hasAccessToFunction( $functionName, $contentObject, $languageCode, $comment = null, $scope = null )
     {
         $user = eZUser::currentUser();
         $permission = ezcomPermission::instance();
-        $result = $permission->hasFunctionAccess( $user, $functionName, $contentObject, $languageCode, $comment );
+        $result = $permission->hasFunctionAccess( $user, $functionName, $contentObject, $languageCode, $comment, $scope );
         return array( 'result' => $result );
     }
     

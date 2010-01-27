@@ -17,6 +17,9 @@
         {* Fetch comments *}
         {def $comments=fetch( 'comment', 'comment_list', hash( 'contentobject_id', $contentobject.id, 'language_id', $language_id, 'sort_field', $sort_field, 'sort_order', $sort_order, 'length' ,$default_shown_length ) )}
         
+        {* Find out if the currently used role has a user based edit/delete policy *}
+        {def $self_policy=fetch( 'comment', 'self_policies', hash( 'contentobject', $contentobject ) )}
+
         {* Comment item START *}
         {if $comments|count|gt( 0 )}
             <div id="ezcom-comment-list" class="ezcom-view-list">
@@ -27,6 +30,8 @@
                              comment=$comments.$index
                              index=$index
                              base_index=0
+                             can_self_edit=$self_policy.edit
+                             can_self_delete=$self_policy.delete
                              uri="design:comment/view/comment_item.tpl"}
                 {/for}
                 <div class="ezcom-view-all">

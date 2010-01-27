@@ -87,7 +87,27 @@ $FunctionList['has_access_to_function'] = array( 'name' => 'has_access_to_functi
                                                           'type'=> 'object',
                                                           'required' => false,
                                                           'default'  => null
+                                                      ),
+                                                   array( 'name' => 'scope',
+                                                          'type' => 'string',
+                                                          'required' => false,
+                                                          'default' => null
                                                       )
                                                   )
                                              );
+$FunctionList['self_policies'] = array( 'name' => 'has_self_access',
+                                        'operation_types' => array( 'read' ),
+                                        'call_method' => array(
+                                            'include_file' => 'extension/ezcomments/classes/ezcomPermission.php',
+                                            'class' => 'ezcomPermission',
+                                            'method' => 'selfPolicies'
+                                        ),
+                                        'parameter_type' => 'standard',
+                                        'parameters' => array(
+                                            array(
+                                                'name' => 'contentobject',
+                                                'type' => 'object',
+                                                'required' => true
+                                            )
+                                        ) );
 ?>
