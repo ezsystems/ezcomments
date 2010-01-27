@@ -18,7 +18,7 @@
 {set $comment_email=$user.email}
 {set $comment_notified=ezini( 'CommentSettings', 'DefaultNotified', 'ezcomments.ini' )}
 {/if}
-<form method="post" action={'comment/add'|ezurl} name="CommentAdd">
+<form id="ezcom-comment-form" method="post" action={'comment/add'|ezurl} name="CommentAdd">
 <input type="hidden" name="ContentObjectID" value="{$contentobject_id}" />
 <input type="hidden" name="LanguageID" value="{$language_id}" />
 <input type="hidden" name="RedirectURI" value={$redirect_uri} />
@@ -83,11 +83,24 @@
             </div>
          {/if}
         <div class="ezcom-field">
-            <input type="submit" value="{'Post comment'|i18n( 'extension/ezcomments/action' )}" class="button" id="ezcomments_comment_view_addcomment_post" name="PostCommentButton" />
+            <input type="submit" value="{'Post comment'|i18n( 'extension/ezcomments/action' )}" class="button" id="ezcom-post-button" name="PostCommentButton" />
             <input type="reset" class="button" value="{'Reset form'|i18n( 'extension/ezcomments/action' )}" />
         </div>
 </div>
 </form>
+{ezscript_require( array( 'ezjsc::yui3', 'ezjsc::yui3io', 'ezcomments.js' ) )}
+
+<script type="text/javascript">
+eZComments.cfg = {ldelim}
+                    postbutton: '#ezcom-post-button',
+                    postform: '#ezcom-comment-form',
+                    postlist: '#ezcom-comment-list'
+                 {rdelim}
+
+eZComments.init();
+</script>
+
+
 {undef $comment_name $comment_website $comment_email $comment_notified $comment_remember}
 {undef $user $anonymous_user_id $is_anonymous}
 {* Adding comment END *}

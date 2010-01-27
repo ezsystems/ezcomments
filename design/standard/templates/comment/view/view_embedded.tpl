@@ -19,7 +19,7 @@
         
         {* Comment item START *}
         {if $comments|count|gt( 0 )}
-            <div class="ezcom-view-list">
+            <div id="ezcom-comment-list" class="ezcom-view-list">
                 {for 0 to $comments|count|sub( 1 ) as $index}
                         {include name="CommentItem"
                              contentobject=$contentobject
