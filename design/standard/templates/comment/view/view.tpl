@@ -39,7 +39,7 @@
         {/if}
         {if $objectattribute.content.enable_comment}
             {if $can_add}
-                {include name="AddComment" uri="design:comment/add_comment.tpl" redirect_uri=concat( 'comment/view/standard/', $contentobject.id, '/', $language_id ) contentobject_id=$contentobject.id language_id=$language_id}
+                {include name="AddComment" uri="design:comment/add_comment.tpl" redirect_uri=concat( 'comment/view/standard/', $contentobject.id ) contentobject_id=$contentobject.id language_id=$language_id}
             {else}
                     <div class="message-feedback">
                             <p>

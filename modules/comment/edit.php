@@ -134,7 +134,8 @@ else
      }
      else
      {
-         $redirectURI = '/comment/standard/' . $commentID;
+         $redirectURI = '/comment/view/standard/' . $comment->attribute( 'contentobject_id' );
+         $redirectURI = eZURI::transformURI( $redirectURI );
      }
      $tpl->setVariable( 'redirect_uri', $redirectURI );
      return showComment( $comment, $tpl );

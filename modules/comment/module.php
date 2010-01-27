@@ -43,7 +43,7 @@ $ViewList['setting'] = array(
 $ViewList['view'] = array(
        'functions' => array( 'read' ),
        'script' => 'view.php',
-       'params' => array( 'ViewMode', 'ContentObjectID', 'LanguageID', 'Page' ),
+       'params' => array( 'ViewMode', 'ContentObjectID', 'Page' ),
        );
 $ViewList['add'] = array(
        'functions' => array( 'add' ),

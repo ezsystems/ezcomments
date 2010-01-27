@@ -1,4 +1,4 @@
-{def $page_prefix=concat( "comment/view/standard/", $contentobject.id, "/", $language_id ,"/")}
+{def $page_prefix=concat( 'comment/view/standard/', $contentobject.id, '/' )}
 {if $total_count|gt( 0 )}
     <div id="ezcomments_comment_view_page" class="ezcom-page">
          <span>{'Total comments:'|i18n( 'extension/ezcomments/view/page' )}</span>

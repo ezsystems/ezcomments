@@ -45,26 +45,10 @@ $contentObjectID = (int)$Params['ContentObjectID'];
 $contentObject = eZContentObject::fetch( $contentObjectID );
 
 // fetch the language
-if( is_null( $Params['LanguageID'] ) )
-{
-    $languageID = $contentObject->attribute( 'initial_language_id' );
-}
-else
-{
-    $languageID = $Params['LanguageID'];
-    if( !is_numeric( $languageID ) )
-    {
-        eZDebug::writeError( 'Language ID is not a number!', 'ezcomments' );
-        return;
-    }
-}
-$language = eZContentLanguage::fetch( $languageID );
-if( $language === false )
-{
-    eZDebug::writeError( 'Language doesn\'t exist!', 'ezcomments'  );
-    return;
-}
-$languageCode = $language->attribute( 'locale' );
+$ini =eZINI::instance();
+$languageCode = $ini->variable( 'RegionalSettings', 'Locale' );
+$language = eZContentLanguage::fetchByLocale( $languageCode );
+$languageID = $language->attribute( 'id' );
 
 // fetch the content object attribute
 $objectAttributes = $contentObject->fetchDataMap( false, $languageCode );
