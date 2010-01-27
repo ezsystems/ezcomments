@@ -3,7 +3,7 @@
 [ezjscServer]
 FunctionList[]=ezcomments_enabled
 
-[ezjscServer_comment]
+[ezjscServer_ezcom]
 Class=ezcomServerFunctions
 # Optionally define File to avoid relying on autoload system
 File=extension/ezcomments/classes/ezcomserverfunctions.php

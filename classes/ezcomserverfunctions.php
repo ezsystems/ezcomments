@@ -35,6 +35,13 @@
 class ezcomServerFunctions extends ezjscServerFunctions
 {
     /**
+     * 
+     */
+    public static function postComment()
+    {
+    }
+
+    /**
      * create an error object that will be used for client use
      * @param string $message : message
      * @param string $errorCode : error code defined, for instance com_01
