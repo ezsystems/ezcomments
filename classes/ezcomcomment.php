@@ -30,13 +30,13 @@
 
 /**
  * ezcomComment persistent object class definition
- * 
+ *
  */
 class ezcomComment extends eZPersistentObject
 {
     /**
      * Construct, use {@link ezcomComment::create()} to create new objects.
-     * 
+     *
      * @param array $row
      */
     public function __construct( $row )
@@ -46,7 +46,7 @@ class ezcomComment extends eZPersistentObject
 
     /**
      * Fields definition.
-     * 
+     *
      * @static
      * @return array
      */
@@ -121,7 +121,7 @@ class ezcomComment extends eZPersistentObject
                                                                   'default' => '',
                                                                   'required' => true ) ),
                              'keys' => array( 'id' ),
-                             'function_attributes' => array( 
+                             'function_attributes' => array(
                                                             'contentobject' => 'contentObject' ),
                              'increment_key' => 'id',
                              'class_name' => 'ezcomComment',
@@ -141,10 +141,10 @@ class ezcomComment extends eZPersistentObject
         }
         return null;
     }
-    
+
     /**
      * Creates new ezcomComments object
-     * 
+     *
      * @static
      * @param array $row
      * @return ezcomComment
@@ -157,7 +157,7 @@ class ezcomComment extends eZPersistentObject
 
     /**
      * Fetch comment by given id.
-     * 
+     *
      * @param int $id
      * @return null|ezcomComment
      */
@@ -167,7 +167,7 @@ class ezcomComment extends eZPersistentObject
         $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
         return $return;
     }
-    
+
     static function fetchForUser( $userID, $sorts = null, $offset = null, $length = null, $notification = false, $status = false  )
     {
         $cond = array();
@@ -186,11 +186,11 @@ class ezcomComment extends eZPersistentObject
            $limit = array();
            $limit = array( 'offset' => $offset, 'length' => $length );
         }
-        
+
         $return = eZPersistentObject::fetchObjectList( self::definition(), null, $cond, $sorts, $limit );
         return $return;
     }
-    
+
     static function fetchByEmail( $email, $sorts = null, $offset = null, $length = null, $notification = false, $status = false  )
     {
         $cond = array();
@@ -212,7 +212,7 @@ class ezcomComment extends eZPersistentObject
         $return = eZPersistentObject::fetchObjectList( self::definition(), null, $cond, $sorts, $limit );
         return $return;
     }
-    
+
     static function fetchByContentObjectID( $contentObjectID, $languageID, $sorts = null, $offset = null, $length = null )
     {
         $cond = array();
@@ -227,7 +227,7 @@ class ezcomComment extends eZPersistentObject
             $limit = array( 'offset' => $offset, 'length' => $length);
             $return = eZPersistentObject::fetchObjectList( self::definition(), null, $cond, $sorts, $limit );
             return $return;
-        
+
         }
     }
 
@@ -249,8 +249,8 @@ class ezcomComment extends eZPersistentObject
         $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
         return $return;
     }
-    
-    
+
+
     static function updateFields( $fields, $conditions )
     {
         $parameters = array();
@@ -259,7 +259,7 @@ class ezcomComment extends eZPersistentObject
         $parameters['conditions'] = $conditions;
         eZPersistentObject::updateObjectList( $parameters );
     }
-    
+
     /**
      * count the comments by content object id
      * @param int $contentObjectID
@@ -279,9 +279,9 @@ class ezcomComment extends eZPersistentObject
         }
         return eZPersistentObject::count( self::definition(), $cond );
     }
-    
+
     /**
-     * fetch the count of contentobject the user commented on 
+     * fetch the count of contentobject the user commented on
      * @param $email user's email
      * @param $status status of comment
      * @return count
@@ -297,24 +297,24 @@ class ezcomComment extends eZPersistentObject
                "( SELECT DISTINCT contentobject_id, language_id ".
                " FROM ezcomment " .
                " WHERE email='$email'" .
-               "$statusString" . 
+               "$statusString" .
                ") as contentobject";
         $db = eZDB::instance();
         $result = $db->arrayQuery( $sql );
-        return $result[0]['row_count']; 
+        return $result[0]['row_count'];
     }
-    
+
     /**
      * fetch content object from email
-     * 
+     *
      */
     static function fetchContentObjectByEmail( $email, $status = false, $sorts ,$offset = null, $length = null, $asObject = false )
-    {        
+    {
 //        $objectDef = eZContentObject::definition();
 //        //TODO: change the grouping way
 //        //NOTE: there might be a bug in group API: using $grouping insead of Def['grouping'] doesn't work
 //        $objectDef['grouping'] = array( 'id', 'language_id' );
-////        $objectDef['fields']['comment_count'] = 
+////        $objectDef['fields']['comment_count'] =
 //        $commentDef = self::definition();
 //        $fields = array();
 //        $conds = array( $commentDef['name'] . '.email' => $email );
@@ -338,10 +338,10 @@ class ezcomComment extends eZPersistentObject
 //        {
 //            $statusString = ' AND ' . $commentDef['name'] . '.status = ' . $status;
 //        }
-//        
+//
 //        $customConds = ' AND ' . $objectDef['name'] . '.id = ' . $commentDef['name'] . '.contentobject_id' .
 //                       $statusString ;
-//        $result = eZPersistentObject::fetchObjectList( $objectDef, 
+//        $result = eZPersistentObject::fetchObjectList( $objectDef,
 //                                                         $fields,
 //                                                         $conds,
 //                                                         $sorts,
@@ -352,16 +352,16 @@ class ezcomComment extends eZPersistentObject
 //                                                         $customTables,
 //                                                         $customConds);
         $db = eZDB::instance();
-        $sql = "SELECT contentobject_id, language_id" . 
+        $sql = "SELECT contentobject_id, language_id" .
                 ", COUNT(id) as comment_count" .
                 " FROM ezcomment " .
-                " WHERE email='$email'" . 
+                " WHERE email='$email'" .
                 " GROUP BY contentobject_id, language_id";
         $result = $db->arrayQuery( $sql );
         return $result;
     }
-    
-    
+
+
 //    /**
 //     * update one comment, and update the relavant subscription, notificaton queue
 //     * @param $commentInput: comment input array.
@@ -377,7 +377,7 @@ class ezcomComment extends eZPersistentObject
 //     */
 //    static function updateComment( $commentInput, $commentParam, $user, $time = null )
 //    {
-//        // TODO: remove the notified field in comment, instead, use subscription 
+//        // TODO: remove the notified field in comment, instead, use subscription
 //        //1. get the comment, update it
 //        if( is_null( $commentInput ) || is_null( $commentParam ) || is_null( $user ) )
 //        {
@@ -428,7 +428,7 @@ class ezcomComment extends eZPersistentObject
 //            $comment->setAttribute( 'notification', $commentInput['notified'] );
 //        }
 //        $comment->store();
-//        
+//
 //        //2. update subscription
 //        // if notified is true, add subscription, else cleanup the subscription on the user and content
 //        $contentID = $comment->attribute( 'contentobject_id' ) . '_' . $comment->attribute( 'language_id' );
@@ -462,9 +462,9 @@ class ezcomComment extends eZPersistentObject
 //        }
 //        return true;
 //    }
-    
+
 //    /**
-//     * delete comment and clean up subscription related, notification queue 
+//     * delete comment and clean up subscription related, notification queue
 //     * @param string/int $commentID
 //     * @return true if succeed, false if failed
 //     */
@@ -480,7 +480,7 @@ class ezcomComment extends eZPersistentObject
 //        $notification = $comment->attribute( 'notification' );
 //        // 1. remove comment
 //        $comment->remove();
-//        
+//
 //        // 2. clean up subscription
 //        if( $notification )
 //        {
@@ -501,12 +501,12 @@ class ezcomComment extends eZPersistentObject
 //            }
 //        }
 //        //3. todo: clean up the queue
-//        
+//
 //        //clean up cache
 //        eZContentCacheManager::clearContentCache( $comment->attribute( 'contentobject_id' ) );
 //        return true;
 //    }
-   
+
 }
 
 ?>
