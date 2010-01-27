@@ -18,6 +18,7 @@
 {set $comment_email=$user.email}
 {set $comment_notified=ezini( 'CommentSettings', 'DefaultNotified', 'ezcomments.ini' )}
 {/if}
+
 <form id="ezcom-comment-form" method="post" action={'comment/add'|ezurl} name="CommentAdd">
 <input type="hidden" name="ContentObjectID" value="{$contentobject_id}" />
 <input type="hidden" name="LanguageID" value="{$language_id}" />
@@ -94,12 +95,16 @@
 eZComments.cfg = {ldelim}
                     postbutton: '#ezcom-post-button',
                     postform: '#ezcom-comment-form',
-                    postlist: '#ezcom-comment-list'
+                    postlist: '#ezcom-comment-list',
+                    sessionprefix: '{ezini('Session', 'SessionNamePrefix', 'site.ini')}', 
+                    fields: {ldelim} 
+                                name: '#ezcomments_comment_view_addcomment_name',
+                                email: '#ezcomments_comment_view_addcomment_email' 
+                            {rdelim}
                  {rdelim}
 
 eZComments.init();
 </script>
-
 
 {undef $comment_name $comment_website $comment_email $comment_notified $comment_remember}
 {undef $user $anonymous_user_id $is_anonymous}

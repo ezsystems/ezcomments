@@ -41,6 +41,23 @@ class ezcomServerFunctions extends ezjscServerFunctions
     {
     }
 
+    public static function userData()
+    {
+        unset( $_COOKIE['eZCommentsUserData'] );
+
+        $sessionID = session_id();
+        $userData = array();
+
+        $currentUser = eZUser::currentUser();
+
+        $userData[$sessionID] = array( 'email' => $currentUser->attribute( 'email' ),
+                                       'name' => $currentUser->attribute( 'login' ) );
+                                       
+        setcookie( 'eZCommentsUserData', base64_encode( json_encode( $userData ) ), time()+3600, '/' );
+        
+        return $userData;
+    }
+
     /**
      * create an error object that will be used for client use
      * @param string $message : message
