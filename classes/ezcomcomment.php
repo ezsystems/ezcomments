@@ -131,7 +131,7 @@ class ezcomComment extends eZPersistentObject
 
     /**
      * get the contentobject of one comment
-     * @return unknown_type
+     * @return eZContentObject
      */
     public function contentObject()
     {
@@ -145,7 +145,6 @@ class ezcomComment extends eZPersistentObject
     /**
      * Creates new ezcomComments object
      *
-     * @static
      * @param array $row
      * @return ezcomComment
      */
@@ -159,7 +158,7 @@ class ezcomComment extends eZPersistentObject
      * Fetch comment by given id.
      *
      * @param int $id
-     * @return null|ezcomComment
+     * @return ezcomComment
      */
     static function fetch( $id )
     {
@@ -168,6 +167,16 @@ class ezcomComment extends eZPersistentObject
         return $return;
     }
 
+    /**
+     * fetch comment by email
+     * @param $email email address
+     * @param $sorts sort array
+     * @param $offset offset
+     * @param $length length
+     * @param $notification if it is notified
+     * @param $status status of comment
+     * @return ezcomcomment object
+     */
     static function fetchByEmail( $email, $sorts = null, $offset = null, $length = null, $notification = false, $status = false  )
     {
         $cond = array();
@@ -190,6 +199,15 @@ class ezcomComment extends eZPersistentObject
         return $return;
     }
 
+    /**
+     * fetch comment list by contentobject id
+     * @param string $contentObjectID
+     * @param string $languageID
+     * @param array $sorts
+     * @param integer $offset
+     * @param integer $length
+     * @return NULL|array comment list
+     */
     static function fetchByContentObjectID( $contentObjectID, $languageID, $sorts = null, $offset = null, $length = null )
     {
         $cond = array();
@@ -204,14 +222,15 @@ class ezcomComment extends eZPersistentObject
             $limit = array( 'offset' => $offset, 'length' => $length);
             $return = eZPersistentObject::fetchObjectList( self::definition(), null, $cond, $sorts, $limit );
             return $return;
-
         }
     }
 
     /**
-     * count the comments by content object id
-     * @param int $contentObjectID
-     * @return int : count number
+     * Count the comments by content object id
+     * @param integer $contentObjectID
+     * @param integer $languageID
+     * @param integer $status
+     * @return count of comments
      */
     static function countByContent( $contentObjectID, $languageID = false, $status = null )
     {
@@ -229,10 +248,10 @@ class ezcomComment extends eZPersistentObject
     }
 
     /**
-     * fetch the count of contentobject the user commented on
+     * Fetch the count of contentobject the user commented on
      * @param $email user's email
      * @param $status status of comment
-     * @return count
+     * @return count of contentobject with id.
      */
     static function countContentObjectByEmail( $email, $status = false )
     {
@@ -253,15 +272,21 @@ class ezcomComment extends eZPersistentObject
     }
 
     /**
-     * fetch content object from email
-     *
+     * Fetch content object from email
+     * 
+     * @param string $email email address
+     * @param integer $status status of comment
+     * @param array $sorts 
+     * @param integer $offset
+     * @param integer $length
+     * @param boolean $asObject
+     * @return null|array contenobject_id, language_id
      */
     static function fetchContentObjectByEmail( $email, $status = false, $sorts ,$offset = null, $length = null, $asObject = false )
     {
         $db = eZDB::instance();
-
         $sql = "SELECT contentobject_id, language_id" .
-                ", COUNT(id) as comment_count" .
+                ", COUNT(id) AS comment_count" .
                 " FROM ezcomment " .
                 " WHERE email='$email'" .
                 " GROUP BY contentobject_id, language_id";

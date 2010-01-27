@@ -37,7 +37,7 @@ $page = 1;
 
 if( $user->isAnonymous() )
 {
-    $hashString = $Params[ 'HashString' ];
+    $hashString = trim( $Params[ 'HashString' ] );
     if( !is_null( $Params['Page'] ) )
     {
         $page = $Params['Page'];

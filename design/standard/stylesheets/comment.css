@@ -78,7 +78,7 @@ div.ezcom-view-all p{
     font-style:italic
 }
 
-div.attribute-comment div.ezcom-view-comment{
+div.ezcom-view-comment{
     padding-top:10px;
     border-width:0px 0px 1px 0px;
     border-color:#e3e4e7 #e3e4e7 #cccccc #e3e4e7;
@@ -90,20 +90,6 @@ div.attribute-comment div.ezcom-view-comment{
 div.ezcom-full{
 }
 
-div.ezcom-full div.ezcom-view-comment{
-    border:1px solid #D4D4D4;
-    margin-bottom:20px;
-}
-
-
-div.ezcom-full div.ezcom-comment-index,div.ezcom-full div.ezcom-comment-title{
-    background-color:#F0F0F0;
-    height:20px;
-    padding-top:2px;
-    padding-buttom:3px;
-    border-bottom:1px dotted #999999;
-    overflow:hidden;
-}
 
 div.ezcom-full div.ezcom-comment-index{
     text-align:right;

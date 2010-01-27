@@ -36,6 +36,11 @@ if( $Module->isCurrentAction( 'DeleteComment' ) )
     {
         $commentID = $http->postVariable( 'CommentID' );
     }
+    if( !is_numeric( $commentID ) )
+    {
+        eZDebug::writeError( 'The parameter CommentID is not a number!', 'ezcomments' );
+        return;
+    }
     $tpl = templateInit();
     $comment = ezcomComment::fetch( $commentID );
     $permissionResult = checkPermission( $comment ); 
