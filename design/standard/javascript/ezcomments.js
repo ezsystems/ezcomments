@@ -6,7 +6,7 @@ var eZComments = function() {
     var yCallback = function(Y, result) {
         Y.one(ret.cfg.postbutton).on('click', function(e) {
             e.preventDefault();
-            console.log(Y.one(ret.cfg.postform));
+            
             Y.io.ez('ezcom::postcomment', { method: 'POST', 
                                             on: { success: successCallback },
                                             form: { id: Y.one(ret.cfg.postform), 
@@ -18,6 +18,8 @@ var eZComments = function() {
     var successCallback = function(o) {
         if (o.responseJSON !== undefined) {
             var response = o.responseJSON;
+            
+            // TODO: read the response, how
         }
     }    
     // Public
