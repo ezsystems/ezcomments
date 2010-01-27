@@ -107,70 +107,83 @@ if( is_null( $objectAttribute ) )
     return;
 }
 
+//check permission
+$canAddResult = ezcomPermission::hasAccessToFunction( 'add', $contentObject, $languageCode );
 $tpl = templateInit();
 
- // if the comment is not shown or enables commenting
- $content = $objectAttribute->attribute('content');
- if( $content['show_comments'] != 1 || $content['enable_comment'] != 1 )
- {
-      eZDebug::writeError( 'Adding comment error, comment not shown or diabled!', 'Add comment' );
-      return;
- }
- 
- $comment = ezcomComment::create();
- $title = $http->postVariable( 'CommentTitle' );
- $comment->setAttribute( 'title', $title );
- $name = $http->postVariable( 'CommentName' );
- $comment->setAttribute( 'name', $name );
- $website = $http->postVariable( 'CommentWebsite' );
- $comment->setAttribute( 'url', $website );
- $email = $http->postVariable( 'CommentEmail' );
- $comment->setAttribute( 'email', $email );
- $content = $http->postVariable( 'CommentContent' );
- $comment->setAttribute( 'text', $content );
- if( $http->hasPostVariable( 'CommentNotified' ) &&
-         $http->postVariable( 'CommentNotified' ) == 'on')
- {
-     $comment->setAttribute( 'notification', true );
- }
- else
- {
-     $comment->setAttribute( 'notification', false );
- }
- $comment->setAttribute( 'contentobject_id', $contentObjectID );
- $comment->setAttribute( 'language_id', $languageID );
- $currentTime = time();
- $comment->setAttribute( 'user_id', $user->attribute( 'contentobject_id' ) );
- $comment->setAttribute( 'created', $currentTime);
- $comment->setAttribute( 'modified', $currentTime);
- $commentManager = ezcomCommentManager::instance();
- $commentManager->tpl = $tpl;
- $addingResult = $commentManager->addComment( $comment, $user );
- if( $addingResult === true )
- {
-     //remember cookies
-     if( $user->isAnonymous() )
+$commentContent = $objectAttribute->content();
+if( !$canAddResult['result'] || !$commentContent['show_comments'] || !$commentContent['enable_comment'] )
+{
+    $tpl->setVariable( 'error_message', ezi18n( 'extension/comment/add', 'You don\'t have '.
+                                                ' the permission to post comment ' .
+                                                ' or the posting comment function is not available!'  ) );
+}
+else
+{
+    
+     // if the comment is not shown or enables commenting
+     $content = $objectAttribute->attribute('content');
+     if( $content['show_comments'] != 1 || $content['enable_comment'] != 1 )
      {
-         $cookieManager = ezcomCookieManager::instance();
-         if( $http->hasPostVariable( 'CommentRememberme') &&
-                 $http->postVariable( 'CommentRememberme' ) == 'on' )
-         {
-             $cookieManager->storeCookie( $comment );
-         }
-         else
-         {
-             $cookieManager->clearCookie();
-         }
+          eZDebug::writeError( 'Adding comment error, comment not shown or diabled!', 'Add comment' );
+          return;
      }
-     //clear cache
-     eZContentCacheManager::clearContentCache( $contentObjectID );
-     $tpl->setVariable( 'success', true );
-     $tpl->setVariable( 'redirect_uri', $redirectURI );
- }
- else
- {
-    $tpl->setVariable( 'error_message', $addingResult );
- }
+     
+     $comment = ezcomComment::create();
+     $title = $http->postVariable( 'CommentTitle' );
+     $comment->setAttribute( 'title', $title );
+     $name = $http->postVariable( 'CommentName' );
+     $comment->setAttribute( 'name', $name );
+     $website = $http->postVariable( 'CommentWebsite' );
+     $comment->setAttribute( 'url', $website );
+     $email = $http->postVariable( 'CommentEmail' );
+     $comment->setAttribute( 'email', $email );
+     $content = $http->postVariable( 'CommentContent' );
+     $comment->setAttribute( 'text', $content );
+     if( $http->hasPostVariable( 'CommentNotified' ) &&
+             $http->postVariable( 'CommentNotified' ) == 'on')
+     {
+         $comment->setAttribute( 'notification', true );
+     }
+     else
+     {
+         $comment->setAttribute( 'notification', false );
+     }
+     $comment->setAttribute( 'contentobject_id', $contentObjectID );
+     $comment->setAttribute( 'language_id', $languageID );
+     $currentTime = time();
+     $comment->setAttribute( 'user_id', $user->attribute( 'contentobject_id' ) );
+     $comment->setAttribute( 'created', $currentTime);
+     $comment->setAttribute( 'modified', $currentTime);
+     $commentManager = ezcomCommentManager::instance();
+     $commentManager->tpl = $tpl;
+     $addingResult = $commentManager->addComment( $comment, $user );
+     if( $addingResult === true )
+     {
+         //remember cookies
+         if( $user->isAnonymous() )
+         {
+             $cookieManager = ezcomCookieManager::instance();
+             if( $http->hasPostVariable( 'CommentRememberme') &&
+                     $http->postVariable( 'CommentRememberme' ) == 'on' )
+             {
+                 $cookieManager->storeCookie( $comment );
+             }
+             else
+             {
+                 $cookieManager->clearCookie();
+             }
+         }
+         //clear cache
+         eZContentCacheManager::clearContentCache( $contentObjectID );
+         $tpl->setVariable( 'success', true );
+         $tpl->setVariable( 'redirect_uri', $redirectURI );
+     }
+     else
+     {
+        $tpl->setVariable( 'error_message', $addingResult );
+     }
+}
  $Result['path'] = array( array( 'url' => false,
                             'text' => ezi18n( 'extension/ezcomments/add', 'Add comment' ) ) );
  $Result['content'] = $tpl->fetch( 'design:comment/add.tpl' );

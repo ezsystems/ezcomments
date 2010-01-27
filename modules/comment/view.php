@@ -113,7 +113,6 @@ if( $mode == 'ajax' )
 }
 else if( $mode == 'standard' )
 {
-     //check the permission
      
      $user = eZUser::currentUser();
      $userID = $user->attribute( 'contentobject_id' );

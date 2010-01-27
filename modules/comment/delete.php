@@ -28,7 +28,6 @@
 require_once( 'kernel/common/template.php' );
 $tpl = templateInit();
 $Module = $Params['Module'];
-
 if( $Module->isCurrentAction( 'DeleteComment' ) )
 {
     $http = eZHTTPTool::instance();
@@ -37,26 +36,37 @@ if( $Module->isCurrentAction( 'DeleteComment' ) )
     {
         $commentID = $http->postVariable( 'CommentID' );
     }
+    $tpl = templateInit();
     $comment = ezcomComment::fetch( $commentID );
-    $commentManager = ezcomCommentManager::instance();
-    $deleteResult = $commentManager->deleteComment( $comment );
-    if( $deleteResult === true )
-    {   
-        //clean up cache
-        eZContentCacheManager::clearContentCache( $comment->attribute( 'contentobject_id' ) );
-        
-        $redirectURI = null;
-        if ( $http->hasPostVariable( "RedirectURI" ) )
-        {
-            $redirectURI = $http->postVariable( 'RedirectURI' );
-        }
-        //todo: deal with the case that there is no last Access URI
-        $Module->redirectTo( $redirectURI );
+    $permissionResult = checkPermission( $comment ); 
+    if( $permissionResult !== true )
+    {
+        $tpl->setVariable( 'error_message', $permissionResult );
+        return showDeleteForm( $tpl, $commentID );
     }
     else
     {
-        $tpl->setVariable( 'error_message', ezi18n( 'extension/ezcomments/delete', 'Deleting failed!' ) );
-        return showDeleteForm( $commentID );
+        //execute deleting
+        $commentManager = ezcomCommentManager::instance();
+        $deleteResult = $commentManager->deleteComment( $comment );
+        if( $deleteResult === true )
+        {   
+            //clean up cache
+            eZContentCacheManager::clearContentCache( $comment->attribute( 'contentobject_id' ) );
+            
+            $redirectURI = null;
+            if ( $http->hasPostVariable( "RedirectURI" ) )
+            {
+                $redirectURI = $http->postVariable( 'RedirectURI' );
+            }
+            //todo: deal with the case that there is no last Access URI
+            $Module->redirectTo( $redirectURI );
+        }
+        else
+        {
+            $tpl->setVariable( 'error_message', ezi18n( 'extension/ezcomments/delete', 'Deleting failed!' ) );
+            return showDeleteForm( $tpl, $commentID );
+        }
     }
 }
 else if( $Module->isCurrentAction( 'Cancel' ) )
@@ -74,7 +84,44 @@ else if( $Module->isCurrentAction( 'Cancel' ) )
 else
 {
     $commentID = $Params['CommentID'];
+    $comment = ezcomComment::fetch( $commentID );
+    $permissionResult = checkPermission( $comment ); 
+    if( $permissionResult !== true )
+    {
+        $tpl->setVariable( 'error_message', $permissionResult );
+    }
     return showDeleteForm( $tpl, $commentID );
+}
+
+function checkPermission( $comment )
+{
+    // check permission
+    $contentObject = $comment->contentObject();
+    $languageID = $comment->attribute( 'language_id' );
+    $languageCode = eZContentLanguage::fetch( $languageID )->attribute( 'locale' );
+    $canDeleteResult = ezcomPermission::hasAccessToFunction( 'delete', $contentObject, $languageCode );
+    
+    $objectAttributes = $contentObject->fetchDataMap( false, $languageCode );
+    $objectAttribute = null;
+    foreach( $objectAttributes as $attribute )
+    {
+        if( $attribute->attribute( 'data_type_string' ) === 'ezcomcomments' )
+        {
+            $objectAttribute = $attribute;
+            break;
+        }
+    }
+    $commentContent = $objectAttribute->content();
+    if( !$canDeleteResult['result'] || !$commentContent['show_comments'] )
+    {
+        return ezi18n( 'extension/comment/delete', 'You don\'t have '.
+                                                    ' the permission to delete comment ' .
+                                                    ' or the showing comment function is disabled!' );
+    }
+    else
+    {
+        return true;
+    }
 }
 
 function showDeleteForm( $tpl, $commentID )
