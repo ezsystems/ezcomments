@@ -29,6 +29,12 @@ var eZComments = function() {
 
                 if (Y.Object.hasKey(response.content, 'fields')) {
                     var fields = response.content.fields;
+                    
+                    Y.Object.each(fields, function(v, k, o) {
+                        var field = Y.one('[name=' + k + ']');
+
+                        field.get('parentNode').one('.ezcom-filed-error').set('innerHTML', v.validationText);
+                    })
                 }
             }
         }

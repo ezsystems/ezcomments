@@ -37,11 +37,13 @@
             <input type="text" class="box" maxlength="100" id="ezcomments_comment_view_addcomment_title" name="CommentTitle" />
         </div>
         <div class="ezcom-field ezcom-field-name">
+            <div class="ezcom-filed-error"></div>
             <label>
                 {'Name:'|i18n( 'extension/ezcomments/commentform' )}
             </label>
             <input type="text" class="box" maxlength="50" id="ezcomments_comment_view_addcomment_name" name="CommentName" value="{$comment_name}" />
             <span class="ezcom-field-mandatory">*</span>
+            
         </div>
         <div class="ezcom-field ezcom-field-website">
             <label>
@@ -96,6 +98,7 @@ eZComments.cfg = {ldelim}
                     postbutton: '#ezcom-post-button',
                     postform: '#ezcom-comment-form',
                     postlist: '#ezcom-comment-list',
+                    postcontainer: '#ezcom-comment-list',
                     sessionprefix: '{ezini('Session', 'SessionNamePrefix', 'site.ini')}', 
                     fields: {ldelim} 
                                 name: '#ezcomments_comment_view_addcomment_name',
