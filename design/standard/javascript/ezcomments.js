@@ -22,8 +22,14 @@ var eZComments = function() {
         var postCommentCallback = function(id, o) {
             if (o.responseJSON !== undefined) {
                 var response = o.responseJSON;
+                
+                if (Y.Object.hasKey(response.content, 'comment')) {
+                    Y.one(ret.cfg.postcontainer).prepend(Y.Node.create(response.content.comment));
+                }
 
-                // TODO: read the response, how
+                if (Y.Object.hasKey(response.content, 'fields')) {
+                    var fields = response.content.fields;
+                }
             }
         }
         
