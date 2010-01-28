@@ -1,7 +1,8 @@
-{if $contentobject_attribute.content.show_comments}
-    {def $contentobject=$contentobject_attribute.object}
-    {def $language_id=$contentobject_attribute.language_id}
-    {def $language_code=$contentobject_attribute.language_code}
+{ezcss_require( 'comment.css' )}
+{if $attribute.content.show_comments}
+    {def $contentobject = $attribute.object}
+    {def $language_id = $attribute.language_id}
+    {def $language_code = $attribute.language_code}
     {def $can_read = fetch( 'comment', 'has_access_to_function', hash( 'function', 'read',
                                                                        'contentobject', $contentobject,
                                                                        'language_code', $language_code,
@@ -60,10 +61,10 @@
     {undef $can_read}
     
     {* Adding comment form START *}
-    {if $contentobject_attribute.content.enable_comment}
+    {if $attribute.content.enable_comment}
         {def $can_add = fetch( 'comment', 'has_access_to_function', hash( 'function', 'add',
                                                                        'contentobject', $contentobject,
-                                                                       'language_code', $contentobject_attribute.language_code,
+                                                                       'language_code', $language_code,
                                                                         ) )}
         {if $can_add}
             {include name="AddComment" uri="design:comment/add_comment.tpl" redirect_uri=$contentobject.main_node.url_alias contentobject_id=$contentobject.id language_id=$language_id}
