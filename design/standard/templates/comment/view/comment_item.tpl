@@ -1,4 +1,10 @@
-{default self_edit=false() self_delete=false()}
+{if not( is_set( $self_edit ) )}
+    {def $self_edit=false()}
+{/if}
+
+{if not( is_set( $self_delete ) )}
+    {def $self_delete=false()}
+{/if}
 
 <div class="ezcom-view-comment" id="ezcomments_comment_view_commentitem">
             <div class="ezcom-comment-index">
