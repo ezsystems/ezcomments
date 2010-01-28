@@ -39,12 +39,14 @@
                                                                              'contentobject', $contentobject,
                                                                              'language_code', $language_code,
                                                                              'comment', $comment,
-                                                                             'scope', 'role' ) )
+                                                                             'scope', 'role',
+                                                                             'node', $node ) )
                  $can_delete=fetch( 'comment', 'has_access_to_function', hash( 'function', 'delete',
                                                                                'contentobject', $contentobject,
                                                                                'language_code', $language_code,
                                                                                'comment', $comment,
-                                                                               'scope', 'role' ) )
+                                                                               'scope', 'role',
+                                                                               'node', $node ) )
                  $user_display_limit_class=concat( ' class="limitdisplay-user limitdisplay-user-', $comment.user_id, '"' )}
                  
             {if or( $can_edit, $can_self_edit, $can_delete, $can_self_delete )}

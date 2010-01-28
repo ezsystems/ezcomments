@@ -37,6 +37,7 @@ class ezcomPermission
     protected static $moduleName = 'comment';
     protected static $sectionKey = 'ContentSection';
     protected static $commentCreatorKey = 'CommentCreator';
+    protected static $subtreeKey = 'User_Subtree';
     protected static $instance = null;
 
     /**
@@ -44,31 +45,36 @@ class ezcomPermission
      * 
      * return true if has, false if not
      */
-    public function hasFunctionAccess( $user, $functionName, $contentObject, $languageCode, $comment = null, $scope = null )
+    public function hasFunctionAccess( $user, $functionName, $contentObject, $languageCode, $comment = null, $scope = null, $node = null )
     {
         $result = $user->hasAccessTo( self::$moduleName, $functionName );
         
         if( $result['accessWord'] !== 'limited' )
         {
-            return ( $result['accessWord'] === 'yes' ) and ( $scope !== 'personal' );
+            $return = ( $result['accessWord'] === 'yes' ) and ( $scope !== 'personal' );
         }
         else
         {
             foreach( $result['policies'] as $limitationArray )
             {
+                eZDebug::writeDebug( $limitationArray, "limitationArray for function $functionName" );
+
+                $return = true;
                 foreach( $limitationArray as $limitationKey => $limitation )
                 {
                     // deal with limitation checking
                     $resultItem = $this->checkPermission( $user, $limitationKey, $limitation,
-                                                     $contentObject, $languageCode, $comment, $scope );
+                        $contentObject, $languageCode, $comment, $scope, $node );
                     ezDebugSetting::writeNotice( 'extension-ezcomments',
-                        "Permission check result for function '$functionName' with limitation '$limitationKey: " . $resultItem, __METHOD__ );
-                    if ( $resultItem == true )
-                        return true;
+                        "Permission check result for function '$functionName' with limitation '$limitationKey': " . ( $resultItem === true ? 'true' : 'false' ), __METHOD__ );
+                    $return = ( $return and $resultItem ); 
                 }
+                
+                if ( $return === true )
+                    break;
             }
-            return false;
         }
+        return $return;
     }
     
    /**
@@ -82,7 +88,7 @@ class ezcomPermission
     * @param $comment comment object if the permaission is based on one comment.When the permission checking is for editing and delete, it's useful
     * @return true if the checking result is true, false otherwise
     */
-    protected function checkPermission( $user, $limitationKey, $limitation, $contentObject, $languageCode, $comment = null, $scope = null )
+    protected function checkPermission( $user, $limitationKey, $limitation, $contentObject, $languageCode, $comment = null, $scope = null, $node = null )
     {
         switch( $limitationKey )
         {
@@ -111,6 +117,24 @@ class ezcomPermission
                     $commentUserID = $comment->attribute( 'user_id' );
                     return ( $userID == $commentUserID );
                 }
+            // role assignment by subtree limitation
+            case self::$subtreeKey:
+                if ( !( $node instanceof eZContentObjectTreeNode ) )
+                {
+                    return false;
+                }
+                else
+                {
+                    foreach( $limitation as $subtree )
+                    {
+                        if ( strpos( $node->attribute( 'path_string' ), $subtree ) === 0 )
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            
             default:
                 return false;
         }
@@ -174,11 +198,11 @@ class ezcomPermission
     *        - role: the permissions is identical for any user sharing the same role
     *        - personal: the permission is limited by ownership (edit self for instance)
     */
-    public static function hasAccessToFunction( $functionName, $contentObject, $languageCode, $comment = null, $scope = null )
+    public static function hasAccessToFunction( $functionName, $contentObject, $languageCode, $comment = null, $scope = null, $node = null )
     {
         $user = eZUser::currentUser();
         $permission = ezcomPermission::instance();
-        $result = $permission->hasFunctionAccess( $user, $functionName, $contentObject, $languageCode, $comment, $scope );
+        $result = $permission->hasFunctionAccess( $user, $functionName, $contentObject, $languageCode, $comment, $scope, $node );
         return array( 'result' => $result );
     }
     

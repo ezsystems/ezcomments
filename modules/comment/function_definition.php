@@ -92,7 +92,11 @@ $FunctionList['has_access_to_function'] = array( 'name' => 'has_access_to_functi
                                                           'type' => 'string',
                                                           'required' => false,
                                                           'default' => null
-                                                      )
+                                                      ),
+                                                   array( 'name' => 'node',
+                                                          'type' => 'object',
+                                                          'required' => false,
+                                                          'default' => null )
                                                   )
                                              );
 $FunctionList['self_policies'] = array( 'name' => 'has_self_access',
@@ -108,6 +112,11 @@ $FunctionList['self_policies'] = array( 'name' => 'has_self_access',
                                                 'name' => 'contentobject',
                                                 'type' => 'object',
                                                 'required' => true
-                                            )
+                                            ),
+                                            array(
+                                                'name' => 'node',
+                                                'type' => 'object',
+                                                'required' => false,
+                                                'default' => null ),
                                         ) );
 ?>
