@@ -62,6 +62,6 @@ class ezcomNotificationEmailManager extends ezcomNotificationManager
         {
             throw new Exception( 'Send email error! Subscriber id:' .$subscriber->attribute( 'id' ) );
         }
-        eZDebug::writeNotice( 'An email has been sent to:'. $email . '.subject:' . $subject, 'Send mail' );
+        eZDebugSetting::writeNotice( 'extension-ezcomments', "An email has been sent to '$email' (subject: $subject)", __METHOD__ );
     }
 }

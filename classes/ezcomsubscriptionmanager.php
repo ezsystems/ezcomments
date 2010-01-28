@@ -63,7 +63,7 @@ class ezcomSubscriptionManager
         {
             if( $subscription->attribute( 'enabled' ) )
             {
-                ezDebug::writeNotice( 'The subscription has been activated!' );
+                ezDebugSetting::writeNotice( 'extension-ezcomments', 'Subscription activated', __METHOD__ );
             }
             
             $subscriber = ezcomSubscriber::fetch( $subscription->attribute( 'subscriber_id' ) );
@@ -106,7 +106,7 @@ class ezcomSubscriptionManager
                 $subscriber->setAttribute( 'hash_string', $hashString );
             }
             $subscriber->store();
-            eZDebug::writeNotice( 'Subscriber doesn\'t exist, added one', 'Add comment', 'ezcomComment' );
+            eZDebugSetting::writeNotice( 'extension-ezcomments', 'Subscriber does not exist, added one', __METHOD__ );
             $subscriber = ezcomSubscriber::fetchByEmail( $email );
         }
         else
@@ -145,7 +145,7 @@ class ezcomSubscriptionManager
                                                                          $subscription );
                 if( !$result )
                 {
-                    eZDebug::writeError( 'The mail sending failed', 'Add comment', 'ezcomComment' );
+                    eZDebug::writeError( "Error sending mail to '$email'", __METHOD__ );
                 }
             }
             else
@@ -153,7 +153,7 @@ class ezcomSubscriptionManager
                 $subscription->setAttribute( 'enabled', 1 );
                 $subscription->store();
             }
-            eZDebug::writeNotice( 'There is no subscription for the content and user, added one', 'Add comment', 'ecomComment' );
+            eZDebugSetting::writeNotice( 'extension-ezcomments', 'No existing subscription for this content and user, added one', __METHOD__ );
         }
     }
     

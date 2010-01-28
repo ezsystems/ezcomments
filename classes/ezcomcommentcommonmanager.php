@@ -69,7 +69,7 @@ class ezcomCommentCommonManager extends ezcomCommentManager
             $notification->setAttribute( 'language_id', $comment->attribute( 'language_id' ) );
             $notification->setAttribute( 'comment_id', $comment->attribute( 'id' ) );
             $notification->store();
-            eZDebug::writeNotice( 'Notification has been added into queue', 'Add comment', 'ezcomComment' );
+            eZDebugSetting::writeNotice( 'extension-ezcomments', 'Notification added to queue', __METHOD__ );
         }
     }
    
@@ -85,7 +85,7 @@ class ezcomCommentCommonManager extends ezcomCommentManager
         
         if( $deleteingSubscription === 'true' )
         {
-            eZDebug::writeNotice( 'The comment to be deleted has subscription', 'Delete comment' );
+            eZDebugSetting::writeNotice( 'extension-ezcomments', 'The comment to be deleted has subscriptions', __METHOD__ );
             $contentID = $comment->attribute( 'contentobject_id' ) . '_'. $comment->attribute( 'language_id' );
             $commentObject = ezcomComment::fetchByEmail( $comment->attribute( 'email' ) );
             //if the comment on the object is empty, delete the susbscription 
@@ -133,7 +133,7 @@ class ezcomCommentCommonManager extends ezcomCommentManager
             $notification->setAttribute( 'language_id', $comment->attribute( 'language_id' ) );
             $notification->setAttribute( 'comment_id', $comment->attribute( 'id' ) );
             $notification->store();
-            eZDebug::writeNotice( 'There is subscription, added a update notification into queue.', 'ezcomments' );
+            eZDebugSetting::writeNotice( 'extension-ezcomments', 'There are subscriptions, added an update notification to the queue.', __METHOD__ );
         }
         else
         {

@@ -140,7 +140,7 @@ abstract class ezcomCommentManager
             return $beforeAddingResult;
         }
         $comment->store();
-        eZDebug::writeNotice( 'Comment has been added into ezcomment table', 'Add comment', 'ezcomComment' );
+        eZDebugSetting::writeNotice( 'extension-ezcomments', 'Comment has been added', __METHOD__ );
         $this->afterAddingComment( $comment );
         return true;
     }

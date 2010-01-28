@@ -61,8 +61,8 @@ class ezcomPermission
                     // deal with limitation checking
                     $resultItem = $this->checkPermission( $user, $limitationKey, $limitation,
                                                      $contentObject, $languageCode, $comment, $scope );
-                    ezDebug::writeNotice( 'Permission checking result in ' . $functionName . ': key: ' . $limitationKey .
-                                             ', result: ' . $resultItem, __METHOD__ );
+                    ezDebugSetting::writeNotice( 'extension-ezcomments',
+                        "Permission check result for function '$functionName' with limitation '$limitationKey: " . $resultItem, __METHOD__ );
                     if ( $resultItem == true )
                         return true;
                 }
