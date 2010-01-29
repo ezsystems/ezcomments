@@ -34,16 +34,15 @@
         {if $comments|count|gt( 0 )}
             <div id="ezcom-comment-list" class="ezcom-view-list">
                 {for 0 to $comments|count|sub( 1 ) as $index}
-                        {include name="CommentItem"
-                             contentobject=$contentobject
-                             language_code=$language_code
-                             comment=$comments.$index
-                             index=$index
-                             base_index=0
-                             can_self_edit=$self_policy.edit
-                             can_self_delete=$self_policy.delete
-                             node=$attribute_node
-                             uri="design:comment/view/comment_item.tpl"}
+                        {include contentobject=$contentobject
+                                language_code=$language_code
+                                comment=$comments.$index
+                                index=$index
+                                base_index=0
+                                can_self_edit=$self_policy.edit
+                                can_self_delete=$self_policy.delete
+                                node=$attribute_node
+                                uri="design:comment/view/comment_item.tpl"}
                 {/for}
                 <div class="ezcom-view-all">
                   <p>
@@ -78,7 +77,7 @@
                                                                        'node', $attribute_node
                                                                         ) )}
         {if $can_add}
-            {include name="AddComment" uri="design:comment/add_comment.tpl" redirect_uri=$attribute_node.url_alias contentobject_id=$contentobject.id language_id=$language_id}
+            {include uri="design:comment/add_comment.tpl" redirect_uri=$attribute_node.url_alias contentobject_id=$contentobject.id language_id=$language_id}
         {else}
             <div class="message-error">
                     <p>

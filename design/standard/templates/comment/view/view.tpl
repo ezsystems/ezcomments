@@ -2,10 +2,9 @@
 {if $objectattribute.content.show_comments}
     {ezcss_require( 'comment.css' )}
     <div class="content-view-full ezcom-full">
-        {include name="CommentContent" contentobject=$contentobject uri="design:comment/view_content.tpl"}
+        {include contentobject=$contentobject uri="design:comment/view_content.tpl"}
         {if $can_read}
-            {include name="CommentPage"
-                     contentobject=$contentobject
+            {include contentobject=$contentobject
                      language_id=$language_id
                      total_count=$total_count
                      total_page=$total_page
@@ -15,12 +14,11 @@
             {if $comments|count|gt( 0 )}
                 <div class="ezcom-view-list">
                     {for 0 to $comments|count|sub( 1 ) as $index}
-                        {include name="CommentItem"
-                             comment=$comments.$index
-                             index=$index base_index=$current_page|sub( 1 )|mul( $number_per_page )
-                             contentobject=$contentobject
-                             language_code=$language_code
-                             uri="design:comment/view/comment_item.tpl"}
+                        {include comment=$comments.$index
+                                 index=$index base_index=$current_page|sub( 1 )|mul( $number_per_page )
+                                 contentobject=$contentobject
+                                 language_code=$language_code
+                                 uri="design:comment/view/comment_item.tpl"}
                     {/for}
                 </div>
             {else}
@@ -39,7 +37,7 @@
         {/if}
         {if $objectattribute.content.enable_comment}
             {if $can_add}
-                {include name="AddComment" uri="design:comment/add_comment.tpl" redirect_uri=concat( 'comment/view/', $contentobject.id ) contentobject_id=$contentobject.id language_id=$language_id}
+                {include uri="design:comment/add_comment.tpl" redirect_uri=concat( 'comment/view/', $contentobject.id ) contentobject_id=$contentobject.id language_id=$language_id}
             {else}
                     <div class="message-feedback">
                             <p>
