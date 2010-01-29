@@ -33,8 +33,6 @@ require_once( 'kernel/common/template.php' );
 
 $http = eZHTTPTool::instance();
 
-$mode = $Params['ViewMode'];
-
 // fetch the content object
 if( !is_numeric( $Params['ContentObjectID'] ) )
 {
@@ -83,75 +81,59 @@ $canRead = false;
 $canReadResult = ezcomPermission::hasAccessToFunction( 'read', $contentObject, $languageCode );
 $canRead = $canReadResult['result'];
 
-if( $mode == 'ajax' )
+$user = eZUser::currentUser();
+$userID = $user->attribute( 'contentobject_id' );
+$Module = $Params['Module'];
+
+$Page = null;
+if( !is_null( $Params['Page'] ) )
 {
-    $tpl->setVariable( 'contentobject_id', $contentObjectID );
-    $tpl->setVariable( 'enabled', $objectAttribute->attribute( 'data_int' ) );
-    $tpl->setVariable( 'shown', $objectAttribute->attribute( 'data_float' ) );
-
-    $Result = array();
-    $Result['content'] = $tpl->fetch( 'design:comment/ajax/view.tpl' );
-    $Result['path'] = array( array( 'url' => false,
-                                    'text' => ezi18n( 'extension/ezcomments/view', 'View comment' ) ) );
-    return $Result;
+ if( !is_numeric( $Params['Page'] ) )
+ {
+     eZDebug::writeError( 'The parameter for page is not a number!', 'ezcomments' );
+     return;
+ }
+ else
+ {
+    $Page = $Params['Page'];
+ }
 }
-else if( $mode == 'standard' )
+else
 {
-
-     $user = eZUser::currentUser();
-     $userID = $user->attribute( 'contentobject_id' );
-     $Module = $Params['Module'];
-
-     $Page = null;
-     if( !is_null( $Params['Page'] ) )
-     {
-         if( !is_numeric( $Params['Page'] ) )
-         {
-             eZDebug::writeError( 'The parameter for page is not a number!', 'ezcomments' );
-             return;
-         }
-         else
-         {
-            $Page = $Params['Page'];
-         }
-     }
-     else
-     {
-         $Page = 1;
-     }
-
-     $tpl->setVariable( 'can_add', $canAdd );
-     $tpl->setVariable( 'can_read', $canRead );
-     // get the comment list
-     $count = ezcomComment::countByContent( $contentObjectID, $languageID );
-
-     $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
-     $defaultNumPerPage = $ezcommentsINI->variable( 'CommentSettings', 'NumberPerPage' );
-     $offset =  ( $Page - 1 ) * $defaultNumPerPage;
-
-     if( $offset > $count || $offset < 0 )
-     {
-         eZDebug::writeError( 'Offset overflowed!', 'ezcomments' );
-         return;
-     }
-
-     $length = $defaultNumPerPage;
-
-     $defaultSortField = $ezcommentsINI->variable( 'CommentSettings', 'DefaultSortField' );
-     $defaultSortOrder = $ezcommentsINI->variable( 'CommentSettings', 'DefaultSortOrder' );
-     $sorts = array( $defaultSortField => $defaultSortOrder );
-
-     $comments = ezcomComment::fetchByContentObjectID( $contentObjectID, $languageID, $sorts, $offset, $length);
-
-     $tpl->setVariable( 'comments', $comments );
-     $tpl->setVariable( 'total_count', $count );
-     $tpl->setVariable( 'total_page', ceil( $count / $defaultNumPerPage) );
-     $tpl->setVariable( 'current_page', $Page );
-     $tpl->setVariable( 'number_per_page', $defaultNumPerPage );
-
-     $Result['content'] = $tpl->fetch( 'design:comment/view/view.tpl' );
-     $Result['path'] = array( array( 'url' => false,
-                                    'text' => ezi18n( 'extension/ezcomments/view', 'View comment' ) ) );
-     return $Result;
+ $Page = 1;
 }
+
+$tpl->setVariable( 'can_add', $canAdd );
+$tpl->setVariable( 'can_read', $canRead );
+// get the comment list
+$count = ezcomComment::countByContent( $contentObjectID, $languageID );
+
+$ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
+$defaultNumPerPage = $ezcommentsINI->variable( 'CommentSettings', 'NumberPerPage' );
+$offset =  ( $Page - 1 ) * $defaultNumPerPage;
+
+if( $offset > $count || $offset < 0 )
+{
+ eZDebug::writeError( 'Offset overflowed!', 'ezcomments' );
+ return;
+}
+
+$length = $defaultNumPerPage;
+
+$defaultSortField = $ezcommentsINI->variable( 'CommentSettings', 'DefaultSortField' );
+$defaultSortOrder = $ezcommentsINI->variable( 'CommentSettings', 'DefaultSortOrder' );
+$sorts = array( $defaultSortField => $defaultSortOrder );
+
+$comments = ezcomComment::fetchByContentObjectID( $contentObjectID, $languageID, $sorts, $offset, $length);
+
+$tpl->setVariable( 'comments', $comments );
+$tpl->setVariable( 'total_count', $count );
+$tpl->setVariable( 'total_page', ceil( $count / $defaultNumPerPage) );
+$tpl->setVariable( 'current_page', $Page );
+$tpl->setVariable( 'number_per_page', $defaultNumPerPage );
+
+$Result['content'] = $tpl->fetch( 'design:comment/view/view.tpl' );
+$Result['path'] = array( array( 'url' => false,
+                            'text' => ezi18n( 'extension/ezcomments/view', 'View comment' ) ) );
+return $Result;
 ?>

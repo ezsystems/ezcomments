@@ -48,7 +48,7 @@
                 <div class="ezcom-view-all">
                   <p>
                       {if $total_count|gt( count( $comments ) )}
-                          <a href={concat( '/comment/view/standard/', $contentobject.id )|ezurl}>
+                          <a href={concat( '/comment/view/', $contentobject.id )|ezurl}>
                             {concat( 'View all %total_count comments' )|i18n( 'extension/ezcomments/view', , hash( '%total_count', $total_count ) )}
                           </a>
                       {else}
