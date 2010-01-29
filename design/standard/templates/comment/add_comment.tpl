@@ -16,7 +16,7 @@
 {else}
 {set $comment_name=$user.login}
 {set $comment_email=$user.email}
-{set $comment_notified=ezini( 'CommentSettings', 'DefaultNotified', 'ezcomments.ini' )}
+{set $comment_notified=ezini( 'GlobalSettings', 'DefaultNotified', 'ezcomments.ini' )}
 {/if}
 
 <form id="ezcom-comment-form" method="post" action={'comment/add'|ezurl} name="CommentAdd">
