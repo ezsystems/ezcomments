@@ -26,9 +26,9 @@
 <div class="ezcom-add" id="ezcomments_comment_view_addcomment">
         <div class="ezcom-function-title">
             <a name="cadd"></a>
-            <label>
+            <h4>
              {'Post comment'|i18n( 'extension/ezcomments/add' )}
-            </label>
+            </h4>
         </div>
         <div class="ezcom-field ezcom-field-title">
             <label>

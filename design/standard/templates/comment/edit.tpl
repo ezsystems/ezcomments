@@ -12,10 +12,9 @@
         <input type="hidden" name="ezcomments_comment_redirect_uri" value="{$redirect_uri}" />
         <div class="ezcom-edit" id="ezcomments_comment_edit">
                 <div class="ezcom-function-title">
-                    <a name="cadd"></a>
-                    <label>
+                    <h4>
                         {'Edit comment'|i18n( 'extension/ezcomments/edit' )}
-                    </label>
+                    </h4>
                 </div>
                 <div class="ezcom-field ezcom-field-title">
                     <label>

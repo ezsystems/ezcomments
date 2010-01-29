@@ -7,33 +7,43 @@
 {/if}
 
 <div class="ezcom-view-comment" id="ezcomments_comment_view_commentitem">
-            <div class="ezcom-comment-index">
-                <span><a name="{concat( 'c', $index|sum(1) )}"></a>
-                #{$base_index|sum($index)|sum(1)}
-                </span>
+            <div class="attribute-byline ezcom-comment-top">
+                <div class="ezcom-comment-index">
+                    <span><a name="{concat( 'c', $index|sum(1) )}"></a>
+                    #{$base_index|sum($index)|sum(1)}
+                    </span>
+                </div>
+                <div class="ezcom-comment-author">
+                    <p class="author">
+                        {if $comment.url|eq( '' )}
+                            {$comment.name|wash}
+                        {else}
+                            <a href="{$comment.url|wash}">
+                                {$comment.name|wash}
+                            </a>
+                        {/if}
+                    </p>
+                    <span>
+                     {'wrote:'|i18n('extension/ezcomments/view')}
+                    </span>
+                </div>
+                <div class="ezcom-comment-time">
+                    <p class="date">
+                        {$comment.created|l10n( 'shortdatetime' )}
+                    </p>
+                </div>
             </div>
-            <div class="ezcom-comment-title">
-                <span>
-                    {$comment.title|wash}
-                </span>
-            </div>
+            {if $comment.title}
+                <div class="ezcom-comment-title">
+                        <span>
+                            {$comment.title|wash}
+                        </span>
+                </div>
+            {/if}
             <div class="ezcom-comment-body">
                 <p>
                   {$comment.text|wash|nl2br}
                 </p>
-            </div>
-            <div class="ezcom-comment-author">
-                <span>
-                    {if $comment.url|eq( '' )}
-                        {$comment.name|wash}
-                    {else}
-                        <a href="{$comment.url|wash}">
-                            {$comment.name|wash}
-                        </a>
-                    {/if}
-                    {'on'|i18n('extension/ezcomments/view')}
-                    {$comment.created|l10n( 'shortdatetime' )}
-                </span>
             </div>
             {def $can_edit=fetch( 'comment', 'has_access_to_function', hash( 'function', 'edit',
                                                                              'contentobject', $contentobject,
@@ -80,4 +90,8 @@
                 </div>
             {/if}
             {undef $can_edit $can_delete}
+    <div class="separator">
+        <div class="separator-design">
+    </div>
+</div>
 </div>

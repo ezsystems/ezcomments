@@ -4,28 +4,31 @@ div.ezcom-view-list{
 }
 
 div.ezcom-comment-index{
-    float:right
+    float:left
 }
 
 div.ezcom-comment-title{
-    float:left;
+    clear:both;
+    font-style:italic
 }
 
 div.ezcom-comment-body{
-    clear:both
+    clear:both;
+    padding-bottom:5px
 }
 
 div.ezcom-comment-body p, div.ezcom-comment-title span, div.ezcom-comment-index span{
     color:#000000;
     overflow:hidden;
-    padding:3px
+    padding:4px
 }
 
 div.ezcom-comment-author{
-    font-style:italic;
-    color:#666666;
-    text-align:right;
-    padding:2px;
+    float:left;
+}
+
+div.ezcom-comment-time{
+    float:right
 }
 
 div.ezcom-comment-tool{
@@ -37,15 +40,12 @@ div.ezcom-comment-tool{
 
 /* ----FORM FIELD---- */
 .ezcom-field-website input{
-    width: 150px
 }
 
 .ezcom-field-title input{
-    width:300px
 }
 
 .ezcom-field-email input{
-    width:150px
 }
 
 span.ezcom-field-emailmessage{
@@ -53,10 +53,8 @@ span.ezcom-field-emailmessage{
 }
 
 .ezcom-field-name input{
-    width:100px
 }
 .ezcom-field-content textarea{
-    width:60%;
     height:100px
 }
 .ezcom-field-mandatory{
@@ -69,7 +67,6 @@ span.ezcom-field-emailmessage{
 /* ----COMMENT LIST IN CONTENT VIEW----- */
 div.attribute-comment{
     padding-top:20px;
-    font-size:0.85em
 }
 
 div.ezcom-view-all p{
@@ -79,57 +76,39 @@ div.ezcom-view-all p{
 }
 
 div.ezcom-view-comment{
-    padding-top:10px;
-    border-width:0px 0px 1px 0px;
-    border-color:#e3e4e7 #e3e4e7 #cccccc #e3e4e7;
-    border-style:solid solid dotted solid;
 }
 /* ----COMMENT LIST IN CONTENT VIEW----- */
 
 /* ----COMMENT LIST - FULL VIEW----- */
 div.ezcom-full{
+    
 }
 
 
 div.ezcom-full div.ezcom-comment-index{
-    text-align:right;
-    width:30%;
 }
 
 div.ezcom-full div.ezcom-comment-title{
-    width:70%;
 }
 /* ----COMMENT LIST - FULL VIEW----- */
 
 /* ----COMMENT FUNCTION----- */
 div.ezcom-function-title{
-    background-image:url('../images/bg_function_title.jpg');
-    border-color:#999999 #999999 #cccccc #999999;
-    border-width:0px 0px 1px 0px;
-    border-style:solid solid dotted solid;
 }
 
-div.ezcom-function-title label{
-    color:#000000;
-    padding:3px
-}
 /* ----COMMENT FUNCTION----- */
 
 /* ----ADDING COMMENT------- */
 div.ezcom-add,div.ezcom-edit{
     background-color:#ffffff;
-    border-width:1px 1px 1px 1px;
-    border-color:#e3e4e7 #e3e4e7 #e3e4e7 #e3e4e7;
-    border-style:solid solid solid solid;
 }
 
 div.ezcom-field{
-    padding:0.3em;
+    padding-left:3px;
+    padding-right:3px
 }
 
 div.ezcom-field label{
-    width:4em;
-    display:inline-block
 }
 /* ----ADDING COMMENT------- */
 
@@ -137,10 +116,7 @@ div.ezcom-field label{
 div.ezcom-page{
     padding:5px;
     text-align:right;
-    background-color:#ffffff;
-    border-top:1px solid #cccccc;
-    border-left:1px solid #cccccc;
-    border-right:1px solid #cccccc;
+    background-color:#ffffff
 }
 
 
@@ -159,8 +135,6 @@ div.ezcom-page a:hover{
 div.ezcom-delete .message-confirmation, div.ezcom-add-result .message-error{
     margin-left:auto;
     margin-right:auto;
-    text-align:center;
-    width:50%
 }
 /*---- ERROR MESSGE ----*/
 
@@ -201,13 +175,3 @@ div.ezcom-setting-mail{
 }
 
 /*-----SETTING------*/
-
-.ezcomments-comment-view-disabled{
-    text-align:center;
-    color:#ff0000;
-    font-style:italic;
-}
-
-.ezcomments-comment-extension{
-    background-color:#cccccc;
-}
