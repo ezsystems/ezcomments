@@ -28,11 +28,7 @@
 $Module = array( 'name' => 'ezcom Module and Views' );
 
 $ViewList = array();
-$ViewList['settings'] = array(
-       'functions' => array( 'settings' ),
-       'script' => 'settings.php',
-       'params' => array( 'HashString' ),
-       );
+
 $ViewList['setting'] = array(
        'functions' => array( 'setting' ),
        'single_post_actions' => array( 'SaveButton' => 'Save' ),
