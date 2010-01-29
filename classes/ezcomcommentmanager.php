@@ -29,7 +29,7 @@
 //
 
 /**
- * 
+ *
  *Business logic of comment
  *
  */
@@ -40,9 +40,9 @@ abstract class ezcomCommentManager
      * @var eZTemplate
      */
     public $tpl = null;
-    
+
     protected static $instance;
-    
+
     /**
      * @param $comment
      * @param $user
@@ -53,7 +53,7 @@ abstract class ezcomCommentManager
     {
         return true;
     }
-    
+
     /**
      * action after adding comment
      * @param $comment
@@ -64,7 +64,7 @@ abstract class ezcomCommentManager
     {
         return true;
     }
-    
+
     /**
      * action before updating comment
      * @param $comment
@@ -76,7 +76,7 @@ abstract class ezcomCommentManager
     {
         return true;
     }
-    
+
     /**
      * action after updating comment
      * @param $comment
@@ -87,7 +87,7 @@ abstract class ezcomCommentManager
     {
         return true;
     }
-    
+
     /**
      * action after deleting comment
      * @param $comment
@@ -97,17 +97,17 @@ abstract class ezcomCommentManager
     {
         return true;
     }
-    
+
     /**
      * @param $comment: a comment object
      * @return true if the validation succeeds
      *         error message if the validation fails.
      */
-    public abstract function validateInput( $comment );    
-    
-    
+    public abstract function validateInput( $comment );
+
+
     /**
-     * Add comment into ezcomment table and do action 
+     * Add comment into ezcomment table and do action
      * The adding doesn't validate the data in http
      * @param $comment: ezcomComment object which has not been stored
      *        title, name, url, email, created, modified, text, notification
@@ -116,7 +116,7 @@ abstract class ezcomCommentManager
      * @return  true : if adding succeeds
      *          false otherwise
      *          string: error message
-     *      
+     *
      */
     public function addComment( $comment, $user, $time = null )
     {
@@ -144,14 +144,14 @@ abstract class ezcomCommentManager
         $this->afterAddingComment( $comment );
         return true;
     }
-    
+
     /**
      * Update the comment
      * @param $comment comment to be updated
      * @param $notified change the notification
-     * @param $time  
+     * @param $time
      * @param $user user to change
-     * @return 
+     * @return
      */
     public function updateComment( $comment, $user=null, $time = null , $notified = null )
     {
@@ -175,7 +175,7 @@ abstract class ezcomCommentManager
             return $beforeUpdating;
         }
         $comment->store();
-        
+
         $afterUpdating = $this->afterUpdatingComment( $comment, $notified );
         if( $afterUpdating !== true )
         {
@@ -183,20 +183,20 @@ abstract class ezcomCommentManager
         }
         return true;
     }
-    
+
     /**
      * delete comment. Based on the settings, judge if deleting the subscription if all the comments have been deleted.
      * @param $commentID
-     * @return 
+     * @return
      */
     public function deleteComment( $comment )
     {
         $comment->remove();
-        
+
         $result = $this->afterDeletingComment( $comment );
         return $result;
     }
-    
+
     /**
      * create an instance of ezcomCommentManager
      * @return ezcomCommentManager
@@ -211,6 +211,6 @@ abstract class ezcomCommentManager
         }
         return self::$instance;
     }
-    
+
 }
 ?>

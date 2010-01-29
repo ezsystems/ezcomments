@@ -11,27 +11,27 @@
 //   This program is free software; you can redistribute it and/or
 //   modify it under the terms of version 2.0  of the GNU General
 //   Public License as published by the Free Software Foundation.
-// 
+//
 //   This program is distributed in the hope that it will be useful,
 //   but WITHOUT ANY WARRANTY; without even the implied warranty of
 //   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //   GNU General Public License for more details.
-// 
+//
 //   You should have received a copy of version 2.0 of the GNU General
 //   Public License along with this program; if not, write to the Free
 //   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //   MA 02110-1301, USA.
-// 
-// 
+//
+//
 // ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
 //
 
 class ezcomCommentsType extends eZDataType
 {
     const DATA_TYPE_STRING = "ezcomcomments";
-    
+
     /*!
-     Construction of the class, note that the second parameter in eZDataType 
+     Construction of the class, note that the second parameter in eZDataType
      is the actual name showed in the datatype dropdown list.
     */
     function __construct()
@@ -39,7 +39,7 @@ class ezcomCommentsType extends eZDataType
         parent::__construct( self::DATA_TYPE_STRING, ezi18n( 'extension/ezcomment/datatype', 'Comments', 'Datatype name'),
                              array( 'serialize_supported' => true) );
     }
-    
+
     /**
      * store the contentobjectattribute into database
      * @see kernel/classes/eZDataType#storeObjectAttribute($objectAttribute)
@@ -48,7 +48,7 @@ class ezcomCommentsType extends eZDataType
     {
         return true;
     }
-    
+
     function objectAttributeContent( $objectAttribute )
     {
         $result = array();
@@ -56,11 +56,11 @@ class ezcomCommentsType extends eZDataType
         $result['show_comments'] = $objectAttribute->attribute( 'data_float' );
         return $result;
     }
-    
+
     /**
      * put the option enabled of ezcomcomment into  data_int of contentobjectattribute
-     * 
-     * 
+     *
+     *
      * @see kernel/classes/eZDataType#fetchObjectAttributeHTTPInput($http, $base, $objectAttribute)
      */
     function fetchObjectAttributeHTTPInput( $http, $base, $contentObjectAttribute )
@@ -81,21 +81,21 @@ class ezcomCommentsType extends eZDataType
         $contentObjectAttribute->setAttribute( 'data_float', $shownValue );
         return true;
     }
-    
+
     function isIndexable()
     {
         return true;
     }
-    
-    
+
+
     function sortKeyType()
     {
         return '';
     }
-    
+
     function deleteStoredObjectAttribute( $contentObjectAttribute, $version = null )
     {
-        
+
     }
 }
 

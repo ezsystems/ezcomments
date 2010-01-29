@@ -11,18 +11,18 @@
 //   This program is free software; you can redistribute it and/or
 //   modify it under the terms of version 2.0  of the GNU General
 //   Public License as published by the Free Software Foundation.
-// 
+//
 //   This program is distributed in the hope that it will be useful,
 //   but WITHOUT ANY WARRANTY; without even the implied warranty of
 //   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //   GNU General Public License for more details.
-// 
+//
 //   You should have received a copy of version 2.0 of the GNU General
 //   Public License along with this program; if not, write to the Free
 //   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //   MA 02110-1301, USA.
-// 
-// 
+//
+//
 // ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
 //
 require_once( 'kernel/common/template.php' );
@@ -88,7 +88,7 @@ if( $Module->isCurrentAction( 'UpdateComment' ) )
             $clientNotified = true;
         }
     }
-    
+
     $comment->setAttribute( 'title', $title );
     $comment->setAttribute( 'url', $website );
     $comment->setAttribute( 'text', $content );
@@ -96,12 +96,12 @@ if( $Module->isCurrentAction( 'UpdateComment' ) )
     $time = time();
     $comment->setAttribute( 'modified', $time );
     $commentManager = ezcomCommentManager::instance();
-    
+
     $existSusbcription = ezcomSubscription::exists( $contentID, 'ezcomcomment', $comment->attribute( 'email' ) );
     $updateResult = null;
     if( $clientNotified == $notified )
     {
-        $updateResult = $commentManager->updateComment( $comment, null, $time ); 
+        $updateResult = $commentManager->updateComment( $comment, null, $time );
     }
     else
     {
@@ -112,18 +112,18 @@ if( $Module->isCurrentAction( 'UpdateComment' ) )
         $tpl->setVariable( 'message', ezi18n( 'extension/ezcomments/edit', 'Updating failed!') . $updateResult );
     }
     else
-    {  
+    {
         //clean up cache
         eZContentCacheManager::clearContentCache( $contentObject->attribute( 'id' ) );
         $redirectionURI = $http->postVariable('ezcomments_comment_redirect_uri');
-        $Module->redirectTo( $redirectionURI ); 
+        $Module->redirectTo( $redirectionURI );
     }
     return showComment( $comment, $tpl );
 }
 else if( $Module->isCurrentAction('Cancel') )
 {
      $redirectionURI = $http->postVariable('ezcomments_comment_redirect_uri');
-     $Module->redirectTo( $redirectionURI ); 
+     $Module->redirectTo( $redirectionURI );
 }
 else
 {
@@ -142,7 +142,7 @@ else
 }
 
 /**
- * 
+ *
  * @param $comment
  * @param $tpl
  * @return array
@@ -154,7 +154,7 @@ function showComment( $comment, $tpl )
     $Result['path'] = array( array( 'url' => false,
                                         'text' => ezi18n( 'extension/ezcomments/edit', 'Edit comment' ) ) );
     $Result['content'] = $tpl->fetch( 'design:comment/edit.tpl' );
-    return $Result;    
+    return $Result;
 }
 
 ?>

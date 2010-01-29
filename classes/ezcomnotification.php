@@ -31,13 +31,13 @@
 
 /**
  * ezcomNotification persistent object class definition
- * 
+ *
  */
 class ezcomNotification extends eZPersistentObject
 {
     /**
      * Construct, use {@link ezcomNotification::create()} to create new objects.
-     * 
+     *
      * @param array $row
      */
     public function __construct( $row )
@@ -47,7 +47,7 @@ class ezcomNotification extends eZPersistentObject
 
     /**
      * Fields definition
-     * 
+     *
      * @return array
      */
     public static function definition()
@@ -86,7 +86,7 @@ class ezcomNotification extends eZPersistentObject
 
     /**
      * Create new ezcomNotification object
-     * 
+     *
      * @static
      * @param array $row
      * @return ezcomNotification
@@ -99,7 +99,7 @@ class ezcomNotification extends eZPersistentObject
 
     /**
      * Fetch notification by given id
-     * 
+     *
      * @param int $id
      * @return null|ezcomNotification
      */
@@ -109,7 +109,7 @@ class ezcomNotification extends eZPersistentObject
         $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
         return $return;
     }
-    
+
     /**
      * Fetch the list of notification
      * @param $length: count of the notification to be fetched
@@ -140,7 +140,7 @@ class ezcomNotification extends eZPersistentObject
         }
         return eZPersistentObject::fetchObjectList( self::definition(), null, $cond, $sorts, $limit );
     }
-    
+
     /**
      * clean up the notification quque
      * @param unknown_type $contentObjectID
@@ -151,7 +151,7 @@ class ezcomNotification extends eZPersistentObject
     public static function cleanUpNotification( $contentObjectID, $language )
     {
         //1. fetch the queue, judge if there is data
-        
+
         //
     }
 }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 //
 // Created on: <13-Jan-2010 11:14:00 xc>
 //
@@ -11,18 +11,18 @@
 //   This program is free software; you can redistribute it and/or
 //   modify it under the terms of version 2.0  of the GNU General
 //   Public License as published by the Free Software Foundation.
-// 
+//
 //   This program is distributed in the hope that it will be useful,
 //   but WITHOUT ANY WARRANTY; without even the implied warranty of
 //   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //   GNU General Public License for more details.
-// 
+//
 //   You should have received a copy of version 2.0 of the GNU General
 //   Public License along with this program; if not, write to the Free
 //   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //   MA 02110-1301, USA.
-// 
-// 
+//
+//
 // ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
 //
 require_once( 'kernel/common/template.php' );
@@ -40,7 +40,7 @@ else
     return;
 }
 if( $http->hasVariable( 'BackButton' ) &&
-      $http->variable( 'BackButton') == 'Back') 
+      $http->variable( 'BackButton') == 'Back')
 {
      $module->redirectTo( $redirectURI );
      return;
@@ -120,7 +120,7 @@ if( !$canAddResult['result'] || !$commentContent['show_comments'] || !$commentCo
 }
 else
 {
-    
+
      // if the comment is not shown or enables commenting
      $content = $objectAttribute->attribute('content');
      if( $content['show_comments'] != 1 || $content['enable_comment'] != 1 )
@@ -128,7 +128,7 @@ else
           eZDebug::writeError( 'Adding comment error, comment not shown or diabled!', 'Add comment' );
           return;
      }
-     
+
      $comment = ezcomComment::create();
      $title = $http->postVariable( 'CommentTitle' );
      $comment->setAttribute( 'title', $title );

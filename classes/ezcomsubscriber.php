@@ -35,7 +35,7 @@ class ezcomSubscriber extends eZPersistentObject
 {
     /**
      * Construct, use {@link ezcomSubscriber::create()} to create new objects.
-     * 
+     *
      * @param array $row
      */
     public function __construct( $row )
@@ -45,7 +45,7 @@ class ezcomSubscriber extends eZPersistentObject
 
     /**
      * Fields definition
-     * 
+     *
      * @return array
      */
     public static function definition()
@@ -80,7 +80,7 @@ class ezcomSubscriber extends eZPersistentObject
 
     /**
      * Create new ezcomSubscriber object
-     * 
+     *
      * @static
      * @param array $row
      * @return ezcomNotification
@@ -93,7 +93,7 @@ class ezcomSubscriber extends eZPersistentObject
 
     /**
      * Fetch ezcomSubscriber by given id
-     * 
+     *
      * @param int $id
      * @return null|ezcomSubscriber
      */
@@ -103,10 +103,10 @@ class ezcomSubscriber extends eZPersistentObject
         $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
         return $return;
     }
-    
+
     /**
      * Fetch ezcomSubscriber by given email
-     *  
+     *
      * @param int $email
      * @return null|ezcomSubscriber
      */
@@ -116,10 +116,10 @@ class ezcomSubscriber extends eZPersistentObject
         $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
         return $return;
     }
-    
-    /* 
+
+    /*
      * Fetch ezcomSubscriber by given hashstring
-     * 
+     *
      * @param string $hashstring
      * @return null|ezcomSubscriber
      */

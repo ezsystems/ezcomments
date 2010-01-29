@@ -39,15 +39,15 @@ class ezcomCookieManager
     public $websiteName = 'ezcommentsWebiste';
     public $emailName = 'ezcommentsEmail';
     public $notificationName = 'ezcommentsNotified';
-    
+
     /**
-     * construct 
+     * construct
      */
     public function __construct()
     {
         $this->expiryTime = time() + 60 * 60 * 24 * 365;
     }
-    
+
     /**
      * store data into cookie
      * @param $comment
@@ -60,7 +60,7 @@ class ezcomCookieManager
        setcookie( $this->emailName, $comment->attribute( 'email' ), $this->expiryTime, '/' );
        setcookie( $this->notificationName, $comment->attribute( 'notification' ), $this->expiryTime, '/' );
     }
-    
+
     /**
      * clear all cookies
      * @return
@@ -73,7 +73,7 @@ class ezcomCookieManager
         setcookie( $this->emailName, '', $deleteTime, '/' );
         setcookie( $this->notificationName, '', $deleteTime, '/' );
     }
-    
+
     /**
      * fetchCookie for template use
      * @return
@@ -99,7 +99,7 @@ class ezcomCookieManager
         }
         return array( 'result' => $result );
     }
-    
+
     /**
      * create instance
      * @return ezcomCookieMangaer
@@ -108,7 +108,7 @@ class ezcomCookieManager
     {
         return new ezcomCookieManager();
     }
-    
+
     /**
      * function implementation for fetch( 'comment', 'comment_cookie' ) in template
      * @return array
@@ -117,7 +117,7 @@ class ezcomCookieManager
     {
         $cookieManager = self::instance();
         return $cookieManager->fetchCookie();
-        
+
     }
 }
 ?>

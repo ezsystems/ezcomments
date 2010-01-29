@@ -34,12 +34,12 @@
  */
 class ezcomUtility
 {
-    
+
     public function generateSusbcriberHashString( $subscriber )
     {
         return strtoupper( hash( 'md5', uniqid( '', true ). time() ) );
     }
-    
+
     /**
      * generate the hashstring of a subscription
      * @param $input
@@ -49,7 +49,7 @@ class ezcomUtility
     {
         return strtoupper( hash( 'md5', uniqid( '', true ). time() ) );
     }
-    
+
     /**
      * create new instance of the object
      * TODO: load the class dynamically

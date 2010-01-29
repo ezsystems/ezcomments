@@ -11,18 +11,18 @@
 //   This program is free software; you can redistribute it and/or
 //   modify it under the terms of version 2.0  of the GNU General
 //   Public License as published by the Free Software Foundation.
-// 
+//
 //   This program is distributed in the hope that it will be useful,
 //   but WITHOUT ANY WARRANTY; without even the implied warranty of
 //   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //   GNU General Public License for more details.
-// 
+//
 //   You should have received a copy of version 2.0 of the GNU General
 //   Public License along with this program; if not, write to the Free
 //   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //   MA 02110-1301, USA.
-// 
-// 
+//
+//
 // ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
 //
 
@@ -88,7 +88,7 @@ if( $mode == 'ajax' )
     $tpl->setVariable( 'contentobject_id', $contentObjectID );
     $tpl->setVariable( 'enabled', $objectAttribute->attribute( 'data_int' ) );
     $tpl->setVariable( 'shown', $objectAttribute->attribute( 'data_float' ) );
-    
+
     $Result = array();
     $Result['content'] = $tpl->fetch( 'design:comment/ajax/view.tpl' );
     $Result['path'] = array( array( 'url' => false,
@@ -97,7 +97,7 @@ if( $mode == 'ajax' )
 }
 else if( $mode == 'standard' )
 {
-     
+
      $user = eZUser::currentUser();
      $userID = $user->attribute( 'contentobject_id' );
      $Module = $Params['Module'];
@@ -124,31 +124,31 @@ else if( $mode == 'standard' )
      $tpl->setVariable( 'can_read', $canRead );
      // get the comment list
      $count = ezcomComment::countByContent( $contentObjectID, $languageID );
-     
+
      $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
      $defaultNumPerPage = $ezcommentsINI->variable( 'CommentSettings', 'NumberPerPage' );
      $offset =  ( $Page - 1 ) * $defaultNumPerPage;
-     
+
      if( $offset > $count || $offset < 0 )
      {
          eZDebug::writeError( 'Offset overflowed!', 'ezcomments' );
          return;
      }
-     
+
      $length = $defaultNumPerPage;
-     
+
      $defaultSortField = $ezcommentsINI->variable( 'CommentSettings', 'DefaultSortField' );
      $defaultSortOrder = $ezcommentsINI->variable( 'CommentSettings', 'DefaultSortOrder' );
      $sorts = array( $defaultSortField => $defaultSortOrder );
-     
+
      $comments = ezcomComment::fetchByContentObjectID( $contentObjectID, $languageID, $sorts, $offset, $length);
-     
+
      $tpl->setVariable( 'comments', $comments );
      $tpl->setVariable( 'total_count', $count );
      $tpl->setVariable( 'total_page', ceil( $count / $defaultNumPerPage) );
      $tpl->setVariable( 'current_page', $Page );
      $tpl->setVariable( 'number_per_page', $defaultNumPerPage );
-     
+
      $Result['content'] = $tpl->fetch( 'design:comment/view/view.tpl' );
      $Result['path'] = array( array( 'url' => false,
                                     'text' => ezi18n( 'extension/ezcomments/view', 'View comment' ) ) );

@@ -35,7 +35,7 @@
 class ezcomServerFunctions extends ezjscServerFunctions
 {
     /**
-     * 
+     *
      */
     public static function postComment()
     {
@@ -52,9 +52,9 @@ class ezcomServerFunctions extends ezjscServerFunctions
 
         $userData[$sessionID] = array( 'email' => $currentUser->attribute( 'email' ),
                                        'name' => $currentUser->attribute( 'login' ) );
-                                       
+
         setcookie( 'eZCommentsUserData', base64_encode( json_encode( $userData ) ), time()+3600, '/' );
-        
+
         return $userData;
     }
 
@@ -62,7 +62,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
      * create an error object that will be used for client use
      * @param string $message : message
      * @param string $errorCode : error code defined, for instance com_01
-     * @return array : error object 
+     * @return array : error object
      */
     protected static function createErrorObject( $message, $errorCode = null )
     {
@@ -75,7 +75,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
         }
         return json_encode( $error );
     }
-    
+
     /**
      * get comment by id
      * @param unknown_type $args
@@ -105,7 +105,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
         $result['time'] = $comment->attribute('created');
         return json_encode( $result );
     }
-    
+
     /**
      * Get the comment list in view 'notification'.
      * Return format:
@@ -118,7 +118,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
      * total_count: 125
      * ===========================================
      * @return JSON object
-     * 
+     *
      */
     public static function get_notification_comment_list( $args )
     {
@@ -127,18 +127,18 @@ class ezcomServerFunctions extends ezjscServerFunctions
         $length = null;
         $userID = null;
         $argObject = array();
-        
+
         $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
         //1. check the permission
-        
+
         //2. check user
-        
+
         if( $http->hasPostVariable( 'args' ) )
         {
             $args = $http->postVariable( 'args' );
             $argObject = json_decode($args);
         }
-            
+
         //3. check offset
         $defaultNumPerPage = $ezcommentsINI->variable( 'NotificationSettings', 'NumberPerPage' );
         if( $defaultNumPerPage != '-1' )
@@ -161,7 +161,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
                 $length = $defaultNumPerPage;
             }
         }
-        
+
         //5. fetch comment
         $comments = null;
         $countArray = null;
@@ -172,7 +172,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
         {
             $subscriber = ezcomSubscriber::fetchByHashString( $argObject->hashString );
             $email = $subscriber->attribute( 'email' );
-            
+
             $comments = ezcomComment::fetchByEmail( $email, $sorts, $offset, $length );
             $db = eZDB::instance();
             $countArray = $db->arrayQuery( 'SELECT count(*) AS count FROM ezcomment '.
@@ -193,12 +193,12 @@ class ezcomServerFunctions extends ezjscServerFunctions
                 return null;
             }
         }
-        
+
         $totalCount = $countArray[0]['count'];
-        
+
         //6. build JSON object and return
         $result = array();
-        
+
         if( !is_null( $comments ) && is_array( $comments ) )
         {
             $resultComments = array();
@@ -221,7 +221,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
                 $row['time'] = $local->formatShortDateTime($time);
                 $resultComments[] = $row;
             }
-            
+
             $result['comments'] = $resultComments;
             $result['total_count'] = $totalCount;
             $result = json_encode( $result );
@@ -233,16 +233,16 @@ class ezcomServerFunctions extends ezjscServerFunctions
         }
         return $result;
     }
-    
+
     /**
-     * 
+     *
      * @param $args: get args
      * @return string: update result message
      */
     public static function update_notification_comment( $args )
     {
         $http = eZHTTPTool::instance();
-        
+
         //1. check user
         $user = eZUser::currentUser();
         //2. get parameters
@@ -250,10 +250,10 @@ class ezcomServerFunctions extends ezjscServerFunctions
         if( $http->hasPostVariable( 'args' ) )
         {
             $argsString = $http->postVariable( 'args' );
-            $argObject = json_decode( $argsString, true ); 
+            $argObject = json_decode( $argsString, true );
         }
         $message = null;
-        
+
         $email = null;
         if( !$user->isAnonymous() )
         {
@@ -264,13 +264,13 @@ class ezcomServerFunctions extends ezjscServerFunctions
             $subscriber = ezcomSubscriber::fetchByHashString( $argObject['hashString'] );
             $email = $subscriber->attribute( 'email' );
         }
-        
+
         //3. buid update parameters and execute update
         $fields = array();
         $conditions = array();
         $updateResult = true;
         $message = "";
-        
+
         foreach( $argObject['rows'] as $row )
         {
             $fields['notification'] = $row['notification'];
@@ -278,7 +278,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
             ezcomComment::updateFields( $fields, $conditions );
             ezcomSubscription::cleanupSubscription( $email, null, $row['id']);
         }
-        
+
         //4. return result
         if ( $updateResult )
         {
@@ -290,10 +290,10 @@ class ezcomServerFunctions extends ezjscServerFunctions
         }
         return $message;
     }
-    
+
     /**
      * update the notification setting.
-     * 
+     *
      * Format of $recNotifications
      * =============================
      * id, notification
@@ -301,24 +301,24 @@ class ezcomServerFunctions extends ezjscServerFunctions
      * 6, 1
      * 8, 0
      * =============================
-     * 
+     *
      * @param JSON object $recNotifications
      * @return boolean succeed/failed
      */
     public static function set_notification_setting( $recNotifications )
     {
-        
+
     }
-    
+
     /**
      * Get the default settings in ini file.
      * @return unknown_type
      */
     public static function get_default_settings()
     {
-        
+
     }
-    
+
     public static function get_view_comment_list()
     {
         $http = eZHTTPTool::instance();
@@ -326,12 +326,12 @@ class ezcomServerFunctions extends ezjscServerFunctions
         $length = null;
         $contentobject_id = null;
         $argObject = array();
-        
+
         $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
         //1. check the permission
-        
+
         //2. check user
-        
+
         if( $http->hasPostVariable( 'args' ) )
         {
             $args = $http->postVariable( 'args' );
@@ -345,7 +345,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
 //        {
 //            $userID = eZUser::currentUserID();
 //        }
-            
+
         //3. check offset
         $defaultNumPerPage = $ezcommentsINI->variable( 'CommentSettings', 'NumberPerPage' );
         if( $defaultNumPerPage != '-1' )
@@ -386,7 +386,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
             $comments = ezcomComment::fetchByContentObjectID( $contentObjectID, $languageID, $sorts, $offset, $length);
             $db = eZDB::instance();
             $totalCount = ezcomComment::countByContent( $contentObjectID, $languageID );
-            
+
             $result = array();
             if( $comments == null )
             {
@@ -419,8 +419,8 @@ class ezcomServerFunctions extends ezjscServerFunctions
             }
         }
     }
-    
-    
+
+
     /**
      * Add comment into database
      * @param array $args
@@ -470,7 +470,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
             return self::createErrorObject( 'Object ID can not be empty or string', 'ezcom_add_002' );
         }
         $contentObjectID =  $argObject->oid;
-        
+
         //3. insert data
         //3.1 convert data and insert into comment table
         $comment = ezcomComment::create();
@@ -501,11 +501,11 @@ class ezcomServerFunctions extends ezjscServerFunctions
         }
         $comment->store();
         $commentAdded = ezcomComment::fetchByTime( 'created', $currentTime);
-        
+
         $languageID = $argObject->language;
         $contentID = $contentObjectID . '_' . $languageID;
         $subscriptionType = 'ezcomcomment';
-        
+
         $hasSubscription = false;
         $subscriptionMessage = "";
         if( $argObject->notified === true )
@@ -551,7 +551,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
                 $subscription->store();
             }
         }
-        
+
         // 3.4 insert data into notification queue
         // and there is subscription,not adding to notification queue
         if( ezcomSubscription::exists( $contentID, $subscriptionType ) )
@@ -562,7 +562,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
             $notification->setAttribute( 'comment_id', $commentAdded->attribute('id') );
             $notification->store();
         }
-         
+
         return 'Comment added!' . $subscriptionMessage;
     }
 
@@ -595,7 +595,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
         }
         //1. check the permission
         $user = eZUser::currentUser();
-        
+
         //2. validate input
         $comment = ezcomComment::fetch( $commentID );
         $clientComment = clone $comment;
@@ -631,7 +631,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
         {
             $commentInput['text'] = $clientComment->attribute('text');
         }
-        
+
         $updateResult = ezcomComment::updateComment( $commentInput, $comment, $user, time() );
         if( $updateResult === true )
         {
@@ -640,11 +640,11 @@ class ezcomServerFunctions extends ezjscServerFunctions
         }
         else
         {
-            
+
         }
 //        return 'Comment updated!';
     }
-    
+
     /**
      * delete a comment
      * @param $commentID: commentID
@@ -654,7 +654,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
     public static function delete_comment( $commentID )
     {
         //todo: check delete permission
-        
+
         $http = eZHTTPTool::instance();
         $commentID = null;
         if( $http->hasVariable( 'commentID' ) )
@@ -671,13 +671,13 @@ class ezcomServerFunctions extends ezjscServerFunctions
         }
         return ezcomComment::deleteCommentWithSubscription( $commentID );
     }
-    
+
     /**
      * get translations
-     * @param string args: 
+     * @param string args:
      *  $args[0] : language,
      *  $args[1] : string of an ajax page
-     *  $args[2] : client variable 
+     *  $args[2] : client variable
      * @return json string (array object)
      */
     public static function i18n( $args )
@@ -695,7 +695,7 @@ class ezcomServerFunctions extends ezjscServerFunctions
         $langArray = array();
         if( $page == 'view' )
         {
-            $langArray['view'] = array( 'edit'=>ezi18n('extension/ezcomments/view','Edit'), 
+            $langArray['view'] = array( 'edit'=>ezi18n('extension/ezcomments/view','Edit'),
                                         'delete'=>ezi18n('extension/ezcomments/view','Delete')
                                        );
             $langArray['view/page'] = array( 'total_page'=>ezi18n('extension/ezcomments/view/page','Total comments:'),
@@ -707,11 +707,11 @@ class ezcomServerFunctions extends ezjscServerFunctions
                                         'delete'=>ezi18n('extension/ezcomments/edit','Delete comment')
                                        );
             $langArray['form'] = array( 'title'=>ezi18n('extension/ezcomments/commentform','Title:'),
-                                        'name'=>ezi18n('extension/ezcomments/commentform','Name:'), 
-                                        'website'=>ezi18n('extension/ezcomments/commentform','Website:'), 
-                                        'email'=>ezi18n('extension/ezcomments/commentform','Email:'), 
-                                        'content'=>ezi18n('extension/ezcomments/commentform','Content:'), 
-                                        'notified'=>ezi18n('extension/ezcomments/commentform','Notified:'), 
+                                        'name'=>ezi18n('extension/ezcomments/commentform','Name:'),
+                                        'website'=>ezi18n('extension/ezcomments/commentform','Website:'),
+                                        'email'=>ezi18n('extension/ezcomments/commentform','Email:'),
+                                        'content'=>ezi18n('extension/ezcomments/commentform','Content:'),
+                                        'notified'=>ezi18n('extension/ezcomments/commentform','Notified:'),
                                         'email_mandatory_message'=>ezi18n('extension/ezcomments/commentform','( The Email address will not be shown )' )
                                       );
             $langArray['action'] = array( 'update_comment'=>ezi18n('extension/ezcomments/action','Update comment'),

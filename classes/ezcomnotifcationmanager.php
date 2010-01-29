@@ -11,23 +11,23 @@
 //   This program is free software; you can redistribute it and/or
 //   modify it under the terms of version 2.0  of the GNU General
 //   Public License as published by the Free Software Foundation.
-// 
+//
 //   This program is distributed in the hope that it will be useful,
 //   but WITHOUT ANY WARRANTY; without even the implied warranty of
 //   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //   GNU General Public License for more details.
-// 
+//
 //   You should have received a copy of version 2.0 of the GNU General
 //   Public License along with this program; if not, write to the Free
 //   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //   MA 02110-1301, USA.
-// 
-// 
+//
+//
 // ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
 //
 
 /**
- * Business logic for notification 
+ * Business logic for notification
  */
 abstract class ezcomNotificationManager
 {
@@ -35,19 +35,19 @@ abstract class ezcomNotificationManager
     public $bodyTemplatePath = 'design:comment/notification_body.tpl';
     public $multiSubjectTemplatePath = 'design:comment/notification_multi_subject.tpl';
     public $multiBodyTemplatePath ='design:comment/notification_multi_body.tpl';
-    
+
     protected static $instance;
 
     /**
     * Execute sending action. It can be in email, or notification in ez publish
-    * 
+    *
     * @param string $subject
     * @param string $body
     * @param ezcomSubscriber $subscriber
     * @return void
     */
     abstract public function executeSending( $subject, $body, $subscriber );
-    
+
     /**
      * send one notification with one comment by one comment
      * Exception if error happens
@@ -68,11 +68,11 @@ abstract class ezcomNotificationManager
          $tpl->setVariable( 'contentobject', $contentObject );
          $tpl->setVariable( 'comment', $comment );
          $subject = $tpl->fetch( $this->subjectTemplatePath );
-         
+
          $body = $tpl->fetch( $this->bodyTemplatePath );
          $this->executeSending( $subject, $body, $subscriber );
     }
-    
+
     /**
      * send notification with all comment in one notification
      * Exception if error happens
@@ -99,9 +99,9 @@ abstract class ezcomNotificationManager
          $body = $tpl->fetch( $this->multiBodyTemplatePath );
          $this->executeSending( $subject, $body, $subscriber );
     }
-    
+
     /**
-     * create instance of the object 
+     * create instance of the object
      * @param string $className
      * @return ezcomNotificationManager
      */
@@ -118,9 +118,9 @@ abstract class ezcomNotificationManager
         }
         return self::$instance;
     }
-    
+
     /**
-     * create instance of the object without using singleton 
+     * create instance of the object without using singleton
      * @param string $className
      * @return ezcomNotificationManager
      */

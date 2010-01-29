@@ -11,18 +11,18 @@
 //   This program is free software; you can redistribute it and/or
 //   modify it under the terms of version 2.0  of the GNU General
 //   Public License as published by the Free Software Foundation.
-// 
+//
 //   This program is distributed in the hope that it will be useful,
 //   but WITHOUT ANY WARRANTY; without even the implied warranty of
 //   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //   GNU General Public License for more details.
-// 
+//
 //   You should have received a copy of version 2.0 of the GNU General
 //   Public License along with this program; if not, write to the Free
 //   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //   MA 02110-1301, USA.
-// 
-// 
+//
+//
 // ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
 //
 require_once( 'kernel/common/template.php' );
@@ -43,7 +43,7 @@ if( $Module->isCurrentAction( 'DeleteComment' ) )
     }
     $tpl = templateInit();
     $comment = ezcomComment::fetch( $commentID );
-    $permissionResult = checkPermission( $comment ); 
+    $permissionResult = checkPermission( $comment );
     if( $permissionResult !== true )
     {
         $tpl->setVariable( 'error_message', $permissionResult );
@@ -55,10 +55,10 @@ if( $Module->isCurrentAction( 'DeleteComment' ) )
         $commentManager = ezcomCommentManager::instance();
         $deleteResult = $commentManager->deleteComment( $comment );
         if( $deleteResult === true )
-        {   
+        {
             //clean up cache
             eZContentCacheManager::clearContentCache( $comment->attribute( 'contentobject_id' ) );
-            
+
             $redirectURI = null;
             if ( $http->hasPostVariable( "RedirectURI" ) )
             {
@@ -83,14 +83,14 @@ else if( $Module->isCurrentAction( 'Cancel' ) )
          $redirectURI = $http->postVariable( 'RedirectURI' );
      }
      //todo: deal with the case that there is no last Access URI
-     $Module->redirectTo( $redirectURI ); 
+     $Module->redirectTo( $redirectURI );
      return;
 }
 else
 {
     $commentID = $Params['CommentID'];
     $comment = ezcomComment::fetch( $commentID );
-    $permissionResult = checkPermission( $comment ); 
+    $permissionResult = checkPermission( $comment );
     if( $permissionResult !== true )
     {
         $tpl->setVariable( 'error_message', $permissionResult );
@@ -105,7 +105,7 @@ function checkPermission( $comment )
     $languageID = $comment->attribute( 'language_id' );
     $languageCode = eZContentLanguage::fetch( $languageID )->attribute( 'locale' );
     $canDeleteResult = ezcomPermission::hasAccessToFunction( 'delete', $contentObject, $languageCode );
-    
+
     $objectAttributes = $contentObject->fetchDataMap( false, $languageCode );
     $objectAttribute = null;
     foreach( $objectAttributes as $attribute )

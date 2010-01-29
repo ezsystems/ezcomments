@@ -35,7 +35,7 @@ class ezcomSubscription extends eZPersistentObject
 {
     /**
      * Construct, use {@link ezcomSubscription::create()} to create new objects.
-     * 
+     *
      * @param array $row
      */
     public function __construct( $row )
@@ -45,7 +45,7 @@ class ezcomSubscription extends eZPersistentObject
 
     /**
      * Fields definition
-     * 
+     *
      * @return array
      */
     public static function definition()
@@ -92,7 +92,7 @@ class ezcomSubscription extends eZPersistentObject
 
     /**
      * Create new ezcomSubscription object
-     * 
+     *
      * @static
      * @param array $row
      * @return ezcomNotification
@@ -105,7 +105,7 @@ class ezcomSubscription extends eZPersistentObject
 
     /**
      * Fetch ezcomSubscription by given id
-     * 
+     *
      * @param int $id
      * @return null|ezcomSubscription
      */
@@ -115,12 +115,12 @@ class ezcomSubscription extends eZPersistentObject
         $return = eZPersistentObject::fetchObject( self::definition(), null, $cond );
         return $return;
     }
-    
+
     static function fetchByCond( $cond )
     {
         return eZPersistentObject::fetchObject( self::definition(), null, $cond );
     }
-    
+
     /**
      * fetch the subscription object by hash_string
      * @return null / ezcomSubscription object
@@ -131,7 +131,7 @@ class ezcomSubscription extends eZPersistentObject
         $return = self::fetchByCond( $cond );
         return $return;
     }
-    
+
     /**
      * get the count of subscription in a subscriber ID
      * @param $subscriberID
@@ -152,7 +152,7 @@ class ezcomSubscription extends eZPersistentObject
         $count = eZPersistentObject::count( self::definition(), $cond );
         return $count;
     }
-    
+
     /**
      * enable the subscription
      * @return true: enabled
@@ -171,11 +171,11 @@ class ezcomSubscription extends eZPersistentObject
             return true;
         }
     }
-    
+
     /**
      * clean up subscription based on an email address and content,
      *  make the subscription consistent.
-     *  example: 
+     *  example:
      *      cleanup subscription on content: cleanupSubscription( $email, $contentID )
      *      cleanup subscription on comment: cleanupSubscription( $email, null, $commentID )
      * @param string $email
@@ -190,7 +190,7 @@ class ezcomSubscription extends eZPersistentObject
         $contentLanguage = "";
         $contentString = "";
         $commentString = "";
-        
+
         if( !is_null( $contentID ) )
         {
             $contentObjectID = substr( $contentID, 0, strpos( $contentID, '_' ) );
@@ -203,7 +203,7 @@ class ezcomSubscription extends eZPersistentObject
             $contentLanguage = $comment->attribute( 'language_id' );
         }
         $contentID = $contentObjectID . '_' . $contentLanguage;
-        $queryComment = "SELECT count(*) AS count FROM ezcomment 
+        $queryComment = "SELECT count(*) AS count FROM ezcomment
                         WHERE email = '$email'" .
                         "AND notification=1 ".
                         "AND contentobject_id= $contentObjectID " .
@@ -236,14 +236,14 @@ class ezcomSubscription extends eZPersistentObject
             return false;
         }
     }
-    
+
     /**
      * Check if the subscription exists by a given contentID
      * @param string $contentID : the ID of content subscribed
      * @param string $subscriptionType : type of the subscription
-     * @param string $email : email in table subscriber 
+     * @param string $email : email in table subscriber
      * @param integer $enabled : 1/0 - check if the subscriber is enabled.
-     *                               Empty/false - not check if the subscriber is enabled 
+     *                               Empty/false - not check if the subscriber is enabled
      * @return boolean: true if existing, false if not, null if error happens
      */
     static function exists( $contentID , $subscriptionType, $email = null, $enabled = false )
@@ -267,10 +267,10 @@ class ezcomSubscription extends eZPersistentObject
         {
             $countArray = $db->arrayQuery( "SELECT count(*) AS count
                                        FROM ezcomment_subscription
-                                       WHERE 
+                                       WHERE
                                        content_id = '$contentID'
                                        AND subscription_type = '$subscriptionType'
-                                       AND subscriber_id IN 
+                                       AND subscriber_id IN
                                        (SELECT id FROM ezcomment_subscriber
                                        $emailString )");
         }
@@ -288,12 +288,12 @@ class ezcomSubscription extends eZPersistentObject
           }
           $countArray = $db->arrayQuery( "SELECT count(*) AS count
                                        FROM ezcomment_subscription
-                                       WHERE 
+                                       WHERE
                                        content_id = '$contentID'
                                        AND subscription_type = '$subscriptionType'
-                                       AND subscriber_id IN 
+                                       AND subscriber_id IN
                                        (SELECT id FROM ezcomment_subscriber
-                                       $emailString 
+                                       $emailString
                                        $enabledString)");
         }
         else

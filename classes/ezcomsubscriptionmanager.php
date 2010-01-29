@@ -11,18 +11,18 @@
 //   This program is free software; you can redistribute it and/or
 //   modify it under the terms of version 2.0  of the GNU General
 //   Public License as published by the Free Software Foundation.
-// 
+//
 //   This program is distributed in the hope that it will be useful,
 //   but WITHOUT ANY WARRANTY; without even the implied warranty of
 //   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 //   GNU General Public License for more details.
-// 
+//
 //   You should have received a copy of version 2.0 of the GNU General
 //   Public License along with this program; if not, write to the Free
 //   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 //   MA 02110-1301, USA.
-// 
-// 
+//
+//
 // ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
 //
 
@@ -35,18 +35,18 @@ class ezcomSubscriptionManager
     public $tpl = null;
     public $module = null;
     protected static $instance = null;
-    
+
     function __construct( $tpl = null, $module = null, $params = null )
     {
         $this->tpl = $tpl;
         $this->module = $module;
         $this->params = $params;
     }
-    
+
     /**
      * Activate subscription
      * If there is error,set 'error_message' to the template,
-     * If activation succeeds, set 'subscriber' to the template 
+     * If activation succeeds, set 'subscriber' to the template
      * @param string: $hashString
      * @return void
      */
@@ -56,7 +56,7 @@ class ezcomSubscriptionManager
         $subscription = ezcomSubscription::fetchByHashString( $hashString );
         if( is_null( $subscription ) )
         {
-            $this->tpl->setVariable( 'error_message', ezi18n( 'extension/ezcomments/activate', 
+            $this->tpl->setVariable( 'error_message', ezi18n( 'extension/ezcomments/activate',
                                       'The is no subscription with the hash string!' ) );
         }
         else
@@ -65,24 +65,24 @@ class ezcomSubscriptionManager
             {
                 ezDebugSetting::writeNotice( 'extension-ezcomments', 'Subscription activated', __METHOD__ );
             }
-            
+
             $subscriber = ezcomSubscriber::fetch( $subscription->attribute( 'subscriber_id' ) );
-            
+
             if( $subscriber->attribute( 'enabled' ) )
             {
                 $subscription->enable();
-                $this->tpl->setVariable( 'subscriber', $subscriber ); 
+                $this->tpl->setVariable( 'subscriber', $subscriber );
             }
             else
             {
-                $this->tpl->setVariable( 'error_message', ezi18n( 'extension/ezcomments/activate', 
+                $this->tpl->setVariable( 'error_message', ezi18n( 'extension/ezcomments/activate',
                                       'The subscriber is disabled!' ) );
             }
         }
     }
-    
+
     /**
-    * Add an subscription. 
+    * Add an subscription.
     * If there is no subscriber, add one.
     * If there is no subscription for the content, add one
     * @param $email: user's email
@@ -132,16 +132,16 @@ class ezcomSubscriptionManager
             $subscription->setAttribute( 'content_id', $contentID );
             $subscription->setAttribute( 'subscription_time', $currentTime );
             $defaultActivated = $ezcommentsINI->variable( 'CommentSettings', 'SubscriptionActivated' );
-        
+
             if( $user->isAnonymous() && $defaultActivated !== 'true' )
             {
                 $subscription->setAttribute( 'enabled', 0 );
                 $utility = ezcomUtility::instance();
                 $subscription->setAttribute( 'hash_string', $utility->generateSubscriptionHashString( $subscription ) );
                 $subscription->store();
-                
+
                 $result = ezcomSubscriptionManager::sendActivationEmail( eZContentObject::fetch( $contentID),
-                                                                         $subscriber, 
+                                                                         $subscriber,
                                                                          $subscription );
                 if( !$result )
                 {
@@ -156,7 +156,7 @@ class ezcomSubscriptionManager
             eZDebugSetting::writeNotice( 'extension-ezcomments', 'No existing subscription for this content and user, added one', __METHOD__ );
         }
     }
-    
+
     /**
      * send activation email to the user
      * @param ezcomContentObject $contentObject
@@ -168,7 +168,7 @@ class ezcomSubscriptionManager
     public static function sendActivationEmail( $contentObject, $subscriber, $subscription )
     {
         $transport = eZNotificationTransport::instance( 'ezmail' );
-        
+
         $email = $subscriber->attribute( 'email' );
         require_once( 'kernel/common/template.php' );
         $tpl = templateInit();
@@ -181,11 +181,11 @@ class ezcomSubscriptionManager
         $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
         $mailContentType = $ezcommentsINI->variable( 'NotificationSettings', 'ActivationMailContentType' );
         $parameters['content_type'] = $mailContentType;
-        
+
         $result = $transport->send( array( $email ), $mailSubject, $mailBody, null, $parameters );
         return $result;
     }
-    
+
     /**
      * clean up the subscription if the subscription has not been activate for very long
      * @return array id of subscription cleaned up
@@ -210,7 +210,7 @@ class ezcomSubscriptionManager
             return null;
         }
     }
-    
+
     /**
      * delete the subscription given the subscriber's email
      * @param $email
@@ -229,7 +229,7 @@ class ezcomSubscriptionManager
         $subscription = ezcomSubscription::fetchByCond( $cond );
         $subscription->remove();
     }
-    
+
     /**
      * method for creating object
      * @return ezcomSubscriptionManager
@@ -242,7 +242,7 @@ class ezcomSubscriptionManager
             $ini = eZINI::instance( 'ezcomments.ini' );
             $className = $ini->variable( 'ManagerClasses', 'SubscriberManagerClass' );
         }
-        
+
         if( !is_null( self::$instance ) )
         {
             $object = self::$instance;
@@ -256,6 +256,6 @@ class ezcomSubscriptionManager
         }
         return $object;
     }
-    
+
 }
 ?>

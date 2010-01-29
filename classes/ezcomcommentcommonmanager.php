@@ -29,14 +29,14 @@
 //
 
 /**
- * 
+ *
  *Business logic of comment
  *
  */
 
 class ezcomCommentCommonManager extends ezcomCommentManager
-{ 
-    
+{
+
     /**
      * add subscription after adding comment
      * 1) If 'notification' is true
@@ -45,7 +45,7 @@ class ezcomCommentCommonManager extends ezcomCommentManager
      * 2) If 'notification' is true
      *    if the subscription with user's email and contentid doesn't exist, add a new subscription,
      * 3) If there is subscription, add the comment into notifiction queue
-     *  
+     *
      * @see extension/ezcomments/classes/ezcomCommentManager#afterAddingComment($comment)
      */
     public function afterAddingComment( $comment )
@@ -72,7 +72,7 @@ class ezcomCommentCommonManager extends ezcomCommentManager
             eZDebugSetting::writeNotice( 'extension-ezcomments', 'Notification added to queue', __METHOD__ );
         }
     }
-   
+
     /**
      * clean up subscription after deleting comment
      * @see extension/ezcomments/classes/ezcomCommentManager#afterDeletingComment($comment)
@@ -82,13 +82,13 @@ class ezcomCommentCommonManager extends ezcomCommentManager
         // clean up subscription
         $ini = eZINI::instance( 'ezomments.ini' );
         $deletingSubscription = $ini->variable( 'GlobalSettings', 'DeleteSubscriptionAfterDeleteComment' );
-        
+
         if( $deleteingSubscription === 'true' )
         {
             eZDebugSetting::writeNotice( 'extension-ezcomments', 'The comment to be deleted has subscriptions', __METHOD__ );
             $contentID = $comment->attribute( 'contentobject_id' ) . '_'. $comment->attribute( 'language_id' );
             $commentObject = ezcomComment::fetchByEmail( $comment->attribute( 'email' ) );
-            //if the comment on the object is empty, delete the susbscription 
+            //if the comment on the object is empty, delete the susbscription
             if( is_null( $commentObject ) )
             {
                 $subscriptionManager = ezcomSubscriptionManager::instance();
@@ -98,15 +98,15 @@ class ezcomCommentCommonManager extends ezcomCommentManager
         }
         return true;
     }
-    
+
     /**
-     * clean up subscription after updating comment 
+     * clean up subscription after updating comment
      * @see extension/ezcomments/classes/ezcomCommentManager#afterUpdatingComment($comment, $notified)
      */
     public function afterUpdatingComment( $comment, $notified )
     {
         $user = eZUser::fetch( $comment->attribute( 'user_id' ) );
-        
+
         // if notified is true, add subscription, else cleanup the subscription on the user and content
         $contentID = $comment->attribute( 'contentobject_id' ) . '_' . $comment->attribute( 'language_id' );
         $subscriptionType = 'ezcomcomment';
@@ -141,8 +141,8 @@ class ezcomCommentCommonManager extends ezcomCommentManager
         }
         return true;
     }
-    
-    
+
+
     /**
      * common implementation of validteInput method
      * valudate that if the name and text(content) is empty
@@ -163,7 +163,7 @@ class ezcomCommentCommonManager extends ezcomCommentManager
             return ezi18n( 'comment/view/validateInput', 'Email is empty!' );
         }
         else
-        {   
+        {
             if( eZMail::validate( $comment->attribute( 'email' ) ) == false )
             {
                 return ezi18n( 'comment/view/validateInput', 'Not a valid email address!' );

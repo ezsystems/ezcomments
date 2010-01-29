@@ -42,13 +42,13 @@ class ezcomPermission
 
     /**
      * check if the user has Acceess to the object with limitation of class, section, owner, language, nodes, subtrees
-     * 
+     *
      * return true if has, false if not
      */
     public function hasFunctionAccess( $user, $functionName, $contentObject, $languageCode, $comment = null, $scope = null, $node = null )
     {
         $result = $user->hasAccessTo( self::$moduleName, $functionName );
-        
+
         if( $result['accessWord'] !== 'limited' )
         {
             $return = ( $result['accessWord'] === 'yes' ) and ( $scope !== 'personal' );
@@ -67,19 +67,19 @@ class ezcomPermission
                         $contentObject, $languageCode, $comment, $scope, $node );
                     ezDebugSetting::writeNotice( 'extension-ezcomments',
                         "Permission check result for function '$functionName' with limitation '$limitationKey': " . ( $resultItem === true ? 'true' : 'false' ), __METHOD__ );
-                    $return = ( $return and $resultItem ); 
+                    $return = ( $return and $resultItem );
                 }
-                
+
                 if ( $return === true )
                     break;
             }
         }
         return $return;
     }
-    
+
    /**
     * Check the permission given user contentobject, language and comment(optional)
-    * To extend the permission checking, please extend the class and override this method 
+    * To extend the permission checking, please extend the class and override this method
     * @param $user
     * @param $limitationKey key name of the limitiation, for instance 'Language'
     * @param $limitation limitation array, for instance '{eng-GB,nor-NO}'
@@ -97,16 +97,16 @@ class ezcomPermission
                 // this does not match when looking for personal policies
                 if ( $scope == 'personal' )
                     return false;
-                
+
                 $contentSectionID = $contentObject->attribute( 'section_id' );
                 return in_array( $contentSectionID, $limitation );
-            
+
             // owner limited policy
             case self::$commentCreatorKey:
                 // this does not match when looking for role wide policies
                 if ( $scope == 'role' )
                     return false;
-                
+
                 if( $user->isAnonymous() )
                 {
                     return false;
@@ -134,29 +134,29 @@ class ezcomPermission
                     }
                     return false;
                 }
-            
+
             default:
                 return false;
         }
     }
-    
+
     /**
     * Checks if the current user has a 'self' edit/delete policy
-    * 
+    *
     * @param eZContentObject $contentObject Used to check with a possible section
-    * 
+    *
     * @return array An array with edit and delete as keys, and booleans as values
     */
     public static function selfPolicies( $contentObject )
     {
         $return = array( 'edit' => false, 'delete' => false );
         $sectionID = $contentObject->attribute( 'section_id' );
-        
+
         $user = eZUser::currentUser();
         foreach( array_keys( $return ) as $functionName )
         {
             $policies = $user->hasAccessTo( self::$moduleName, $functionName );
-            
+
             // unlimited policy, not personal
             if( $policies['accessWord'] !== 'limited' )
             {
@@ -188,10 +188,10 @@ class ezcomPermission
                 }
             }
         }
-        
+
         return array( 'result' => $return );
     }
-    
+
     /**
     * @param $scope What access scope should be accepted.
     *        Default is any, but possible values are:
@@ -205,14 +205,14 @@ class ezcomPermission
         $result = $permission->hasFunctionAccess( $user, $functionName, $contentObject, $languageCode, $comment, $scope, $node );
         return array( 'result' => $result );
     }
-    
+
     public static function instance()
     {
         if( is_null( self::$instance ) )
         {
             $ini = eZINI::instance( 'ezcomments.ini' );
             $className = $ini->variable( 'ManagerClasses', 'PermissionClass' );
-            self::$instance = new $className(); 
+            self::$instance = new $className();
         }
         return  self::$instance;
     }
