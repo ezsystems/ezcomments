@@ -104,7 +104,7 @@ function checkPermission( $comment )
     $contentObject = $comment->contentObject();
     $languageID = $comment->attribute( 'language_id' );
     $languageCode = eZContentLanguage::fetch( $languageID )->attribute( 'locale' );
-    $canDeleteResult = ezcomPermission::hasAccessToFunction( 'delete', $contentObject, $languageCode );
+    $canDeleteResult = ezcomPermission::hasAccessToFunction( 'delete', $contentObject, $languageCode, $comment );
 
     $objectAttributes = $contentObject->fetchDataMap( false, $languageCode );
     $objectAttribute = null;
