@@ -38,6 +38,7 @@ class ezcomPermission
     protected static $sectionKey = 'ContentSection';
     protected static $commentCreatorKey = 'CommentCreator';
     protected static $subtreeKey = 'User_Subtree';
+    protected static $userSectionKey = 'User_Section';
     protected static $instance = null;
 
     /**
@@ -94,6 +95,8 @@ class ezcomPermission
         {
             // section limited policy
             case self::$sectionKey:
+            case self::$userSectionKey:
+                echo $limitationKey;
                 // this does not match when looking for personal policies
                 if ( $scope == 'personal' )
                     return false;
