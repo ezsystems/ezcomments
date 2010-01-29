@@ -25,7 +25,7 @@
 //
 // ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
 //
-$Module = array( 'name' => 'ezcom Module and Views' );
+$Module = array( 'name' => 'eZ Comments' );
 
 $ViewList = array();
 
@@ -87,9 +87,10 @@ $Creator = array(
         )
     );
 
-
 $FunctionList = array();
+
 $FunctionList['read'] = array( 'ContentSection' => $SectionID );
+
 $FunctionList['add'] = array( 'ContentSection' => $SectionID );
 
 $FunctionList['edit'] = array( 'ContentSection' => $SectionID,
@@ -98,5 +99,6 @@ $FunctionList['edit'] = array( 'ContentSection' => $SectionID,
 $FunctionList['delete'] = array( 'ContentSection' => $SectionID,
                                  'CommentCreator' => $Creator );
 $FunctionList['setting'] = array();
+
 $FunctionList['activate'] = array();
 ?>
