@@ -96,7 +96,6 @@ class ezcomPermission
             // section limited policy
             case self::$sectionKey:
             case self::$userSectionKey:
-                echo $limitationKey;
                 // this does not match when looking for personal policies
                 if ( $scope == 'personal' )
                     return false;
