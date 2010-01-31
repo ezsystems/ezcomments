@@ -65,7 +65,7 @@ if( $Module->isCurrentAction( 'DeleteComment' ) )
                 $redirectURI = $http->postVariable( 'RedirectURI' );
             }
             //todo: deal with the case that there is no last Access URI
-            $Module->redirectTo( $redirectURI );
+            return $Module->redirectTo( $redirectURI );
         }
         else
         {
@@ -83,7 +83,7 @@ else if( $Module->isCurrentAction( 'Cancel' ) )
          $redirectURI = $http->postVariable( 'RedirectURI' );
      }
      //todo: deal with the case that there is no last Access URI
-     $Module->redirectTo( $redirectURI );
+     return $Module->redirectTo( $redirectURI );
      return;
 }
 else
@@ -102,9 +102,10 @@ function checkPermission( $comment )
 {
     // check permission
     $contentObject = $comment->contentObject();
+    $contentNode = $contentObject->mainNode();
     $languageID = $comment->attribute( 'language_id' );
     $languageCode = eZContentLanguage::fetch( $languageID )->attribute( 'locale' );
-    $canDeleteResult = ezcomPermission::hasAccessToFunction( 'delete', $contentObject, $languageCode, $comment );
+    $canDeleteResult = ezcomPermission::hasAccessToFunction( 'delete', $contentObject, $languageCode, $comment, null, $contentNode );
 
     $objectAttributes = $contentObject->fetchDataMap( false, $languageCode );
     $objectAttribute = null;

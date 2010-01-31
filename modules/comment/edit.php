@@ -53,10 +53,11 @@ if( is_null( $comment ) )
 
 //check the permission
 $contentObject = $comment->contentObject();
+$contentNode = $contentObject->mainNode();
 $languageID = $comment->attribute( 'language_id' );
 $languageCode = eZContentLanguage::fetch( $languageID )->attribute( 'locale' );
 $canEdit = false;
-$canEditResult = ezcomPermission::hasAccessToFunction( 'edit', $contentObject, $languageCode, $comment );
+$canEditResult = ezcomPermission::hasAccessToFunction( 'edit', $contentObject, $languageCode, $comment, null, $contentNode );
 $canEdit = $canEditResult['result'];
 $tpl->setVariable( 'can_edit', $canEdit );
 
@@ -116,14 +117,14 @@ if( $Module->isCurrentAction( 'UpdateComment' ) )
         //clean up cache
         eZContentCacheManager::clearContentCache( $contentObject->attribute( 'id' ) );
         $redirectionURI = $http->postVariable('ezcomments_comment_redirect_uri');
-        $Module->redirectTo( $redirectionURI );
+        return $Module->redirectTo( $redirectionURI );
     }
     return showComment( $comment, $tpl );
 }
 else if( $Module->isCurrentAction('Cancel') )
 {
      $redirectionURI = $http->postVariable('ezcomments_comment_redirect_uri');
-     $Module->redirectTo( $redirectionURI );
+     return $Module->redirectTo( $redirectionURI );
 }
 else
 {
