@@ -270,10 +270,10 @@ $schema = array (
     array (
       'content_id' => 
       array (
-        'length' => 100,
-        'type' => 'varchar',
+        'length' => 11,
+        'type' => 'int',
         'not_null' => '1',
-        'default' => '',
+        'default' => 0,
       ),
       'enabled' => 
       array (
@@ -292,6 +292,13 @@ $schema = array (
       array (
         'type' => 'auto_increment',
         'default' => false,
+      ),
+      'language_id' => 
+      array (
+        'length' => 11,
+        'type' => 'int',
+        'not_null' => '1',
+        'default' => 0,
       ),
       'subscriber_id' => 
       array (

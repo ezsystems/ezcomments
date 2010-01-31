@@ -117,10 +117,11 @@ CREATE TABLE ezcomment_subscriber (
 
 
 CREATE TABLE ezcomment_subscription (
-    content_id character varying(100) DEFAULT ''::character varying NOT NULL,
+    content_id integer DEFAULT 0 NOT NULL,
     enabled integer DEFAULT 1 NOT NULL,
     hash_string character varying(50),
     id integer DEFAULT nextval('ezcomment_subscription_s'::text) NOT NULL,
+    language_id integer DEFAULT 0 NOT NULL,
     subscriber_id integer DEFAULT 0 NOT NULL,
     subscription_time integer DEFAULT 0 NOT NULL,
     subscription_type character varying(30) DEFAULT ''::character varying NOT NULL,
