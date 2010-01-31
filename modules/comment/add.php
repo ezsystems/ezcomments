@@ -72,8 +72,8 @@ $contentObjectId = (int)$http->postVariable('ContentObjectID');
 if ( $http->hasPostVariable( 'CommentLanguageCode' ) )
 {
     $languageCode = $http->postVariable( 'CommentLanguageCode' );
-    $languageID = eZContentLanguage::idByLocale( $languageCode );
-    if ( $languageID === false )
+    $language = eZContentLanguage::fetchByLocale( $languageCode );
+    if ( $language === false )
     {
         eZDebug::writeError( "The language code [$languageCode] given is not valid in the system.", 'ezcomments' );
         return $module->handleError( eZError::KERNEL_NOT_AVAILABLE, 'kernel' );
@@ -161,9 +161,10 @@ else
      //     $comment->setAttribute( 'notification', false );
      // }
 
+     $languageId = eZContentLanguage::idByLocale( $languageCode );
 
      $comment->setAttribute( 'contentobject_id', $contentObjectId );
-     // $comment->setAttribute( 'language_id', $languageID );
+     $comment->setAttribute( 'language_id', $languageId );
      $currentTime = time();
      $comment->setAttribute( 'user_id', $user->attribute( 'contentobject_id' ) );
      $comment->setAttribute( 'created', $currentTime);

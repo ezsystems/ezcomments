@@ -120,11 +120,11 @@ abstract class ezcomCommentManager
      */
     public function addComment( $comment, $user, $time = null )
     {
-        // $validationResult = $this->validateInput( $comment );
-        // if( $validationResult !== true )
-        // {
-        //     return $validationResult;
-        // }
+        $validationResult = $this->validateInput( $comment );
+        if( $validationResult !== true )
+        {
+            return $validationResult;
+        }
         $currentTime = null;
         if( is_null( $time ) )
         {
