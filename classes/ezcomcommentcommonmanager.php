@@ -116,6 +116,7 @@ class ezcomCommentCommonManager extends ezcomCommentManager
         $contentID = $comment->attribute( 'contentobject_id' );
         $languageID = $comment->attribute( 'language_id' );
         $subscriptionType = 'ezcomcomment';
+        $time = time();
         if( !is_null( $notified ) )
         {
             $subscriptionManager = ezcomSubscriptionManager::instance();
