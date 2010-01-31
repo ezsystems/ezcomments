@@ -54,20 +54,20 @@ class ezcomCommentCommonManager extends ezcomCommentManager
         $languageID = $comment->attribute( 'language_id' );
         $subscriptionType = 'ezcomcomment';
         //add subscription
-        if( $comment->attribute( 'notification' ) )
+        if( $notification === true )
         {
             $user = eZUser::instance();
             $subscription = ezcomSubscriptionManager::instance();
-            $subscription->addSubscription( $comment->attribute('email'), 
+            $subscription->addSubscription( $comment->attribute('email'),
                                             $user,
-                                            $contentID, 
+                                            $contentID,
                                             $languageID,
-                                            $subscriptionType, 
+                                            $subscriptionType,
                                             $comment->attribute( 'created' ) );
         }
         // insert data into notification queue
         // if there is no subscription,not adding to notification queue
-        if( ezcomSubscription::exists( $contentID, $languageID, $subscriptionType ) )
+        if( ezcomSubscription::exists( $contentID, $languageID, $subscriptionType, null, 1 ) )
         {
             $notification = ezcomNotification::create();
             $notification->setAttribute( 'contentobject_id', $comment->attribute('contentobject_id') );
@@ -109,7 +109,7 @@ class ezcomCommentCommonManager extends ezcomCommentManager
                                                        $user,
                                                        $contentID,
                                                        $languageID,
-                                                       $subscriptionType, 
+                                                       $subscriptionType,
                                                        $time,
                                                        false );
             }
