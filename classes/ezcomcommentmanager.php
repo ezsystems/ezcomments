@@ -72,7 +72,7 @@ abstract class ezcomCommentManager
      * @return true if action succeeds
      *        string if the action has error
      */
-    public function beforeUpdatingComment( $comment, $notified )
+    public function beforeUpdatingComment( $comment, $notified, $time )
     {
         return true;
     }
@@ -84,7 +84,7 @@ abstract class ezcomCommentManager
      * @return true if action succeeds
      *        string if the action has error
      */
-    public function afterUpdatingComment( $comment, $notified )
+    public function afterUpdatingComment( $comment, $notified, $time )
     {
         return true;
     }
@@ -163,23 +163,20 @@ abstract class ezcomCommentManager
         {
             return $validationResult;
         }
-        $currentTime = null;
-        if( is_null( $time ) )
+
+        if ( $time === null )
         {
-            $currentTime = time();
+            $time = time();
         }
-        else
-        {
-            $currentTime = $time;
-        }
-        $beforeUpdating = $this->beforeUpdatingComment( $comment, $notified );
+
+        $beforeUpdating = $this->beforeUpdatingComment( $comment, $notified, $time );
         if( $beforeUpdating !== true )
         {
             return $beforeUpdating;
         }
         $comment->store();
 
-        $afterUpdating = $this->afterUpdatingComment( $comment, $notified );
+        $afterUpdating = $this->afterUpdatingComment( $comment, $notified, $time );
         if( $afterUpdating !== true )
         {
             return $afterUpdating;

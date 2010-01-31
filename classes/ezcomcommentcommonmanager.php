@@ -91,7 +91,7 @@ class ezcomCommentCommonManager extends ezcomCommentManager
      * clean up subscription after updating comment
      * @see extension/ezcomments/classes/ezcomCommentManager#afterUpdatingComment($comment, $notified)
      */
-    public function afterUpdatingComment( $comment, $notified )
+    public function afterUpdatingComment( $comment, $notified, $time )
     {
         $user = eZUser::fetch( $comment->attribute( 'user_id' ) );
 
@@ -99,7 +99,6 @@ class ezcomCommentCommonManager extends ezcomCommentManager
         $contentID = $comment->attribute( 'contentobject_id' );
         $languageID = $comment->attribute( 'language_id' );
         $subscriptionType = 'ezcomcomment';
-        $time = time();
         if( !is_null( $notified ) )
         {
             $subscriptionManager = ezcomSubscriptionManager::instance();
