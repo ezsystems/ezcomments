@@ -27,19 +27,19 @@
         <div class="ezcom-function-title">
             <a name="cadd"></a>
             <h4>
-             {'Post comment'|i18n( 'extension/ezcomments/add' )}
+             {'Post comment'|i18n( 'ezcomments/add' )}
             </h4>
         </div>
         <div class="ezcom-field ezcom-field-title">
             <label>
-                {'Title:'|i18n( 'extension/ezcomments/commentform' )}
+                {'Title:'|i18n( 'ezcomments/add' )}
             </label>
             <input type="text" class="box" maxlength="100" id="ezcomments_comment_view_addcomment_title" name="CommentTitle" />
         </div>
         <div class="ezcom-field ezcom-field-name">
             <div class="ezcom-filed-error"></div>
             <label>
-                {'Name:'|i18n( 'extension/ezcomments/commentform' )}
+                {'Name:'|i18n( 'ezcomments/add' )}
             </label>
             <input type="text" class="box" maxlength="50" id="ezcomments_comment_view_addcomment_name" name="CommentName" value="{$comment_name}" />
             <span class="ezcom-field-mandatory">*</span>
@@ -47,13 +47,13 @@
         </div>
         <div class="ezcom-field ezcom-field-website">
             <label>
-                {'Website:'|i18n( 'extension/ezcomments/commentform' )}
+                {'Website:'|i18n( 'ezcomments/add' )}
             </label>
             <input type="text" class="box" maxlength="100" id="ezcomments_comment_view_addcomment_website" name="CommentWebsite" value="{$comment_website}" />
         </div>
         <div class="ezcom-field ezcom-field-email">
             <label>
-                {'Email:'|i18n( 'extension/ezcomments/commentform' )}
+                {'Email:'|i18n( 'ezcomments/add' )}
             </label>
             {if $is_anonymous|not}
                 <input type="text" maxlength="100" class="box" id="ezcomments_comment_view_addcomment_email" disabled="true" value="{$comment_email}" />
@@ -62,11 +62,11 @@
                 <input type="text" maxlength="100" class="box" class="ezcomments-comment-view-addcomment-email" id="ezcomments_comment_view_addcomment_email" name="CommentEmail" value="{$comment_email}" />
             {/if} 
                 <span class="ezcom-field-mandatory">*</span>
-                <span class="ezcom-field-emailmessage">{'( The Email address will not be shown )'|i18n( 'extension/ezcomments/commentform' )}</span>
+                <span class="ezcom-field-emailmessage">{'( The Email address will not be shown )'|i18n( 'ezcomments/add' )}</span>
         </div>
         <div class="ezcom-field ezcom-field-content">
             <label>
-                {'Content:'|i18n( 'extension/ezcomments/commentform' )}
+                {'Content:'|i18n( 'ezcomments/add' )}
             </label>
             <textarea id="ezcomments_comment_view_addcomment_content" class="box" name="CommentContent"></textarea>
             <span class="ezcom-field-mandatory">*</span>
@@ -74,20 +74,20 @@
         <div class="ezcom-field ezcom-field-notified">
             <label>
                 <input type="checkbox" id="ezcom_field_notified" name="CommentNotified" {if $comment_notified|eq( true )}checked{/if} />
-                {'Notified'|i18n( 'extension/ezcomments/commentform' )}
+                {'Notified'|i18n( 'ezcomments/add' )}
             </label>
         </div>
         {if $is_anonymous}
             <div class="ezcom-field-remember">
                 <label>
                     <input type="checkbox" name="CommentRememberme" {if $comment_remember}checked="true"{/if} />
-                    {'Remember me'|i18n( 'extension/ezcomments/commentform' )}
+                    {'Remember me'|i18n( 'ezcomments/add' )}
                 </label>
             </div>
          {/if}
         <div class="ezcom-field">
-            <input type="submit" value="{'Post comment'|i18n( 'extension/ezcomments/action' )}" class="button" id="ezcom-post-button" name="PostCommentButton" />
-            <input type="reset" class="button" value="{'Reset form'|i18n( 'extension/ezcomments/action' )}" />
+            <input type="submit" value="{'Post comment'|i18n( 'ezcomments/add' )}" class="button" id="ezcom-post-button" name="PostCommentButton" />
+            <input type="reset" class="button" value="{'Reset form'|i18n( 'ezcomments/add' )}" />
         </div>
 </div>
 </form>
