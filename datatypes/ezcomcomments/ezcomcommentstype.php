@@ -51,9 +51,10 @@ class ezcomCommentsType extends eZDataType
 
     function objectAttributeContent( $objectAttribute )
     {
-        $result = array();
-        $result['enable_comment'] = $objectAttribute->attribute( 'data_int' );
-        $result['show_comments'] = $objectAttribute->attribute( 'data_float' );
+        $result = array(
+            'enable_comment' => ( $objectAttribute->attribute( 'data_int' ) == 1 ),
+            'show_comments' => ( $objectAttribute->attribute( 'data_float' ) == 1 )
+        );
         return $result;
     }
 
