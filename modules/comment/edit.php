@@ -61,8 +61,11 @@ $canEditResult = ezcomPermission::hasAccessToFunction( 'edit', $contentObject, $
 $canEdit = $canEditResult['result'];
 $tpl->setVariable( 'can_edit', $canEdit );
 
-$contentID = $comment->attribute( 'contentobject_id' ) . '_' . $languageID;
-$notified = ezcomSubscription::exists( $contentID, 'ezcomcomment', $comment->attribute( 'email' ) );
+$contentID = $comment->attribute( 'contentobject_id' );
+$notified = ezcomSubscription::exists( $contentID, 
+                                       $languageID, 
+                                       'ezcomcomment', 
+                                       $comment->attribute( 'email' ) );
 $tpl->setVariable( 'notified', $notified );
 
 if( !$canEdit )
@@ -98,7 +101,10 @@ if( $Module->isCurrentAction( 'UpdateComment' ) )
     $comment->setAttribute( 'modified', $time );
     $commentManager = ezcomCommentManager::instance();
 
-    $existSusbcription = ezcomSubscription::exists( $contentID, 'ezcomcomment', $comment->attribute( 'email' ) );
+    $existSusbcription = ezcomSubscription::exists( $contentID,
+                                                    $languageID, 
+                                                    'ezcomcomment', 
+                                                    $comment->attribute( 'email' ) );
     $updateResult = null;
     if( $clientNotified == $notified )
     {

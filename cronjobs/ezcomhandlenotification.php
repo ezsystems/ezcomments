@@ -60,7 +60,6 @@ $contentObjectIDList = $db->arrayQuery( 'SELECT DISTINCT contentobject_id, langu
                                    ' LIMIT 0,'. $sendingNumber );
 $notificationCount = 0;
 $mailCount = 0;
-
 foreach( $contentObjectIDList as $contentObjectArray )
 {
     $contentObjectID = $contentObjectArray['contentobject_id'];
@@ -77,10 +76,11 @@ foreach( $contentObjectIDList as $contentObjectArray )
     }
     
     // fetch subscribers
-    $contentID = $contentObjectID . '_' . $contentLanguage;
+    
     $subscriptionList = $db->arrayQuery( "SELECT subscriber_id FROM ezcomment_subscription".
                                       " WHERE enabled = 1" . 
-                                      " AND content_id = '$contentID'" );
+                                      " AND content_id = $contentObjectID" .
+                                      " AND language_id = $contentLanguage"   );
     $subscriberList = array();
     foreach( $subscriptionList as $subscription )
     {
@@ -92,7 +92,6 @@ foreach( $contentObjectIDList as $contentObjectArray )
     foreach ( $notifications as $notification )
     {
          // fetch comment object
-         
          $comment = ezcomComment::fetch( $notification['comment_id'] );
          if( is_null( $comment ) )
          {

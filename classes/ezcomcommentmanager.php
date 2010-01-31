@@ -130,6 +130,7 @@ abstract class ezcomCommentManager
         {
             $currentTime = time();
         }
+        
         else
         {
             $currentTime = $time;

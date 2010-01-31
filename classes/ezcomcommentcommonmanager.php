@@ -50,19 +50,24 @@ class ezcomCommentCommonManager extends ezcomCommentManager
      */
     public function afterAddingComment( $comment )
     {
-        $contentID = $comment->attribute( 'contentobject_id' ) . '_' . $comment->attribute( 'language_id' );
+        $contentID = $comment->attribute( 'contentobject_id' );
+        $languageID = $comment->attribute( 'language_id' );
         $subscriptionType = 'ezcomcomment';
         //add subscription
         if( $comment->attribute( 'notification' ) )
         {
             $user = eZUser::instance();
             $subscription = ezcomSubscriptionManager::instance();
-            $subscription->addSubscription( $comment->attribute('email'), $user,
-                                          $contentID, $subscriptionType, $comment->attribute( 'created' ) );
+            $subscription->addSubscription( $comment->attribute('email'), 
+                                            $user,
+                                            $contentID, 
+                                            $languageID,
+                                            $subscriptionType, 
+                                            $comment->attribute( 'created' ) );
         }
         // insert data into notification queue
         // if there is no subscription,not adding to notification queue
-        if( ezcomSubscription::exists( $contentID, $subscriptionType ) )
+        if( ezcomSubscription::exists( $contentID, $languageID, $subscriptionType ) )
         {
             $notification = ezcomNotification::create();
             $notification->setAttribute( 'contentobject_id', $comment->attribute('contentobject_id') );
@@ -86,13 +91,13 @@ class ezcomCommentCommonManager extends ezcomCommentManager
         if( $deleteingSubscription === 'true' )
         {
             eZDebugSetting::writeNotice( 'extension-ezcomments', 'The comment to be deleted has subscriptions', __METHOD__ );
-            $contentID = $comment->attribute( 'contentobject_id' ) . '_'. $comment->attribute( 'language_id' );
             $commentObject = ezcomComment::fetchByEmail( $comment->attribute( 'email' ) );
             //if the comment on the object is empty, delete the susbscription
             if( is_null( $commentObject ) )
             {
                 $subscriptionManager = ezcomSubscriptionManager::instance();
-                $subscriptionManager->deleteSubscription( $comment->attribute( 'email' ), $comment->attribute( 'contentobject_id' ),
+                $subscriptionManager->deleteSubscription( $comment->attribute( 'email' ),
+                                                          $comment->attribute( 'contentobject_id' ),
                                                           $comment->attribute( 'language_id' ) );
             }
         }
@@ -108,25 +113,33 @@ class ezcomCommentCommonManager extends ezcomCommentManager
         $user = eZUser::fetch( $comment->attribute( 'user_id' ) );
 
         // if notified is true, add subscription, else cleanup the subscription on the user and content
-        $contentID = $comment->attribute( 'contentobject_id' ) . '_' . $comment->attribute( 'language_id' );
+        $contentID = $comment->attribute( 'contentobject_id' );
+        $languageID = $comment->attribute( 'language_id' );
         $subscriptionType = 'ezcomcomment';
         if( !is_null( $notified ) )
         {
             $subscriptionManager = ezcomSubscriptionManager::instance();
             if( $notified === true )
             {
-                $subscriptionManager->addSubscription( $comment->attribute( 'email' ), $user, $contentID,
-                             $subscriptionType, $time );
+                //add subscription but not send activation
+                $subscriptionManager->addSubscription( $comment->attribute( 'email' ),
+                                                       $user,
+                                                       $contentID,
+                                                       $languageID,
+                                                       $subscriptionType, 
+                                                       $time,
+                                                       false );
             }
             else
             {
-                $subscriptionManager->deleteSubscription( $comment->attribute( 'email' ), $comment->attribute( 'contentobject_id' ),
+                $subscriptionManager->deleteSubscription( $comment->attribute( 'email' ),
+                                                          $comment->attribute( 'contentobject_id' ),
                                                           $comment->attribute( 'language_id' ) );
             }
         }
         //3. update queue. If there is subscription, add one record into queue table
         // if there is subcription on this content, add one item into queue
-        if( ezcomSubscription::exists( $contentID, $subscriptionType ) )
+        if( ezcomSubscription::exists( $contentID, $languageID,  $subscriptionType ) )
         {
             $notification = ezcomNotification::create();
             $notification->setAttribute( 'contentobject_id', $comment->attribute( 'contentobject_id' ) );

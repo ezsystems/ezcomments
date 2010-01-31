@@ -1,6 +1,7 @@
 {def $base_url=ezini( 'SiteSettings', 'SiteURL' )}
 {let $base_url=concat( 'http://', $base_url )}
 <p>
+{def $user=}
 Dear {$subscriber.email} <br />
 
 <u>{$comment.name}</u> posted a new comment on <a href="">{$contentobject.name}. </a>

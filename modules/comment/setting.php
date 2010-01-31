@@ -120,11 +120,20 @@ $limit['offset'] = ( $page - 1 ) * $numberPerPage;
 $limit['length'] = $numberPerPage;
 $sorts = array();
 $sorts = array( 'subscription_time' => 'desc' );
+
+$iniSite = eZINI::instance();
+$languageCode = $iniSite->variable( 'RegionalSettings', 'Locale' );
+$language = eZContentLanguage::fetchByLocale( $languageCode );
+$languageID = $language->attribute( 'id' );
+
 $subscriptionList = ezcomSubscription::fetchListBySubscriberID( $subscriber->attribute( 'id' ),
+                                                              $languageID,
                                                               1,
                                                               $sorts,
                                                               $limit );
-$totalCount = ezcomSubscription::countWithSubscriberID( $subscriber->attribute( 'id' ), 1 );
+$totalCount = ezcomSubscription::countWithSubscriberID( $subscriber->attribute( 'id' ), 
+                                                        $languageID, 
+                                                        1 );
 
 $tpl->setVariable( 'subscription_list',  $subscriptionList );
 $tpl->setVariable( 'total_count',  $totalCount );

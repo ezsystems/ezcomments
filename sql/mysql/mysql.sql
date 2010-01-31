@@ -46,6 +46,7 @@ CREATE TABLE IF NOT EXISTS `ezcomment_subscription` (
   `subscriber_id` bigint(20) NOT NULL,
   `subscription_type` varchar(30) NOT NULL,
   `content_id` varchar(100) NOT NULL,
+  `language_id` int(11) NOT NULL,
   `subscription_time` int(11) NOT NULL,
   `enabled` smallint(6) NOT NULL DEFAULT 1,
   `hash_string` varchar(50) DEFAULT NULL,

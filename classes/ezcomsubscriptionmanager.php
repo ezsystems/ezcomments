@@ -88,7 +88,7 @@ class ezcomSubscriptionManager
     * @param $email: user's email
     * @return void
     */
-    public function addSubscription( $email, $user, $contentID, $subscriptionType, $currentTime )
+    public function addSubscription( $email, $user, $contentID, $languageID, $subscriptionType, $currentTime, $activate = true )
     {
         //1. insert into subscriber
         $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
@@ -121,8 +121,9 @@ class ezcomSubscriptionManager
         //3 insert into subscription table
         // if there is no data in ezcomment_subscription with given contentobject_id and subscriber_id
         $hasSubscription = ezcomSubscription::exists( $contentID,
-                                        $subscriptionType,
-                                        $email );
+                                                      $languageID,
+                                                      $subscriptionType,
+                                                      $email );
         if( $hasSubscription === false )
         {
             $subscription = ezcomSubscription::create();
@@ -130,17 +131,18 @@ class ezcomSubscriptionManager
             $subscription->setAttribute( 'subscriber_id', $subscriber->attribute( 'id' ) );
             $subscription->setAttribute( 'subscription_type', $subscriptionType );
             $subscription->setAttribute( 'content_id', $contentID );
+            $subscription->setAttribute( 'language_id', $languageID );
             $subscription->setAttribute( 'subscription_time', $currentTime );
             $defaultActivated = $ezcommentsINI->variable( 'CommentSettings', 'SubscriptionActivated' );
 
-            if( $user->isAnonymous() && $defaultActivated !== 'true' )
+            if( $user->isAnonymous() && $defaultActivated !== 'true' && $activate === true )
             {
                 $subscription->setAttribute( 'enabled', 0 );
                 $utility = ezcomUtility::instance();
                 $subscription->setAttribute( 'hash_string', $utility->generateSubscriptionHashString( $subscription ) );
                 $subscription->store();
 
-                $result = ezcomSubscriptionManager::sendActivationEmail( eZContentObject::fetch( $contentID),
+                $result = ezcomSubscriptionManager::sendActivationEmail( eZContentObject::fetch( $contentID ),
                                                                          $subscriber,
                                                                          $subscription );
                 if( !$result )
@@ -220,11 +222,11 @@ class ezcomSubscriptionManager
      */
     public function deleteSubscription( $email, $contentObjectID, $languageID )
     {
-        $contentID = $contentObjectID . '_' . $languageID;
         $subscriber = ezcomSubscriber::fetchByEmail( $email );
         $cond = array();
         $cond['subscriber_id'] = $subscriber->attribute( 'id' );
-        $cond['content_id'] = $contentID;
+        $cond['content_id'] = $contentObjectID;
+        $cond['language_id'] = $languageID;
         $cond['subscription_type'] = 'ezcomcomment';
         $subscription = ezcomSubscription::fetchByCond( $cond );
         $subscription->remove();

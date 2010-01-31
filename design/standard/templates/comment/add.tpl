@@ -9,10 +9,14 @@
     </div>
   {/if}
   {if $success|eq( 1 )}
-    {'Posting succeeds!'|i18n( 'extension/ezcomments/add' )}
-    <form action="{'comment/add'|ezurl}" method="get" name="CommentAdded">
-        <input type="hidden" name="RedirectURI" value={$redirect_uri} />
-        <input type="submit" class="button" name="BackButton" value="{'Back'|i18n( 'extension/ezcomments/action') }" />
-    </form>
+    <div class="message-error">
+        <p>
+            {'Posting succeeds!'|i18n( 'extension/ezcomments/add' )}
+        </p>
+        <form action="{'comment/add'|ezurl}" method="get" name="CommentAdded">
+            <input type="hidden" name="RedirectURI" value={$redirect_uri} />
+            <input type="submit" class="button" name="BackButton" value="{'Back'|i18n( 'extension/ezcomments/action') }" />
+        </form>
+    </div>
   {/if}
 </div>

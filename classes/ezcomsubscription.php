@@ -67,8 +67,12 @@ class ezcomSubscription extends eZPersistentObject
                                                                         'default' => '',
                                                                         'required' => true ),
                                                 'content_id' => array( 'name' => 'ContentID',
-                                                                   'datatype' => 'string',
-                                                                   'default' => '',
+                                                                   'datatype' => 'integer',
+                                                                   'default' => 0,
+                                                                   'required' => true ),
+                                                'language_id' => array( 'name'=> 'LanguageID',
+                                                                   'datatype' => 'integer',
+                                                                   'default' => 0,
                                                                    'required' => true ),
                                                 'subscription_time' => array( 'name' => 'SubscriptionTime',
                                                                    'datatype' => 'integer',
@@ -121,13 +125,17 @@ class ezcomSubscription extends eZPersistentObject
         return eZPersistentObject::fetchObject( self::definition(), null, $cond );
     }
 
-    static function fetchListBySubscriberID( $subscriberID, $enabled = false, $sorts = null, $limit = null )
+    static function fetchListBySubscriberID( $subscriberID, $languageID = false, $enabled = false, $sorts = null, $limit = null )
     {
         $cond = array();
         $cond['subscriber_id'] = $subscriberID;
         if( $enabled !== false )
         {
             $cond['enabled'] = $enabled;
+        }
+        if( $languageID !== false )
+        {
+            $cond['language_id'] = $languageID;
         }
         return eZPersistentObject::fetchObjectList( self::definition(),
                                                     null,
@@ -153,13 +161,17 @@ class ezcomSubscription extends eZPersistentObject
      * @param $status
      * @return unknown_type
      */
-    static function countWithSubscriberID( $subscriberID, $enabled = false )
+    static function countWithSubscriberID( $subscriberID, $languageID =false , $enabled = false )
     {
         $cond = array();
         $cond['subscriber_id'] = $subscriberID;
         if( $enabled !== false )
         {
             $cond['enabled'] = $enabled;
+        }
+        if( $languageID !== false )
+        {
+            $cond['language_id'] = $languageID;
         }
         $count = eZPersistentObject::count( self::definition(), $cond );
         return $count;
@@ -192,112 +204,68 @@ class ezcomSubscription extends eZPersistentObject
     {
         $contentID = $this->attribute( 'content_id' );
         //TODO:try to get the language id
-        $languageID = substr( $contentID, strrpos( $contentID, '_' )+1 );
-        $contentObjectID = substr( $contentID, 0 , strrpos( $contentID, '_' ) );
-        return eZContentObject::fetch( $contentObjectID );
+        $languageID = $this->attribute( 'language_id' );
+        return eZContentObject::fetch( $contentID );
     }
     
     /**
-     * clean up subscription based on an email address and content,
+     * clean up subscription based on an email address and content, language,
      *  make the subscription consistent.
      *  example:
-     *      cleanup subscription on content: cleanupSubscription( $email, $contentID )
-     *      cleanup subscription on comment: cleanupSubscription( $email, null, $commentID )
      * @param string $email
      * @return true - there is subscription deleted
      *         false - no subscription deleted
      *         null - error
      */
-    static function cleanupSubscription( $email, $contentID = null, $commentID = null )
+    static function cleanupSubscription( $email, $contentobjectID, $languageID )
     {
-        //1. get comment ID
-        $contentObjectID = "";
-        $contentLanguage = "";
-        $contentString = "";
-        $commentString = "";
-
-        if( !is_null( $contentID ) )
-        {
-            $contentObjectID = substr( $contentID, 0, strpos( $contentID, '_' ) );
-            $contentLanguage = substr( $contentID, strpos( $contentID, '_')+1 );
-        }
-        if( !is_null( $commentID ) )
-        {
-            $comment = ezcomComment::fetch( $commentID );
-            $contentObjectID = $comment->attribute( 'contentobject_id' );
-            $contentLanguage = $comment->attribute( 'language_id' );
-        }
-        $contentID = $contentObjectID . '_' . $contentLanguage;
-        $queryComment = "SELECT count(*) AS count FROM ezcomment
-                        WHERE email = '$email'" .
-                        "AND notification=1 ".
-                        "AND contentobject_id= $contentObjectID " .
-                        "AND language_id= $contentLanguage";
-        $db = eZDB::instance();
-        $commentCount = $db->arrayQuery( $queryComment );
-        $hasComment = false;
-        if( $commentCount[0]['count'] > 0 )
-        {
-            $hasComment = true;
-        }
-        if( $hasComment === false )
-        {
-            //2. get subscriber
-            $subscriber = ezcomSubscriber::fetchByEmail( $email );
-            if( is_null( $subscriber ) )
-            {
-                return false;
-            }
-            $subscriberID = $subscriber->attribute( 'id' );
-            //3. clean up subscription
-            $querySubscription = "DELETE FROM ezcomment_subscription
-                                  WHERE subscriber_id = $subscriberID
-                                  AND content_id = '$contentID'";
-            $db->query($querySubscription);
-            return true;
-        }
-        else
+        //2. get subscriber
+        $subscriber = ezcomSubscriber::fetchByEmail( $email );
+        if( is_null( $subscriber ) )
         {
             return false;
         }
+        $subscriberID = $subscriber->attribute( 'id' );
+        //3. clean up subscription
+        $querySubscription = "DELETE FROM ezcomment_subscription" . 
+                             " WHERE subscriber_id = $subscriberID ".
+                             " AND content_id = $contentID" .
+                             " AND language_id= $languageID";
+        $db->query($querySubscription);
+        return true;
     }
 
     /**
      * Check if the subscription exists by a given contentID
      * @param string $contentID : the ID of content subscribed
+     * @param string $languageID : the language ID of content
      * @param string $subscriptionType : type of the subscription
      * @param string $email : email in table subscriber
      * @param integer $enabled : 1/0 - check if the subscriber is enabled.
      *                               Empty/false - not check if the subscriber is enabled
      * @return boolean: true if existing, false if not, null if error happens
      */
-    static function exists( $contentID , $subscriptionType, $email = null, $enabled = false )
+    static function exists( $contentID, $languageID , $subscriptionType, $email = null, $enabled = false )
     {
-        if( !isset( $contentID ) )
-        {
-            return null;
-        }
-        if( !isset( $subscriptionType ) )
-        {
-            return null;
-        }
+      
         $emailString = '';
         if( !is_null($email) )
         {
-            $emailString = "WHERE email = '$email'";
+            $emailString = " WHERE email = '$email'";
         }
         $countArray = null;
         $db = eZDB::instance();
         if( $enabled === false )
         {
-            $countArray = $db->arrayQuery( "SELECT count(*) AS count
-                                       FROM ezcomment_subscription
-                                       WHERE
-                                       content_id = '$contentID'
-                                       AND subscription_type = '$subscriptionType'
-                                       AND subscriber_id IN
-                                       (SELECT id FROM ezcomment_subscriber
-                                       $emailString )");
+            $countArray = $db->arrayQuery( "SELECT count(*) AS count" .
+                                       " FROM ezcomment_subscription" .
+                                       " WHERE " .
+                                       " content_id = $contentID" .
+                                       " AND language_id = $languageID" .
+                                       " AND subscription_type = '$subscriptionType'" .
+                                       " AND subscriber_id IN" . 
+                                       "( SELECT id FROM ezcomment_subscriber" .
+                                       "$emailString )");
         }
         else
         if( $enabled === 1 || $enabled === 0 )
@@ -311,15 +279,16 @@ class ezcomSubscription extends eZPersistentObject
           {
               $enabledString = " WHERE " . $enabledString;
           }
-          $countArray = $db->arrayQuery( "SELECT count(*) AS count
-                                       FROM ezcomment_subscription
-                                       WHERE
-                                       content_id = '$contentID'
-                                       AND subscription_type = '$subscriptionType'
-                                       AND subscriber_id IN
-                                       (SELECT id FROM ezcomment_subscriber
-                                       $emailString
-                                       $enabledString)");
+          $countArray = $db->arrayQuery( "SELECT count(*) AS count" .
+                                       " FROM ezcomment_subscription" .
+                                       " WHERE" .
+                                       " content_id = $contentID" .
+                                       " AND language_id = $languageID" .
+                                       " AND subscription_type = '$subscriptionType'" .
+                                       " AND subscriber_id IN" .
+                                       " ( SELECT id FROM ezcomment_subscriber" .
+                                       $emailString .
+                                       "$enabledString )" );
         }
         else
         {
