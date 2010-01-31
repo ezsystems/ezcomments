@@ -30,42 +30,47 @@ $Module = array( 'name' => 'eZ Comments' );
 $ViewList = array();
 
 $ViewList['setting'] = array(
-       'functions' => array( 'setting' ),
-       'single_post_actions' => array( 'SaveButton' => 'Save' ),
-       'script' => 'setting.php',
-       'params' => array( 'HashString', 'Page' ),
-       );
+                   'functions' => array( 'setting' ),
+                   'single_post_actions' => array( 'SaveButton' => 'Save' ),
+                   'script' => 'setting.php',
+                   'params' => array( 'HashString', 'Page' ),
+                   );
 
 $ViewList['view'] = array(
-       'functions' => array( 'read' ),
-       'script' => 'view.php',
-       'params' => array( 'ContentObjectID', 'Page' ),
-       );
+                   'functions' => array( 'read' ),
+                   'script' => 'view.php',
+                   'params' => array( 'ContentObjectID', 'Page' ),
+                   );
+
 $ViewList['add'] = array(
-       'functions' => array( 'add' ),
-       'script' => 'add.php',
-       'params' => array(),
-       );
+                   'functions' => array( 'add' ),
+                   'script' => 'add.php',
+                   'params' => array(),
+                   'single_post_actions' => array( 'AddCommentButton' => 'AddComment' ),
+                   );
+
 $ViewList['edit'] = array(
-       'functions' => array( 'edit' ),
-       'script' => 'edit.php',
-       'single_post_actions' => array( 'UpdateCommentButton' => 'UpdateComment',
-                                       'CancelButton'=>'Cancel' ),
-       'params' => array( 'CommentID' ),
-       );
+                   'functions' => array( 'edit' ),
+                   'script' => 'edit.php',
+                   'single_post_actions' => array( 'UpdateCommentButton' => 'UpdateComment',
+                                                   'CancelButton'=>'Cancel' ),
+                   'params' => array( 'CommentID' ),
+                   );
+
 $ViewList['activate'] = array(
-       'functions' => array( ' ' ),
-       'script' => 'activate.php',
-       'single_post_actions' => array( 'RedirectButton'=>'Redirect' ),
-       'params' => array( 'HashString' ),
-       );
+                   'functions' => array( ' ' ),
+                   'script' => 'activate.php',
+                   'single_post_actions' => array( 'RedirectButton'=>'Redirect' ),
+                   'params' => array( 'HashString' ),
+                   );
+
 $ViewList['delete'] = array(
-       'functions' => array( 'delete' ),
-       'script' => 'delete.php',
-       'single_post_actions' => array( 'DeleteCommentButton' => 'DeleteComment',
-                                       'CancelButton'=>'Cancel' ),
-       'params' => array( 'CommentID' ),
-       );
+                   'functions' => array( 'delete' ),
+                   'script' => 'delete.php',
+                   'single_post_actions' => array( 'DeleteCommentButton' => 'DeleteComment',
+                                                   'CancelButton'=>'Cancel' ),
+                   'params' => array( 'CommentID' ),
+                   );
 
 $SectionID = array(
     'name'=> 'ContentSection',
