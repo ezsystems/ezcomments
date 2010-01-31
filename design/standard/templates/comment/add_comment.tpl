@@ -19,41 +19,64 @@
 {set $comment_notified=ezini( 'GlobalSettings', 'EnableNotification', 'ezcomments.ini' )}
 {/if}
 
+{def $showTitle = ezini( 'title', 'Display', 'ezcomments.ini' )|eq( 'true' )
+     $showName = ezini( 'name', 'Display', 'ezcomments.ini' )|eq( 'true' )
+     $showWebsite = ezini( 'website', 'Display', 'ezcomments.ini' )|eq( 'true' )
+     $showEmail = ezini( 'email', 'Display', 'ezcomments.ini' )|eq( 'true' )
+}
+
+{def $titleRequired = ezini( 'title', 'Required', 'ezcomments.ini' )|eq( 'true' )
+     $nameRequired = ezini( 'name', 'Required', 'ezcomments.ini' )|eq( 'true' )
+     $websiteRequired = ezini( 'website', 'Required', 'ezcomments.ini' )|eq( 'true' )
+     $emailRequired = ezini( 'email', 'Required', 'ezcomments.ini' )|eq( 'true' )
+}
+
+{def $fieldRequiredText = '<span class="ezcom-field-mandatory">*</span>'}
+
 <form id="ezcom-comment-form" method="post" action={'comment/add'|ezurl} name="CommentAdd">
 <input type="hidden" name="ContentObjectID" value="{$contentobject_id}" />
-<input type="hidden" name="LanguageID" value="{$language_id}" />
+<input type="hidden" name="CommentLanguageID" value="{$language_code}" />
 <input type="hidden" name="RedirectURI" value={$redirect_uri} />
+
 <div class="ezcom-add" id="ezcomments_comment_view_addcomment">
         <div class="ezcom-function-title">
-            <a name="cadd"></a>
             <h4>
              {'Post comment'|i18n( 'ezcomments/add' )}
             </h4>
         </div>
+
+        {if $showTitle}
         <div class="ezcom-field ezcom-field-title">
             <label>
-                {'Title:'|i18n( 'ezcomments/add' )}
+                {'Title:'|i18n( 'ezcomments/add' )}{if $titleRequired}{$fieldRequiredText}{/if}
             </label>
             <input type="text" class="box" maxlength="100" id="ezcomments_comment_view_addcomment_title" name="CommentTitle" />
         </div>
+        {/if}
+
+        {if $showName}
         <div class="ezcom-field ezcom-field-name">
             <div class="ezcom-filed-error"></div>
             <label>
-                {'Name:'|i18n( 'ezcomments/add' )}
+                {'Name:'|i18n( 'ezcomments/add' )}{if $nameRequired}{$fieldRequiredText}{/if}
             </label>
             <input type="text" class="box" maxlength="50" id="ezcomments_comment_view_addcomment_name" name="CommentName" value="{$comment_name}" />
-            <span class="ezcom-field-mandatory">*</span>
-            
         </div>
+        {/if}
+
+        {if $showWebsite}
         <div class="ezcom-field ezcom-field-website">
             <label>
-                {'Website:'|i18n( 'ezcomments/add' )}
+                {'Website:'|i18n( 'ezcomments/add' )}{if $websiteRequired}{$fieldRequiredText}{/if}
             </label>
             <input type="text" class="box" maxlength="100" id="ezcomments_comment_view_addcomment_website" name="CommentWebsite" value="{$comment_website}" />
         </div>
+        {/if}
+
+        {if $showEmail}
         <div class="ezcom-field ezcom-field-email">
             <label>
-                {'Email:'|i18n( 'ezcomments/add' )}
+                {'Email:'|i18n( 'ezcomments/add' )}{if $emailRequired}{$fieldRequiredText}{/if}&nbsp;<span class="ezcom-field-emailmessage">{'(the email address will not be shown)'|i18n( 'ezcomments/add' )}</span>
             </label>
             {if $is_anonymous|not}
                 <input type="text" maxlength="100" class="box" id="ezcomments_comment_view_addcomment_email" disabled="true" value="{$comment_email}" />
@@ -61,32 +84,33 @@
             {else}
                 <input type="text" maxlength="100" class="box" class="ezcomments-comment-view-addcomment-email" id="ezcomments_comment_view_addcomment_email" name="CommentEmail" value="{$comment_email}" />
             {/if} 
-                <span class="ezcom-field-mandatory">*</span>
-                <span class="ezcom-field-emailmessage">{'( The Email address will not be shown )'|i18n( 'ezcomments/add' )}</span>
         </div>
+        {/if}
+
         <div class="ezcom-field ezcom-field-content">
             <label>
-                {'Content:'|i18n( 'ezcomments/add' )}
+                {'Content:'|i18n( 'ezcomments/add' )}{$fieldRequiredText}
             </label>
             <textarea id="ezcomments_comment_view_addcomment_content" class="box" name="CommentContent"></textarea>
-            <span class="ezcom-field-mandatory">*</span>
         </div>
+
         <div class="ezcom-field ezcom-field-notified">
             <label>
-                <input type="checkbox" id="ezcom_field_notified" name="CommentNotified" {if $comment_notified|eq( true )}checked{/if} />
-                {'Notified'|i18n( 'ezcomments/add' )}
+                {'Notified:'|i18n( 'ezcomments/add' )}
             </label>
+            <input type="checkbox" id="ezcom_field_notified" name="CommentNotified" {if $comment_notified|eq('true')}checked="checked"{/if} />
         </div>
+
         {if $is_anonymous}
-            <div class="ezcom-field-remember">
+            <div class="ezcom-field ezcom-field-remember">
                 <label>
-                    <input type="checkbox" name="CommentRememberme" {if $comment_remember}checked="true"{/if} />
-                    {'Remember me'|i18n( 'ezcomments/add' )}
+                    {'Remember me:'|i18n( 'ezcomments/add' )}
                 </label>
+                <input type="checkbox" name="CommentRememberme" {if $comment_remember}checked="checked"{/if} />
             </div>
-         {/if}
+        {/if}
         <div class="ezcom-field">
-            <input type="submit" value="{'Post comment'|i18n( 'ezcomments/add' )}" class="button" id="ezcom-post-button" name="PostCommentButton" />
+            <input type="submit" value="{'Add comment'|i18n( 'ezcomments/add' )}" class="button" id="ezcom-post-button" name="AddCommentButton" />
             <input type="reset" class="button" value="{'Reset form'|i18n( 'ezcomments/add' )}" />
         </div>
 </div>

@@ -1,4 +1,4 @@
-#?ini charset="utf-8"? 
+<?php /* #?ini charset="utf-8"? 
 
 #Settings for ezcomcomments datatype
 [GlobalSettings]
@@ -77,3 +77,32 @@ SubscriptionActivated=false
 CommentManagerClass=ezcomCommentCommonManager
 SubscriberManagerClass=ezcomSubscriptionManager
 PermissionClass=ezcomPermission
+
+[FormSettings]
+FormHandlerClass=ezcomFormTool
+
+AvailableFields[]
+AvailableFields[]=title
+AvailableFields[]=name
+AvailableFields[]=website
+AvailableFields[]=email
+AvailableFields[]=comment
+
+[title]
+Required=false
+Display=true
+
+[name]
+Required=true
+Display=true
+
+[website]
+Required=false
+Display=true
+
+[email]
+Required=true
+Display=true
+
+*/
+?>
