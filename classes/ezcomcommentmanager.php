@@ -83,6 +83,7 @@ abstract class ezcomCommentManager
      * @param $notified
      * @return true if action succeeds
      *        string if the action has error
+     */
     public function afterUpdatingComment( $comment, $notified )
     {
         return true;
@@ -93,6 +94,7 @@ abstract class ezcomCommentManager
      * @param $comment
      * true if action succeeds
      *        string if the action has error
+     */
     public function afterDeletingComment( $comment )
     {
         return true;
