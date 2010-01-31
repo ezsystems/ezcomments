@@ -127,22 +127,20 @@ abstract class ezcomCommentManager
         {
             return $validationResult;
         }
-        $currentTime = null;
-        if( is_null( $time ) )
+
+        if ( $time === null )
         {
-            $currentTime = time();
+            $time = time();
         }
-        
-        else
-        {
-            $currentTime = $time;
-        }
+
         $beforeAddingResult = $this->beforeAddingComment( $comment, $user, $notication );
         if(  $beforeAddingResult !== true )
         {
             return $beforeAddingResult;
         }
+
         $comment->store();
+
         eZDebugSetting::writeNotice( 'extension-ezcomments', 'Comment has been added', __METHOD__ );
         $this->afterAddingComment( $comment, $notification );
         return true;
