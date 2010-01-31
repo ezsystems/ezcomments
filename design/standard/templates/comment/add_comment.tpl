@@ -2,7 +2,7 @@
 {def $user=fetch( 'user', 'current_user' )}
 {def $anonymous_user_id=ezini('UserSettings', 'AnonymousUserID')}
 {def $is_anonymous=$user.contentobject_id|eq($anonymous_user_id)}
-{def $comment_name='' $comment_website='' $comment_email='' $comment_remember='' $comment_notified=true}
+{def $comment_name='' $comment_website='' $comment_email='' $comment_remember='' $comment_notified=false}
 {if $is_anonymous}
     {def $cookies = fetch( 'comment', 'comment_cookie' )}
         {if count( $cookies )|gt(0)}
@@ -16,7 +16,7 @@
 {else}
 {set $comment_name=$user.login}
 {set $comment_email=$user.email}
-{set $comment_notified=ezini( 'GlobalSettings', 'DefaultNotified', 'ezcomments.ini' )}
+{set $comment_notified=ezini( 'GlobalSettings', 'EnableNotification', 'ezcomments.ini' )}
 {/if}
 
 <form id="ezcom-comment-form" method="post" action={'comment/add'|ezurl} name="CommentAdd">
@@ -91,6 +91,7 @@
         </div>
 </div>
 </form>
+
 {ezscript_require( array( 'ezjsc::yui3', 'ezjsc::yui3io', 'ezcomments.js' ) )}
 
 <script type="text/javascript">
@@ -106,7 +107,7 @@ eZComments.cfg = {ldelim}
                             {rdelim}
                  {rdelim}
 
-eZComments.init();
+// eZComments.init();
 </script>
 
 {undef $comment_name $comment_website $comment_email $comment_notified $comment_remember}
