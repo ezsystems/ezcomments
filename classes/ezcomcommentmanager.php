@@ -49,7 +49,7 @@ abstract class ezcomCommentManager
      * @return true if action succeeds
      *        string if the action has error
      */
-    public function beforeAddingComment( $comment, $user )
+    public function beforeAddingComment( $comment, $user, $notification )
     {
         return true;
     }
@@ -60,7 +60,7 @@ abstract class ezcomCommentManager
      * @return true if action succeeds
      *        string if the action has error
      */
-    public function afterAddingComment( $comment )
+    public function afterAddingComment( $comment, $notification )
     {
         return true;
     }
@@ -120,7 +120,7 @@ abstract class ezcomCommentManager
      *          string: error message
      *
      */
-    public function addComment( $comment, $user, $time = null )
+    public function addComment( $comment, $user, $time = null, $notification = false )
     {
         $validationResult = $this->validateInput( $comment );
         if( $validationResult !== true )
@@ -137,14 +137,14 @@ abstract class ezcomCommentManager
         {
             $currentTime = $time;
         }
-        $beforeAddingResult = $this->beforeAddingComment( $comment, $user );
+        $beforeAddingResult = $this->beforeAddingComment( $comment, $user, $notication );
         if(  $beforeAddingResult !== true )
         {
             return $beforeAddingResult;
         }
         $comment->store();
         eZDebugSetting::writeNotice( 'extension-ezcomments', 'Comment has been added', __METHOD__ );
-        $this->afterAddingComment( $comment );
+        $this->afterAddingComment( $comment, $notification );
         return true;
     }
 

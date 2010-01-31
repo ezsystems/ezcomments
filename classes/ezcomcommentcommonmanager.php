@@ -48,7 +48,7 @@ class ezcomCommentCommonManager extends ezcomCommentManager
      *
      * @see extension/ezcomments/classes/ezcomCommentManager#afterAddingComment($comment)
      */
-    public function afterAddingComment( $comment )
+    public function afterAddingComment( $comment, $notification )
     {
         $contentID = $comment->attribute( 'contentobject_id' );
         $languageID = $comment->attribute( 'language_id' );
