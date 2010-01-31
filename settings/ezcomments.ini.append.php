@@ -21,9 +21,6 @@ DefaultEmbededSortField=created
 #Set the default embeded comment sort order
 DefaultEmbededSortOrder=asc
 
-#Set if the subscriptions will be delete of one subscriber's all the comments on one content have been deleted
-DeleteSubscriptionAfterDeleteComment=true
-
 #Settings for notification related
 [NotificationSettings]
 #notification manager class

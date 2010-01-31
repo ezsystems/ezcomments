@@ -79,28 +79,11 @@ class ezcomCommentCommonManager extends ezcomCommentManager
     }
 
     /**
-     * clean up subscription after deleting comment
+     * Placeholder for afterDeletetingComment hook
      * @see extension/ezcomments/classes/ezcomCommentManager#afterDeletingComment($comment)
      */
     public function afterDeletingComment( $comment )
     {
-        // clean up subscription
-        $ini = eZINI::instance( 'ezomments.ini' );
-        $deletingSubscription = $ini->variable( 'GlobalSettings', 'DeleteSubscriptionAfterDeleteComment' );
-
-        if( $deleteingSubscription === 'true' )
-        {
-            eZDebugSetting::writeNotice( 'extension-ezcomments', 'The comment to be deleted has subscriptions', __METHOD__ );
-            $commentObject = ezcomComment::fetchByEmail( $comment->attribute( 'email' ) );
-            //if the comment on the object is empty, delete the susbscription
-            if( is_null( $commentObject ) )
-            {
-                $subscriptionManager = ezcomSubscriptionManager::instance();
-                $subscriptionManager->deleteSubscription( $comment->attribute( 'email' ),
-                                                          $comment->attribute( 'contentobject_id' ),
-                                                          $comment->attribute( 'language_id' ) );
-            }
-        }
         return true;
     }
 
