@@ -167,8 +167,8 @@ else
      $comment->setAttribute( 'language_id', $languageId );
      $currentTime = time();
      $comment->setAttribute( 'user_id', $user->attribute( 'contentobject_id' ) );
-     $comment->setAttribute( 'created', $currentTime);
-     $comment->setAttribute( 'modified', $currentTime);
+     $comment->setAttribute( 'created', $currentTime );
+     $comment->setAttribute( 'modified', $currentTime );
 
      $commentManager = ezcomCommentManager::instance();
      $commentManager->tpl = $tpl;
