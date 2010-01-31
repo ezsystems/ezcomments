@@ -91,18 +91,27 @@ AvailableFields[]=comment
 [title]
 Required=false
 Display=true
+PostVarName=CommentTitle
 
 [name]
 Required=true
 Display=true
+PostVarName=CommentName
 
 [website]
 Required=false
 Display=true
+PostVarName=CommentWebsite
 
 [email]
 Required=true
 Display=true
+PostVarName=CommentEmail
+
+[comment]
+Required=true
+Display=true
+PostVarName=CommentContent
 
 */
 ?>
