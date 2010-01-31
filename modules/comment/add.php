@@ -111,7 +111,7 @@ if( !$foundCommentAttribute )
 }
 
 //check permission
-$canAddComment = ezcomPermission::hasAccessToFunction( 'add', $contentObject, $languageCode );
+$canAddComment = ezcomPermission::hasAccessToFunction( 'add', $contentObject, $languageCode,  null, null, $contentObject->mainNode() );
 if ( !$canAddComment['result'] )
 {
     eZDebug::writeWarning( 'No access to adding comments.', 'ezcomments' );

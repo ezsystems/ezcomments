@@ -11,6 +11,9 @@
                      current_page=$current_page
                      uri="design:comment/view/page.tpl"}
             
+         {* Find out if the currently used role has a user based edit/delete policy *}
+         {def $self_policy=fetch( 'comment', 'self_policies', hash( 'contentobject', $contentobject, 'node', $node ) )}
+                     
             {if $comments|count|gt( 0 )}
                 <div class="ezcom-view-list">
                     {for 0 to $comments|count|sub( 1 ) as $index}
@@ -18,6 +21,8 @@
                                  index=$index base_index=$current_page|sub( 1 )|mul( $number_per_page )
                                  contentobject=$contentobject
                                  language_code=$language_code
+                                 can_self_edit=$self_policy.edit
+                                 can_self_delete=$self_policy.delete
                                  uri="design:comment/view/comment_item.tpl"}
                     {/for}
                 </div>

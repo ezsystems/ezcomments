@@ -69,6 +69,7 @@ if( is_null( $objectAttribute ) )
 
 $tpl = templateInit();
 $tpl->setVariable( 'contentobject', $contentObject );
+$tpl->setVariable( 'node', $contentObject->mainNode() );
 $tpl->setVariable( 'objectattribute', $objectAttribute );
 $tpl->setVariable( 'language_id', $languageID );
 $tpl->setVariable( 'language_code', $languageCode );
