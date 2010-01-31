@@ -83,7 +83,7 @@ class ezcomSubscription extends eZPersistentObject
                                                                    'default' => '',
                                                                    'required' => true ) ),
                              'keys' => array( 'id' ),
-                             'function_attributes' => array(),
+                             'function_attributes' => array( 'contentobject' => 'contentObject' ),
                              'increment_key' => 'id',
                              'class_name' => 'ezcomSubscription',
                              'name' => 'ezcomment_subscription' );
@@ -121,6 +121,21 @@ class ezcomSubscription extends eZPersistentObject
         return eZPersistentObject::fetchObject( self::definition(), null, $cond );
     }
 
+    static function fetchListBySubscriberID( $subscriberID, $enabled = false, $sorts = null, $limit = null )
+    {
+        $cond = array();
+        $cond['subscriber_id'] = $subscriberID;
+        if( $enabled !== false )
+        {
+            $cond['enabled'] = $enabled;
+        }
+        return eZPersistentObject::fetchObjectList( self::definition(),
+                                                    null,
+                                                    $cond,
+                                                    $sorts,
+                                                    $limit);
+    }
+    
     /**
      * fetch the subscription object by hash_string
      * @return null / ezcomSubscription object
@@ -138,16 +153,13 @@ class ezcomSubscription extends eZPersistentObject
      * @param $status
      * @return unknown_type
      */
-    static function countWithSubscriberID( $subscriberID, $status = null )
+    static function countWithSubscriberID( $subscriberID, $enabled = false )
     {
         $cond = array();
-        if( $languageID !== false )
+        $cond['subscriber_id'] = $subscriberID;
+        if( $enabled !== false )
         {
-            $cond['subscriber_id'] = $subscriberID;
-        }
-        if( !is_null( $status ) )
-        {
-            $cond['status'] = $status;
+            $cond['enabled'] = $enabled;
         }
         $count = eZPersistentObject::count( self::definition(), $cond );
         return $count;
@@ -171,7 +183,20 @@ class ezcomSubscription extends eZPersistentObject
             return true;
         }
     }
-
+    
+    /**
+     * get the content of the subscription
+     * @return ezcontentobject
+     */
+    public function contentObject()
+    {
+        $contentID = $this->attribute( 'content_id' );
+        //TODO:try to get the language id
+        $languageID = substr( $contentID, strrpos( $contentID, '_' )+1 );
+        $contentObjectID = substr( $contentID, 0 , strrpos( $contentID, '_' ) );
+        return eZContentObject::fetch( $contentObjectID );
+    }
+    
     /**
      * clean up subscription based on an email address and content,
      *  make the subscription consistent.

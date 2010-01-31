@@ -61,7 +61,6 @@ if( !is_numeric( $page ) )
     eZDebug::writeError( 'Page is not numeric!', 'Setting' );
     return;
 }
-//TODO: support paging
 
 $subscriber = null;
 if( !$user->isAnonymous() )
@@ -89,66 +88,45 @@ if( $module->isCurrentAction( 'Save' ) )
         $checkboxNameList = $http->postVariable( 'CheckboxName' );
         foreach( $checkboxNameList as $checkboxName )
         {
-            $contentID = substr( $checkboxName, strlen( 'Checkbox' ) );
+            $subscriptionID = substr( $checkboxName, strlen( 'Checkbox' ) );
             $subscribed = false;
             if( $http->hasPostVariable( $checkboxName ) )
             {
                 $subscribed = true;
             }
-            $subscription = ezcomSubscription::fetchByCond( 
-                                array( 'subscriber_id' => $subscriberID,
-                                       'content_id' => $contentID
-                                      ));
-            if( is_null( $subscription ) )
+            
+            $subscription = ezcomSubscription::fetch( $subscriptionID );
+            
+            if( !$subscribed )
             {
-                if( $subscribed )
-                {
-                    $subscriptionAdded = ezcomSubscription::create();
-                    $subscriptionAdded->setAttribute( 'user_id', $user->attribute( 'contentobject_id' ) );
-                    $subscriptionAdded->setAttribute( 'subscriber_id', $subscriberID );
-                    $subscriptionAdded->setAttribute( 'subscription_type', 'ezcomcomment' );
-                    $subscriptionAdded->setAttribute( 'content_id', $contentID );
-                    $subscriptionAdded->setAttribute( 'subscription_time', time() );
-                    $subscriptionAdded->setAttribute( 'enabled', 1 );
-                    $subscriptionAdded->store();
-                }
-            }
-            else
-            {
-                if( $subscribed )
-                {
-                    $subscription->setAttribute( 'enabled', 0 );
-                    $subscription->store();
-                }
-                else
-                {
-                    $subscription->remove();
-                }
+                $subscription->remove();
             }
         }
         $tpl->setVariable( 'update_success', 1 );
+        $redirectURI = 'comment/setting';
+        if ( !is_null( $hashString ) )
+        {
+            $redirectURI = $redirectURI . '/' . $hashString;
+        }
+        $module->redirectTo( $redirectURI );
+        return;
     }
 }
 //1.fetch Contents
-$contentObjectIDList = ezcomComment::fetchContentObjectByEmail( $email, false, null, null, null);
-$contentObjectList = array();
-if( is_array( $contentObjectIDList ) )
-{
-    foreach( $contentObjectIDList as $contentObjectID )
-    {
-        $row = array();
-        $row['language_id'] = $contentObjectID['language_id'];
-        $row['contentobject'] = eZContentObject::fetch( $contentObjectID['contentobject_id'] );
-        $row['comment_count'] =  $contentObjectID['comment_count'];
-        $contentID = $contentObjectID['contentobject_id'] . '_' . $contentObjectID['language_id'];
-        $row['subscribed'] = ezcomSubscription::exists( $contentID, 'ezcomcomment', $email, 1 );
-        $contentObjectList[] = $row;
-    }
-}
+$ini = eZINI::instance( 'ezcomments.ini' );
+$numberPerPage = $ini->variable( 'NotificationSettings', 'NumberPerPage' );
+$limit = array();
+$limit['offset'] = ( $page - 1 ) * $numberPerPage;
+$limit['length'] = $numberPerPage;
+$sorts = array();
+$sorts = array( 'subscription_time' => 'desc' );
+$subscriptionList = ezcomSubscription::fetchListBySubscriberID( $subscriber->attribute( 'id' ),
+                                                              1,
+                                                              $sorts,
+                                                              $limit );
+$totalCount = ezcomSubscription::countWithSubscriberID( $subscriber->attribute( 'id' ), 1 );
 
-$totalCount = ezcomComment::countContentObjectByEmail( $email );
-
-$tpl->setVariable( 'contentobject_list',  $contentObjectList );
+$tpl->setVariable( 'subscription_list',  $subscriptionList );
 $tpl->setVariable( 'total_count',  $totalCount );
 
 $Result['content'] = $tpl->fetch( 'design:comment/setting.tpl' );

@@ -271,28 +271,6 @@ class ezcomComment extends eZPersistentObject
         return $result[0]['row_count'];
     }
 
-    /**
-     * Fetch content object from email
-     * 
-     * @param string $email email address
-     * @param integer $status status of comment
-     * @param array $sorts 
-     * @param integer $offset
-     * @param integer $length
-     * @param boolean $asObject
-     * @return null|array contenobject_id, language_id
-     */
-    static function fetchContentObjectByEmail( $email, $status = false, $sorts ,$offset = null, $length = null, $asObject = false )
-    {
-        $db = eZDB::instance();
-        $sql = "SELECT contentobject_id, language_id" .
-                ", COUNT(id) AS comment_count" .
-                " FROM ezcomment " .
-                " WHERE email='$email'" .
-                " GROUP BY contentobject_id, language_id";
-        $result = $db->arrayQuery( $sql );
-        return $result;
-    }
 }
 
 ?>
