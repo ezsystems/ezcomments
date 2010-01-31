@@ -25,20 +25,27 @@
 //
 // ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
 //
+
+// We are reloading the debug.ini settings here to get override values from extensions
+$ini = eZINI::instance( 'debug.ini' );
+$ini->loadCache();
+
 require_once( 'kernel/common/template.php' );
+$tpl = templateInit();
 
 $module = $Params['Module'];
-
 $http = eZHTTPTool::instance();
+
+$Result = array();
+$Result['path'] = array( array( 'url' => false,
+                                'text' => ezi18n( 'ezcomments/add', 'Add comment' ) ) );
+$Result['content'] ='';
 
 if( $http->hasVariable( 'RedirectURI' ) )
 {
     $redirectURI = $http->variable( 'RedirectURI' );
 }
-else
-{
-    return;
-}
+
 if( $http->hasVariable( 'BackButton' ) &&
       $http->variable( 'BackButton') == 'Back')
 {
@@ -46,118 +53,127 @@ if( $http->hasVariable( 'BackButton' ) &&
      return;
 }
 
+
 $user = eZUser::currentUser();
-$userID = $user->attribute( 'contentobject_id' );
 
-$contentObjectID = null;
-if( $http->hasPostVariable( 'ContentObjectID' ) )
+if ( $module->isCurrentAction( 'AddComment' ) )
 {
-    $contentObjectID = $http->postVariable('ContentObjectID');
-}
-else
-{
-    return;
 }
 
-$languageID = null;
-if( $http->hasPostVariable( 'LanguageID' ) )
+// Which object is our comment attached to
+if( !$http->hasPostVariable( 'ContentObjectID' ) )
 {
-    $languageID = $http->postVariable('LanguageID');
+    eZDebug::writeError( 'No content object id is provided', 'ezcomments' );
+    return $module->handleError( eZError::KERNEL_NOT_AVAILABLE, 'kernel' );
 }
-else
-{
-    return;
-}
-if( !is_numeric( $contentObjectID ) )
-{
-    eZDebug::writeError( 'The parameter ContentObjectID is not a number!', 'ezcomments' );
-    return;
-}
-if( !is_numeric( $languageID ) )
-{
-    eZDebug::writeError( 'The parameter LanguageID is not a number!', 'ezcomments' );
-    return;
-}
-$contentObject = eZContentObject::fetch( $contentObjectID );
+$contentObjectId = (int)$http->postVariable('ContentObjectID');
 
-$language = eZContentLanguage::fetch( $languageID );
-if( $language === false )
+// Either use provided language code, or fallback on siteaccess default
+if ( $http->hasPostVariable( 'CommentLanguageCode' ) )
 {
-    eZDebug::writeError( 'Language doesn\'t exist!', 'ezcomments'  );
-    return;
-}
-$languageCode = $language->attribute( 'locale' );
-
-// fetch the content object attribute
-$objectAttributes = $contentObject->fetchDataMap( false, $languageCode );
-$objectAttribute = null;
-foreach( $objectAttributes as $attribute )
-{
-    if( $attribute->attribute( 'data_type_string' ) === 'ezcomcomments' )
+    $languageCode = $http->postVariable( 'CommentLanguageCode' );
+    $languageID = eZContentLanguage::idByLocale( $languageCode );
+    if ( $languageID === false )
     {
-        $objectAttribute = $attribute;
+        eZDebug::writeError( "The language code [$languageCode] given is not valid in the system.", 'ezcomments' );
+        return $module->handleError( eZError::KERNEL_NOT_AVAILABLE, 'kernel' );
+    }
+}
+else
+{
+    $defaultLanguage = eZContentLanguage::topPriorityLanguage();
+    $languageCode = $defaultLanguage->attribute( 'locale' );
+}
+
+$contentObject = eZContentObject::fetch( $contentObjectId );
+if ( !($contentObject instanceof eZContentObject ) )
+{
+    eZDebug::writeError( 'No content object exists for the given id.', 'ezcomments' );
+    return $module->handleError( eZError::KERNEL_NOT_AVAILABLE, 'kernel' );
+}
+
+$dataMap = $contentObject->fetchDataMap( false, $languageCode );
+$foundCommentAttribute = false;
+foreach( $dataMap as $attr )
+{
+    if( $attr->attribute( 'data_type_string' ) === 'ezcomcomments' )
+    {
+        $foundCommentAttribute = $attr;
         break;
     }
 }
 
 // if there is no ezcomcomments attribute inside the content, return
-if( is_null( $objectAttribute ) )
+if( !$foundCommentAttribute )
 {
-    eZDebug::writeError( 'The object doesn\'t have a ezcomcomments attribute!', 'ezcomments' );
-    return;
+    eZDebug::writeError( "Content object with id [$contentObjectId], does not contain an ezcomments attribute.", 'ezcomments' );
+    return $module->handleError( eZError::KERNEL_NOT_AVAILABLE, 'kernel' );
 }
 
 //check permission
-$canAddResult = ezcomPermission::hasAccessToFunction( 'add', $contentObject, $languageCode );
-$tpl = templateInit();
-
-$commentContent = $objectAttribute->content();
-if( !$canAddResult['result'] || !$commentContent['show_comments'] || !$commentContent['enable_comment'] )
+$canAddComment = ezcomPermission::hasAccessToFunction( 'add', $contentObject, $languageCode );
+if ( !$canAddComment['result'] )
 {
-    $tpl->setVariable( 'error_message', ezi18n( 'extension/comment/add', 'You don\'t have '.
-                                                ' the permission to post comment ' .
-                                                ' or the posting comment function is not available!'  ) );
+    eZDebug::writeWarning( 'No access to adding comments.', 'ezcomments' );
+    return $module->handleError( eZError::KERNEL_ACCESS_DENIED, 'kernel' );
+}
+
+// Check to see if commenting is turned on, on the object level
+$commentContent = $foundCommentAttribute->content();
+if( !$commentContent['show_comments'] || !$commentContent['enable_comment'] )
+{
+    $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/add', 'Commenting has been turned off for this content.'  ) );
 }
 else
 {
+    // Validate given input date against form setup
+    $formTool = ezcomFormTool::instance();
+    $formStatus = $formTool->checkVars();
 
-     // if the comment is not shown or enables commenting
-     $content = $objectAttribute->attribute('content');
-     if( $content['show_comments'] != 1 || $content['enable_comment'] != 1 )
-     {
-          eZDebug::writeError( 'Adding comment error, comment not shown or diabled!', 'Add comment' );
-          return;
-     }
+    if ( !$formStatus )
+    {
+        // missing form data
+    }
+
+     $title = $formTool->fieldValue( 'title' );
+     $name = $formTool->fieldValue( 'name' );
+     $website = $formTool->fieldValue( 'website' );
+     $email = $formTool->fieldValue( 'email' );
+     $content = $formTool->fieldValue( 'comment' );
 
      $comment = ezcomComment::create();
-     $title = $http->postVariable( 'CommentTitle' );
      $comment->setAttribute( 'title', $title );
-     $name = $http->postVariable( 'CommentName' );
      $comment->setAttribute( 'name', $name );
-     $website = $http->postVariable( 'CommentWebsite' );
      $comment->setAttribute( 'url', $website );
-     $email = $http->postVariable( 'CommentEmail' );
      $comment->setAttribute( 'email', $email );
-     $content = $http->postVariable( 'CommentContent' );
      $comment->setAttribute( 'text', $content );
-     if( $http->hasPostVariable( 'CommentNotified' ) &&
-             $http->postVariable( 'CommentNotified' ) == 'on')
-     {
-         $comment->setAttribute( 'notification', true );
-     }
-     else
-     {
-         $comment->setAttribute( 'notification', false );
-     }
-     $comment->setAttribute( 'contentobject_id', $contentObjectID );
-     $comment->setAttribute( 'language_id', $languageID );
+
+
+
+
+     // if( $http->hasPostVariable( 'CommentNotified' ) &&
+     //         $http->postVariable( 'CommentNotified' ) == 'on')
+     // {
+     //     $comment->setAttribute( 'notification', true );
+     // }
+     // else
+     // {
+     //     $comment->setAttribute( 'notification', false );
+     // }
+
+
+     $comment->setAttribute( 'contentobject_id', $contentObjectId );
+     // $comment->setAttribute( 'language_id', $languageID );
      $currentTime = time();
      $comment->setAttribute( 'user_id', $user->attribute( 'contentobject_id' ) );
      $comment->setAttribute( 'created', $currentTime);
      $comment->setAttribute( 'modified', $currentTime);
+
      $commentManager = ezcomCommentManager::instance();
      $commentManager->tpl = $tpl;
+
      $addingResult = $commentManager->addComment( $comment, $user );
+
      if( $addingResult === true )
      {
          //remember cookies
@@ -165,7 +181,7 @@ else
          {
              $cookieManager = ezcomCookieManager::instance();
              if( $http->hasPostVariable( 'CommentRememberme') &&
-                     $http->postVariable( 'CommentRememberme' ) == 'on' )
+                 $http->postVariable( 'CommentRememberme' ) == 'on' )
              {
                  $cookieManager->storeCookie( $comment );
              }
@@ -174,18 +190,20 @@ else
                  $cookieManager->clearCookie();
              }
          }
-         //clear cache
-         eZContentCacheManager::clearContentCache( $contentObjectID );
+
+         eZContentCacheManager::clearContentCacheIfNeeded( $contentObjectId );
+
          $tpl->setVariable( 'success', true );
          $tpl->setVariable( 'redirect_uri', $redirectURI );
      }
+
      else
      {
         $tpl->setVariable( 'error_message', $addingResult );
      }
 }
- $Result['path'] = array( array( 'url' => false,
-                            'text' => ezi18n( 'extension/ezcomments/add', 'Add comment' ) ) );
- $Result['content'] = $tpl->fetch( 'design:comment/add.tpl' );
- return $Result;
+
+
+$Result['content'] = $tpl->fetch( 'design:comment/add.tpl' );
+return $Result;
 ?>
