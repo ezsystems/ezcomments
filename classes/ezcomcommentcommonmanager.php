@@ -54,10 +54,11 @@ class ezcomCommentCommonManager extends ezcomCommentManager
         $languageID = $comment->attribute( 'language_id' );
         $subscriptionType = 'ezcomcomment';
         //add subscription
+
+        $subscription = ezcomSubscriptionManager::instance();
+        $user = eZUser::instance();
         if( $notification === true )
         {
-            $user = eZUser::instance();
-            $subscription = ezcomSubscriptionManager::instance();
             $subscription->addSubscription( $comment->attribute('email'),
                                             $user,
                                             $contentID,
@@ -65,6 +66,18 @@ class ezcomCommentCommonManager extends ezcomCommentManager
                                             $subscriptionType,
                                             $comment->attribute( 'created' ) );
         }
+        else if ( $notification === false )
+        {
+            if ( !$user->isAnonymous() )
+            {
+                $subscription->deleteSubscription( $comment->attribute( 'email' ),
+                                                   $comment->attribute( 'contentobject_id' ),
+                                                   $comment->attribute( 'language_id' ) );
+            }
+        }
+
+
+
         // insert data into notification queue
         // if there is no subscription,not adding to notification queue
         if( ezcomSubscription::exists( $contentID, $languageID, $subscriptionType, null, 1 ) )

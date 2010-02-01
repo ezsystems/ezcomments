@@ -120,7 +120,7 @@ abstract class ezcomCommentManager
      *          string: error message
      *
      */
-    public function addComment( $comment, $user, $time = null, $notification = false )
+    public function addComment( $comment, $user, $time = null, $notification = null )
     {
         $validationResult = $this->validateInput( $comment );
         if( $validationResult !== true )

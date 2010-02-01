@@ -148,20 +148,23 @@ else
      $comment->setAttribute( 'email', $email );
      $comment->setAttribute( 'text', $content );
 
-
-
-
-     // if( $http->hasPostVariable( 'CommentNotified' ) &&
-     //         $http->postVariable( 'CommentNotified' ) == 'on')
-     // {
-     //     $comment->setAttribute( 'notification', true );
-     // }
-     // else
-     // {
-     //     $comment->setAttribute( 'notification', false );
-     // }
-
      $languageId = eZContentLanguage::idByLocale( $languageCode );
+
+     $existingNotification = ezcomSubscription::exists( $contentObjectId,
+                                                        $languageId,
+                                                        'ezcomcomment',
+                                                        $email ) );
+
+     if( $http->hasPostVariable( 'CommentNotified' ) &&
+         $http->postVariable( 'CommentNotified' ) == 'on' )
+     {
+         $notification = true;
+     }
+     else
+     {
+         $notification = false
+     }
+
 
      $comment->setAttribute( 'contentobject_id', $contentObjectId );
      $comment->setAttribute( 'language_id', $languageId );
@@ -173,7 +176,16 @@ else
      $commentManager = ezcomCommentManager::instance();
      $commentManager->tpl = $tpl;
 
-     $addingResult = $commentManager->addComment( $comment, $user );
+
+     // toggle notification state on change in state
+     if ( $notification == $existingNotification )
+     {
+         $addingResult = $commentManager->addComment( $comment, $user );
+     }
+     else
+     {
+         $addingResult = $commentManager->addComment( $comment, $user, $notification );
+     }
 
      if( $addingResult === true )
      {
