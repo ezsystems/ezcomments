@@ -1,4 +1,4 @@
-{def $enabled = $attribute.content.enable_comment $shown = $attribute.content.show_comments}
+{def $enabled=$attribute.data_int $shown=$attribute.data_float}
 {* Default shown in database is 0. 
 if data_float equals 1, then show comments,
  if data_float equals -1, then not show comments,
