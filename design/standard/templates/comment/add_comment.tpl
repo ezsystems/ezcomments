@@ -132,7 +132,7 @@ eZComments.cfg = {ldelim}
                             {rdelim}
                  {rdelim}
 
-// eZComments.init();
+eZComments.init();
 </script>
 
 {undef $comment_name $comment_website $comment_email $comment_notified $comment_remember}

@@ -56,7 +56,7 @@ var eZComments = function() {
             
             return true;
         }
-
+/*
         Y.one(ret.cfg.postbutton).on('click', function(e) {
             e.preventDefault();
             
@@ -66,7 +66,7 @@ var eZComments = function() {
                                                     useDisabled: true,
                                                     upload: false } });
         });
-
+*/
         var fetchUserData = false;
 
         if (encodedUserData) {
