@@ -8,7 +8,7 @@
         <input type="button" onclick="history.back();" class="button" value="{'Back'|i18n( 'view/action' )}" />
     </div>
   {/if}
-  {if $success|eq( 1 )}
+  {if and( is_set( $success ), $success|eq( 1 ) )}
     <div class="message-error">
         <p>
             {'Posting succeeds!'|i18n( 'extension/ezcomments/add' )}
