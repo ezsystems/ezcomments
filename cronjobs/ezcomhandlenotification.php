@@ -52,12 +52,14 @@ $commentLength = $ezcommentsINI->variable( 'NotificationSettings', 'CommentMailL
 $mailContentType = $ezcommentsINI->variable( 'NotificationSettings', 'MailContentType');
 $mailFrom = $ezcommentsINI->variable( 'NotificationSettings', 'MailFrom' );
 
-$contentObjectIDList = $db->arrayQuery( 'SELECT DISTINCT contentobject_id, language_id' .
-                                   ' FROM ezcomment_notification ' .
-                                   'WHERE status=1' .
-                                   ' AND send_time < ' . $currentTime .
-                                   ' ORDER BY id ASC'. 
-                                   ' LIMIT 0,'. $sendingNumber );
+$contentObjectIDList = $db->arrayQuery( 'SELECT DISTINCT contentobject_id, language_id, id' .
+                                        ' FROM ezcomment_notification ' .
+                                        'WHERE status=1' .
+                                        ' AND send_time < ' . $currentTime .
+                                        ' ORDER BY id ASC',
+                                        array( 'offset' => 0,
+                                               'limit' => $sendingNumber )
+                                      );
 $notificationCount = 0;
 $mailCount = 0;
 foreach( $contentObjectIDList as $contentObjectArray )
