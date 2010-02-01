@@ -4,7 +4,7 @@
     {else}
             <form action="comment/activate" method="post">
                     <input type="hidden" name="RedirectURI" value={concat( '/comment/setting/', $subscriber.hash_string )} />
-                    <div>
+                    <div class="message-feedback">
                     <p>
                         {'The subscription was activated!'|i18n( 'extension/ezcomments/activate' )}
                     </p>
