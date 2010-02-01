@@ -22,7 +22,7 @@
                 {if $expiry_days|ge( 1 )}
                     {'The activation will expire after %expiry_days days.'|i18n( 'extension/ezcomments/activate/email', , hash( '%expiry_days', $expiry_days ) )}
                 {else}
-                    {'The activation will expire after %expiry_hours hours.'|i18n( 'extension/ezcomments/activate/email', , hash( '%expiry_hours', %expiry_days|mul( 24 ) ) )}
+                    {'The activation will expire after %expiry_hours hours.'|i18n( 'extension/ezcomments/activate/email', , hash( '%expiry_hours', $expiry_days|mul( 24 ) ) )}
                 {/if}
             </p>
         {/if}
