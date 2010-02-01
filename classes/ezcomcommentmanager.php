@@ -133,7 +133,7 @@ abstract class ezcomCommentManager
             $time = time();
         }
 
-        $beforeAddingResult = $this->beforeAddingComment( $comment, $user, $notication );
+        $beforeAddingResult = $this->beforeAddingComment( $comment, $user, $notification );
         if(  $beforeAddingResult !== true )
         {
             return $beforeAddingResult;

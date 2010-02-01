@@ -153,7 +153,7 @@ else
      $existingNotification = ezcomSubscription::exists( $contentObjectId,
                                                         $languageId,
                                                         'ezcomcomment',
-                                                        $email ) );
+                                                        $email );
 
      if( $http->hasPostVariable( 'CommentNotified' ) &&
          $http->postVariable( 'CommentNotified' ) == 'on' )
@@ -162,7 +162,7 @@ else
      }
      else
      {
-         $notification = false
+         $notification = false;
      }
 
 
