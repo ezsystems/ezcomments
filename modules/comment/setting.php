@@ -49,7 +49,8 @@ if( $user->isAnonymous() )
 }
 else
 {
-    if( !is_null( $Params['HashString'] ) )
+    if( !is_null( $Params['HashString'] )
+         && $Params['HashString'] !='' )
     {
         $page = $Params['HashString'];
     }

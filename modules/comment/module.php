@@ -58,7 +58,7 @@ $ViewList['edit'] = array(
                    );
 
 $ViewList['activate'] = array(
-                   'functions' => array( ' ' ),
+                   'functions' => array( 'activate' ),
                    'script' => 'activate.php',
                    'single_post_actions' => array( 'RedirectButton'=>'Redirect' ),
                    'params' => array( 'HashString' ),
