@@ -24,7 +24,11 @@ var eZComments = function() {
                 var response = o.responseJSON;
                 
                 if (Y.Object.hasKey(response.content, 'comment')) {
-                    Y.one(ret.cfg.postcontainer).prepend(Y.Node.create(response.content.comment));
+                    if ( ret.cfg.sortorder == 'desc' ) {
+                        Y.one(ret.cfg.postcontainer).prepend(Y.Node.create(response.content.comment));
+                    } else {
+                        Y.one(ret.cfg.postcontainer).append(Y.Node.create(response.content.comment));
+                    }
                 }
 
                 if (Y.Object.hasKey(response.content, 'fields')) {
@@ -33,6 +37,7 @@ var eZComments = function() {
                     Y.Object.each(fields, function(v, k, o) {
                         var field = Y.one('[name=' + k + ']');
 
+                        field.set( 'value', v.fieldValue );
                         field.get('parentNode').one('.ezcom-filed-error').set('innerHTML', v.validationText);
                     })
                 }

@@ -124,7 +124,8 @@ eZComments.cfg = {ldelim}
                     postform: '#ezcom-comment-form',
                     postlist: '#ezcom-comment-list',
                     postcontainer: '#ezcom-comment-list',
-                    sessionprefix: '{ezini('Session', 'SessionNamePrefix', 'site.ini')}', 
+                    sessionprefix: '{ezini('Session', 'SessionNamePrefix', 'site.ini')}',
+                    sortorder: '{ezini('GlobalSettings', 'DefaultEmbededSortOrder', 'ezcomments.ini')}',
                     fields: {ldelim} 
                                 name: '#ezcomments_comment_view_addcomment_name',
                                 email: '#ezcomments_comment_view_addcomment_email' 
