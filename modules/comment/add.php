@@ -54,68 +54,11 @@ if( $http->hasVariable( 'BackButton' ) &&
 
 if ( $module->isCurrentAction( 'AddComment' ) )
 {
-    $user = eZUser::currentUser();
-
-    // Which object is our comment attached to
-    if( !$http->hasPostVariable( 'ContentObjectID' ) )
-    {
-        eZDebug::writeError( 'No content object id is provided', 'ezcomments' );
-        return $module->handleError( eZError::KERNEL_NOT_AVAILABLE, 'kernel' );
-    }
-    $contentObjectId = (int)$http->postVariable('ContentObjectID');
-
-    // Either use provided language code, or fallback on siteaccess default
-    if ( $http->hasPostVariable( 'CommentLanguageCode' ) )
-    {
-        $languageCode = $http->postVariable( 'CommentLanguageCode' );
-        $language = eZContentLanguage::fetchByLocale( $languageCode );
-        if ( $language === false )
-        {
-            eZDebug::writeError( "The language code [$languageCode] given is not valid in the system.", 'ezcomments' );
-            return $module->handleError( eZError::KERNEL_NOT_AVAILABLE, 'kernel' );
-        }
-    }
-    else
-    {
-        $defaultLanguage = eZContentLanguage::topPriorityLanguage();
-        $languageCode = $defaultLanguage->attribute( 'locale' );
-    }
-
-    $contentObject = eZContentObject::fetch( $contentObjectId );
-    if ( !($contentObject instanceof eZContentObject ) )
-    {
-        eZDebug::writeError( 'No content object exists for the given id.', 'ezcomments' );
-        return $module->handleError( eZError::KERNEL_NOT_AVAILABLE, 'kernel' );
-    }
-
-    $dataMap = $contentObject->fetchDataMap( false, $languageCode );
-    $foundCommentAttribute = false;
-    foreach( $dataMap as $attr )
-    {
-        if( $attr->attribute( 'data_type_string' ) === 'ezcomcomments' )
-        {
-            $foundCommentAttribute = $attr;
-            break;
-        }
-    }
-
-    // if there is no ezcomcomments attribute inside the content, return
-    if( !$foundCommentAttribute )
-    {
-        eZDebug::writeError( "Content object with id [$contentObjectId], does not contain an ezcomments attribute.", 'ezcomments' );
-        return $module->handleError( eZError::KERNEL_NOT_AVAILABLE, 'kernel' );
-    }
-
-    //check permission
-    $canAddComment = ezcomPermission::hasAccessToFunction( 'add', $contentObject, $languageCode,  null, null, $contentObject->mainNode() );
-    if ( !$canAddComment['result'] )
-    {
-        eZDebug::writeWarning( 'No access to adding comments.', 'ezcomments' );
-        return $module->handleError( eZError::KERNEL_ACCESS_DENIED, 'kernel' );
-    }
+    $contentCheck = ezcomPostHelper::checkContentRequirements( $module, $http );
+    extract( $contentCheck );
 
     // Check to see if commenting is turned on, on the object level
-    $commentContent = $foundCommentAttribute->content();
+    $commentContent = ezcomPostHelper::checkCommentPermission( $contentObject, $languageCode, $foundCommentAttribute );
     if( !$commentContent['show_comments'] || !$commentContent['enable_comment'] )
     {
         $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/add', 'Commenting has been turned off for this content.'  ) );
@@ -129,6 +72,8 @@ if ( $module->isCurrentAction( 'AddComment' ) )
         if ( !$formStatus )
         {
             // missing form data
+            $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/add', 'There is a problem with your comment form ' ) );
+
         }
 
          $title = $formTool->fieldValue( 'title' );
@@ -161,6 +106,7 @@ if ( $module->isCurrentAction( 'AddComment' ) )
              $notification = false;
          }
 
+         $user = eZUser::currentUser();
 
          $comment->setAttribute( 'contentobject_id', $contentObjectId );
          $comment->setAttribute( 'language_id', $languageId );
