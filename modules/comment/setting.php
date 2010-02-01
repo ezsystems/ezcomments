@@ -44,7 +44,11 @@ if( $user->isAnonymous() )
     }
     if( is_null( $hashString ) || strlen( $hashString ) != $hashStringLength )
     {
-        return;
+        $Result = array();
+        $Result['content'] = $tpl->fetch( 'design:comment/setting.tpl' );
+        $Result['path'] = array( array( 'url' => false,
+                                    'text' => ezi18n( 'extension/comment/setting', 'Comment settings') ) );
+        return $Result;
     }
 }
 else
@@ -75,8 +79,13 @@ else
 }
 if( is_null( $subscriber ) )
 {
-    return;
+    $Result = array();
+    $Result['content'] = $tpl->fetch( 'design:comment/setting.tpl' );
+    $Result['path'] = array( array( 'url' => false,
+                                    'text' => ezi18n( 'extension/comment/setting', 'Comment settings' ) ) );
+    return $Result;
 }
+
 $tpl->setVariable( 'subscriber',  $subscriber );
 
 $email = $subscriber->attribute( 'email' );
