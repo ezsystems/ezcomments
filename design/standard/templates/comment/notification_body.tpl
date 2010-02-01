@@ -1,10 +1,12 @@
 {def $base_url=ezini( 'SiteSettings', 'SiteURL' )}
-{let $base_url=concat( 'http://', $base_url )}
+{set $base_url=concat( 'http://', $base_url )}
 <p>
-{def $user=}
-Dear {$subscriber.email} <br />
 
-<u>{$comment.name}</u> posted a new comment on <a href="">{$contentobject.name}. </a>
+Hi,
+
+ <br />
+
+<u>{$comment.name}</u> posted a new comment on <a href="{$content_object.main_node.url_alias}">{$contentobject.name}. </a>
 </p>
 <p>
 <b>Comment summary</b>:<br>
@@ -22,10 +24,5 @@ For setting your subscription, please visit
     {concat( $base_url, '/comment/setting/', $subscriber.hash_string )}
 </a>
 </p>
-<pre>
------------------------------
-Best Regards
-eZ Systems
-<a href="http://ez.no">http://ez.no</a>
-</pre>
+
 {undef $base_url}
