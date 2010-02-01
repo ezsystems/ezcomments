@@ -121,17 +121,17 @@ foreach( $contentObjectIDList as $contentObjectArray )
             else
             {
                 // only send mail to the subscriber that didn't comment.
-                $isAuthor = true;
+                $isAuthor = false;
                 foreach( $commentList as $comment )
                 {
-                    if( $comment->attribute( 'email' ) != $subscriber->attribute( 'email' ) )
+                    if( $comment->attribute('email') == $subscriber->attribute( 'email' ) )
                     {
-                        $isAuthor = false;
+                        $isAuthor = true;
                     }
                 }
                 if( !$isAuthor )
                 {
-                    $notificationManager->sendNotificationInOne( $subscriber, $contentObject, $commentList );
+                    $notificationManager->sendNotificationInOne( $subscriber, $contentObject );
 //                    if( eZDebug::isDebugEnabled() )
 //                    {
 //                        eZLog::write( 'Sent email to ' . $subscriber->attribute( 'email' ),
