@@ -19,7 +19,7 @@ DefaultEmbededCount=3
 DefaultEmbededSortField=created
 
 #Set the default embeded comment sort order
-DefaultEmbededSortOrder=asc
+DefaultEmbededSortOrder=desc
 
 #Settings for notification related
 [NotificationSettings]
