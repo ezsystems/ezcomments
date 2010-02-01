@@ -96,7 +96,7 @@ foreach( $contentObjectIDList as $contentObjectArray )
          $comment = ezcomComment::fetch( $notification['comment_id'] );
          if( is_null( $comment ) )
          {
-             $cli->output( "Comment doesn't exist, delete the notification. Comment ID:" . $commentID );
+             $cli->output( "Comment doesn't exist, delete the notification. Comment ID:" . $notification['comment_id'] );
              $db->query( 'DELETE FROM ezcomment_notification WHERE id=' . $notification['id'] );
              continue;
          }
