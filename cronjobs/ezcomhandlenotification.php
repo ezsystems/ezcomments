@@ -132,11 +132,11 @@ foreach( $contentObjectIDList as $contentObjectArray )
                 if( !$isAuthor )
                 {
                     $notificationManager->sendNotificationInOne( $subscriber, $contentObject );
-                    if( eZDebug::isDebugEnabled() )
-                    {
-                        eZLog::write( 'Sent email to ' . $subscriber->attribute( 'email' ),
-                                      'ezcomments.log' );
-                    }
+//                    if( eZDebug::isDebugEnabled() )
+//                    {
+//                        eZLog::write( 'Sent email to ' . $subscriber->attribute( 'email' ),
+//                                      'ezcomments.log' );
+//                    }
                 }
             }
         }
