@@ -33,9 +33,3 @@
 <p>
     {'You can go to your setting page to manage your subscription.'|i18n( 'extension/ezcomments/activate/email' )}
 </p>
-<pre>
------------------------------
-Best Regards
-eZ Systems
-<a href="http://ez.no">http://ez.no</a>
-</pre>
