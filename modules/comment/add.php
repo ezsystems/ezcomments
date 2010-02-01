@@ -184,7 +184,7 @@ else
      }
      else
      {
-         $addingResult = $commentManager->addComment( $comment, $user, $notification );
+         $addingResult = $commentManager->addComment( $comment, $user, null, $notification );
      }
 
      if( $addingResult === true )
