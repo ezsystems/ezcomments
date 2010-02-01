@@ -1,10 +1,15 @@
 {ezcss_require( 'comment.css' )}
 <div class="ezcom-add-result">
-  {if is_set($error_message)}
+  {if or( is_set($error_message), is_set( $validation_messages ) )}
     <div class="message-error">
         <p>
             {$error_message}
         </p>
+
+        {foreach $validation_messages as $field => $message }
+            <p><strong>{$field}:</strong><br /> {$message}</p>
+        {/foreach}
+        
         <input type="button" onclick="history.back();" class="button" value="{'Back'|i18n( 'view/action' )}" />
     </div>
   {/if}

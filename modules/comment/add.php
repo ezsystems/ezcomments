@@ -76,7 +76,8 @@ if ( $module->isCurrentAction( 'AddComment' ) )
             // missing form data
             $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/add', 'There is a problem with your comment form ' ) );
             $tpl->setVariable( 'validation_messages', $formTool->messages() );
-
+            $Result['content'] = $tpl->fetch( 'design:comment/add.tpl' );
+            return $Result;
         }
 
          $title = $formTool->fieldValue( 'title' );
@@ -168,6 +169,4 @@ else
 
 
 
-$Result['content'] = $tpl->fetch( 'design:comment/add.tpl' );
-return $Result;
 ?>
