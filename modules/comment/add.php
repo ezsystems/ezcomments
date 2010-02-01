@@ -167,6 +167,7 @@ else
     $tpl->setVariable( 'error_message', "You should not access this view directly" );
 }
 
-
+$Result['content'] = $tpl->fetch( 'design:comment/add.tpl' );
+return $Result;
 
 ?>
