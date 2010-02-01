@@ -58,7 +58,7 @@ class ezcomPermission
         {
             foreach( $result['policies'] as $limitationArray )
             {
-                eZDebug::writeDebug( $limitationArray, "limitationArray for function $functionName" );
+                // eZDebug::writeDebug( $limitationArray, "limitationArray for function $functionName" );
 
                 $return = true;
                 foreach( $limitationArray as $limitationKey => $limitation )
