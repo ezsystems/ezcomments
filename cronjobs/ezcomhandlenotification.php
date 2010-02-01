@@ -52,11 +52,10 @@ $commentLength = $ezcommentsINI->variable( 'NotificationSettings', 'CommentMailL
 $mailContentType = $ezcommentsINI->variable( 'NotificationSettings', 'MailContentType');
 $mailFrom = $ezcommentsINI->variable( 'NotificationSettings', 'MailFrom' );
 
-$contentObjectIDList = $db->arrayQuery( 'SELECT DISTINCT contentobject_id, language_id, id' .
+$contentObjectIDList = $db->arrayQuery( 'SELECT DISTINCT contentobject_id, language_id' .
                                         ' FROM ezcomment_notification ' .
                                         'WHERE status=1' .
-                                        ' AND send_time < ' . $currentTime .
-                                        ' ORDER BY id ASC',
+                                        ' AND send_time < ' . $currentTime ,
                                         array( 'offset' => 0,
                                                'limit' => $sendingNumber )
                                       );
@@ -133,6 +132,11 @@ foreach( $contentObjectIDList as $contentObjectArray )
                 if( !$isAuthor )
                 {
                     $notificationManager->sendNotificationInOne( $subscriber, $contentObject );
+                    if( eZDebug::isDebugEnabled() )
+                    {
+                        eZLog::write( 'Sent email to ' . $subscriber->attribute( 'email' ),
+                                      'ezcomments.log' );
+                    }
                 }
             }
         }
@@ -142,13 +146,10 @@ foreach( $contentObjectIDList as $contentObjectArray )
         if ( !$isQuiet )
             $cli->output( 'Sending notification error! Exception' . $ex->getMessage() . '\n' );
     }
-    if( !eZDebug::isDebugEnabled() )
-    {
-        $db->query( 'DELETE FROM ezcomment_notification' . 
-                    ' WHERE status = 1 AND' .
-                    ' contentobject_id = ' . $contentObjectID .
-                    ' AND language_id =' . $contentLanguage );
-    }
+    $db->query( 'DELETE FROM ezcomment_notification' . 
+                ' WHERE status = 1 AND' .
+                ' contentobject_id = ' . $contentObjectID .
+                ' AND language_id =' . $contentLanguage );
 }
     
 ?>
