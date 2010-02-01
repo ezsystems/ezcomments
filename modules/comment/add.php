@@ -62,6 +62,8 @@ if ( $module->isCurrentAction( 'AddComment' ) )
     if( !$commentContent['show_comments'] || !$commentContent['enable_comment'] )
     {
         $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/add', 'Commenting has been turned off for this content.'  ) );
+        $Result['content'] = $tpl->fetch( 'design:comment/add.tpl' );
+        return $Result;
     }
     else
     {
@@ -73,6 +75,7 @@ if ( $module->isCurrentAction( 'AddComment' ) )
         {
             // missing form data
             $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/add', 'There is a problem with your comment form ' ) );
+            $tpl->setVariable( 'validation_messages', $formTool->messages() );
 
         }
 
