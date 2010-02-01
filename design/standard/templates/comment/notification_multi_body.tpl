@@ -18,6 +18,8 @@ For setting your subscription, please visit
 <a href="{concat( $base_url, '/comment/setting/', $subscriber.hash_string )}">
     {concat( $base_url, '/comment/setting/', $subscriber.hash_string )}
 </a>
+<br /><br />
+Email sent to {$subscriber.email}
 </p>
 
 {undef $base_url}
