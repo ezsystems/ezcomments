@@ -1,11 +1,22 @@
-==============
 
-======Code refactoring==========
+Code refactoring
+=====================
 1. ezcomSubscriptionManager: line from 114 to 119
 2. Create in PersistentObject can have some parameters. Benefit: there can be some default values
 3. to make the template overridable, 610, eznewsletter.
 4. in php we can put the type in front of the parameter to declear the type
 5. add space after 'if'
 
-======Features to do=========
-1. put the form into
+Improvement(priority)
+====================
+1. Allow user to define the update field (high)
+2. Make the comment view cached (high)
+3. About the content view, use Ajax to fetch the data, add comment for registered users and anonymous users(high)
+4. Nice message after adding, editing, deleting(middle)
+5. Delete comments after deleting content(high)
+6. Check there is only one ezcomment attribute in the class(middle)
+7. Use user parameters for paging and hashstring in comment/setting(low)
+8. Number of comment should be the number in all the comment(low)
+9. Header licences(middle)
+10. Create a ant script for install database(middle)
+11. Remove 'notification' field in ezcomcomment and database(middle)
