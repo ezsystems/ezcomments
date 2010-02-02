@@ -1,87 +1,11 @@
-1. support language code
-2. if the client doesn't support javascript, jump to normal mode
-3. fix the not showing bug of comment/setttings
+==============
 
-subscription
--------------------
-If the user update the notification when the subscription is still disabled.
+======Code refactoring==========
+1. ezcomSubscriptionManager: line from 114 to 119
+2. Create in PersistentObject can have some parameters. Benefit: there can be some default values
+3. to make the template overridable, 610, eznewsletter.
+4. in php we can put the type in front of the parameter to declear the type
+5. add space after 'if'
 
-
-design
--------------------
--Add exception mechanism
-
-
-Code refectoring
--------------------
-- css reuse
-
-
-Test
-----------------
-how to build test data file
-
-
-Thinking
--------------------
-1. How to load the sub class dynamically and efficiently, using global or static(might be just one request, instead of all the request)
-
-
-2010-01-19
-2. how to send notification mail content - related (change ezcomnotificationmanager)
-
-2010-01-20
-1. Try to make the unit test data xmlized, instead of putting all the test data into test code. 
-2. In ezcomNotificationManager, if we should use __get and __set for property.
-3. The static in PHP is per request, I'm a little worried about the performance and doubt that how much the singleton can improve.
-4. support cookie
-5. make language as separate field in subscription table
-5. permission
-6. change the ezcomCookieManager into singleton
-
-2010-01-21
-1.put cache-block into comment list, add form.
-2.install sql script when enabling the extension
-3.structurize the view.php edit.php,etc to make it more readable
-4.question: should I check permission and content status in add.php ?
-5.delete permission checking in delete.php and delete.tpl
-6.issue: if the user can only view one language(A)'s comment, when viewing the comments in A, if the user click another language(B), then click the content, the user can't see.
-
-2010-01-22
-1. create interfaces to support further extension.
-possible extensions:
-   - add fields
-        - the adding should can  be extendable in
-            - view fetch, view template
-            - adding(before adding), validating
-            - update fetch, update template, update(before updating)
-   - delete/hide fields
-   - add limitations
-   - 
-
-2. when adding/edit/deleting the comment, check if the commenting is enabled and comments are visible
-3. clean up WebsiteURLBase in ezcomments.ini
-4. the email doesn't have 'to' 
-5. support '+' in ajax mode (This is json's problem, which replace + with space)
-
-2010-01-23
-1.in edit view post variable
-2.support locale datetime
-3. Implementation of setting 
-   1) fetch contents
-   2) design and show
-   3) update
-4. Consider the sql injection
-
-2010-01-25
-1. setting, how to implement paging in a best way. now using 'limit', which can only be used in mysql
-2. language problem, it only show the content of current language site
-3. update as a notification type
-4. meetting
-   - header licenes
-5. put the user name into cookie
-
-2010-01-24
-1. test the subscription,
-2. design hiding form, extending fields
-3. find the cache solution
+======Features to do=========
+1. put the form into

@@ -1,1 +1,64 @@
- - ezcomments needs ezjscore extension if the ajax mode is used.
+ eZ Comments extension installation documentation
+ 
+ About eZ Comments
+ ===================
+ 
+ eZ Comments is an extension for enhanced commenting on eZ Publish content. 
+ Typical features include:
+ - Use separate table for storing comments in database, which suits large website's demand 
+ - Provide a separate permission setting for reading, adding, editing and deleting comment
+ - Provide a comment view page
+ - Enable/disable commenting
+ - Show/hide comments 
+ - Allow user to notify content he/she commented on
+ - Customize comment template
+ - Add/hide comment fields
+ 
+ Requirements
+ ================
+ 
+ - ezjscore
+ 
+ Installation
+ ================
+ 1) Copy ezcomments into 'extension' folder
+  
+ 2) Install database
+ 
+ 3) Activate ezcomments
+   In administrator user interface, click 'setup' tab->'extensions' menu, select 'ezcomments', click button 'Apply Changes'.
+   or in settings/override/site.ini.append.php, add acivation configuration under "ExtensionSettings" section:
+     [ExtensionSettings]
+     ActiveExtensions[]=ezcomments
+
+ 4) Regenerate autoloads
+    In administrator user interface, click 'setup' tab->'extensions' menu, select 'ezcomments', click button 'Regenerate autoload arrays for extensions',
+    or in eZ Publish installation folder, run "php bin/php/ezpgenerateautoloads.php -e"
+    
+ 5) Clear cache
+    Clear INI and template caches. (from admin 'Setup' tab or commandline)
+ 
+ Quick manual
+ =================
+ 1) Create a content with commenting feature
+     - Create a class (in 'Setup' tab->'Classes'), 'article_comment' for instance
+     - Create a content with class 'article_comment'
+     - View the content in front end
+     
+ 2) Set permission for reading, posting
+    After 1) by default only administrator can post comment, for non-administrator users, we need to set permission.
+    - Go to 'Roles and policies' (from 'Setup' tab->'Roles and policies' or 'User accounts'->'Roles and policies')
+    - Click one role name, 'Anonymous' for instance, then edit the role by click 'Edit' button
+    - Add one policy with module 'comment' and function 'read' by these steps:
+      - Click 'New policy'
+      - Select 'comment' from module list in step one
+      - Click 'Grant access to one function'
+      - Select 'read' in the function list
+      - Click 'Grant full access' 
+      - Click 'OK' button in the policy wizard page
+      - Click 'OK' button in Edit Role page
+    - Add one policy with module 'comment' and function 'add', which is similar to function 'read' (only difference is selecting 'add' in the function list).
+    
+ 3) Post comment in the content view page as in 1)
+
+ 
