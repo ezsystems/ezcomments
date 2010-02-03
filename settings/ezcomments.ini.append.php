@@ -37,18 +37,11 @@ MailFrom=noreply@ez.no
 
 ActivationMailContentType=text/html
 
-#Max length of comment shown in email
-CommentMailLength=200
-
 #Make all the updated comment in one notification
 CommentsInOne=false
 
 #Number per cronjob executation
-NotificationNumberPerExecuation=1
-
-DefaultSortField=modified
-DefaultSortOrder=desc
-
+NotificationNumberPerExecuation=10
 
 #Expire day of subscription activation, after which if the subscription has not been activated, it will be deleted.
 #-1 means never cleaning up. Formats like 0.5(12 hours)/0.25(6 hours) are possible

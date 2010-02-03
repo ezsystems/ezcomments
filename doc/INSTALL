@@ -26,6 +26,7 @@
  2) Install database
     Execute the sql file in sql/databasetype/schema.sql. Currently supported databases are Mysql, PostgreSQL and Oracle. The example command line in mysql is
     $ mysql --host=<mysql_host> --port=<port> -u <mysql_user> -p<mysql_password> <database> < extension/ezcomments/sql/mysql/schema.sql
+    
  3) Activate ezcomments
    In administrator user interface, click 'setup' tab->'extensions' menu, select 'ezcomments', click button 'Apply Changes'.
    or in settings/override/site.ini.append.php, add acivation configuration under "ExtensionSettings" section:
