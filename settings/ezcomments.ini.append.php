@@ -3,22 +3,22 @@
 #Settings for ezcomcomments datatype
 [GlobalSettings]
 
-#Set default if the commenting is enabled in object attribute
+#If the commenting is enabled in object attribute by default
 DefaultEnabled=true
 
-#Set default if the comments are shown
+#If comments are shown by default
 DefaultShown=true
 
-#Set default if the notification is selected
+#If the notification is selected by default
 EnableNotification=false
 
-#Set the default embeded comment count
+#Eefault embeded comment count in content view
 DefaultEmbededCount=3
 
-#Set the default embeded comment sort field
+#Embeded comment sort field in content view
 DefaultEmbededSortField=created
 
-#Set the default embeded comment sort order
+#Embeded comment sort order in content view
 DefaultEmbededSortOrder=desc
 
 #Settings for notification related
@@ -63,6 +63,7 @@ DefaultNotified=true
 #By default if the subscription is activated, if not, execute the activiation process
 SubscriptionActivated=false
 
+#Class for handling logic
 [ManagerClasses]
 CommentManagerClass=ezcomCommentCommonManager
 SubscriberManagerClass=ezcomSubscriptionManager
