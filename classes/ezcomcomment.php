@@ -1,32 +1,11 @@
 <?php
-//
-// Definition of ezcomComment class
-//
-// Created on: <06-Dec-2009 00:00:00 xc>
-//
-// ## BEGIN COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-// SOFTWARE NAME: eZ Comments extension for eZ Publish
-// SOFTWARE RELEASE: 1.0-0
-// COPYRIGHT NOTICE: Copyright (C) 2009 eZ Systems AS
-// SOFTWARE LICENSE: GNU General Public License v2.0
-// NOTICE: >
-//   This program is free software; you can redistribute it and/or
-//   modify it under the terms of version 2.0  of the GNU General
-//   Public License as published by the Free Software Foundation.
-//
-//   This program is distributed in the hope that it will be useful,
-//   but WITHOUT ANY WARRANTY; without even the implied warranty of
-//   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-//   GNU General Public License for more details.
-//
-//   You should have received a copy of version 2.0 of the GNU General
-//   Public License along with this program; if not, write to the Free
-//   Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-//   MA 02110-1301, USA.
-//
-//
-// ## END COPYRIGHT, LICENSE AND WARRANTY NOTICE ##
-//
+/**
+ * File containing ezcomComment class
+ *
+ * @copyright Copyright (C) 1999-2010 eZ Systems AS. All rights reserved.
+ * @license http://ez.no/licenses/gnu_gpl GNU GPLv2
+ *
+ */
 
 /**
  * ezcomComment persistent object class definition
@@ -165,15 +144,14 @@ class ezcomComment extends eZPersistentObject
 
     /**
      * fetch comment by email
-     * @param $email email address
-     * @param $sorts sort array
-     * @param $offset offset
-     * @param $length length
-     * @param $notification if it is notified
-     * @param $status status of comment
-     * @return ezcomcomment object
+     * @param string $email email address
+     * @param array $sorts sort array
+     * @param integer $offset offset
+     * @param integer $length length
+     * @param integer $status status of comment
+     * @return ezcomComment|null 
      */
-    static function fetchByEmail( $email, $sorts = null, $offset = null, $length = null, $status = false  )
+    static function fetchByEmail( $email, $sorts = null, $offset = null, $length = null, $status = false )
     {
         $cond = array();
         $cond['email'] = $email;
@@ -198,7 +176,7 @@ class ezcomComment extends eZPersistentObject
      * @param array $sorts
      * @param integer $offset
      * @param integer $length
-     * @return NULL|array comment list
+     * @return array comment list
      */
     static function fetchByContentObjectID( $contentObjectID, $languageID, $sorts = null, $offset = null, $length = null )
     {
