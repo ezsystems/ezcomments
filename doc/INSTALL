@@ -18,6 +18,7 @@
  ================
  
  - ezjscore
+ - eZ Publish 4.3 or later version. eZ Comments's permission part doesn't work well in previous eZ Publish version. 
  
  Installation
  ================

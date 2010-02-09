@@ -97,6 +97,8 @@ class ezcomCommentCommonManager extends ezcomCommentManager
             if ( $notified === true )
             {
                 //add subscription but not send activation
+                try
+                {
                 $subscriptionManager->addSubscription( $comment->attribute( 'email' ),
                                                        $user,
                                                        $contentID,
@@ -104,6 +106,18 @@ class ezcomCommentCommonManager extends ezcomCommentManager
                                                        $subscriptionType,
                                                        $time,
                                                        false );
+                }
+                catch ( Exception $e )
+                {
+                    eZDebug::writeError( $e->getMessage(), __METHOD__ );
+                    switch ( $e->getCode() )
+                    {
+                        case ezcomSubscriptionManager::ERROR_SUBSCRIBER_DISABLED:
+                            return 'The subscriber is disabled.';
+                        default:
+                            return false;
+                    }
+                }
             }
             else
             {

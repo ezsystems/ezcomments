@@ -12,6 +12,7 @@
  */
 class ezcomSubscriptionManager
 {
+    const ERROR_SUBSCRIBER_DISABLED = 0;
     public $params = null;
     public $tpl = null;
     public $module = null;
@@ -63,7 +64,7 @@ class ezcomSubscriptionManager
     }
 
     /**
-    * Add an subscription.
+    * Add an subscription. If the subscriber is disabled, throw an exception
     * If there is no subscriber, add one.
     * If there is no subscription for the content, add one
     * @param $email: user's email
@@ -92,11 +93,9 @@ class ezcomSubscriptionManager
         }
         else
         {
-            if ( $subscriber->attribute( 'enabled' ) === 0 )
+            if ( $subscriber->attribute( 'enabled' ) == false )
             {
-                $result['warnings'][] = ezi18n( 'comment/view/addcomment', 'The email is disabled,
-                             you won\'t receive notification
-                              until it is activated!' );
+                throw new Exception('Subscription can not be added because the subscriber is disabled.', self::ERROR_SUBSCRIBER_DISABLED );
             }
         }
         //3 insert into subscription table
