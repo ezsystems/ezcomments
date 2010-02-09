@@ -8,11 +8,6 @@
 
 <div class="ezcom-view-comment" id="ezcomments_comment_view_commentitem">
             <div class="attribute-byline ezcom-comment-top">
-                <div class="ezcom-comment-index">
-                    <span><a name="{concat( 'c', $index|sum(1) )}"></a>
-                    #{$base_index|sum($index)|sum(1)}
-                    </span>
-                </div>
                 <div class="ezcom-comment-author">
                     <p class="author">
                         {if $comment.url|eq( '' )}

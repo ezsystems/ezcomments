@@ -16,6 +16,7 @@
                                                                        'contentobject', $contentobject,
                                                                        'language_code', $language_code,
                                                                        'node', $attribute_node ) )}
+    {* Displaying comments START *}
     {if $can_read}
         {def $sort_field=ezini( 'GlobalSettings', 'DefaultEmbededSortField', 'ezcomments.ini' )}
         {def $sort_order=ezini( 'GlobalSettings', 'DefaultEmbededSortOrder', 'ezcomments.ini' )}
@@ -68,6 +69,7 @@
         </div>
     {/if}
     {undef $can_read}
+    {* Displaying comments END *}
     
     {* Adding comment form START *}
     {if $attribute.content.enable_comment}

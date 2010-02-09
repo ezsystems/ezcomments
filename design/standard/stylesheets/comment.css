@@ -4,11 +4,6 @@ div.ezcom-view-list
     background-color: #ffffff;
 }
 
-div.ezcom-comment-index
-{
-    float: left;
-}
-
 div.ezcom-comment-title
 {
     clear: both;
@@ -106,13 +101,10 @@ div.ezcom-full{
 }
 
 
-div.ezcom-full div.ezcom-comment-index
-{
-}
-
 div.ezcom-full div.ezcom-comment-title
 {
 }
+
 /* ----COMMENT LIST - FULL VIEW----- */
 
 /* ----COMMENT FUNCTION----- */

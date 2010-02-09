@@ -135,6 +135,6 @@ $tpl->setVariable( 'number_per_page', $defaultNumPerPage );
 
 $Result['content'] = $tpl->fetch( 'design:comment/view/view.tpl' );
 $Result['path'] = array( array( 'url' => false,
-                            'text' => ezi18n( 'extension/ezcomments/view', 'View comment' ) ) );
+                            'text' => ezi18n( 'extension/ezcomments/view', 'Comment/View' ) ) );
 return $Result;
 ?>

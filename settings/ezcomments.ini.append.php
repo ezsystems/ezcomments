@@ -12,7 +12,7 @@ DefaultShown=true
 #If the notification is selected by default
 EnableNotification=false
 
-#Eefault embeded comment count in content view
+#Default embeded comment count in content view
 DefaultEmbededCount=3
 
 #Embeded comment sort field in content view
