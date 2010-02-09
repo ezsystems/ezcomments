@@ -112,10 +112,6 @@ class ezcomComment extends eZPersistentObject
                                                                    'datatype' => 'integer',
                                                                    'default' => 0,
                                                                    'required' => true ),
-                                                'notification' => array( 'name' => 'Notification',
-                                                                         'datatype' => 'integer',
-                                                                         'default' => 0,
-                                                                         'required' => true ),
                                                 'title' => array( 'name' => 'Title',
                                                                   'datatype' => 'string',
                                                                   'default' => '',
@@ -177,14 +173,10 @@ class ezcomComment extends eZPersistentObject
      * @param $status status of comment
      * @return ezcomcomment object
      */
-    static function fetchByEmail( $email, $sorts = null, $offset = null, $length = null, $notification = false, $status = false  )
+    static function fetchByEmail( $email, $sorts = null, $offset = null, $length = null, $status = false  )
     {
         $cond = array();
         $cond['email'] = $email;
-        if ( $notification !== false )
-        {
-            $cond['notification'] = $notification;
-        }
         if ( $status !== false )
         {
             $cond['status'] = $status;

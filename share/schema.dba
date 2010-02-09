@@ -67,13 +67,6 @@ $schema = array (
         'not_null' => '1',
         'default' => '',
       ),
-      'notification' => 
-      array (
-        'length' => 11,
-        'type' => 'int',
-        'not_null' => '1',
-        'default' => 0,
-      ),
       'parent_comment_id' => 
       array (
         'length' => 11,

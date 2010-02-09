@@ -58,7 +58,8 @@ class ezcomCookieManager
        setcookie( $this->nameName, $comment->attribute( 'name' ), $this->expiryTime, '/' );
        setcookie( $this->websiteName, $comment->attribute( 'url' ), $this->expiryTime, '/' );
        setcookie( $this->emailName, $comment->attribute( 'email' ), $this->expiryTime, '/' );
-       setcookie( $this->notificationName, $comment->attribute( 'notification' ), $this->expiryTime, '/' );
+       //TODO: check the notified for anonymous users
+//       setcookie( $this->notificationName, $comment->attribute( 'notification' ), $this->expiryTime, '/' );
     }
 
     /**

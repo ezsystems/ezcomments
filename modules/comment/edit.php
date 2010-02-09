@@ -99,7 +99,6 @@ if ( $Module->isCurrentAction( 'UpdateComment' ) )
     $comment->setAttribute( 'title', $title );
     $comment->setAttribute( 'url', $website );
     $comment->setAttribute( 'text', $content );
-    $comment->setAttribute( 'notification', $notified );
     $time = time();
     $comment->setAttribute( 'modified', $time );
     $commentManager = ezcomCommentManager::instance();

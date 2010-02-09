@@ -137,7 +137,6 @@ class ezcomCommentManagerTest extends ezpDatabaseTestCase
         $comment->setAttribute( 'name', 'xc' );
         $comment->setAttribute( 'email', 'xc@ez.no' );
         $comment->setAttribute( 'text', 'This is a test comment:)' );
-        $comment->setAttribute( 'notification', false );
         $comment->setAttribute( 'contentobject_id', $contentObjectID );
         $comment->setAttribute( 'language_id', $languageID );
         $comment->setAttribute( 'created', $time );
@@ -151,7 +150,6 @@ class ezcomCommentManagerTest extends ezpDatabaseTestCase
         $commentResult = ezcomComment::fetchByTime( 'created', $time );
         $this->assertEquals( $comment->attribute( 'text' ), $commentResult->attribute( 'text' ) );
         $this->assertEquals( $comment->attribute( 'name' ), $commentResult->attribute( 'name' ) );
-        $this->assertEquals( $comment->attribute( 'notification' ), $commentResult->attribute( 'notification' ) );
         
         //1.2 with subscription
         //add subscriber
@@ -175,7 +173,6 @@ class ezcomCommentManagerTest extends ezpDatabaseTestCase
         $commentResult = ezcomComment::fetchByTime( 'created', $time );
         $this->assertEquals( $comment->attribute( 'text' ), $commentResult->attribute( 'text' ) );
         $this->assertEquals( $comment->attribute( 'name' ), $commentResult->attribute( 'name' ) );
-        $this->assertEquals( $comment->attribute( 'notification' ), $commentResult->attribute( 'notification' ) );
         $this->assertSame( true, $result );
         //vertify the notification
         $notifications = ezcomNotification::fetchNotificationList( 1, 1, 0, array( 'id' => 'desc' ) );
@@ -191,7 +188,6 @@ class ezcomCommentManagerTest extends ezpDatabaseTestCase
         $comment2->setAttribute( 'name', 'chen' );
         $comment2->setAttribute( 'email', 'cxj2007@gmail.com' );
         $comment2->setAttribute( 'text', 'notified comment' );
-        $comment2->setAttribute( 'notification', false );
         $comment2->setAttribute( 'contentobject_id', $contentObjectID );
         $comment2->setAttribute( 'language_id', $languageID );
         $comment2->setAttribute( 'created', $time2 );
@@ -204,7 +200,6 @@ class ezcomCommentManagerTest extends ezpDatabaseTestCase
         $commentResult = ezcomComment::fetchByTime( 'created', $time2 );
         $this->assertEquals( $comment2->attribute( 'text' ), $commentResult->attribute( 'text' ) );
         $this->assertEquals( $comment2->attribute( 'name' ), $commentResult->attribute( 'name' ) );
-        $this->assertEquals( $comment2->attribute( 'notification' ), $commentResult->attribute( 'notification' ) );
         $notifications = ezcomNotification::fetchNotificationList( 1, 1, 0, array( 'id' => 'desc' ) );
         $this->assertNotEquals( $notifications[0]->attribute( 'comment_id' ), $commentResult->attribute( 'id' ) ); //assert that there is no new notification
         //2.2 if there is already subscription
@@ -229,7 +224,6 @@ class ezcomCommentManagerTest extends ezpDatabaseTestCase
         $commentResult = ezcomComment::fetchByTime( 'created', $time2 );
         $this->assertEquals( $comment2->attribute( 'text' ), $commentResult->attribute( 'text' ) );
         $this->assertEquals( $comment2->attribute( 'name' ), $commentResult->attribute( 'name' ) );
-        $this->assertEquals( $comment2->attribute( 'notification' ), $commentResult->attribute( 'notification' ) );
         $this->assertSame( true, $result );
         //vertify the notification
         $notifications = ezcomNotification::fetchNotificationList( 1, 1, 0, array( 'id' => 'desc' ) );

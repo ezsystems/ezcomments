@@ -68,7 +68,6 @@ class ezcomCommentTest extends ezpDatabaseTestCase
         $comment->setAttribute( 'email', 'xc@ez.no' );
         $comment->setAttribute( 'url', 'http://ez.no' );
         $comment->setAttribute( 'text', 'ezcomComment object test comment.' );
-        $comment->setAttribute( 'notification', 1 );
         $comment->store();
 
         $this->assertType( 'ezcomComment', $comment );
@@ -83,7 +82,6 @@ class ezcomCommentTest extends ezpDatabaseTestCase
         $this->assertEquals( 'xc@ez.no', $comment->attribute( 'email' ) );
         $this->assertEquals( 'http://ez.no', $comment->attribute( 'url' ) );
         $this->assertEquals( 'ezcomComment object test comment.', $comment->attribute( 'text' ) );
-        $this->assertEquals( 1, $comment->attribute( 'notification' ) );
     }
 
     /**
@@ -126,7 +124,6 @@ class ezcomCommentTest extends ezpDatabaseTestCase
         $comment->setAttribute( 'url', 'http://ez.no' );
         $comment->setAttribute( 'status', 1 );
         $comment->setAttribute( 'text', 'ezcomComment object test comment.' );
-        $comment->setAttribute( 'notification', 0 );
         $comment->store();
         
         // Assert fetchForUser( userid )
