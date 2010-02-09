@@ -30,7 +30,7 @@ require_once( 'kernel/common/template.php' );
 $tpl = templateInit();
 $module = $Params['Module'];
 
-if( $module->isCurrentAction( 'Redirect' ) )
+if ( $module->isCurrentAction( 'Redirect' ) )
 {
     $http = eZHTTPTool::instance();
     $redirectURI = $http->variable( 'RedirectURI' );

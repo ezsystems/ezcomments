@@ -34,18 +34,18 @@ $http = eZHttpTool::instance();
 $Module = $Params['Module'];
 $commentID = $Params['CommentID'];
 // fetch comment object
-if( is_null( $commentID ) || $commentID == '' )
+if ( is_null( $commentID ) || $commentID == '' )
 {
     eZDebug::writeError( 'The parameter comment id is null!', 'ezcomments' );
     return;
 }
-if( !is_numeric( $commentID ) )
+if ( !is_numeric( $commentID ) )
 {
     eZDebug::writeError( 'The parameter comment id is not a number!', 'ezcomments' );
     return;
 }
 $comment = ezcomComment::fetch( $commentID );
-if( is_null( $comment ) )
+if ( is_null( $comment ) )
 {
     eZDebug::writeError( 'The comment doesn\'t exist!', 'ezcomments' );
     return;
@@ -61,7 +61,7 @@ $canEditResult = ezcomPermission::hasAccessToFunction( 'edit', $contentObject, $
 $canEdit = $canEditResult['result'];
 $tpl->setVariable( 'can_edit', $canEdit );
 
-if( !$canEdit )
+if ( !$canEdit )
 {
     $Result['path'] = array( array( 'url' => false,
                                     'text' => ezi18n( 'extension/ezcomments/edit', 'Edit comment' ) ) );
@@ -79,7 +79,7 @@ $notified = ezcomSubscription::exists( $contentID,
 $tpl->setVariable( 'notified', $notified );
 
 
-if( $Module->isCurrentAction( 'UpdateComment' ) )
+if ( $Module->isCurrentAction( 'UpdateComment' ) )
 {
     //1. get the form values
     $title = $http->postVariable( 'CommentTitle' );
@@ -88,9 +88,9 @@ if( $Module->isCurrentAction( 'UpdateComment' ) )
     $email = $http->postVariable( 'CommentEmail' );
     $content = $http->postVariable( 'CommentContent' );
     $clientNotified = false;
-    if( $http->hasPostVariable( 'CommentNotified' ) )
+    if ( $http->hasPostVariable( 'CommentNotified' ) )
     {
-        if( $http->postVariable( 'CommentNotified' ) == 'on' )
+        if ( $http->postVariable( 'CommentNotified' ) == 'on' )
         {
             $clientNotified = true;
         }
@@ -105,7 +105,7 @@ if( $Module->isCurrentAction( 'UpdateComment' ) )
     $commentManager = ezcomCommentManager::instance();
 
     $updateResult = null;
-    if( $clientNotified == $notified )
+    if ( $clientNotified == $notified )
     {
         $updateResult = $commentManager->updateComment( $comment, null, $time );
     }
@@ -113,7 +113,7 @@ if( $Module->isCurrentAction( 'UpdateComment' ) )
     {
         $updateResult = $commentManager->updateComment( $comment, null, $time, $clientNotified );
     }
-    if( $updateResult !== true )
+    if ( $updateResult !== true )
     {
         $tpl->setVariable( 'message', ezi18n( 'extension/ezcomments/edit', 'Updating failed!') . $updateResult );
     }
@@ -126,7 +126,7 @@ if( $Module->isCurrentAction( 'UpdateComment' ) )
     }
     return showComment( $comment, $tpl );
 }
-else if( $Module->isCurrentAction('Cancel') )
+else if ( $Module->isCurrentAction('Cancel') )
 {
      $redirectionURI = $http->postVariable('ezcomments_comment_redirect_uri');
      return $Module->redirectTo( $redirectionURI );

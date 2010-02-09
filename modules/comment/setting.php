@@ -35,14 +35,14 @@ $hashStringLength = $ini->variable( 'NotificationSettings' ,'SubscriberHashStrin
 $hashString = null;
 $page = 1;
 
-if( $user->isAnonymous() )
+if ( $user->isAnonymous() )
 {
     $hashString = trim( $Params[ 'HashString' ] );
-    if( !is_null( $Params['Page'] ) )
+    if ( !is_null( $Params['Page'] ) )
     {
         $page = $Params['Page'];
     }
-    if( is_null( $hashString ) || strlen( $hashString ) != $hashStringLength )
+    if ( is_null( $hashString ) || strlen( $hashString ) != $hashStringLength )
     {
         $Result = array();
         $Result['content'] = $tpl->fetch( 'design:comment/setting.tpl' );
@@ -53,7 +53,7 @@ if( $user->isAnonymous() )
 }
 else
 {
-    if( !is_null( $Params['HashString'] )
+    if ( !is_null( $Params['HashString'] )
          && $Params['HashString'] !='' )
     {
         $page = $Params['HashString'];
@@ -61,14 +61,14 @@ else
 }
 $tpl->setVariable( 'current_page', $page );
 //TODO: validate page
-if( !is_numeric( $page ) )
+if ( !is_numeric( $page ) )
 {
     eZDebug::writeError( 'Page is not numeric!', 'Setting' );
     return;
 }
 
 $subscriber = null;
-if( !$user->isAnonymous() )
+if ( !$user->isAnonymous() )
 {
     $email = $user->attribute( 'email' );
     $subscriber = ezcomSubscriber::fetchByEmail( $email );
@@ -77,7 +77,7 @@ else
 {
     $subscriber = ezcomSubscriber::fetchByHashString( $hashString );
 }
-if( is_null( $subscriber ) )
+if ( is_null( $subscriber ) )
 {
     $Result = array();
     $Result['content'] = $tpl->fetch( 'design:comment/setting.tpl' );
@@ -90,24 +90,24 @@ $tpl->setVariable( 'subscriber',  $subscriber );
 
 $email = $subscriber->attribute( 'email' );
 $module = $Params['Module'];
-if( $module->isCurrentAction( 'Save' ) )
+if ( $module->isCurrentAction( 'Save' ) )
 {
     $subscriberID = $http->postVariable( 'SubscriberID' );
-    if( $http->hasPostVariable( 'CheckboxName' ) )
+    if ( $http->hasPostVariable( 'CheckboxName' ) )
     {
         $checkboxNameList = $http->postVariable( 'CheckboxName' );
         foreach( $checkboxNameList as $checkboxName )
         {
             $subscriptionID = substr( $checkboxName, strlen( 'Checkbox' ) );
             $subscribed = false;
-            if( $http->hasPostVariable( $checkboxName ) )
+            if ( $http->hasPostVariable( $checkboxName ) )
             {
                 $subscribed = true;
             }
             
             $subscription = ezcomSubscription::fetch( $subscriptionID );
             
-            if( !$subscribed )
+            if ( !$subscribed )
             {
                 $subscription->remove();
             }

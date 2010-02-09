@@ -34,13 +34,13 @@ if ( !$isQuiet )
 $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
 $expiryDays = $ezcommentsINI->variable( 'NotificationSettings', 'DaysToCleanupSubscription' );
 $time = -1;
-if( $expiryDays != '-1' )
+if ( $expiryDays != '-1' )
 {
     $time = 60 * 60 * 24 * (float)$expiryDays;
 }
 $result = ezcomSubscriptionManager::cleanupExpiredSubscription( $time );
 
-if( !is_null( $result ) )
+if ( !is_null( $result ) )
 {
     if ( !$isQuiet )
         $cli->output( count($result) . " subscription have been cleaned up!"  );

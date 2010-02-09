@@ -28,15 +28,15 @@
 require_once( 'kernel/common/template.php' );
 $tpl = templateInit();
 $Module = $Params['Module'];
-if( $Module->isCurrentAction( 'DeleteComment' ) )
+if ( $Module->isCurrentAction( 'DeleteComment' ) )
 {
     $http = eZHTTPTool::instance();
     $commentID = null;
-    if( $http->hasPostVariable( 'CommentID' ) )
+    if ( $http->hasPostVariable( 'CommentID' ) )
     {
         $commentID = $http->postVariable( 'CommentID' );
     }
-    if( !is_numeric( $commentID ) )
+    if ( !is_numeric( $commentID ) )
     {
         eZDebug::writeError( 'The parameter CommentID is not a number!', 'ezcomments' );
         return;
@@ -44,7 +44,7 @@ if( $Module->isCurrentAction( 'DeleteComment' ) )
     $tpl = templateInit();
     $comment = ezcomComment::fetch( $commentID );
     $permissionResult = checkPermission( $comment );
-    if( $permissionResult !== true )
+    if ( $permissionResult !== true )
     {
         $tpl->setVariable( 'error_message', $permissionResult );
         return showDeleteForm( $tpl, $commentID );
@@ -54,7 +54,7 @@ if( $Module->isCurrentAction( 'DeleteComment' ) )
         //execute deleting
         $commentManager = ezcomCommentManager::instance();
         $deleteResult = $commentManager->deleteComment( $comment );
-        if( $deleteResult === true )
+        if ( $deleteResult === true )
         {
             //clean up cache
             eZContentCacheManager::clearContentCache( $comment->attribute( 'contentobject_id' ) );
@@ -74,7 +74,7 @@ if( $Module->isCurrentAction( 'DeleteComment' ) )
         }
     }
 }
-else if( $Module->isCurrentAction( 'Cancel' ) )
+else if ( $Module->isCurrentAction( 'Cancel' ) )
 {
      $http = eZHTTPTool::instance();
      $redirectURI = null;
@@ -91,7 +91,7 @@ else
     $commentID = $Params['CommentID'];
     $comment = ezcomComment::fetch( $commentID );
     $permissionResult = checkPermission( $comment );
-    if( $permissionResult !== true )
+    if ( $permissionResult !== true )
     {
         $tpl->setVariable( 'error_message', $permissionResult );
     }
@@ -111,14 +111,14 @@ function checkPermission( $comment )
     $objectAttribute = null;
     foreach( $objectAttributes as $attribute )
     {
-        if( $attribute->attribute( 'data_type_string' ) === 'ezcomcomments' )
+        if ( $attribute->attribute( 'data_type_string' ) === 'ezcomcomments' )
         {
             $objectAttribute = $attribute;
             break;
         }
     }
     $commentContent = $objectAttribute->content();
-    if( !$canDeleteResult['result'] || !$commentContent['show_comments'] )
+    if ( !$canDeleteResult['result'] || !$commentContent['show_comments'] )
     {
         return ezi18n( 'extension/comment/delete', 'You don\'t have '.
                                                     ' the permission to delete comment ' .
@@ -132,12 +132,12 @@ function checkPermission( $comment )
 
 function showDeleteForm( $tpl, $commentID )
 {
-    if( is_null( $commentID ) || $commentID == '' )
+    if ( is_null( $commentID ) || $commentID == '' )
     {
         eZDebug::writeError( 'No comment id', 'Delete comment' );
         return;
     }
-    if( !is_numeric( $commentID ) )
+    if ( !is_numeric( $commentID ) )
     {
         eZDebug::writeError( 'Comment id is not a number!', 'Delete comment' );
         return;
@@ -149,7 +149,7 @@ function showDeleteForm( $tpl, $commentID )
     {
         $redirectURI = $http->sessionVariable( 'LastAccessesURI' );
     }
-    if( is_null( $redirectURI ) )
+    if ( is_null( $redirectURI ) )
     {
         //todo: handle the redirectURI
     }

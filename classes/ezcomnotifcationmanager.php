@@ -59,7 +59,7 @@ abstract class ezcomNotificationManager
      */
     public function sendNotificationInMany( $subscriber, $contentObject, $comment, $tpl = null )
     {
-         if( is_null( $tpl ) )
+         if ( is_null( $tpl ) )
          {
              require_once( 'kernel/common/template.php' );
              $tpl = templateInit();
@@ -84,14 +84,14 @@ abstract class ezcomNotificationManager
      */
     public function sendNotificationInOne( $subscriber, $contentObject, $commentList = null, $tpl = null )
     {
-         if( is_null( $tpl ) )
+         if ( is_null( $tpl ) )
          {
              require_once( 'kernel/common/template.php' );
              $tpl = templateInit();
          }
          $tpl->setVariable( 'subscriber', $subscriber );
          $tpl->setVariable( 'contentobject', $contentObject );
-         if( !is_null( $commentList ) )
+         if ( !is_null( $commentList ) )
          {
             $tpl->setVariable( 'comment_list', $commentList );
          }
@@ -107,12 +107,12 @@ abstract class ezcomNotificationManager
      */
     public static function instance( $className = null )
     {
-        if( is_null( $className ) )
+        if ( is_null( $className ) )
         {
             $ini = eZINI::instance( 'ezcomments.ini' );
             $className = $ini->variable( 'NotificationSettings', 'NotificationManagerClass' );
         }
-        if( !isset( self::$instance ) )
+        if ( !isset( self::$instance ) )
         {
             self::$instance = new $className();
         }
@@ -126,7 +126,7 @@ abstract class ezcomNotificationManager
      */
     public static function create( $className = null )
     {
-        if( is_null( $className ) )
+        if ( is_null( $className ) )
         {
             $ini = eZINI::instance( 'ezcomments.ini' );
             $className = $ini->variable( 'NotificationSettings', 'NotificationManagerClass' );

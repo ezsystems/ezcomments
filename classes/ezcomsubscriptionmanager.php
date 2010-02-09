@@ -54,21 +54,21 @@ class ezcomSubscriptionManager
     {
         // 1. fetch the subscription object
         $subscription = ezcomSubscription::fetchByHashString( $hashString );
-        if( is_null( $subscription ) )
+        if ( is_null( $subscription ) )
         {
             $this->tpl->setVariable( 'error_message', ezi18n( 'extension/ezcomments/activate',
                                       'The is no subscription with the hash string!' ) );
         }
         else
         {
-            if( $subscription->attribute( 'enabled' ) )
+            if ( $subscription->attribute( 'enabled' ) )
             {
                 ezDebugSetting::writeNotice( 'extension-ezcomments', 'Subscription activated', __METHOD__ );
             }
 
             $subscriber = ezcomSubscriber::fetch( $subscription->attribute( 'subscriber_id' ) );
 
-            if( $subscriber->attribute( 'enabled' ) )
+            if ( $subscriber->attribute( 'enabled' ) )
             {
                 $subscription->enable();
                 $this->tpl->setVariable( 'subscriber', $subscriber );
@@ -94,12 +94,12 @@ class ezcomSubscriptionManager
         $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
         $subscriber = ezcomSubscriber::fetchByEmail( $email );
         //if there is no data in subscriber for same email, save it
-        if( is_null( $subscriber ) )
+        if ( is_null( $subscriber ) )
         {
             $subscriber = ezcomSubscriber::create();
             $subscriber->setAttribute( 'user_id', $user->attribute( 'contentobject_id' ) );
             $subscriber->setAttribute( 'email', $email );
-            if( $user->isAnonymous() )
+            if ( $user->isAnonymous() )
             {
                 $util = ezcomUtility::instance();
                 $hashString = $util->generateSusbcriberHashString( $subscriber );
@@ -111,7 +111,7 @@ class ezcomSubscriptionManager
         }
         else
         {
-            if( $subscriber->attribute( 'enabled' ) === 0 )
+            if ( $subscriber->attribute( 'enabled' ) === 0 )
             {
                 $result['warnings'][] = ezi18n( 'comment/view/addcomment', 'The email is disabled,
                              you won\'t receive notification
@@ -124,7 +124,7 @@ class ezcomSubscriptionManager
                                                       $languageID,
                                                       $subscriptionType,
                                                       $email );
-        if( $hasSubscription === false )
+        if ( $hasSubscription === false )
         {
             $subscription = ezcomSubscription::create();
             $subscription->setAttribute( 'user_id', $user->attribute( 'contentobject_id' ) );
@@ -135,7 +135,7 @@ class ezcomSubscriptionManager
             $subscription->setAttribute( 'subscription_time', $currentTime );
             $defaultActivated = $ezcommentsINI->variable( 'CommentSettings', 'SubscriptionActivated' );
 
-            if( $user->isAnonymous() && $defaultActivated !== 'true' && $activate === true )
+            if ( $user->isAnonymous() && $defaultActivated !== 'true' && $activate === true )
             {
                 $subscription->setAttribute( 'enabled', 0 );
                 $utility = ezcomUtility::instance();
@@ -145,7 +145,7 @@ class ezcomSubscriptionManager
                 $result = ezcomSubscriptionManager::sendActivationEmail( eZContentObject::fetch( $contentID ),
                                                                          $subscriber,
                                                                          $subscription );
-                if( !$result )
+                if ( !$result )
                 {
                     eZDebug::writeError( "Error sending mail to '$email'", __METHOD__ );
                 }
@@ -200,7 +200,7 @@ class ezcomSubscriptionManager
         $db = eZDB::instance();
         $selectSql = "SELECT id FROM ezcomment_subscription WHERE subscription_time < $startTime AND enabled = 0";
         $result = $db->arrayQuery( $selectSql );
-        if( is_array( $result ) && count( $result ) > 0 )
+        if ( is_array( $result ) && count( $result ) > 0 )
         {
             //2. clean up the subscription
             $deleteSql = "DELETE FROM ezcomment_subscription WHERE subscription_time < $startTime AND enabled = 0";
@@ -239,13 +239,13 @@ class ezcomSubscriptionManager
     public static function instance( $tpl = null, $module = null, $params = null, $className = null )
     {
         $object = null;
-        if( is_null( $className ) )
+        if ( is_null( $className ) )
         {
             $ini = eZINI::instance( 'ezcomments.ini' );
             $className = $ini->variable( 'ManagerClasses', 'SubscriberManagerClass' );
         }
 
-        if( !is_null( self::$instance ) )
+        if ( !is_null( self::$instance ) )
         {
             $object = self::$instance;
         }

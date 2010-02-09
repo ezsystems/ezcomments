@@ -129,11 +129,11 @@ class ezcomSubscription extends eZPersistentObject
     {
         $cond = array();
         $cond['subscriber_id'] = $subscriberID;
-        if( $enabled !== false )
+        if ( $enabled !== false )
         {
             $cond['enabled'] = $enabled;
         }
-        if( $languageID !== false )
+        if ( $languageID !== false )
         {
             $cond['language_id'] = $languageID;
         }
@@ -165,11 +165,11 @@ class ezcomSubscription extends eZPersistentObject
     {
         $cond = array();
         $cond['subscriber_id'] = $subscriberID;
-        if( $enabled !== false )
+        if ( $enabled !== false )
         {
             $cond['enabled'] = $enabled;
         }
-        if( $languageID !== false )
+        if ( $languageID !== false )
         {
             $cond['language_id'] = $languageID;
         }
@@ -184,7 +184,7 @@ class ezcomSubscription extends eZPersistentObject
      */
     public function enable()
     {
-        if( $this->attribute( 'enabled' ) )
+        if ( $this->attribute( 'enabled' ) )
         {
             return false;
         }
@@ -221,7 +221,7 @@ class ezcomSubscription extends eZPersistentObject
     {
         //2. get subscriber
         $subscriber = ezcomSubscriber::fetchByEmail( $email );
-        if( is_null( $subscriber ) )
+        if ( is_null( $subscriber ) )
         {
             return false;
         }
@@ -249,13 +249,13 @@ class ezcomSubscription extends eZPersistentObject
     {
       
         $emailString = '';
-        if( !is_null($email) )
+        if ( !is_null($email) )
         {
             $emailString = " WHERE email = '$email'";
         }
         $countArray = null;
         $db = eZDB::instance();
-        if( $enabled === false )
+        if ( $enabled === false )
         {
             $countArray = $db->arrayQuery( "SELECT count(*) AS count" .
                                        " FROM ezcomment_subscription" .
@@ -268,10 +268,10 @@ class ezcomSubscription extends eZPersistentObject
                                        "$emailString )");
         }
         else
-        if( $enabled === 1 || $enabled === 0 )
+        if ( $enabled === 1 || $enabled === 0 )
         {
           $enabledString = "enabled = $enabled";
-          if( $emailString != '' )
+          if ( $emailString != '' )
           {
               $enabledString = " AND " . $enabledString;
           }
@@ -295,7 +295,7 @@ class ezcomSubscription extends eZPersistentObject
             return null;
         }
         $totalCount = $countArray[0]['count'];
-        if( $totalCount === '0' )
+        if ( $totalCount === '0' )
         {
             return false;
         }

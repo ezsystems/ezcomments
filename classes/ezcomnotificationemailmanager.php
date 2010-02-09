@@ -58,7 +58,7 @@ class ezcomNotificationEmailManager extends ezcomNotificationManager
         $parameters['from'] = $this->emailFrom;
         $transport = eZNotificationTransport::instance( 'ezmail' );
         $result = $transport->send( array( $email ), $subject, $body, null, $parameters );
-        if( $result === false )
+        if ( $result === false )
         {
             throw new Exception( 'Send email error! Subscriber id:' .$subscriber->attribute( 'id' ) );
         }

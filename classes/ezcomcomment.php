@@ -185,12 +185,12 @@ class ezcomComment extends eZPersistentObject
         {
             $cond['notification'] = $notification;
         }
-        if( $status !== false )
+        if ( $status !== false )
         {
             $cond['status'] = $status;
         }
         $limit = null;
-        if( !is_null( $offset ) )
+        if ( !is_null( $offset ) )
         {
            $limit = array();
            $limit = array( 'offset' => $offset, 'length' => $length );
@@ -213,7 +213,7 @@ class ezcomComment extends eZPersistentObject
         $cond = array();
         $cond['contentobject_id'] = $contentObjectID;
         $cond['language_id'] = $languageID;
-        if( is_null( $offset ) || is_null( $length ) )
+        if ( is_null( $offset ) || is_null( $length ) )
         {
             return null;
         }
@@ -236,11 +236,11 @@ class ezcomComment extends eZPersistentObject
     {
         $cond = array();
         $cond['contentobject_id'] = $contentObjectID;
-        if( $languageID !== false )
+        if ( $languageID !== false )
         {
             $cond['language_id'] = $languageID;
         }
-        if( !is_null( $status ) )
+        if ( !is_null( $status ) )
         {
             $cond['status'] = $status;
         }
@@ -256,7 +256,7 @@ class ezcomComment extends eZPersistentObject
     static function countContentObjectByEmail( $email, $status = false )
     {
         $statusString = "";
-        if( $status !== false )
+        if ( $status !== false )
         {
             $statusString = " AND status = $status";
         }

@@ -34,7 +34,7 @@ require_once( 'kernel/common/template.php' );
 $http = eZHTTPTool::instance();
 
 // fetch the content object
-if( !is_numeric( $Params['ContentObjectID'] ) )
+if ( !is_numeric( $Params['ContentObjectID'] ) )
 {
     eZDebug::writeError( 'The parameter ContentObjectID is not a number!', 'ezcomments' );
     return;
@@ -53,7 +53,7 @@ $objectAttributes = $contentObject->fetchDataMap( false, $languageCode );
 $objectAttribute = null;
 foreach( $objectAttributes as $attribute )
 {
-    if( $attribute->attribute( 'data_type_string' ) === 'ezcomcomments' )
+    if ( $attribute->attribute( 'data_type_string' ) === 'ezcomcomments' )
     {
         $objectAttribute = $attribute;
         break;
@@ -61,7 +61,7 @@ foreach( $objectAttributes as $attribute )
 }
 
 // if there is no ezcomcomments attribute inside the content, return
-if( is_null( $objectAttribute ) )
+if ( is_null( $objectAttribute ) )
 {
     eZDebug::writeError( 'The object doesn\'t have a ezcomcomments attribute!', 'ezcomments' );
     return;
@@ -87,9 +87,9 @@ $userID = $user->attribute( 'contentobject_id' );
 $Module = $Params['Module'];
 
 $Page = null;
-if( !is_null( $Params['Page'] ) )
+if ( !is_null( $Params['Page'] ) )
 {
- if( !is_numeric( $Params['Page'] ) )
+ if ( !is_numeric( $Params['Page'] ) )
  {
      eZDebug::writeError( 'The parameter for page is not a number!', 'ezcomments' );
      return;
@@ -113,7 +113,7 @@ $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
 $defaultNumPerPage = $ezcommentsINI->variable( 'CommentSettings', 'NumberPerPage' );
 $offset =  ( $Page - 1 ) * $defaultNumPerPage;
 
-if( $offset > $count || $offset < 0 )
+if ( $offset > $count || $offset < 0 )
 {
  eZDebug::writeError( 'Offset overflowed!', 'ezcomments' );
  return;

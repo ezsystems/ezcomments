@@ -120,7 +120,7 @@ class ezcomNotification extends eZPersistentObject
     static function fetchNotificationList( $status = 1, $length = null, $offset = 0, $sorts = null )
     {
         $cond = array();
-        if( is_null( $status ) )
+        if ( is_null( $status ) )
         {
             $cond = null;
         }
@@ -129,7 +129,7 @@ class ezcomNotification extends eZPersistentObject
         $cond['status'] = $status;
         }
         $limit = array();
-        if( is_null( $length ) )
+        if ( is_null( $length ) )
         {
             $limit = null;
         }

@@ -68,7 +68,7 @@ foreach( $contentObjectIDList as $contentObjectArray )
                                       'WHERE contentobject_id = ' . $contentObjectID );
     // fetch content object
     $contentObject = eZContentObject::fetch( $contentObjectID, true );
-    if( is_null( $contentObject ) )
+    if ( is_null( $contentObject ) )
     {
         $cli->output( "Content doesn't exist, delete the notification. Content ID:" . $contentObjectID );
         $db->query( 'DELETE FROM ezcomment_notification WHERE contentobject_id=' . $contentObjectID );
@@ -93,7 +93,7 @@ foreach( $contentObjectIDList as $contentObjectArray )
     {
          // fetch comment object
          $comment = ezcomComment::fetch( $notification['comment_id'] );
-         if( is_null( $comment ) )
+         if ( is_null( $comment ) )
          {
              $cli->output( "Comment doesn't exist, delete the notification. Comment ID:" . $notification['comment_id'] );
              $db->query( 'DELETE FROM ezcomment_notification WHERE id=' . $notification['id'] );
@@ -107,11 +107,11 @@ foreach( $contentObjectIDList as $contentObjectArray )
         $commentsInOne = $ezcommentsINI->variable( 'NotificationSettings', 'CommentsInOne' );
         foreach( $subscriberList as $subscriber )
         {
-            if( $commentsInOne !== 'true' )
+            if ( $commentsInOne !== 'true' )
             {
                 foreach( $commentList as $comment )
                 {
-                    if( $comment->attribute('email') != $subscriber->attribute( 'email' ) )
+                    if ( $comment->attribute('email') != $subscriber->attribute( 'email' ) )
                     {
                         $notificationManager->sendNotificationInMany( $subscriber, $contentObject, $comment );
                     }
@@ -123,15 +123,15 @@ foreach( $contentObjectIDList as $contentObjectArray )
                 $isAuthor = false;
                 foreach( $commentList as $comment )
                 {
-                    if( $comment->attribute('email') == $subscriber->attribute( 'email' ) )
+                    if ( $comment->attribute('email') == $subscriber->attribute( 'email' ) )
                     {
                         $isAuthor = true;
                     }
                 }
-                if( !$isAuthor )
+                if ( !$isAuthor )
                 {
                     $notificationManager->sendNotificationInOne( $subscriber, $contentObject );
-//                    if( eZDebug::isDebugEnabled() )
+//                    if ( eZDebug::isDebugEnabled() )
 //                    {
 //                        eZLog::write( 'Sent email to ' . $subscriber->attribute( 'email' ),
 //                                      'ezcomments.log' );

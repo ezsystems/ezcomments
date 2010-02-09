@@ -81,19 +81,19 @@ class ezcomCookieManager
     public function fetchCookie()
     {
         $result = array();
-        if( array_key_exists( $this->nameName, $_COOKIE ) )
+        if ( array_key_exists( $this->nameName, $_COOKIE ) )
         {
             $result['name'] = $_COOKIE[$this->nameName];
         }
-        if( array_key_exists( $this->websiteName, $_COOKIE ) )
+        if ( array_key_exists( $this->websiteName, $_COOKIE ) )
         {
             $result['website'] = $_COOKIE[$this->websiteName];
         }
-        if( array_key_exists( $this->emailName, $_COOKIE ) )
+        if ( array_key_exists( $this->emailName, $_COOKIE ) )
         {
             $result['email'] = $_COOKIE[$this->emailName];
         }
-        if( array_key_exists( $this->notificationName, $_COOKIE ) )
+        if ( array_key_exists( $this->notificationName, $_COOKIE ) )
         {
             $result['notified'] = $_COOKIE[$this->notificationName];
         }

@@ -70,11 +70,11 @@ class ezcomCommentsType extends eZDataType
         $shownName = $base . '_ezcomcomments_shown_' . $contentObjectAttribute->attribute( 'id' );
         $enabledValue = 0;
         $shownValue = -1;
-        if( $http->hasPostVariable( $enabledName ) )
+        if ( $http->hasPostVariable( $enabledName ) )
         {
             $enabledValue = 1;
         }
-        if( $http->hasPostVariable( $shownName ) )
+        if ( $http->hasPostVariable( $shownName ) )
         {
             $shownValue = 1;
         }

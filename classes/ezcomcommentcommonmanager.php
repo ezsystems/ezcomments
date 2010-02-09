@@ -57,7 +57,7 @@ class ezcomCommentCommonManager extends ezcomCommentManager
 
         $subscription = ezcomSubscriptionManager::instance();
         $user = eZUser::instance();
-        if( $notification === true )
+        if ( $notification === true )
         {
             $subscription->addSubscription( $comment->attribute('email'),
                                             $user,
@@ -80,7 +80,7 @@ class ezcomCommentCommonManager extends ezcomCommentManager
 
         // insert data into notification queue
         // if there is no subscription,not adding to notification queue
-        if( ezcomSubscription::exists( $contentID, $languageID, $subscriptionType, null, 1 ) )
+        if ( ezcomSubscription::exists( $contentID, $languageID, $subscriptionType, null, 1 ) )
         {
             $notification = ezcomNotification::create();
             $notification->setAttribute( 'contentobject_id', $comment->attribute('contentobject_id') );
@@ -112,10 +112,10 @@ class ezcomCommentCommonManager extends ezcomCommentManager
         $contentID = $comment->attribute( 'contentobject_id' );
         $languageID = $comment->attribute( 'language_id' );
         $subscriptionType = 'ezcomcomment';
-        if( !is_null( $notified ) )
+        if ( !is_null( $notified ) )
         {
             $subscriptionManager = ezcomSubscriptionManager::instance();
-            if( $notified === true )
+            if ( $notified === true )
             {
                 //add subscription but not send activation
                 $subscriptionManager->addSubscription( $comment->attribute( 'email' ),
@@ -135,7 +135,7 @@ class ezcomCommentCommonManager extends ezcomCommentManager
         }
         //3. update queue. If there is subscription, add one record into queue table
         // if there is subcription on this content, add one item into queue
-        if( ezcomSubscription::exists( $contentID, $languageID,  $subscriptionType ) )
+        if ( ezcomSubscription::exists( $contentID, $languageID,  $subscriptionType ) )
         {
             $notification = ezcomNotification::create();
             $notification->setAttribute( 'contentobject_id', $comment->attribute( 'contentobject_id' ) );
@@ -159,26 +159,26 @@ class ezcomCommentCommonManager extends ezcomCommentManager
      */
     public function validateInput( $comment )
     {
-        if( is_null( $comment ) )
+        if ( is_null( $comment ) )
         {
             return ezi18n( 'comment/view/validateInput', 'Parameter is empty!' );
         }
-        if( $comment->attribute( 'name' ) == '' )
+        if ( $comment->attribute( 'name' ) == '' )
         {
             return ezi18n( 'comment/view/validateInput', 'Name is empty!' );
         }
-        if( $comment->attribute( 'email' ) == '' )
+        if ( $comment->attribute( 'email' ) == '' )
         {
             return ezi18n( 'comment/view/validateInput', 'Email is empty!' );
         }
         else
         {
-            if( eZMail::validate( $comment->attribute( 'email' ) ) == false )
+            if ( eZMail::validate( $comment->attribute( 'email' ) ) == false )
             {
                 return ezi18n( 'comment/view/validateInput', 'Not a valid email address!' );
             }
         }
-        if( $comment->attribute( 'text' ) == '' )
+        if ( $comment->attribute( 'text' ) == '' )
         {
             return ezi18n( 'comment/view/validateInput', 'Content is empty!' );
         }

@@ -12,7 +12,7 @@ class ezcomPostHelper
     public static function checkContentRequirements( $module, $http )
     {
         // Check that the object params are 'ok'
-        if( !$http->hasPostVariable( 'ContentObjectID' ) )
+        if ( !$http->hasPostVariable( 'ContentObjectID' ) )
         {
             eZDebug::writeError( 'No content object id is provided', 'ezcomments' );
             return $module->handleError( eZError::KERNEL_NOT_AVAILABLE, 'kernel' );
@@ -48,7 +48,7 @@ class ezcomPostHelper
         $foundCommentAttribute = false;
         foreach( $dataMap as $attr )
         {
-            if( $attr->attribute( 'data_type_string' ) === 'ezcomcomments' )
+            if ( $attr->attribute( 'data_type_string' ) === 'ezcomcomments' )
             {
                 $foundCommentAttribute = $attr;
                 break;
@@ -56,7 +56,7 @@ class ezcomPostHelper
         }
 
         // if there is no ezcomcomments attribute inside the content, return
-        if( !$foundCommentAttribute )
+        if ( !$foundCommentAttribute )
         {
             eZDebug::writeError( "Content object with id [$contentObjectId], does not contain an ezcomments attribute.", 'ezcomments' );
             return $module->handleError( eZError::KERNEL_NOT_AVAILABLE, 'kernel' );

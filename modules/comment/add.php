@@ -41,12 +41,12 @@ $Result['path'] = array( array( 'url' => false,
                                 'text' => ezi18n( 'ezcomments/add', 'Add comment' ) ) );
 $Result['content'] ='';
 
-if( $http->hasVariable( 'RedirectURI' ) )
+if ( $http->hasVariable( 'RedirectURI' ) )
 {
     $redirectURI = $http->variable( 'RedirectURI' );
 }
 
-if( $http->hasVariable( 'BackButton' ) &&
+if ( $http->hasVariable( 'BackButton' ) &&
     $http->variable( 'BackButton') == 'Back')
 {
      return $module->redirectTo( $redirectURI );
@@ -59,7 +59,7 @@ if ( $module->isCurrentAction( 'AddComment' ) )
 
     // Check to see if commenting is turned on, on the object level
     $commentContent = ezcomPostHelper::checkCommentPermission( $contentObject, $languageCode, $foundCommentAttribute );
-    if( !$commentContent['show_comments'] || !$commentContent['enable_comment'] )
+    if ( !$commentContent['show_comments'] || !$commentContent['enable_comment'] )
     {
         $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/add', 'Commenting has been turned off for this content.'  ) );
         $Result['content'] = $tpl->fetch( 'design:comment/add.tpl' );
@@ -100,7 +100,7 @@ if ( $module->isCurrentAction( 'AddComment' ) )
                                                             'ezcomcomment',
                                                             $email );
 
-         if( $http->hasPostVariable( 'CommentNotified' ) &&
+         if ( $http->hasPostVariable( 'CommentNotified' ) &&
              $http->postVariable( 'CommentNotified' ) == 'on' )
          {
              $notification = true;
@@ -133,13 +133,13 @@ if ( $module->isCurrentAction( 'AddComment' ) )
              $addingResult = $commentManager->addComment( $comment, $user, null, $notification );
          }
 
-         if( $addingResult === true )
+         if ( $addingResult === true )
          {
              //remember cookies
-             if( $user->isAnonymous() )
+             if ( $user->isAnonymous() )
              {
                  $cookieManager = ezcomCookieManager::instance();
-                 if( $http->hasPostVariable( 'CommentRememberme') &&
+                 if ( $http->hasPostVariable( 'CommentRememberme') &&
                      $http->postVariable( 'CommentRememberme' ) == 'on' )
                  {
                      $cookieManager->storeCookie( $comment );

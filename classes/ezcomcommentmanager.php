@@ -123,7 +123,7 @@ abstract class ezcomCommentManager
     public function addComment( $comment, $user, $time = null, $notification = null )
     {
         $validationResult = $this->validateInput( $comment );
-        if( $validationResult !== true )
+        if ( $validationResult !== true )
         {
             return $validationResult;
         }
@@ -134,7 +134,7 @@ abstract class ezcomCommentManager
         }
 
         $beforeAddingResult = $this->beforeAddingComment( $comment, $user, $notification );
-        if(  $beforeAddingResult !== true )
+        if (  $beforeAddingResult !== true )
         {
             return $beforeAddingResult;
         }
@@ -157,7 +157,7 @@ abstract class ezcomCommentManager
     public function updateComment( $comment, $user=null, $time = null , $notified = null )
     {
         $validationResult = $this->validateInput( $comment );
-        if( $validationResult !== true )
+        if ( $validationResult !== true )
         {
             return $validationResult;
         }
@@ -168,14 +168,14 @@ abstract class ezcomCommentManager
         }
 
         $beforeUpdating = $this->beforeUpdatingComment( $comment, $notified, $time );
-        if( $beforeUpdating !== true )
+        if ( $beforeUpdating !== true )
         {
             return $beforeUpdating;
         }
         $comment->store();
 
         $afterUpdating = $this->afterUpdatingComment( $comment, $notified, $time );
-        if( $afterUpdating !== true )
+        if ( $afterUpdating !== true )
         {
             return $afterUpdating;
         }
@@ -201,7 +201,7 @@ abstract class ezcomCommentManager
      */
     public static function instance()
     {
-        if( !isset( self::$instance ) )
+        if ( !isset( self::$instance ) )
         {
             $ini = eZINI::instance( 'ezcomments.ini' );
             $className = $ini->variable( 'ManagerClasses', 'CommentManagerClass' );

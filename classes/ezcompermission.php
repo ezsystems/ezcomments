@@ -50,7 +50,7 @@ class ezcomPermission
     {
         $result = $user->hasAccessTo( self::$moduleName, $functionName );
 
-        if( $result['accessWord'] !== 'limited' )
+        if ( $result['accessWord'] !== 'limited' )
         {
             $return = ( $result['accessWord'] === 'yes' ) and ( $scope !== 'personal' );
         }
@@ -109,7 +109,7 @@ class ezcomPermission
                 if ( $scope == 'role' )
                     return false;
 
-                if( $user->isAnonymous() )
+                if ( $user->isAnonymous() )
                 {
                     return false;
                 }
@@ -160,7 +160,7 @@ class ezcomPermission
             $policies = $user->hasAccessTo( self::$moduleName, $functionName );
 
             // unlimited policy, not personal
-            if( $policies['accessWord'] !== 'limited' )
+            if ( $policies['accessWord'] !== 'limited' )
             {
                 $return[$functionName] = false;
             }
@@ -210,7 +210,7 @@ class ezcomPermission
 
     public static function instance()
     {
-        if( is_null( self::$instance ) )
+        if ( is_null( self::$instance ) )
         {
             $ini = eZINI::instance( 'ezcomments.ini' );
             $className = $ini->variable( 'ManagerClasses', 'PermissionClass' );
