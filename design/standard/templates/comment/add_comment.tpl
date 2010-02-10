@@ -76,7 +76,7 @@
         {if $showEmail}
         <div class="ezcom-field ezcom-field-email">
             <label>
-                {'Email:'|i18n( 'ezcomments/add' )}{if $emailRequired}{$fieldRequiredText}{/if}&nbsp;<span class="ezcom-field-emailmessage">{'(the email address will not be shown)'|i18n( 'ezcomments/add' )}</span>
+                {'Email:'|i18n( 'ezcomments/add' )}{if $emailRequired}{$fieldRequiredText}{/if}&nbsp;<span class="ezcom-field-emailmessage">{'(The email address will not be shown)'|i18n( 'ezcomments/add' )}</span>
             </label>
             {if $is_anonymous|not}
                 <input type="text" maxlength="100" class="box" id="ezcomments_comment_view_addcomment_email" disabled="true" value="{$comment_email}" />

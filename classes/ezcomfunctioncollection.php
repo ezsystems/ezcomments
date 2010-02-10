@@ -11,10 +11,10 @@
 class ezcomFunctionCollection
 {
 
-    public static function fetchCommentList( $contentObjectID, $languageID, $sortField, $sortOrder, $length )
+    public static function fetchCommentList( $contentObjectID, $languageID, $sortField, $sortOrder, $offset, $length )
     {
         $sort = array( $sortField=>$sortOrder );
-        $result = ezcomComment::fetchByContentObjectID( $contentObjectID, $languageID, $sort, 0, $length );
+        $result = ezcomComment::fetchByContentObjectID( $contentObjectID, $languageID, $sort, $offset, $length );
         return array( 'result' => $result );
     }
 

@@ -39,7 +39,7 @@ if ( $Module->isCurrentAction( 'DeleteComment' ) )
         if ( $deleteResult === true )
         {
             //clean up cache
-            eZContentCacheManager::clearContentCache( $comment->attribute( 'contentobject_id' ) );
+            eZContentCacheManager::clearContentCacheIfNeeded( $comment->attribute( 'contentobject_id' ) );
 
             $redirectURI = null;
             if ( $http->hasPostVariable( "RedirectURI" ) )

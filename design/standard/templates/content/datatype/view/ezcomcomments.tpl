@@ -26,7 +26,14 @@
         {def $total_count=fetch( 'comment', 'comment_count', hash( 'contentobject_id', $contentobject.id, 'language_id', $language_id ) )}
         
         {* Fetch comments *}
-        {def $comments=fetch( 'comment', 'comment_list', hash( 'contentobject_id', $contentobject.id, 'language_id', $language_id, 'sort_field', $sort_field, 'sort_order', $sort_order, 'length' ,$default_shown_length ) )}
+        {def $comments=fetch( 'comment',
+                              'comment_list',
+                              hash( 'contentobject_id', $contentobject.id, 
+                                    'language_id', $language_id, 
+                                    'sort_field', $sort_field, 
+                                    'sort_order', $sort_order, 
+                                    'offset', 0, 
+                                    'length' ,$default_shown_length ) )}
         
         {* Find out if the currently used role has a user based edit/delete policy *}
         {def $self_policy=fetch( 'comment', 'self_policies', hash( 'contentobject', $contentobject, 'node', $attribute_node ) )}
@@ -60,7 +67,7 @@
         {/if}
         {* Comment item END *}
         
-        {undef $comments $total_count $default_shown_length $sort_order $sort_field}
+        {undef $comments $total_count $default_shown_length $sort_order $sort_field }
     {else}
         <div class="message-error">
             <p>

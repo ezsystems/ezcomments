@@ -2,54 +2,96 @@
 {if $objectattribute.content.show_comments}
     {ezcss_require( 'comment.css' )}
     <div class="content-view-full ezcom-full">
+    {if is_set( $error_message )}
+        <div class="message-error">
+            <p>
+                {$error_message}
+            </p>
+        </div>
+    {else}
         {include contentobject=$contentobject uri="design:comment/view_content.tpl"}
         {if $can_read}
-            {include contentobject=$contentobject
-                     language_id=$language_id
-                     total_count=$total_count
-                     total_page=$total_page
-                     current_page=$current_page
-                     uri="design:comment/view/page.tpl"}
-            
-         {* Find out if the currently used role has a user based edit/delete policy *}
-         {def $self_policy=fetch( 'comment', 'self_policies', hash( 'contentobject', $contentobject, 'node', $node ) )}
-                     
-            {if $comments|count|gt( 0 )}
-                <div class="ezcom-view-list">
-                    {for 0 to $comments|count|sub( 1 ) as $index}
-                        {include comment=$comments.$index
-                                 index=$index base_index=$current_page|sub( 1 )|mul( $number_per_page )
-                                 contentobject=$contentobject
-                                 language_code=$language_code
-                                 can_self_edit=$self_policy.edit
-                                 can_self_delete=$self_policy.delete
-                                 uri="design:comment/view/comment_item.tpl"}
-                    {/for}
-                </div>
-            {else}
-                <div class="message-feedback">
-                    <p>
-                        {'There is no comment!'|i18n( 'extension/ezcomments/view' )}
-                    </p>
-                </div>
-            {/if}
+            {def $current_user=fetch( 'user', 'current_user' )}
+            {cache-block keys=array( $uri_string, 
+                                     $current_user.role_id_list|implode( ',' ), 
+                                     $current_user.limited_assignment_value_list|implode( ',' ) )}
+                {def $total_count=fetch( 'comment', 'comment_count', 
+                                         hash( 'contentobject_id', $contentobject.id,
+                                               'language_id', $language_id ) )}
+                {def $total_page=$total_count|div($number_per_page)|ceil}
+                {if $current_page|gt( $total_page )}
+                    <div class="message-error">
+                        <p>
+                            {'Page number overflows'|i18n}
+                        </p>
+                    </div>
+                {else}
+                    {* Comment page START *}
+                    {include contentobject=$contentobject
+                             language_id=$language_id
+                             total_count=$total_count
+                             total_page=$total_page
+                             current_page=$current_page
+                             uri="design:comment/view/page.tpl"}
+                    {* Comment page END *}
+                    {* Comment list START *}   
+                    {* Find out if the currently used role has a user based edit/delete policy *}
+                    {def $self_policy=fetch( 'comment', 'self_policies', hash( 'contentobject', $contentobject, 'node', $node ) )}
+                    {def $comments=fetch( 'comment', 
+                                          'comment_list', 
+                                          hash( 'contentobject_id', $contentobject.id, 
+                                                'language_id',$language_id, 
+                                                'sort_field', $sort_field, 
+                                                'sort_order', $sort_order, 
+                                                'offset', $offset, 
+                                                'length', $length ) )}
+                    {if $comments|count|gt( 0 )}
+                        <div class="ezcom-view-list">
+                            {for 0 to $comments|count|sub( 1 ) as $index}
+                                {include comment=$comments.$index
+                                         index=$index
+                                         base_index=$current_page|sub( 1 )|mul( $number_per_page )
+                                         contentobject=$contentobject
+                                         language_code=$language_code
+                                         can_self_edit=$self_policy.edit
+                                         can_self_delete=$self_policy.delete
+                                         uri="design:comment/view/comment_item.tpl"}
+                            {/for}
+                        </div>
+                    {else}
+                        <div class="message-feedback">
+                            <p>
+                                {'There is no comment.'|i18n( 'extension/ezcomments/view' )}
+                            </p>
+                        </div>
+                    {/if}
+                    {* Comment list END *}
+                    {undef $comments $total_count $total_page}
+                {/if}
+            {/cache-block}
         {else}
             <div class="message-feedback">
                     <p>
-                        {'You don\'t have access to view comment here!'|i18n( 'extension/ezcomments/view' )}
+                        {'You don\'t have access to view comment.'|i18n( 'extension/ezcomments/view' )}
                     </p>
             </div>
         {/if}
+        {* Add comment form START *}
         {if $objectattribute.content.enable_comment}
             {if $can_add}
-                {include uri="design:comment/add_comment.tpl" redirect_uri=concat( 'comment/view/', $contentobject.id ) contentobject_id=$contentobject.id language_id=$language_id}
+                {include uri="design:comment/add_comment.tpl" 
+                         redirect_uri=concat( 'comment/view/', $contentobject.id ) 
+                         contentobject_id=$contentobject.id 
+                         language_id=$language_id}
             {else}
                     <div class="message-feedback">
-                            <p>
-                                {'You don\'t have access to post comment here!'|i18n( 'extension/ezcomments/view' )}
-                            </p>
+                        <p>
+                            {'You don\'t have access to post comment.'|i18n( 'extension/ezcomments/view' )}
+                        </p>
                     </div>
             {/if}
         {/if}
-     </div>
+        {* Add comment form END *}
+    {/if}
+  </div>
 {/if}

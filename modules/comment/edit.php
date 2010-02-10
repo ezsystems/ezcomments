@@ -18,18 +18,18 @@ $commentID = $Params['CommentID'];
 // fetch comment object
 if ( is_null( $commentID ) || $commentID == '' )
 {
-    eZDebug::writeError( 'The parameter comment id is null!', 'ezcomments' );
+    eZDebug::writeError( 'The parameter comment id is null.', 'ezcomments' );
     return;
 }
 if ( !is_numeric( $commentID ) )
 {
-    eZDebug::writeError( 'The parameter comment id is not a number!', 'ezcomments' );
+    eZDebug::writeError( 'The parameter comment id is not a number.', 'ezcomments' );
     return;
 }
 $comment = ezcomComment::fetch( $commentID );
 if ( is_null( $comment ) )
 {
-    eZDebug::writeError( 'The comment doesn\'t exist!', 'ezcomments' );
+    eZDebug::writeError( 'The comment doesn\'t exist.', 'ezcomments' );
     return;
 }
 
@@ -96,12 +96,12 @@ if ( $Module->isCurrentAction( 'UpdateComment' ) )
     }
     if ( $updateResult !== true )
     {
-        $tpl->setVariable( 'message', ezi18n( 'extension/ezcomments/edit', 'Updating failed!') . $updateResult );
+        $tpl->setVariable( 'message', ezi18n( 'extension/ezcomments/edit', 'Updating failed.') . $updateResult );
     }
     else
     {
         //clean up cache
-        eZContentCacheManager::clearContentCache( $contentObject->attribute( 'id' ) );
+        eZContentCacheManager::clearContentCacheIfNeeded( $contentObject->attribute( 'id' ) );
         $redirectionURI = $http->postVariable('ezcomments_comment_redirect_uri');
         return $Module->redirectTo( $redirectionURI );
     }

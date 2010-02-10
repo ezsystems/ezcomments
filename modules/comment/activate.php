@@ -19,7 +19,6 @@ if ( $module->isCurrentAction( 'Redirect' ) )
 }
 else
 {
-
     $hashString = trim( $Params['HashString'] );
     $subscriptionManager =  new ezcomSubscriptionManager( $tpl, $Params, $module );
     $subscriptionManager->activateSubscription( $hashString );

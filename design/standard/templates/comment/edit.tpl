@@ -1,10 +1,9 @@
 {ezcss_require( 'comment.css' )}
 {if $can_edit}
-    {if is_set($message)}
+    {if is_set( $message )}
         <div class="message-error">
         <p>
                 {$message}
-            
         </p>
         </div>
     {/if}
@@ -84,7 +83,7 @@
 {else}
     <div class="message-error">
         <p>
-            {'You don\'t have access to edit here!'|i18n( 'extension/ezcomments/edit' )}
+            {'You don\'t have access to edit.'|i18n( 'extension/ezcomments/edit' )}
         </p>
     </div>
 {/if}

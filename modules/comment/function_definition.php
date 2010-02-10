@@ -27,6 +27,11 @@ $FunctionList['comment_list'] = array( 'name' => 'comment_list',
                                                   'required' => true,
                                                   'default'  => ''
                                                  ),
+                                                 array( 'name'=> 'offset',
+                                                      'type'=> 'integer',
+                                                      'required' => true,
+                                                      'default'  => 0
+                                                  ),
                                                  array( 'name'=> 'length',
                                                       'type'=> 'integer',
                                                       'required' => true,
