@@ -22,7 +22,7 @@
                 {if $current_page|gt( $total_page )}
                     <div class="message-error">
                         <p>
-                            {'Page number overflows'|i18n}
+                            {'Overflowed page number.'|i18n}
                         </p>
                     </div>
                 {else}

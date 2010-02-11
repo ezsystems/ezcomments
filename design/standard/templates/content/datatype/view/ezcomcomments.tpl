@@ -71,7 +71,7 @@
     {else}
         <div class="message-error">
             <p>
-                    {'You don\'t have access to view comment here!'|i18n( 'extension/ezcomments/view' )}
+                    {'You don\'t have access to view comment.'|i18n( 'extension/ezcomments/view' )}
             </p>
         </div>
     {/if}
@@ -90,7 +90,7 @@
         {else}
             <div class="message-error">
                     <p>
-                        {'You don\'t have access to post comment here!'|i18n( 'extension/ezcomments/view' )}
+                        {'You don\'t have access to post comment.'|i18n( 'extension/ezcomments/view' )}
                     </p>
             </div>
         {/if}
