@@ -5,4 +5,4 @@ eZ Comments change log
  - Added cache support in comment/view 
  - Removed 'notification' field in ezcomComment persistent object and database
  - Changed the license header in code
- - Fixed bug: if the subscriber is disabled in database, the user can still subscribe comment.
+ - Fixed bug: if a subscriber is disabled in database, he can still subscribe comment.

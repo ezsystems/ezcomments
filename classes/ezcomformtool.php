@@ -33,6 +33,41 @@ class ezcomFormTool
         $this->fields = $fieldSetting;
     }
 
+    /**
+     * If the variable is required in current operation. This is different from required in field. 
+     * Sometimes the field variable is not required for instace, user's email in edit operation.
+     * The system first check this method and then the default setting.
+     * @param field identifier
+     * @return boolean if the field variable is required in current operation. True if required, false otherwise.
+     */
+    public function isVariableRequired( $field )
+    {
+        return true;
+    }
+    
+    /**
+     * validate field
+     * @param string $field identifier
+     * @return boolean|string true if validation succeeds, string if validation fails
+     */
+    protected function validateField( $field, $value )
+    {
+        return true;
+    }
+    
+    /**
+     * Adjust field if needed. The adjusted value is inside $this->fieldValues
+     * @param string $field field identifier
+     */
+    protected function setFieldValue( $field, $fieldPostName )
+    {
+        $http = eZHTTPTool::instance();
+        $this->fieldValues[$field] = $http->postVariable( $fieldPostName );
+    }
+    
+    /**
+     * check variable from client
+     */
     public function checkVars()
     {
         $http = eZHTTPTool::instance();
@@ -40,65 +75,48 @@ class ezcomFormTool
         $isAnon = $user->isAnonymous();
         $status = true;
 
-        foreach (  $this->fields as $field => $fieldSetup )
-        {
-            $valueAdjusted = false;
-
-            $fieldRequired = $fieldSetup[self::REQUIRED] == 'true' ? true : false;
-            $fieldPostName = $fieldSetup[self::VARNAME];
-
-            $fieldExists = $http->hasPostVariable( $fieldPostName );
-
-            // Enforce certain requirements on the form
-            switch ( $field )
+        foreach ( $this->fields as $field => $fieldSetup )
+        {  
+            if( !$this->isVariableRequired( $field ) )
             {
-                case 'comment':
-                    $fieldRequired = true;
-                    break;
-
-                // Use the values from the user objects for logged in users
-                case 'email':
-                case 'name':
-                    if ( !$isAnon )
-                    {
-                        if ( $field == 'name' )
-                        {
-                            $this->fieldValues[$field] = $user->contentObject()->name();
-                        }
-                        else if ( $field == 'email' )
-                        {
-                            $this->fieldValues[$field] = $user->attribute( 'email' );
-                        }
-                        $fieldExists = true;
-                        $valueAdjusted = true;
-                    }
-                    break;
-
-                default:
-                    break;
-            }
-
-            if ( $fieldRequired && !$fieldExists )
-            {
-                $status = false;
-                $this->validationMessage[$field] = "$field is missing.";
                 continue;
             }
-            else if ( $fieldRequired && $fieldExists )
+            else
             {
-                $val = $http->postVariable( $fieldPostName );
-                if ( empty( $val ) )
+                $fieldRequired = $fieldSetup[self::REQUIRED] == 'true' ? true : false;
+                $fieldPostName = $fieldSetup[self::VARNAME];
+
+                $fieldExists = $http->hasPostVariable( $fieldPostName );
+
+                if ( $fieldRequired && !$fieldExists )
                 {
                     $status = false;
-                    $this->validationMessage[$field] = "The field [$field] is empty";
+                    $this->validationMessage[$field] = "$field is missing.";
                     continue;
                 }
+                else if ( $fieldRequired && $fieldExists )
+                {
+                    $val = $http->postVariable( $fieldPostName );
+                    if ( empty( $val ) )
+                    {
+                        $status = false;
+                        $this->validationMessage[$field] = "The field [$field] is empty";
+                        continue;
+                    }
+                    else
+                    {
+                        $validationResult = $this->validateField( $field, $val );
+                        if ( $validationResult !== true )
+                        {
+                            $status = false;
+                            $this->validationMessage[$field] = $validationResult;
+                            continue;
+                        }
+                    }
+                }
+                $this->setFieldValue( $field, $fieldPostName );
             }
-
-            if ( $fieldExists && !$valueAdjusted )
-            {
-                $this->fieldValues[$field] = $http->postVariable( $fieldPostName );
-            }
+            
         }
         $this->validationStatus = $status;
         return $status;

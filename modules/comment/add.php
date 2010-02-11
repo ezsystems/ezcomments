@@ -49,7 +49,7 @@ if ( $module->isCurrentAction( 'AddComment' ) )
     else
     {
         // Validate given input date against form setup
-        $formTool = ezcomFormTool::instance();
+        $formTool = ezcomAddCommentTool::instance();
         $formStatus = $formTool->checkVars();
 
         if ( !$formStatus )
@@ -61,6 +61,7 @@ if ( $module->isCurrentAction( 'AddComment' ) )
             return $Result;
         }
 
+         //TODO: from 63, most of the code can be implemented in a class see another TODO in edit.php
          $title = $formTool->fieldValue( 'title' );
          $name = $formTool->fieldValue( 'name' );
          $website = $formTool->fieldValue( 'website' );

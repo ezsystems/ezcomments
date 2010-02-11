@@ -80,14 +80,6 @@ abstract class ezcomCommentManager
     }
 
     /**
-     * @param $comment: a comment object
-     * @return true if the validation succeeds
-     *         error message if the validation fails.
-     */
-    public abstract function validateInput( $comment );
-
-
-    /**
      * Add comment into ezcomment table and do action
      * The adding doesn't validate the data in http
      * @param $comment: ezcomComment object which has not been stored
@@ -101,12 +93,6 @@ abstract class ezcomCommentManager
      */
     public function addComment( $comment, $user, $time = null, $notification = null )
     {
-        $validationResult = $this->validateInput( $comment );
-        if ( $validationResult !== true )
-        {
-            return $validationResult;
-        }
-
         if ( $time === null )
         {
             $time = time();
@@ -135,12 +121,6 @@ abstract class ezcomCommentManager
      */
     public function updateComment( $comment, $user=null, $time = null , $notified = null )
     {
-        $validationResult = $this->validateInput( $comment );
-        if ( $validationResult !== true )
-        {
-            return $validationResult;
-        }
-
         if ( $time === null )
         {
             $time = time();

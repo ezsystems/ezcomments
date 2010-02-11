@@ -68,6 +68,8 @@ SubscriptionActivated=false
 CommentManagerClass=ezcomCommentCommonManager
 SubscriberManagerClass=ezcomSubscriptionManager
 PermissionClass=ezcomPermission
+AddCommentToolClass=ezcomAddCommentTool
+EditCommentToolClass=ezcomEditCommentTool
 
 [FormSettings]
 FormHandlerClass=ezcomFormTool

@@ -1,10 +1,15 @@
 {ezcss_require( 'comment.css' )}
 {if $can_edit}
-    {if is_set( $message )}
+    {if is_set( $error_message )}
         <div class="message-error">
-        <p>
-                {$message}
-        </p>
+           <p>
+                {$error_message}
+           </p>
+           {if is_set( $validation_messages )}
+             {foreach $validation_messages as $field => $message }
+                <p><strong>{$field}:</strong><br /> {$message}</p>
+             {/foreach}
+           {/if}
         </div>
     {/if}
     <form method="post" action={concat( '/comment/edit/', $comment.id )|ezurl} name="CommentEdit">
@@ -25,7 +30,7 @@
                     <label>
                         {'Name:'|i18n( 'extension/ezcomments/commentform' )}
                     </label>
-                     <input type="text" class="box" maxlength="50" id="ezcomments_comment_edit_name" name="CommentName" disabled="true" value="{$comment.name|wash}" />
+                     <input type="text" class="box" maxlength="50" id="ezcomments_comment_edit_name" disabled="true" name="CommentName" value="{$comment.name|wash}" />
                 </div>
                 <div class="ezcom-field ezcom-field-website">
                     <label>

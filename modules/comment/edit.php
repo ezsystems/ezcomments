@@ -77,7 +77,20 @@ if ( $Module->isCurrentAction( 'UpdateComment' ) )
             $clientNotified = true;
         }
     }
+    
+   // Validate given input date against form setup
+    $formTool = ezcomEditCommentTool::instance();
+    $formStatus = $formTool->checkVars();
 
+    if ( !$formStatus )
+    {
+        // missing form data
+        $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/add', 'There is a problem with your comment form ' ) );
+        $tpl->setVariable( 'validation_messages', $formTool->messages() );
+        return showComment( $comment, $tpl );
+    }
+    
+    //TODO: code from 93 can be implement in a class, see another TODO in add.php
     $comment->setAttribute( 'title', $title );
     $comment->setAttribute( 'url', $website );
     $comment->setAttribute( 'text', $content );
@@ -96,7 +109,7 @@ if ( $Module->isCurrentAction( 'UpdateComment' ) )
     }
     if ( $updateResult !== true )
     {
-        $tpl->setVariable( 'message', ezi18n( 'extension/ezcomments/edit', 'Updating failed.') . $updateResult );
+        $tpl->setVariable( 'error_message', ezi18n( 'extension/ezcomments/edit', 'Updating failed.') . $updateResult );
     }
     else
     {
