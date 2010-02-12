@@ -2,6 +2,8 @@ eZ Comments change log
 
 
 1.0.0Beta2
+ - Fixed bug: comment doesn't work when a Comment attribute is added into existing class
+ - Made the validation of adding commment and edit comment consistent (reuse class ezcomFormTool).
  - Added cache support in comment/view 
  - Removed 'notification' field in ezcomComment persistent object and database
  - Changed the license header in code

@@ -103,7 +103,7 @@ function checkPermission( $comment )
     if ( !$canDeleteResult['result'] || !$commentContent['show_comments'] )
     {
         return ezi18n( 'extension/comment/delete', 'You don\'t have '.
-                                                    ' the permission to delete comment ' .
+                                                    ' access to delete comment ' .
                                                     ' or the showing comment function is disabled!' );
     }
     else

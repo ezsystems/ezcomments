@@ -3,11 +3,14 @@
 #Settings for ezcomcomments datatype
 [GlobalSettings]
 
-#If the commenting is enabled in object attribute by default
-DefaultEnabled=true
-
 #If comments are shown by default
+#This setting only affects the case that 'shown' is not set by administrator, typically adding ezcomments into a new/existing class.
 DefaultShown=true
+
+
+#If the commenting is enabled in object attribute by default.
+#This setting only affects the case that 'enabled' is not set by administrator, typically adding ezcomments into a new/existing class.
+DefaultEnabled=true
 
 #If the notification is selected by default
 EnableNotification=false

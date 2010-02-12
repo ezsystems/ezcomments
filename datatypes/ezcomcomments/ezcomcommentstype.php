@@ -30,11 +30,45 @@ class ezcomCommentsType extends eZDataType
         return true;
     }
 
+    /**
+     * data_float->show comment: 1 to show comment, -1 not to show comment, other value to get default setting
+     * data_int->enable commenting: 1 to show comment, -1 not to show comment, other value to get default setting
+     * @see kernel/classes/eZDataType#objectAttributeContent($objectAttribute)
+     */
     function objectAttributeContent( $objectAttribute )
     {
+        $ini = eZINI::instance( 'ezcomments.ini' );
+        $defaultShown = $ini->variable( 'GlobalSettings', 'DefaultShown' );
+        $defaultEnabled = $ini->variable( 'GlobalSettings', 'DefaultEnabled' );
+        $showComments = false;
+        switch ( $objectAttribute->attribute( 'data_float' ) )
+        {
+            case 1:
+                $showComments = true;
+                break;
+            case -1:
+                $showComments = false;
+                break;
+            default:
+                $showComments = $defaultShown === 'true'; 
+                break;
+        }
+        $enableComment = false;
+        switch ( $objectAttribute->attribute( 'data_int' ) )
+        {
+            case 1:
+                $enableComment = true;
+                break;
+            case -1:
+                $enableComment = false;
+                break;
+            default:
+                $enableComment = $defaultEnabled === 'true'; 
+                break;
+        }
         $result = array(
-            'enable_comment' => ( $objectAttribute->attribute( 'data_int' ) == 1 ),
-            'show_comments' => ( $objectAttribute->attribute( 'data_float' ) == 1 )
+            'show_comments' => $showComments,
+            'enable_comment' => $enableComment
         );
         return $result;
     }
@@ -42,14 +76,13 @@ class ezcomCommentsType extends eZDataType
     /**
      * put the option enabled of ezcomcomment into  data_int of contentobjectattribute
      *
-     *
      * @see kernel/classes/eZDataType#fetchObjectAttributeHTTPInput($http, $base, $objectAttribute)
      */
     function fetchObjectAttributeHTTPInput( $http, $base, $contentObjectAttribute )
     {
         $enabledName = $base . '_ezcomcomments_enabled_' . $contentObjectAttribute->attribute( 'id' );
         $shownName = $base . '_ezcomcomments_shown_' . $contentObjectAttribute->attribute( 'id' );
-        $enabledValue = 0;
+        $enabledValue = -1;
         $shownValue = -1;
         if ( $http->hasPostVariable( $enabledName ) )
         {
@@ -59,8 +92,8 @@ class ezcomCommentsType extends eZDataType
         {
             $shownValue = 1;
         }
-        $contentObjectAttribute->setAttribute( 'data_int', $enabledValue );
         $contentObjectAttribute->setAttribute( 'data_float', $shownValue );
+        $contentObjectAttribute->setAttribute( 'data_int', $enabledValue );
         return true;
     }
 
