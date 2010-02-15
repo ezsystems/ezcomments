@@ -97,6 +97,7 @@ class ezcomCommentsType extends eZDataType
         return true;
     }
 
+    
     function isIndexable()
     {
         return true;
@@ -108,9 +109,17 @@ class ezcomCommentsType extends eZDataType
         return '';
     }
 
+    /**
+     * When deleting the content object, deleting all the comments.
+     * @see kernel/classes/eZDataType#deleteStoredObjectAttribute($objectAttribute, $version)
+     */
     function deleteStoredObjectAttribute( $contentObjectAttribute, $version = null )
     {
-
+        $contentObjectID = $contentObjectAttribute->attribute( 'contentobject_id' );
+        $languageID = $contentObjectAttribute->attribute( 'language_id' );
+        eZPersistentObject::removeObject( ezcomComment::definition(), 
+                                          array( 'contentobject_id' => $contentObjectID,
+                                                 'language_id' => $languageID ) );
     }
 }
 
