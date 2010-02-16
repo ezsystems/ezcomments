@@ -2,7 +2,7 @@ eZ Comments change log
 
 
 1.0.0Beta1
- - Fix bug #16164: If the content is deleted, comments of the content are still there. Also applied for deleting Comment attribite and deleting class with Comment attribute. 
+ - Fix bug #16164: If the content is deleted, comments of the content are still there. Also applied for deleting Comment attribute and deleting class with Comment attribute. 
  - Fixed bug: comment doesn't work when a Comment attribute is added into existing class
  - Made the validation of adding commment and edit comment consistent (reuse class ezcomFormTool).
  - Added cache support in comment/view 
