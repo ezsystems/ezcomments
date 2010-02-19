@@ -7,13 +7,13 @@
  *
  */
 
-class ezcomCommentsInfo
+class ezcommentsInfo
 {
     static function info()
     {
         return array(
-            'Name' => "eZ Comment",
-            'Version' => "1.0.0",
+            'Name' => "eZ Comments",
+            'Version' => "1.0.0Beta1",
             'Copyright' => 'Copyright (C) 1999-' . date('Y') . ' eZ Systems AS',
             'License' => 'GNU General Public License v2.0',
         );
