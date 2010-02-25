@@ -30,6 +30,29 @@ class ezcomCommentsType extends eZDataType
         return true;
     }
 
+    function validateClassAttributeHTTPInput( $http, $base, $classAttribute )
+    {
+        if ( $http->hasPostVariable( 'StoreButton' ) || $http->hasPostVariable( 'ApplyButton' ) )
+        {
+           // find the class and count how many Comments dattype
+            $cond = array( 'contentclass_id' => $classAttribute->attribute( 'contentclass_id' ),
+                           'data_type_string' => $classAttribute->attribute( 'data_type_string' ) );
+            
+            $classAttributeList = eZContentClassAttribute::fetchFilteredList( $cond );
+            // if there are more than 1 Comments attribute, return it as INVALID
+            if ( !is_null( $classAttributeList ) && count( $classAttributeList ) > 1 )
+            {
+                 if ( $classAttributeList[0]->attribute( 'id' ) == $classAttribute->attribute( 'id' ) )
+                 {
+                     eZDebug::writeNotice( 'There are more than 1 Comments attribute in the class.', __METHOD__ );
+                     return eZInputValidator::STATE_INVALID;
+                 }
+            }
+        }
+        return eZInputValidator::STATE_ACCEPTED;
+    }
+    
+    
     /**
      * data_float->show comment: 1 to show comment, -1 not to show comment, other value to get default setting
      * data_int->enable commenting: 1 to show comment, -1 not to show comment, other value to get default setting

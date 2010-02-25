@@ -2,6 +2,7 @@ eZ Comments change log
 
 
 1.0.0Beta1
+ - Fixed bug 016218: Check for an already present ezcomments attribute in class edit
  - Fixed bug: the eZ Comments extension information is not shown in ezinfo/about.
  - Fixed bug #16164: If the content is deleted, comments of the content are still there. Also applied for deleting Comment attribute and deleting class with Comment attribute. 
  - Fixed bug: comment doesn't work when a Comment attribute is added into existing class
