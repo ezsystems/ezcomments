@@ -2,11 +2,11 @@
 {if $total_count|gt( 0 )}
     <div id="ezcomments_comment_view_page" class="ezcom-page">
          <span>{'Total comments:'|i18n( 'ezcomments/comment/view/page' )}</span>
-         <span>{$total_count}</span> <span>, </span>
+         <span>{$total_count}</span><span>, </span>
          <span>{'Pages:'|i18n( 'ezcomments/comment/view/page' )}</span>
          {if $current_page|gt( 1 )}
              <span>
-              <a title="{"Previous page"|i18n( 'ezcomments/comment/view/page' )}" href={concat( $page_prefix ,$current_page|sub( 1 ) )|ezurl}><</a> &nbsp;
+              <a title="{"Previous page"|i18n( 'ezcomments/comment/view/page' )}" href={concat( $page_prefix ,$current_page|sub( 1 ) )|ezurl}><</a>&nbsp;
              </span>
          {/if}
          {def $page_length=2}

@@ -7,7 +7,6 @@
 #This setting only affects the case that 'shown' is not set by administrator, typically adding ezcomments into a new/existing class.
 DefaultShown=true
 
-
 #If the commenting is enabled in object attribute by default.
 #This setting only affects the case that 'enabled' is not set by administrator, typically adding ezcomments into a new/existing class.
 DefaultEnabled=true
@@ -16,7 +15,7 @@ DefaultEnabled=true
 EnableNotification=false
 
 #Default embeded comment count in content view
-DefaultEmbededCount=3
+DefaultEmbededCount=8
 
 #Embeded comment sort field in content view
 DefaultEmbededSortField=created
