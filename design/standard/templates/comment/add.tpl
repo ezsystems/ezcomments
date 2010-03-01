@@ -12,17 +12,17 @@
             {/foreach}
         {/if}
         
-        <input type="button" onclick="history.back();" class="button" value="{'Back'|i18n( 'view/action' )}" />
+        <input type="button" onclick="history.back();" class="button" value="{'Back'|i18n( 'ezcomments/comment/view/action' )}" />
     </div>
   {/if}
   {if and( is_set( $success ), $success|eq( 1 ) )}
     <div class="message-error">
         <p>
-            {'Posting succeeds!'|i18n( 'extension/ezcomments/add' )}
+            {'Posting succeeds!'|i18n( 'ezcomments/comment/add' )}
         </p>
         <form action="{'comment/add'|ezurl}" method="get" name="CommentAdded">
             <input type="hidden" name="RedirectURI" value={$redirect_uri} />
-            <input type="submit" class="button" name="BackButton" value="{'Back'|i18n( 'extension/ezcomments/action') }" />
+            <input type="submit" class="button" name="BackButton" value="{'Back'|i18n( 'ezcomments/comment/action') }" />
         </form>
     </div>
   {/if}

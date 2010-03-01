@@ -28,7 +28,7 @@ if ( $user->isAnonymous() )
         $Result = array();
         $Result['content'] = $tpl->fetch( 'design:comment/setting.tpl' );
         $Result['path'] = array( array( 'url' => false,
-                                    'text' => ezi18n( 'extension/comment/setting', 'Comment settings') ) );
+                                    'text' => ezi18n( 'ezcomments/comment/setting', 'Comment settings') ) );
         return $Result;
     }
 }
@@ -63,7 +63,7 @@ if ( is_null( $subscriber ) )
     $Result = array();
     $Result['content'] = $tpl->fetch( 'design:comment/setting.tpl' );
     $Result['path'] = array( array( 'url' => false,
-                                    'text' => ezi18n( 'extension/comment/setting', 'Comment settings' ) ) );
+                                    'text' => ezi18n( 'ezcomments/comment/setting', 'Comment settings' ) ) );
     return $Result;
 }
 
@@ -131,6 +131,6 @@ $tpl->setVariable( 'total_count',  $totalCount );
 
 $Result['content'] = $tpl->fetch( 'design:comment/setting.tpl' );
 $Result['path'] = array( array( 'url' => false,
-                                'text' => ezi18n( '', 'Comment settings' ) ) );
+                                'text' => ezi18n( 'ezcomments/comment/setting', 'Comment settings' ) ) );
 
 ?>

@@ -11,13 +11,13 @@
     {if is_set( $subscriber )|not()}
         <div class="message-error">
             <p>
-                 {'There is no subscription.'|i18n('extension/ezcomments/setting')}
+                 {'There is no subscription.'|i18n('ezcomments/comment/setting')}
             </p>
         </div>
     {elseif $total_count|eq( 0 )}
         <div class="message-error">
                 <p>
-                     {'There is no subscription.'|i18n('extension/ezcomments/setting')}
+                     {'There is no subscription.'|i18n('ezcomments/comment/setting')}
                 </p>
             </div>
     {else}
@@ -30,15 +30,15 @@
                     {set $page_prefix=concat( $page_prefix, '/', $subscriber.hash_string )}
                 {/if}
                 <div class="ezcom-page">
-                    {'%current_page/%total_page'|i18n( 'extension/ezcomments/view/page', '', hash( '%current_page', $current_page, '%total_page', $total_page ) )}
+                    {'%current_page/%total_page'|i18n( 'ezcomments/comment/view/page', '', hash( '%current_page', $current_page, '%total_page', $total_page ) )}
                     {if $current_page|gt( 1 )}
                          <span>
-                          <a title="{"Previous page"|i18n( 'extension/ezcomments/view/page' )}" href={concat( $page_prefix, '/' ,$current_page|sub( 1 ) )|ezurl}><</a>
+                          <a title="{"Previous page"|i18n( 'ezcomments/comment/view/page' )}" href={concat( $page_prefix, '/' ,$current_page|sub( 1 ) )|ezurl}><</a>
                          </span>
                     {/if}
                     {if $current_page|lt($total_page)}
                          <span>
-                          <a title="{"Next page"|i18n('extension/ezcomments/view/page')}" href={concat( $page_prefix, '/', $current_page|sum( 1 ) )|ezurl}>></a> 
+                          <a title="{"Next page"|i18n('ezcomments/comment/view/page')}" href={concat( $page_prefix, '/', $current_page|sum( 1 ) )|ezurl}>></a> 
                          </span>
                     {/if}
                 </div>
@@ -49,8 +49,8 @@
         {undef $number_perpage}
         {if is_set( $update_success )}
             <div class="message-feedback">
-                <p>{'Update succeeds!'|i18n( 'extension/ezcomments/setting' )}</p>
-                <input type="button" class="button" value="{'OK'|i18n( 'extension/comment/setting' )}" onclick="this.parentNode.className = 'hide';" />
+                <p>{'Update succeeds!'|i18n( 'ezcomments/comment/setting' )}</p>
+                <input type="button" class="button" value="{'OK'|i18n( 'ezcomments/comment/setting' )}" onclick="this.parentNode.className = 'hide';" />
             </div>
         {/if}
             <form method="post">
@@ -58,17 +58,17 @@
                 <div class="ezcom-setting-head">
                     <div class="ezcom-setting-select">
                         <span>
-                            {'Select'|i18n( 'extension/comment/setting' )}
+                            {'Select'|i18n( 'ezcomments/comment/setting' )}
                         </span>
                     </div>
                     <div class="ezcom-setting-content">
                         <span>
-                            {'Content'|i18n( 'extension/comment/setting' )}
+                            {'Content'|i18n( 'ezcomments/comment/setting' )}
                         </span>
                     </div>
                     <div class="ezcom-setting-count">
                         <span>
-                            {'Subscription time'|i18n( 'extension/comment/setting' )}
+                            {'Subscription time'|i18n( 'ezcomments/comment/setting' )}
                         </span>
                     </div>
                 </div>
@@ -79,7 +79,7 @@
                             <label>
                                 <input type="checkbox" name="Checkbox{$subscription.id}"
                                    checked="true" />
-                                {'Subscribed'|i18n( 'extension/comment/setting' )}
+                                {'Subscribed'|i18n( 'ezcomments/comment/setting' )}
                                 <input type="hidden" name="CheckboxName[]" value="Checkbox{$subscription.id}" />
                             </label>
                         </div>
@@ -100,8 +100,8 @@
                 {/foreach}
                 <div class="ezcom-tool">
                     <p>
-                        <input type="submit" value="{'Save'|i18n( 'extension/comment/setting' )}" name="SaveButton" class="button" />
-                        <input type="reset" value="{'Reset'|i18n( 'extension/comment/setting' )}" class="button" />
+                        <input type="submit" value="{'Save'|i18n( 'ezcomments/comment/setting' )}" name="SaveButton" class="button" />
+                        <input type="reset" value="{'Reset'|i18n( 'ezcomments/comment/setting' )}" class="button" />
                     </p>
                 </div>
              </form>

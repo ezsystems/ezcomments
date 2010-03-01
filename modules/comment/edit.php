@@ -46,7 +46,7 @@ $tpl->setVariable( 'can_edit', $canEdit );
 if ( !$canEdit )
 {
     $Result['path'] = array( array( 'url' => false,
-                                    'text' => ezi18n( 'extension/ezcomments/edit', 'Edit comment' ) ) );
+                                    'text' => ezi18n( 'ezcomments/comment/edit', 'Edit comment' ) ) );
     $Result['content'] = $tpl->fetch( 'design:comment/edit.tpl' );
     return $Result;
 }
@@ -85,7 +85,7 @@ if ( $Module->isCurrentAction( 'UpdateComment' ) )
     if ( !$formStatus )
     {
         // missing form data
-        $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/add', 'There is a problem with your comment form ' ) );
+        $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/comment/add/form', 'There is a problem with your comment form ' ) );
         $tpl->setVariable( 'validation_messages', $formTool->messages() );
         return showComment( $comment, $tpl );
     }
@@ -109,7 +109,7 @@ if ( $Module->isCurrentAction( 'UpdateComment' ) )
     }
     if ( $updateResult !== true )
     {
-        $tpl->setVariable( 'error_message', ezi18n( 'extension/ezcomments/edit', 'Updating failed.') . $updateResult );
+        $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/comment/edit', 'Updating failed.') . $updateResult );
     }
     else
     {
@@ -152,7 +152,7 @@ function showComment( $comment, $tpl )
     $tpl->setVariable( 'comment', $comment );
     $Result = array();
     $Result['path'] = array( array( 'url' => false,
-                                        'text' => ezi18n( 'extension/ezcomments/edit', 'Edit comment' ) ) );
+                                        'text' => ezi18n( 'ezcomments/comment/edit', 'Edit comment' ) ) );
     $Result['content'] = $tpl->fetch( 'design:comment/edit.tpl' );
     return $Result;
 }

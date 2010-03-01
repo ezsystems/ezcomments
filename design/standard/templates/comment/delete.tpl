@@ -8,15 +8,15 @@
                 <p>
                     {$error_message}
                 </p>
-                <input type="submit" value="{'Back'|i18n( 'extension/ezcomments/action' )}" class="button" name="CancelButton" />
+                <input type="submit" value="{'Back'|i18n( 'ezcomments/comment/action' )}" class="button" name="CancelButton" />
             </div>
         {else}
             <div class="message-confirmation" id="ezcomments_comment_delete">
                 <p>
-                    {'Delete comment?'|i18n( 'extension/ezcomments/delete' )}
+                    {'Delete comment?'|i18n( 'ezcomments/comment/delete' )}
                 </p>
-                <input type="submit" value="{'Delete'|i18n( 'extension/ezcomments/action' )}" class="button" name="DeleteCommentButton" />
-                <input type="submit" value="{'Cancel'|i18n( 'extension/ezcomments/action' )}" class="button" name="CancelButton" />
+                <input type="submit" value="{'Delete'|i18n( 'ezcomments/comment/action' )}" class="button" name="DeleteCommentButton" />
+                <input type="submit" value="{'Cancel'|i18n( 'ezcomments/comment/action' )}" class="button" name="CancelButton" />
             </div>
         {/if}
     </div>

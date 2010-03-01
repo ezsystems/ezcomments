@@ -61,7 +61,7 @@
                     {else}
                         <div class="message-feedback">
                             <p>
-                                {'There is no comment.'|i18n( 'extension/ezcomments/view' )}
+                                {'There is no comment.'|i18n( 'ezcomments/comment/view' )}
                             </p>
                         </div>
                     {/if}
@@ -72,7 +72,7 @@
         {else}
             <div class="message-feedback">
                     <p>
-                        {'You don\'t have access to view comment.'|i18n( 'extension/ezcomments/view' )}
+                        {'You don\'t have access to view comment.'|i18n( 'ezcomments/comment/view' )}
                     </p>
             </div>
         {/if}
@@ -86,7 +86,7 @@
             {else}
                     <div class="message-feedback">
                         <p>
-                            {'You don\'t have access to post comment.'|i18n( 'extension/ezcomments/view' )}
+                            {'You don\'t have access to post comment.'|i18n( 'ezcomments/comment/view' )}
                         </p>
                     </div>
             {/if}

@@ -38,7 +38,7 @@ class ezcomSubscriptionManager
         $subscription = ezcomSubscription::fetchByHashString( $hashString );
         if ( is_null( $subscription ) )
         {
-            $this->tpl->setVariable( 'error_message', ezi18n( 'extension/ezcomments/activate',
+            $this->tpl->setVariable( 'error_message', ezi18n( 'ezcomments/comment/activate',
                                       'The is no subscription with the hash string!' ) );
         }
         else
@@ -57,7 +57,7 @@ class ezcomSubscriptionManager
             }
             else
             {
-                $this->tpl->setVariable( 'error_message', ezi18n( 'extension/ezcomments/activate',
+                $this->tpl->setVariable( 'error_message', ezi18n( 'ezcomments/comment/activate',
                                       'The subscriber is disabled!' ) );
             }
         }

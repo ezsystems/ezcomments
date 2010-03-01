@@ -19,7 +19,7 @@
                         {/if}
                     </p>
                     <span>
-                     {'wrote:'|i18n('extension/ezcomments/view')}
+                     {'wrote:'|i18n('ezcomments/comment/view')}
                     </span>
                 </div>
                 <div class="ezcom-comment-time">
@@ -64,7 +64,7 @@
                         {/if}
                         <span{$displayAttribute}>
                             <a href={concat( '/comment/edit/', $comment.id )|ezurl}>
-                                {'Edit'|i18n('extension/ezcomments/view')}
+                                {'Edit'|i18n('ezcomments/comment/view')}
                             </a>
                         </span>
                         {undef $displayAttribute}
@@ -77,7 +77,7 @@
                         {/if}
                         <span {$displayAttribute}>
                             <a href={concat( '/comment/delete/',$comment.id )|ezurl}>
-                                {'Delete'|i18n('extension/ezcomments/view')}
+                                {'Delete'|i18n('ezcomments/comment/view')}
                             </a>
                         </span>
                         {undef $displayAttribute}

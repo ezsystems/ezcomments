@@ -70,7 +70,7 @@ if ( !is_null( $Params['Page'] ) )
  if ( !is_numeric( $Params['Page'] ) )
  {
      eZDebug::writeError( 'The page parameter is not a number.', 'ezcomments' );
-     $tpl->setVariable( 'error_message', ezi18n( 'extension/ezcomments/view', 'The page parameter is not a number.' ) );
+     $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/comment/view', 'The page parameter is not a number.' ) );
      return showView( $tpl );
  }
  else
@@ -93,7 +93,7 @@ $offset =  ( $Page - 1 ) * $defaultNumPerPage;
 
 if( $Page < 1 )
 {
-     $tpl->setVariable( 'error_message', ezi18n( 'extension/ezcomments/view', 'The page parameter can\'t be minus.' ) );
+     $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/comment/view', 'The page parameter can\'t be minus.' ) );
      return showView( $tpl );
 }
 
@@ -118,7 +118,7 @@ function showView( $tpl )
 {
 $Result['content'] = $tpl->fetch( 'design:comment/view/view.tpl' );
 $Result['path'] = array( array( 'url' => false,
-                            'text' => ezi18n( 'extension/ezcomments/view', 'Comment/View' ) ) );
+                            'text' => ezi18n( 'ezcomments/comment/view', 'Comment/View' ) ) );
 return $Result;
 }
 ?>

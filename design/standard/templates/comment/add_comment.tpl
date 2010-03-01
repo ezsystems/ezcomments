@@ -41,14 +41,14 @@
 <div class="ezcom-add" id="ezcomments_comment_view_addcomment">
         <div class="ezcom-function-title">
             <h4>
-             {'Post comment'|i18n( 'ezcomments/add' )}
+             {'Post comment'|i18n( 'ezcomments/comment/add/form' )}
             </h4>
         </div>
 
         {if $showTitle}
         <div class="ezcom-field ezcom-field-title">
             <label>
-                {'Title:'|i18n( 'ezcomments/add' )}{if $titleRequired}{$fieldRequiredText}{/if}
+                {'Title:'|i18n( 'ezcomments/comment/add/form' )}{if $titleRequired}{$fieldRequiredText}{/if}
             </label>
             <input type="text" class="box" maxlength="100" id="ezcomments_comment_view_addcomment_title" name="CommentTitle" />
         </div>
@@ -58,7 +58,7 @@
         <div class="ezcom-field ezcom-field-name">
             <div class="ezcom-filed-error"></div>
             <label>
-                {'Name:'|i18n( 'ezcomments/add' )}{if $nameRequired}{$fieldRequiredText}{/if}
+                {'Name:'|i18n( 'ezcomments/comment/add/form' )}{if $nameRequired}{$fieldRequiredText}{/if}
             </label>
             <input type="text" class="box" maxlength="50" id="ezcomments_comment_view_addcomment_name" name="CommentName" value="{$comment_name}" />
         </div>
@@ -67,7 +67,7 @@
         {if $showWebsite}
         <div class="ezcom-field ezcom-field-website">
             <label>
-                {'Website:'|i18n( 'ezcomments/add' )}{if $websiteRequired}{$fieldRequiredText}{/if}
+                {'Website:'|i18n( 'ezcomments/comment/add/form' )}{if $websiteRequired}{$fieldRequiredText}{/if}
             </label>
             <input type="text" class="box" maxlength="100" id="ezcomments_comment_view_addcomment_website" name="CommentWebsite" value="{$comment_website}" />
         </div>
@@ -76,7 +76,7 @@
         {if $showEmail}
         <div class="ezcom-field ezcom-field-email">
             <label>
-                {'Email:'|i18n( 'ezcomments/add' )}{if $emailRequired}{$fieldRequiredText}{/if}&nbsp;<span class="ezcom-field-emailmessage">{'(The email address will not be shown)'|i18n( 'ezcomments/add' )}</span>
+                {'Email:'|i18n( 'ezcomments/comment/add/form' )}{if $emailRequired}{$fieldRequiredText}{/if}&nbsp;<span class="ezcom-field-emailmessage">{'(The email address will not be shown)'|i18n( 'ezcomments/comment/add/form' )}</span>
             </label>
             {if $is_anonymous|not}
                 <input type="text" maxlength="100" class="box" id="ezcomments_comment_view_addcomment_email" disabled="true" value="{$comment_email}" />
@@ -89,29 +89,29 @@
 
         <div class="ezcom-field ezcom-field-content">
             <label>
-                {'Content:'|i18n( 'ezcomments/add' )}{$fieldRequiredText}
+                {'Content:'|i18n( 'ezcomments/comment/add/form' )}{$fieldRequiredText}
             </label>
             <textarea id="ezcomments_comment_view_addcomment_content" class="box" name="CommentContent"></textarea>
         </div>
 
         <div class="ezcom-field ezcom-field-notified">
             <label>
-                {'Notified:'|i18n( 'ezcomments/add' )}
+                <input type="checkbox" id="ezcom_field_notified" name="CommentNotified" {if $comment_notified|eq('true')}checked="checked"{/if} />
+                {'Notify me'|i18n( 'ezcomments/comment/add/form' )}
             </label>
-            <input type="checkbox" id="ezcom_field_notified" name="CommentNotified" {if $comment_notified|eq('true')}checked="checked"{/if} />
         </div>
 
         {if $is_anonymous}
             <div class="ezcom-field ezcom-field-remember">
                 <label>
-                    {'Remember me:'|i18n( 'ezcomments/add' )}
+                    <input type="checkbox" name="CommentRememberme" {if $comment_remember}checked="checked"{/if} />
+                    {'Remember me'|i18n( 'ezcomments/comment/add/form' )}
                 </label>
-                <input type="checkbox" name="CommentRememberme" {if $comment_remember}checked="checked"{/if} />
             </div>
         {/if}
         <div class="ezcom-field">
-            <input type="submit" value="{'Add comment'|i18n( 'ezcomments/add' )}" class="button" id="ezcom-post-button" name="AddCommentButton" />
-            <input type="reset" class="button" value="{'Reset form'|i18n( 'ezcomments/add' )}" />
+            <input type="submit" value="{'Add comment'|i18n( 'ezcomments/comment/add/form' )}" class="button" id="ezcom-post-button" name="AddCommentButton" />
+            <input type="reset" class="button" value="{'Reset form'|i18n( 'ezcomments/comment/add/form' )}" />
         </div>
 </div>
 </form>

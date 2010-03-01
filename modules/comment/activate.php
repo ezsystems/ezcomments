@@ -24,7 +24,7 @@ else
     $subscriptionManager->activateSubscription( $hashString );
 
     $Result['path'] = array( array( 'url' => false,
-                                    'text' => ezi18n( 'extension/ezcomments/activate', 'Activate subscription' ) ) );
+                                    'text' => ezi18n( 'ezcomments/comment/activate', 'Activate subscription' ) ) );
     $Result['content'] = $tpl->fetch( 'design:comment/activate.tpl' );
     return $Result;
 }

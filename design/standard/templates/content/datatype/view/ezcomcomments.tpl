@@ -56,10 +56,10 @@
                   <p>
                       {if $total_count|gt( count( $comments ) )}
                           <a href={concat( '/comment/view/', $contentobject.id )|ezurl}>
-                            {concat( 'View all %total_count comments' )|i18n( 'extension/ezcomments/view', , hash( '%total_count', $total_count ) )}
+                            {'View all %total_count comments'|i18n( 'ezcomments/comment/view', , hash( '%total_count', $total_count ))}
                           </a>
                       {else}
-                        {'Total %total_count comments'|i18n( 'extension/ezcomments/view', , hash( '%total_count', $total_count ) )}
+                        {'Total %total_count comments'|i18n( 'ezcomments/comment/view', , hash( '%total_count', $total_count ) )}
                       {/if}
                   </p>
                 </div>
@@ -71,7 +71,7 @@
     {else}
         <div class="message-error">
             <p>
-                    {'You don\'t have access to view comment.'|i18n( 'extension/ezcomments/view' )}
+                    {'You don\'t have access to view comment.'|i18n( 'ezcomments/comment/view' )}
             </p>
         </div>
     {/if}
@@ -90,7 +90,7 @@
         {else}
             <div class="message-error">
                     <p>
-                        {'You don\'t have access to post comment.'|i18n( 'extension/ezcomments/view' )}
+                        {'You don\'t have access to post comment.'|i18n( 'ezcomments/comment/view' )}
                     </p>
             </div>
         {/if}

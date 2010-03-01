@@ -1,1 +1,1 @@
-{'Subscribe comment'|i18n( 'extension/ezcomments/activate/email' )} - {$contentobject.name}
+{'Subscribe comment'|i18n( 'ezcomments/comment/activationnotification' )} - {$contentobject.name}
