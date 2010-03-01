@@ -328,4 +328,11 @@
         <translation>启用评论</translation>
     </message>
 </context>
+<context>
+    <name>ezcomments/ezwebin/user/edit</name>
+    <message>
+        <source>My comment settings</source>
+        <translation>我的评论设置</translation>
+    </message>
+</context>
 </TS>

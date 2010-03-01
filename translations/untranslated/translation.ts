@@ -328,4 +328,11 @@
         <translation type="unfinished"></translation>
     </message>
 </context>
+<context>
+    <name>ezcomments/ezwebin/user/edit</name>
+    <message>
+        <source>My comment settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
 </TS>

@@ -29,7 +29,7 @@
 <p><a href={concat("/shop/customerorderview/", $userID, "/", $userAccount.email)|ezurl}>{"My orders"|i18n("design/ezwebin/user/edit")}</a></p>
 <p><a href={"/content/pendinglist"|ezurl}>{"My pending items"|i18n("design/ezwebin/user/edit")}</a></p>
 <p><a href={"notification/settings"|ezurl}>{"My notification settings"|i18n("design/ezwebin/user/edit")}</a></p>
-<p><a href={"/comment/setting"|ezurl}>{"My comment settings"|i18n("design/ezwebin/user/edit")}</a></p>
+<p><a href={"/comment/setting"|ezurl}>{"My comment settings"|i18n("ezcomments/ezwebin/user/edit")}</a></p>
 <p><a href={"/shop/wishlist"|ezurl}>{"My wish list"|i18n("design/ezwebin/user/edit")}</a></p>
 
 <div class="buttonblock">
