@@ -97,7 +97,7 @@
         <div class="ezcom-field ezcom-field-notified">
             <label>
                 <input type="checkbox" id="ezcom_field_notified" name="CommentNotified" {if $comment_notified|eq('true')}checked="checked"{/if} />
-                {'Notify me'|i18n( 'ezcomments/comment/add/form' )}
+                {'Notify me of new comments'|i18n( 'ezcomments/comment/add/form' )}
             </label>
         </div>
 

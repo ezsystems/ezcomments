@@ -2,57 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.0">
 <context>
-    <name>design/ezwebin/user/edit</name>
-    <message>
-        <source>User profile</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Username</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Email</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>My drafts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>My orders</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>My pending items</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>My notification settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>My comment settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>My wish list</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Edit profile</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Change password</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ezcomments/comment/action</name>
     <message>
         <source>Back</source>
@@ -183,10 +132,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Notified</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>There is a problem with your comment form </source>
         <translation type="unfinished"></translation>
     </message>
@@ -195,7 +140,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Notify me</source>
+        <source>Notify me of new comments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Notified of new comments</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -136,8 +136,12 @@
         <translation>重置表单</translation>
     </message>
     <message>
-        <source>Notify me</source>
-        <translation>通知我</translation>
+        <source>Notify me of new comments</source>
+        <translation>有新评论时通知我</translation>
+    </message>
+    <message>
+        <source>Notified of new comments</source>
+        <translation>有新评论时通知</translation>
     </message>
     <message>
         <source>There is a problem with your comment form </source>

@@ -68,7 +68,7 @@
                                id="ezcomments_comment_edit_notified"
                                name="CommentNotified"
                                {if $notified}checked{/if} />
-                        {'Notified'|i18n( 'ezcomments/comment/add/form' )}
+                        {'Notified of new comments'|i18n( 'ezcomments/comment/add/form' )}
                     </label>
                 </div>
                 <div class="ezcom-field">
