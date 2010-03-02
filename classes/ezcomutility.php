@@ -28,6 +28,23 @@ class ezcomUtility
     {
         return strtoupper( hash( 'md5', uniqid( '', true ). time() ) );
     }
+    
+    /**
+     * get ip address of a user commenting
+     * @return string
+     */
+    public function getUserIP()
+    {
+        if( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) )
+        {
+            return $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        if ( isset( $_SERVER['HTTP_CLIENT_IP'] ) )
+        {
+            return $_SERVER['HTTP_CLIENT_IP'];
+        }
+        return $_SERVER['REMOTE_ADDR'];
+    }
 
     /**
      * create new instance of the object

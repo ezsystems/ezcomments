@@ -1,8 +1,9 @@
 eZ Comments change log
 
 1.0.0 Beta2
-- Changed context of translation to make context consistent
-- Fixed bug 16276: ezcomments: cannot create translation
+ - Added commentor ip into database table when commenting
+ - Changed context of translation to make context consistent
+ - Fixed bug 16276: ezcomments: cannot create translation
 
 1.0.0Beta1
  - Fixed bug 016218: Check for an already present ezcomments attribute in class edit

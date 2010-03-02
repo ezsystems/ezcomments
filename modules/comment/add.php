@@ -67,6 +67,9 @@ if ( $module->isCurrentAction( 'AddComment' ) )
          $website = $formTool->fieldValue( 'website' );
          $email = $formTool->fieldValue( 'email' );
          $content = $formTool->fieldValue( 'comment' );
+         $sessionKey = $http->getSessionKey();
+         $util = ezcomUtility::instance();
+         $ip = $util->getUserIP();
 
          $comment = ezcomComment::create();
          $comment->setAttribute( 'title', $title );
@@ -74,6 +77,8 @@ if ( $module->isCurrentAction( 'AddComment' ) )
          $comment->setAttribute( 'url', $website );
          $comment->setAttribute( 'email', $email );
          $comment->setAttribute( 'text', $content );
+         $comment->setAttribute( 'session_key', $sessionKey );
+         $comment->setAttribute( 'ip', $ip );
 
          $languageId = eZContentLanguage::idByLocale( $languageCode );
 
