@@ -26,7 +26,7 @@ abstract class ezcomCommentManager
      * @param $comment
      * @param $user
      * @return true if action succeeds
-     *        string if the action has error
+     *        
      */
     public function beforeAddingComment( $comment, $user, $notification )
     {
@@ -37,7 +37,7 @@ abstract class ezcomCommentManager
      * action after adding comment
      * @param $comment
      * @return true if action succeeds
-     *        string if the action has error
+     *        
      */
     public function afterAddingComment( $comment, $notification )
     {
@@ -49,7 +49,7 @@ abstract class ezcomCommentManager
      * @param $comment
      * @param $notified
      * @return true if action succeeds
-     *        string if the action has error
+     *        
      */
     public function beforeUpdatingComment( $comment, $notified, $time )
     {
@@ -88,7 +88,6 @@ abstract class ezcomCommentManager
      * @param $time: comment time
      * @return  true : if adding succeeds
      *          false otherwise
-     *          string: error message
      *
      */
     public function addComment( $comment, $user, $time = null, $notification = null )
