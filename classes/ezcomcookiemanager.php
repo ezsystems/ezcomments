@@ -30,14 +30,37 @@ class ezcomCookieManager
 
     /**
      * store data into cookie
-     * @param $comment
-     * @return unknown_type
+     * if field is null, set cookie based on user data, other wise set cookie based on fields
+     * @param $comment comment object
+     * @return arrary stored data
      */
-    public function storeCookie( $comment )
+    public function storeCookie( $comment = null )
     {
-       setcookie( $this->nameName, $comment->attribute( 'name' ), $this->expiryTime, '/' );
-       setcookie( $this->websiteName, $comment->attribute( 'url' ), $this->expiryTime, '/' );
-       setcookie( $this->emailName, $comment->attribute( 'email' ), $this->expiryTime, '/' );
+        $userData = array();
+        $sessionID = session_id();
+        if( is_null( $comment ) )
+        {
+            $currentUser = eZUser::currentUser();
+            if( $currentUser->isAnonymous() )
+            {
+                return '';
+            }
+            else
+            {
+                $userData[$sessionID] = array( 'email' => $currentUser->attribute( 'email' ),
+                                               'name' => $currentUser->attribute( 'login' ) );
+            }
+        }
+        else
+        {
+            $userData[$sessionID] = array( 'email' => $comment->attribute( 'email' ),
+                                           'name' => $comment->attribute( 'name' ) );
+        }
+        setcookie( 'eZCommentsUserData', base64_encode( json_encode( $userData ) ), time()+3600, '/' );
+        return $userData;
+//       setcookie( $this->nameName, $comment->attribute( 'name' ), $this->expiryTime, '/' );
+//       setcookie( $this->websiteName, $comment->attribute( 'url' ), $this->expiryTime, '/' );
+//       setcookie( $this->emailName, $comment->attribute( 'email' ), $this->expiryTime, '/' );
        //TODO: check the notified for anonymous users
 //       setcookie( $this->notificationName, $comment->attribute( 'notification' ), $this->expiryTime, '/' );
     }
@@ -55,31 +78,6 @@ class ezcomCookieManager
         setcookie( $this->notificationName, '', $deleteTime, '/' );
     }
 
-    /**
-     * fetchCookie for template use
-     * @return
-     */
-    public function fetchCookie()
-    {
-        $result = array();
-        if ( array_key_exists( $this->nameName, $_COOKIE ) )
-        {
-            $result['name'] = $_COOKIE[$this->nameName];
-        }
-        if ( array_key_exists( $this->websiteName, $_COOKIE ) )
-        {
-            $result['website'] = $_COOKIE[$this->websiteName];
-        }
-        if ( array_key_exists( $this->emailName, $_COOKIE ) )
-        {
-            $result['email'] = $_COOKIE[$this->emailName];
-        }
-        if ( array_key_exists( $this->notificationName, $_COOKIE ) )
-        {
-            $result['notified'] = $_COOKIE[$this->notificationName];
-        }
-        return array( 'result' => $result );
-    }
 
     /**
      * create instance
@@ -90,15 +88,5 @@ class ezcomCookieManager
         return new ezcomCookieManager();
     }
 
-    /**
-     * function implementation for fetch( 'comment', 'comment_cookie' ) in template
-     * @return array
-     */
-    public static function fetch()
-    {
-        $cookieManager = self::instance();
-        return $cookieManager->fetchCookie();
-
-    }
 }
 ?>

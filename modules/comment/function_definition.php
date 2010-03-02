@@ -68,14 +68,6 @@ $FunctionList['comment_count'] = array( 'name' => 'comment_count',
                                                       )
                                                   )
                                              );
-$FunctionList['comment_cookie'] = array( 'name' => 'comment_cookie',
-                                                  'operation_types' => array( 'read' ),
-                                                  'call_method' => array( 'include_file' => 'extension/ezcomments/classes/ezcomcookiemanager',
-                                                  'class' => 'ezcomCookieManager',
-                                                  'method' => 'fetch' ),
-                                                  'parameter_type' => 'standard',
-                                                  'parameters' => array()
-                                             );
 $FunctionList['has_access_to_function'] = array( 'name' => 'has_access_to_function',
                                                   'operation_types' => array( 'read' ),
                                                   'call_method' => array( 'include_file' => 'extension/ezcomments/classes/ezcomPermission',

@@ -14,8 +14,9 @@ var eZComments = function() {
             if (o.responseJSON !== undefined) {
                 var response = o.responseJSON;
                 var userDataObject = response.content;
-
-                updateInputFields(userDataObject);
+                if(userDataObject!=''){
+                    updateInputFields(userDataObject);
+                }
             }
         }
 
@@ -48,25 +49,15 @@ var eZComments = function() {
             if (Y.Object.hasKey(userDataObject, sessionID)) {
                 var userData = Y.Object.getValue(userDataObject, sessionID);
 
-                Y.one(ret.cfg.fields.name).set('value', userData.name);
-                Y.one(ret.cfg.fields.email).set('value', userData.email);
+                Y.get(ret.cfg.fields.name).set('value', userData.name);
+                Y.get(ret.cfg.fields.email).set('value', userData.email);
             } else {
                 return false;
             }
             
             return true;
         }
-/*
-        Y.one(ret.cfg.postbutton).on('click', function(e) {
-            e.preventDefault();
-            
-            Y.io.ez('ezcom::postcomment', { method: 'POST', 
-                                            on: { success: postCommentCallback },
-                                            form: { id: Y.one(ret.cfg.postform), 
-                                                    useDisabled: true,
-                                                    upload: false } });
-        });
-*/
+
         var fetchUserData = false;
 
         if (encodedUserData) {

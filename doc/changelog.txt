@@ -1,6 +1,7 @@
 eZ Comments change log
 
 1.0.0 Beta2
+ - Fixed bug 16294: ezcomments: username and email are cached wrongly when posting comment
  - Added commentor ip into database table when commenting
  - Changed context of translation to make context consistent
  - Fixed bug 16276: ezcomments: cannot create translation

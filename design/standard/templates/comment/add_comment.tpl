@@ -2,20 +2,9 @@
 {def $user=fetch( 'user', 'current_user' )}
 {def $anonymous_user_id=ezini('UserSettings', 'AnonymousUserID')}
 {def $is_anonymous=$user.contentobject_id|eq($anonymous_user_id)}
-{def $comment_name='' $comment_website='' $comment_email='' $comment_remember='' $comment_notified=false}
+{def $comment_notified=false}
 {if $is_anonymous}
-    {def $cookies = fetch( 'comment', 'comment_cookie' )}
-        {if count( $cookies )|gt(0)}
-            {set $comment_name=$cookies.name}
-            {set $comment_website=$cookies.website}
-            {set $comment_email=$cookies.email}
-            {set $comment_notified=$cookies.notified}
-            {set $comment_remember='1'}
-        {/if}
-    {undef $cookies}
 {else}
-{set $comment_name=$user.login}
-{set $comment_email=$user.email}
 {set $comment_notified=ezini( 'GlobalSettings', 'EnableNotification', 'ezcomments.ini' )}
 {/if}
 
@@ -60,7 +49,7 @@
             <label>
                 {'Name:'|i18n( 'ezcomments/comment/add/form' )}{if $nameRequired}{$fieldRequiredText}{/if}
             </label>
-            <input type="text" class="box" maxlength="50" id="ezcomments_comment_view_addcomment_name" name="CommentName" value="{$comment_name}" />
+            <input type="text" class="box" maxlength="50" id="ezcomments_comment_view_addcomment_name" name="CommentName" />
         </div>
         {/if}
 
@@ -69,7 +58,7 @@
             <label>
                 {'Website:'|i18n( 'ezcomments/comment/add/form' )}{if $websiteRequired}{$fieldRequiredText}{/if}
             </label>
-            <input type="text" class="box" maxlength="100" id="ezcomments_comment_view_addcomment_website" name="CommentWebsite" value="{$comment_website}" />
+            <input type="text" class="box" maxlength="100" id="ezcomments_comment_view_addcomment_website" name="CommentWebsite" />
         </div>
         {/if}
 
@@ -79,10 +68,10 @@
                 {'Email:'|i18n( 'ezcomments/comment/add/form' )}{if $emailRequired}{$fieldRequiredText}{/if}&nbsp;<span class="ezcom-field-emailmessage">{'(The email address will not be shown)'|i18n( 'ezcomments/comment/add/form' )}</span>
             </label>
             {if $is_anonymous|not}
-                <input type="text" maxlength="100" class="box" id="ezcomments_comment_view_addcomment_email" disabled="true" value="{$comment_email}" />
+                <input type="text" maxlength="100" class="box" id="ezcomments_comment_view_addcomment_email" disabled="true" />
                 <input type="hidden" name="CommentEmail" value="{$comment_email}" />
             {else}
-                <input type="text" maxlength="100" class="box" class="ezcomments-comment-view-addcomment-email" id="ezcomments_comment_view_addcomment_email" name="CommentEmail" value="{$comment_email}" />
+                <input type="text" maxlength="100" class="box" class="ezcomments-comment-view-addcomment-email" id="ezcomments_comment_view_addcomment_email" name="CommentEmail" />
             {/if} 
         </div>
         {/if}
@@ -104,7 +93,7 @@
         {if $is_anonymous}
             <div class="ezcom-field ezcom-field-remember">
                 <label>
-                    <input type="checkbox" name="CommentRememberme" {if $comment_remember}checked="checked"{/if} />
+                    <input type="checkbox" name="CommentRememberme" checked="checked" />
                     {'Remember me'|i18n( 'ezcomments/comment/add/form' )}
                 </label>
             </div>
