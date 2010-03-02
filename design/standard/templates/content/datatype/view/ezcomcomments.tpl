@@ -23,7 +23,11 @@
         {def $default_shown_length=ezini( 'GlobalSettings', 'DefaultEmbededCount', 'ezcomments.ini' )}
 
         {* Fetch comment count *}
-        {def $total_count=fetch( 'comment', 'comment_count', hash( 'contentobject_id', $contentobject.id, 'language_id', $language_id ) )}
+        {def $total_count=fetch( 'comment',
+                                 'comment_count',
+                                 hash( 'contentobject_id', $contentobject.id,
+                                       'language_id', $language_id,
+                                       'status' ,1 ) )}
         
         {* Fetch comments *}
         {def $comments=fetch( 'comment',
@@ -33,7 +37,8 @@
                                     'sort_field', $sort_field, 
                                     'sort_order', $sort_order, 
                                     'offset', 0, 
-                                    'length' ,$default_shown_length ) )}
+                                    'length' ,$default_shown_length,
+                                    'status', 1 ) )}
         
         {* Find out if the currently used role has a user based edit/delete policy *}
         {def $self_policy=fetch( 'comment', 'self_policies', hash( 'contentobject', $contentobject, 'node', $attribute_node ) )}

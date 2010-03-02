@@ -17,6 +17,11 @@ $FunctionList['comment_list'] = array( 'name' => 'comment_list',
                                                           'required' => true,
                                                           'default'  => 0
                                                       ),
+                                                  array( 'name'=> 'status',
+                                                          'type'=>'integer',
+                                                          'required'=>false,
+                                                          'default'=>null
+                                                    ),
                                                   array( 'name'=> 'sort_field',
                                                       'type'=> 'string',
                                                       'required' => true,
@@ -55,6 +60,11 @@ $FunctionList['comment_count'] = array( 'name' => 'comment_count',
                                                           'type'=> 'integer',
                                                           'required' => true,
                                                           'default'  => 0
+                                                      ),
+                                                   array( 'name'=> 'status',
+                                                          'type'=> 'integer',
+                                                          'required' => false,
+                                                          'default'  => null
                                                       )
                                                   )
                                              );

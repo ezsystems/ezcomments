@@ -17,7 +17,8 @@
                                      $current_user.limited_assignment_value_list|implode( ',' ) )}
                 {def $total_count=fetch( 'comment', 'comment_count', 
                                          hash( 'contentobject_id', $contentobject.id,
-                                               'language_id', $language_id ) )}
+                                               'language_id', $language_id,
+                                               'status', 1 ) )}
                 {def $total_page=$total_count|div($number_per_page)|ceil}
                 {if $current_page|gt( $total_page )}
                     <div class="message-error">
@@ -44,7 +45,8 @@
                                                 'sort_field', $sort_field, 
                                                 'sort_order', $sort_order, 
                                                 'offset', $offset, 
-                                                'length', $length ) )}
+                                                'length', $length,
+                                                'status', 1 ) )}
                     {if $comments|count|gt( 0 )}
                         <div class="ezcom-view-list">
                             {for 0 to $comments|count|sub( 1 ) as $index}

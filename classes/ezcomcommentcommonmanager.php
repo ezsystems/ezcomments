@@ -15,6 +15,16 @@
 
 class ezcomCommentCommonManager extends ezcomCommentManager
 {
+    
+    /**
+     * set status for adding comment
+     * @see extension/ezcomments/classes/ezcomCommentManager#beforeAddingComment($comment, $user, $notification)
+     */
+    public function beforeAddingComment( $comment, $user, $notification )
+    {
+        $comment->setAttribute( 'status', 1 );
+        return true;
+    }
 
     /**
      * add subscription after adding comment

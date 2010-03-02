@@ -11,16 +11,16 @@
 class ezcomFunctionCollection
 {
 
-    public static function fetchCommentList( $contentObjectID, $languageID, $sortField, $sortOrder, $offset, $length )
+    public static function fetchCommentList( $contentObjectID, $languageID, $status, $sortField, $sortOrder, $offset, $length )
     {
         $sort = array( $sortField=>$sortOrder );
-        $result = ezcomComment::fetchByContentObjectID( $contentObjectID, $languageID, $sort, $offset, $length );
+        $result = ezcomComment::fetchByContentObjectID( $contentObjectID, $languageID, $status, $sort, $offset, $length );
         return array( 'result' => $result );
     }
 
-    public static function fetchCommentCount( $contentObjectID, $languageID )
+    public static function fetchCommentCount( $contentObjectID, $languageID, $status = null )
     {
-        $result = ezcomComment::countByContent( $contentObjectID, $languageID );
+        $result = ezcomComment::countByContent( $contentObjectID, $languageID, $status );
         return array( 'result' => $result );
     }
 }

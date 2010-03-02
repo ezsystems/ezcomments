@@ -173,16 +173,21 @@ class ezcomComment extends eZPersistentObject
      * fetch comment list by contentobject id
      * @param string $contentObjectID
      * @param string $languageID
+     * @param integer $status
      * @param array $sorts
      * @param integer $offset
      * @param integer $length
      * @return array comment list
      */
-    static function fetchByContentObjectID( $contentObjectID, $languageID, $sorts = null, $offset = null, $length = null )
+    static function fetchByContentObjectID( $contentObjectID, $languageID, $status = null, $sorts = null, $offset = null, $length = null )
     {
         $cond = array();
         $cond['contentobject_id'] = $contentObjectID;
         $cond['language_id'] = $languageID;
+        if( !is_null( $status ) )
+        {
+            $cond['status'] = $status;
+        }
         if ( is_null( $offset ) || is_null( $length ) )
         {
             return null;

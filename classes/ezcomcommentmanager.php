@@ -26,7 +26,6 @@ abstract class ezcomCommentManager
      * @param $comment
      * @param $user
      * @return true if action succeeds
-     *        
      */
     public function beforeAddingComment( $comment, $user, $notification )
     {
