@@ -15,10 +15,6 @@
 class ezcomCookieManager
 {
     public $expiryTime = 0 ;
-    public $nameName = 'ezcommentsName';
-    public $websiteName = 'ezcommentsWebiste';
-    public $emailName = 'ezcommentsEmail';
-    public $notificationName = 'ezcommentsNotified';
 
     /**
      * construct
@@ -56,13 +52,8 @@ class ezcomCookieManager
             $userData[$sessionID] = array( 'email' => $comment->attribute( 'email' ),
                                            'name' => $comment->attribute( 'name' ) );
         }
-        setcookie( 'eZCommentsUserData', base64_encode( json_encode( $userData ) ), time()+3600, '/' );
+        setcookie( 'eZCommentsUserData', base64_encode( json_encode( $userData ) ), $this->expiryTime, '/' );
         return $userData;
-//       setcookie( $this->nameName, $comment->attribute( 'name' ), $this->expiryTime, '/' );
-//       setcookie( $this->websiteName, $comment->attribute( 'url' ), $this->expiryTime, '/' );
-//       setcookie( $this->emailName, $comment->attribute( 'email' ), $this->expiryTime, '/' );
-       //TODO: check the notified for anonymous users
-//       setcookie( $this->notificationName, $comment->attribute( 'notification' ), $this->expiryTime, '/' );
     }
 
     /**
@@ -72,10 +63,7 @@ class ezcomCookieManager
     public function clearCookie()
     {
         $deleteTime = time() - 3600;
-        setcookie( $this->nameName, '', $deleteTime, '/' );
-        setcookie( $this->websiteName, '', $deleteTime, '/' );
-        setcookie( $this->emailName, '', $deleteTime, '/' );
-        setcookie( $this->notificationName, '', $deleteTime, '/' );
+        setcookie( 'eZCommentsUserData', '', $deleteTime, '/' );
     }
 
 
