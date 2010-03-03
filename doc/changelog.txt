@@ -1,6 +1,7 @@
 eZ Comments change log
 
 1.0.0Beta2
+ - Added German translation (made by Georg Franz)
  - Fixed bug 16304: ezcomments: washing of name required
  - Fixed bug 16303: ezcomments - redirection not working
  - Fixed bug 16294: ezcomments: username and email are cached wrongly when posting comment
