@@ -1,7 +1,7 @@
 {* Adding comment START *}
 {def $user=fetch( 'user', 'current_user' )}
-{def $anonymous_user_id=ezini('UserSettings', 'AnonymousUserID')}
-{def $is_anonymous=$user.contentobject_id|eq($anonymous_user_id)}
+{def $anonymous_user_id=ezini('UserSettings', 'AnonymousUserID' )}
+{def $is_anonymous=$user.contentobject_id|eq( $anonymous_user_id )}
 {def $comment_notified=false}
 {if $is_anonymous}
 {else}
@@ -69,9 +69,9 @@
             </label>
             {if $is_anonymous|not}
                 <input type="text" maxlength="100" class="box" id="ezcomments_comment_view_addcomment_email" disabled="true" />
-                <input type="hidden" name="CommentEmail" value="{$comment_email}" />
+                <input type="hidden" name="CommentEmail" />
             {else}
-                <input type="text" maxlength="100" class="box" class="ezcomments-comment-view-addcomment-email" id="ezcomments_comment_view_addcomment_email" name="CommentEmail" />
+                <input type="text" maxlength="100" class="box" id="ezcomments_comment_view_addcomment_email" name="CommentEmail" />
             {/if} 
         </div>
         {/if}
@@ -124,6 +124,6 @@ eZComments.cfg = {ldelim}
 eZComments.init();
 </script>
 
-{undef $comment_name $comment_website $comment_email $comment_notified $comment_remember}
+{undef $comment_notified}
 {undef $user $anonymous_user_id $is_anonymous}
 {* Adding comment END *}

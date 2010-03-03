@@ -15,6 +15,28 @@ class ezcomAddCommentTool extends ezcomFormTool
 {
     private static $instance = null;
     
+    
+    /**
+     * isVariableRequire in adding comment.
+     * When adding comment, for logined user the email is not required
+     * @see extension/ezcomments/classes/ezcomFormTool#isVariableRequired($field)
+     */
+    public function isVariableRequired( $field )
+    {
+        switch ( $field )
+        {
+            case 'email':
+                $user = eZUser::currentUser();
+                if( !$user->isAnonymous() )
+                {
+                    return false;
+                }
+                return true;
+            default:
+            return parent::isVariableRequired( $field );
+        }
+    }
+    
     /**
      * Implement the validatation in adding comment
      * @see extension/ezcomments/classes/ezcomFormTool#validateField($field)
@@ -24,15 +46,17 @@ class ezcomAddCommentTool extends ezcomFormTool
         switch ( $field )
         {
             case 'email':
-                $result = eZMail::validate( $value );
-                if ( !$result )
+                // just validate anonymous's input email
+                $user = eZUser::currentUser();
+                if( $user->isAnonymous() )
                 {
-                    return 'Not a valid email address.';
+                    $result = eZMail::validate( $value );
+                    if ( !$result )
+                    {
+                        return 'Not a valid email address.';
+                    }
                 }
-                else
-                {
-                    return true;
-                }
+                return true;
             default:
                 return true;
         }
