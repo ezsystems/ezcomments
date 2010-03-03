@@ -25,12 +25,10 @@ $Result['content'] ='';
 if ( $http->hasVariable( 'RedirectURI' ) )
 {
     $redirectURI = $http->variable( 'RedirectURI' );
-}
-
-if ( $http->hasVariable( 'BackButton' ) &&
-    $http->variable( 'BackButton') == 'Back')
-{
-     return $module->redirectTo( $redirectURI );
+    if ( $http->hasVariable( 'BackButton' ) )
+    {
+         return $module->redirectTo( $redirectURI );
+    }
 }
 
 if ( $module->isCurrentAction( 'AddComment' ) )
@@ -151,7 +149,7 @@ if ( $module->isCurrentAction( 'AddComment' ) )
 }
 else
 {
-    $tpl->setVariable( 'error_message', "You should not access this view directly" );
+    $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/comment/add', 'You should not access this view directly.' ) );
 }
 
 $Result['content'] = $tpl->fetch( 'design:comment/add.tpl' );

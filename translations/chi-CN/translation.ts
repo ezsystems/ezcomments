@@ -92,6 +92,10 @@
         <source>Commenting has been turned off for this content.</source>
         <translation>此内容的评论功能已经被关闭。</translation>
     </message>
+    <message>
+        <source>You should not access this view directly.</source>
+        <translation>你不能直接访问这个页面.</translation>
+    </message>
 </context>
 <context>
     <name>ezcomments/comment/add/form</name>
