@@ -94,7 +94,15 @@
     </message>
     <message>
         <source>You should not access this view directly.</source>
-        <translation>你不能直接访问这个页面.</translation>
+        <translation>你不能直接访问这个页面。</translation>
+    </message>
+    <message>
+        <source>You will receive comment update notification on the content.</source>
+        <translation>你将收到本内容的评论更新通知。</translation>
+    </message>
+    <message>
+        <source>You have already subscribed comment update on the content before.</source>
+        <translation>之前你已经订阅了本内容的评论更新。</translation>
     </message>
 </context>
 <context>

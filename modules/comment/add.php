@@ -80,19 +80,11 @@ if ( $module->isCurrentAction( 'AddComment' ) )
 
          $languageId = eZContentLanguage::idByLocale( $languageCode );
 
-         $existingNotification = ezcomSubscription::exists( $contentObjectId,
-                                                            $languageId,
-                                                            'ezcomcomment',
-                                                            $email );
-
+         $notification = false;
          if ( $http->hasPostVariable( 'CommentNotified' ) &&
              $http->postVariable( 'CommentNotified' ) == 'on' )
          {
              $notification = true;
-         }
-         else
-         {
-             $notification = false;
          }
 
          $user = eZUser::currentUser();
@@ -107,15 +99,26 @@ if ( $module->isCurrentAction( 'AddComment' ) )
          $commentManager = ezcomCommentManager::instance();
          $commentManager->tpl = $tpl;
 
-
+         $existingNotification = false;
          // toggle notification state on change in state
-         if ( $notification == $existingNotification )
+         if( $notification )
          {
-             $addingResult = $commentManager->addComment( $comment, $user );
+              $existingNotification = ezcomSubscription::exists( $contentObjectId,
+                                                                $languageId,
+                                                                'ezcomcomment',
+                                                                $email );
+              if( !$existingNotification )
+              {
+                   $addingResult = $commentManager->addComment( $comment, $user, null, true );
+              }
+              else
+              {
+                   $addingResult = $commentManager->addComment( $comment, $user );
+              }
          }
          else
          {
-             $addingResult = $commentManager->addComment( $comment, $user, null, $notification );
+             $addingResult = $commentManager->addComment( $comment, $user );
          }
 
          if ( $addingResult === true )
@@ -138,6 +141,17 @@ if ( $module->isCurrentAction( 'AddComment' ) )
              eZContentCacheManager::clearContentCacheIfNeeded( $contentObjectId );
 
              $tpl->setVariable( 'success', true );
+             if( $notification && !$existingNotification )
+             {
+                 $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
+                                                             'You will receive comment update notification on the content.' ) );
+             }
+                 
+             if( $notification && $existingNotification && !$user->isAnonymous() )
+             {
+                 $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
+                                                             'You have already subscribed comment update on the content before.' ) );
+             }
              $tpl->setVariable( 'redirect_uri', $redirectURI );
          }
 

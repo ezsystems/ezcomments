@@ -77,6 +77,8 @@ class ezcomFormTool
 
         foreach ( $this->fields as $field => $fieldSetup )
         {  
+            $fieldPostName = $fieldSetup[self::VARNAME];
+            $this->setFieldValue( $field, $fieldPostName );
             if( !$this->isVariableRequired( $field ) )
             {
                 continue;
@@ -84,8 +86,6 @@ class ezcomFormTool
             else
             {
                 $fieldRequired = $fieldSetup[self::REQUIRED] == 'true' ? true : false;
-                $fieldPostName = $fieldSetup[self::VARNAME];
-
                 $fieldExists = $http->hasPostVariable( $fieldPostName );
 
                 if ( $fieldRequired && !$fieldExists )
@@ -114,7 +114,6 @@ class ezcomFormTool
                         }
                     }
                 }
-                $this->setFieldValue( $field, $fieldPostName );
             }
             
         }

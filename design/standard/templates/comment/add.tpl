@@ -20,6 +20,11 @@
         <p>
             {'Posting succeeds!'|i18n( 'ezcomments/comment/add' )}
         </p>
+        {if is_set( $success_message )}
+        <p>
+            {$success_message}
+        </p>
+        {/if}
         <form action="{'comment/add'|ezurl}" method="get" name="CommentAdded">
             <input type="hidden" name="RedirectURI" value={$redirect_uri} />
             <input type="submit" class="button" name="BackButton" value="{'Back'|i18n( 'ezcomments/comment/action') }" />

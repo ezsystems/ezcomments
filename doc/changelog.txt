@@ -1,6 +1,7 @@
 eZ Comments change log
 
 1.0.0Beta2
+ - Fixed bug that error occurs when a subscriber comments on a subsribed content without checking 'notify me'. 
  - Fixed the email field doesn't work
  - Added German translation (made by Georg Franz)
  - Fixed bug 16304: ezcomments: washing of name required

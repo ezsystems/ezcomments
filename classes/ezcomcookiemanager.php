@@ -44,7 +44,7 @@ class ezcomCookieManager
             else
             {
                 $userData[$sessionID] = array( 'email' => $currentUser->attribute( 'email' ),
-                                               'name' => $currentUser->attribute( 'login' ) );
+                                               'name' => $currentUser->contentObject()->name() );
             }
         }
         else

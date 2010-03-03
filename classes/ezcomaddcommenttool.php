@@ -71,16 +71,6 @@ class ezcomAddCommentTool extends ezcomFormTool
         $user = eZUser::currentUser();
         switch ( $field )
         {
-            case 'name':
-                if( !$user->isAnonymous() )
-                {
-                    $this->fieldValues[$field] = $user->contentObject()->name();
-                }
-                else
-                {
-                    parent::setFieldValue( $field, $fieldPostName );
-                }
-                break;
             case 'email':
                 if( !$user->isAnonymous() )
                 {
