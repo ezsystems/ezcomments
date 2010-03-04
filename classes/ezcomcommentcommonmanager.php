@@ -55,17 +55,6 @@ class ezcomCommentCommonManager extends ezcomCommentManager
                                             $subscriptionType,
                                             $comment->attribute( 'created' ) );
         }
-        else if ( $notification === false )
-        {
-            if ( !$user->isAnonymous() )
-            {
-                $subscription->deleteSubscription( $comment->attribute( 'email' ),
-                                                   $comment->attribute( 'contentobject_id' ),
-                                                   $comment->attribute( 'language_id' ) );
-            }
-        }
-
-
 
         // insert data into notification queue
         // if there is no subscription,not adding to notification queue
