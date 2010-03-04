@@ -93,8 +93,8 @@
         <translation>添加评论</translation>
     </message>
     <message>
-        <source>%field is missing.</source>
-        <translation>缺少表单域%field.</translation>
+        <source>%1 is missing.</source>
+        <translation>缺少表单域%1.</translation>
     </message>
     <message>
         <source>The field [%1] is empty.</source>
