@@ -74,6 +74,10 @@
         <translation>如果您想管理您的订阅，请进入设置页面。</translation>
     </message>
     <message>
+        <source>A confirmation email has been sent to your email address. You will receive comment update notification after confirmation.</source>
+        <translation>一封确认邮件已经发到你的邮箱，确认邮箱后你将能收到此内容的评论更新。</translation>
+    </message>
+    <message>
         <source>Subscribe comment</source>
         <translation>订阅评论</translation>
     </message>

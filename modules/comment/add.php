@@ -141,12 +141,16 @@ if ( $module->isCurrentAction( 'AddComment' ) )
              eZContentCacheManager::clearContentCacheIfNeeded( $contentObjectId );
 
              $tpl->setVariable( 'success', true );
-             if( $notification && !$existingNotification )
+             if( $notification && !$existingNotification && !$user->isAnonymous() )
              {
                  $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
                                                              'You will receive comment update notification on the content.' ) );
              }
-                 
+             if( $notification && !$existingNotification && $user->isAnonymous() )
+             {
+                 $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
+                                                             'A confirmation email has been sent to your email address. You will receive comment update notification after confirmation.' ) );
+             }    
              if( $notification && $existingNotification && !$user->isAnonymous() )
              {
                  $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
