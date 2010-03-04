@@ -7,7 +7,6 @@ CREATE TABLE IF NOT EXISTS `ezcomment` (
   `session_key` varchar(32) NOT NULL,
   `ip` varchar(100) NOT NULL,
   `contentobject_id` int(11) NOT NULL,
-  `contentobject_attribute_id` int(11) NOT NULL,
   `parent_comment_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
   `email` varchar(75) NOT NULL,

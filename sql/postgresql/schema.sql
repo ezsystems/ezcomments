@@ -62,7 +62,6 @@ CREATE SEQUENCE ezcomment_subscription_s
 
 
 CREATE TABLE ezcomment (
-    contentobject_attribute_id integer DEFAULT 0 NOT NULL,
     contentobject_id integer DEFAULT 0 NOT NULL,
     created integer DEFAULT 0 NOT NULL,
     email character varying(75) DEFAULT ''::character varying NOT NULL,
