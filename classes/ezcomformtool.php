@@ -91,7 +91,10 @@ class ezcomFormTool
                 if ( $fieldRequired && !$fieldExists )
                 {
                     $status = false;
-                    $this->validationMessage[$field] = "$field is missing.";
+                    $this->validationMessage[$field] = ezi18n( 'ezcomments/comment/add',
+                                                               '%1 is missing.',
+                                                               null,
+                                                               array( $field ) );
                     continue;
                 }
                 else if ( $fieldRequired && $fieldExists )
@@ -100,7 +103,10 @@ class ezcomFormTool
                     if ( empty( $val ) )
                     {
                         $status = false;
-                        $this->validationMessage[$field] = "The field [$field] is empty";
+                        $this->validationMessage[$field] = ezi18n( 'ezcomments/comment/add',
+                                                                   'The field [%1] is empty.',
+                                                                   null,
+                                                                   array( $field ) );
                         continue;
                     }
                     else

@@ -96,6 +96,30 @@
         <source>You should not access this view directly.</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Not a valid email address.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 is missing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The field [%1] is empty.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You will receive comment update notification on the content.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A confirmation email has been sent to your email address. You will receive comment update notification after confirmation.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have already subscribed comment update on the content before.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ezcomments/comment/add/form</name>

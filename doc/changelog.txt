@@ -1,6 +1,7 @@
 eZ Comments change log
 
 1.0.0Beta2
+ - Added translation support for form validation
  - Fixed bug that error occurs when a subscriber comments on a subsribed content without checking 'notify me'. 
  - Fixed the email field doesn't work
  - Added German translation (made by Georg Franz)

@@ -93,6 +93,18 @@
         <translation>添加评论</translation>
     </message>
     <message>
+        <source>%field is missing.</source>
+        <translation>缺少表单域%field.</translation>
+    </message>
+    <message>
+        <source>The field [%1] is empty.</source>
+        <translation>表单域 %1 为空.</translation>
+    </message>
+    <message>
+        <source>Not a valid email address.</source>
+        <translation>不是合法邮箱地址</translation>
+    </message>
+    <message>
         <source>Commenting has been turned off for this content.</source>
         <translation>此内容的评论功能已经被关闭。</translation>
     </message>

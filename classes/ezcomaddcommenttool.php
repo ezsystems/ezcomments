@@ -53,7 +53,7 @@ class ezcomAddCommentTool extends ezcomFormTool
                     $result = eZMail::validate( $value );
                     if ( !$result )
                     {
-                        return 'Not a valid email address.';
+                        return ezi18n( 'ezcomments/comment/add', 'Not a valid email address.' );
                     }
                 }
                 return true;
