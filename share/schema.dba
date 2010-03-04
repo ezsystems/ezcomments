@@ -6,13 +6,6 @@ $schema = array (
     'name' => 'ezcomment',
     'fields' => 
     array (
-      'contentobject_attribute_id' => 
-      array (
-        'length' => 11,
-        'type' => 'int',
-        'not_null' => '1',
-        'default' => 0,
-      ),
       'contentobject_id' => 
       array (
         'length' => 11,
