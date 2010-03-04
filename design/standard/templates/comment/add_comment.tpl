@@ -60,17 +60,17 @@
         {/if}
 
         {if $showEmail}
-        <div class="ezcom-field ezcom-field-email">
-            <label>
-                {'Email:'|i18n( 'ezcomments/comment/add/form' )}{if $emailRequired}{$fieldRequiredText}{/if}&nbsp;<span class="ezcom-field-emailmessage">{'(The email address will not be shown)'|i18n( 'ezcomments/comment/add/form' )}</span>
-            </label>
-            {if $is_anonymous|not}
-                <input type="text" maxlength="100" class="box" id="ezcomments_comment_view_addcomment_email" disabled="true" />
-                <input type="hidden" name="CommentEmail" />
-            {else}
-                <input type="text" maxlength="100" class="box" id="ezcomments_comment_view_addcomment_email" name="CommentEmail" />
-            {/if} 
-        </div>
+            <div class="ezcom-field ezcom-field-email">
+                <label>
+                    {'Email:'|i18n( 'ezcomments/comment/add/form' )}{if $emailRequired}{$fieldRequiredText}{/if}&nbsp;<span class="ezcom-field-emailmessage">{'(The email address will not be shown)'|i18n( 'ezcomments/comment/add/form' )}</span>
+                </label>
+                {if $is_anonymous|not}
+                    <input type="text" maxlength="100" class="box" id="ezcomments_comment_view_addcomment_email" disabled="true" />
+                    <input type="hidden" name="CommentEmail" />
+                {else}
+                    <input type="text" maxlength="100" class="box" id="ezcomments_comment_view_addcomment_email" name="CommentEmail" />
+                {/if} 
+            </div>
         {/if}
 
         <div class="ezcom-field ezcom-field-content">
@@ -80,13 +80,14 @@
             <textarea id="ezcomments_comment_view_addcomment_content" class="box" name="CommentContent"></textarea>
         </div>
 
-        <div class="ezcom-field ezcom-field-notified">
-            <label>
-                <input type="checkbox" id="ezcom_field_notified" name="CommentNotified" {if $comment_notified|eq('true')}checked="checked"{/if} />
-                {'Notify me of new comments'|i18n( 'ezcomments/comment/add/form' )}
-            </label>
-        </div>
-
+        {if $showEmail}
+            <div class="ezcom-field ezcom-field-notified">
+                <label>
+                    <input type="checkbox" id="ezcom_field_notified" name="CommentNotified" {if $comment_notified|eq('true')}checked="checked"{/if} />
+                    {'Notify me of new comments'|i18n( 'ezcomments/comment/add/form' )}
+                </label>
+            </div>
+        {/if}
         {if $is_anonymous}
             <div class="ezcom-field ezcom-field-remember">
                 <label>
