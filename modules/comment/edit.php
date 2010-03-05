@@ -57,7 +57,6 @@ $notified = ezcomSubscription::exists( $contentID,
                                        $languageID,
                                        'ezcomcomment',
                                        $comment->attribute( 'email' ) );
-
 $tpl->setVariable( 'notified', $notified );
 
 

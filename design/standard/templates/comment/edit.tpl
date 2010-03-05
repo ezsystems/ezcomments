@@ -1,5 +1,10 @@
 {ezcss_require( 'comment.css' )}
 {if $can_edit}
+    {def $showTitle = ezini( 'title', 'Display', 'ezcomments.ini' )|eq( 'true' )
+         $showName = ezini( 'name', 'Display', 'ezcomments.ini' )|eq( 'true' )
+         $showWebsite = ezini( 'website', 'Display', 'ezcomments.ini' )|eq( 'true' )
+         $showEmail = ezini( 'email', 'Display', 'ezcomments.ini' )|eq( 'true' )
+    }
     {if is_set( $error_message )}
         <div class="message-error">
            <p>
@@ -20,40 +25,53 @@
                         {'Edit comment'|i18n( 'ezcomments/comment/edit' )}
                     </h4>
                 </div>
-                <div class="ezcom-field ezcom-field-title">
-                    <label>
-                        {'Title:'|i18n( 'ezcomments/comment/add/form' )}
-                    </label>
-                    <input type="text" class="box" maxlength="100" id="ezcomments_comment_edit_title" name="CommentTitle" value="{$comment.title|wash}" />
-                </div>
-                <div class="ezcom-field ezcom-field-name">
-                    <label>
-                        {'Name:'|i18n( 'ezcomments/comment/add/form' )}
-                    </label>
-                     <input type="text" class="box" maxlength="50" id="ezcomments_comment_edit_name" disabled="true" name="CommentName" value="{$comment.name|wash}" />
-                </div>
-                <div class="ezcom-field ezcom-field-website">
-                    <label>
-                        {'Website:'|i18n( 'ezcomments/comment/add/form' )}
-                    </label>
-                    <input type="text"
-                           class="box"
-                           maxlength="100"
-                           id="ezcomments_comment_edit_website"
-                           name="CommentWebsite"
-                           value="{$comment.url|wash}" />
-                </div>
-                <div class="ezcom-field ezcom-field-email">
-                    <label>
-                        {'Email:'|i18n( 'ezcomments/comment/add/form' )}
-                    </label>
-                    <input type="text"
-                           class="box"
-                           id="ezcomments_comment_edit_email"
-                           name="CommentEmail"
-                           disabled="true"
-                           value="{$comment.email|wash}" />
-                </div>
+                
+                {if $showTitle}
+                    <div class="ezcom-field ezcom-field-title">
+                        <label>
+                            {'Title:'|i18n( 'ezcomments/comment/add/form' )}
+                        </label>
+                        <input type="text" class="box" maxlength="100" id="ezcomments_comment_edit_title" name="CommentTitle" value="{$comment.title|wash}" />
+                    </div>
+                {/if}
+                
+                {if $showName}
+                    <div class="ezcom-field ezcom-field-name">
+                        <label>
+                            {'Name:'|i18n( 'ezcomments/comment/add/form' )}
+                        </label>
+                         <input type="text" class="box" maxlength="50" id="ezcomments_comment_edit_name" disabled="true" name="CommentName" value="{$comment.name|wash}" />
+                    </div>
+                {/if}
+                
+                {if $showWebsite}
+                    <div class="ezcom-field ezcom-field-website">
+                        <label>
+                            {'Website:'|i18n( 'ezcomments/comment/add/form' )}
+                        </label>
+                        <input type="text"
+                               class="box"
+                               maxlength="100"
+                               id="ezcomments_comment_edit_website"
+                               name="CommentWebsite"
+                               value="{$comment.url|wash}" />
+                    </div>
+                {/if}
+                
+                {if $showEmail}
+                    <div class="ezcom-field ezcom-field-email">
+                        <label>
+                            {'Email:'|i18n( 'ezcomments/comment/add/form' )}
+                        </label>
+                        <input type="text"
+                               class="box"
+                               id="ezcomments_comment_edit_email"
+                               name="CommentEmail"
+                               disabled="true"
+                               value="{$comment.email|wash}" />
+                    </div>
+                {/if}
+                
                 <div class="ezcom-field ezcom-field-content">
                     <label>
                         {'Content:'|i18n( 'ezcomments/comment/add/form' )}
@@ -62,15 +80,18 @@
                     <span class="ezcom-field-mandatory">*</span>
                 </div>
                 
-                <div class="ezcom-field ezcom-field-notified">
-                    <label>
-                        <input type="checkbox"
-                               id="ezcomments_comment_edit_notified"
-                               name="CommentNotified"
-                               {if $notified}checked{/if} />
-                        {'Notified of new comments'|i18n( 'ezcomments/comment/add/form' )}
-                    </label>
-                </div>
+                {if $showEmail}
+                    <div class="ezcom-field ezcom-field-notified">
+                        <label>
+                            <input type="checkbox"
+                                   id="ezcomments_comment_edit_notified"
+                                   name="CommentNotified"
+                                   {if $notified}checked{/if} />
+                            {'Notified of new comments'|i18n( 'ezcomments/comment/add/form' )}
+                        </label>
+                    </div>
+                 {/if}
+                 
                 <div class="ezcom-field">
                     <input type="submit"
                            value="{'Update comment'|i18n('ezcomments/comment/action' )}"

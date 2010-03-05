@@ -2,8 +2,7 @@
 {def $user=fetch( 'user', 'current_user' )}
 {def $anonymous_user_id=ezini('UserSettings', 'AnonymousUserID' )}
 {def $is_anonymous=$user.contentobject_id|eq( $anonymous_user_id )}
-{def $comment_notified=false}
-{set $comment_notified=ezini( 'GlobalSettings', 'EnableNotification', 'ezcomments.ini' )}
+{def $comment_notified=ezini( 'GlobalSettings', 'EnableNotification', 'ezcomments.ini' )}
 
 {def $showTitle = ezini( 'title', 'Display', 'ezcomments.ini' )|eq( 'true' )
      $showName = ezini( 'name', 'Display', 'ezcomments.ini' )|eq( 'true' )
