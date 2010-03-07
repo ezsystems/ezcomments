@@ -26,7 +26,7 @@
                 </label>
                 <input type="text" class="box" maxlength="100" id="ezcomments_comment_view_addcomment_title" name="CommentTitle" />
             </div>
-        {/def}
+        {undef $titleRequired}
         {/if}
 
         {if $fields|contains( 'name' )}
@@ -38,11 +38,11 @@
                 </label>
                 <input type="text" class="box" maxlength="50" id="ezcomments_comment_view_addcomment_name" name="CommentName" />
             </div>
-        {def $nameRequired}
+        {undef $nameRequired}
         {/if}
 
         {if $fields|contains( 'website' )}
-        {def $websiteRequired = ezini( 'email', 'Required', 'ezcomments.ini' )|eq( 'true' )}
+        {def $websiteRequired = ezini( 'website', 'Required', 'ezcomments.ini' )|eq( 'true' )}
             <div class="ezcom-field ezcom-field-website">
                 <label>
                     {'Website:'|i18n( 'ezcomments/comment/add/form' )}{if $websiteRequired}{$fieldRequiredText}{/if}

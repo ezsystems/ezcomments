@@ -78,6 +78,7 @@ FormHandlerClass=ezcomFormTool
 AvailableFields[]
 AvailableFields[]=title
 AvailableFields[]=name
+AvailableFields[]=website
 AvailableFields[]=email
 AvailableFields[]=comment
 AvailableFields[]=notificationField
