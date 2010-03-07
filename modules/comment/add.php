@@ -91,6 +91,7 @@ if ( $module->isCurrentAction( 'AddComment' ) )
         
         if ( $notification )
         {
+            $email = $comment->attribute( 'notificationField' );
             $existingNotification = ezcomSubscription::exists( $contentObjectId,
                                                             $languageId,
                                                             'ezcomcomment',
