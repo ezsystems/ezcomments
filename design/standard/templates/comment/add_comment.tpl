@@ -19,7 +19,7 @@
         </div>
 
         {if $fields|contains( 'title' )}
-        {def $titleRequired = ezini( 'name', 'Required', 'ezcomments.ini' )|eq( 'true' )}
+        {def $titleRequired = ezini( 'title', 'Required', 'ezcomments.ini' )|eq( 'true' )}
             <div class="ezcom-field ezcom-field-title">
                 <label>
                     {'Title:'|i18n( 'ezcomments/comment/add/form' )}{if $titleRequired}{$fieldRequiredText}{/if}
