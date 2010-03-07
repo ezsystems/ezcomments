@@ -76,6 +76,7 @@ EditCommentToolClass=ezcomEditCommentTool
 [FormSettings]
 FormHandlerClass=ezcomFormTool
 AvailableFields[]
+AvailableFields[]=title
 AvailableFields[]=name
 AvailableFields[]=email
 AvailableFields[]=comment
