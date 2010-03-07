@@ -81,6 +81,15 @@ class ezcomAddCommentTool extends ezcomFormTool
                     parent::setFieldValue( $field, $fieldPostName );
                 }
                 break;
+            case 'notificationField':
+                $http = eZHTTPTool::instance();
+                $notification = false;
+                if( $http->hasPostVariable( $fieldPostName ) && $http->postVariable( $fieldPostName ) === 'on')
+                {
+                    $notification = true;
+                }
+                $this->fieldValues[$field] = $notification;
+                break;
             default:
                 parent::setFieldValue( $field, $fieldPostName );
                 break;

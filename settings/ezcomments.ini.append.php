@@ -75,38 +75,39 @@ EditCommentToolClass=ezcomEditCommentTool
 
 [FormSettings]
 FormHandlerClass=ezcomFormTool
-
 AvailableFields[]
-AvailableFields[]=title
 AvailableFields[]=name
-AvailableFields[]=website
 AvailableFields[]=email
 AvailableFields[]=comment
+AvailableFields[]=notificationField
 
 [title]
 Required=false
-Display=true
 PostVarName=CommentTitle
+AttributeName=title
 
 [name]
 Required=true
-Display=true
 PostVarName=CommentName
+AttributeName=name
 
 [website]
 Required=false
-Display=true
 PostVarName=CommentWebsite
+AttributeName=url
 
 [email]
 Required=true
-Display=true
 PostVarName=CommentEmail
+AttributeName=email
 
 [comment]
 Required=true
-Display=true
 PostVarName=CommentContent
+AttributeName=text
 
+[notificationField]
+Required=false
+PostVarName=CommentNotified
 */
 ?>

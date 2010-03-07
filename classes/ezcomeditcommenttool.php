@@ -34,11 +34,47 @@ class ezcomEditCommentTool extends ezcomFormTool
         {
             case 'email':
                 return false;
-            case 'name':
-                return false;
             default:
                 return parent::isVariableRequired( $field );
         }
+    }
+    
+    protected function setFieldValue( $field, $fieldPostName )
+    {
+        switch ( $field )
+        {
+            case 'notificationField':
+                $http = eZHTTPTool::instance();
+                $notification = $http->postVariable( $fieldPostName ) === 'on' ? true : false;
+                $this->fieldValues[$field] = $notification;
+                break;
+            // don't change email value
+            case 'email':
+                break;
+            default:
+                parent::setFieldValue( $field, $fieldPostName );
+                break;
+        }
+    }
+    
+    /**
+     * (non-PHPdoc)
+     * @see extension/ezcomments/classes/ezcomFormTool#fillObject($comment, $fieldNames)
+     */
+    public function fillObject( $comment, $fieldNames = null )
+    {
+        if ( is_null( $fieldNames ) )
+        {
+            $fieldNames = array();
+            foreach ( $this->fields as $field => $fieldSetup )
+            {
+                if( $field != 'email' )
+                {
+                    $fieldNames[] = $field;
+                }
+            }
+        }
+        parent::fillObject( $comment, $fieldNames );
     }
     
     public static function instance()

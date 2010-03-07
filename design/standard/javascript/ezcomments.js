@@ -20,37 +20,19 @@ var eZComments = function() {
             }
         }
 
-        var postCommentCallback = function(id, o) {
-            if (o.responseJSON !== undefined) {
-                var response = o.responseJSON;
-                
-                if (Y.Object.hasKey(response.content, 'comment')) {
-                    if ( ret.cfg.sortorder == 'desc' ) {
-                        Y.one(ret.cfg.postcontainer).prepend(Y.Node.create(response.content.comment));
-                    } else {
-                        Y.one(ret.cfg.postcontainer).append(Y.Node.create(response.content.comment));
-                    }
-                }
-
-                if (Y.Object.hasKey(response.content, 'fields')) {
-                    var fields = response.content.fields;
-                    
-                    Y.Object.each(fields, function(v, k, o) {
-                        var field = Y.one('[name=' + k + ']');
-
-                        field.set( 'value', v.fieldValue );
-                        field.get('parentNode').one('.ezcom-filed-error').set('innerHTML', v.validationText);
-                    })
-                }
-            }
-        }
+       
         
         var updateInputFields = function(userDataObject) {
             if (Y.Object.hasKey(userDataObject, sessionID)) {
                 var userData = Y.Object.getValue(userDataObject, sessionID);
-
-                Y.get(ret.cfg.fields.name).set('value', userData.name);
-                Y.get(ret.cfg.fields.email).set('value', userData.email);
+                var fieldName = Y.get(ret.cfg.fields.name);
+                if (fieldName!=null){
+                    fieldName.set('value', userData.name);
+                }
+                var fieldEmail = Y.get(ret.cfg.fields.email);
+                if (fieldEmail!=null){
+                    fieldEmail.set('value', userData.email);
+                }
             } else {
                 return false;
             }

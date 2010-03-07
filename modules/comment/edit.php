@@ -53,30 +53,26 @@ if ( !$canEdit )
 
 $contentID = $comment->attribute( 'contentobject_id' );
 
-$notified = ezcomSubscription::exists( $contentID,
-                                       $languageID,
-                                       'ezcomcomment',
-                                       $comment->attribute( 'email' ) );
-$tpl->setVariable( 'notified', $notified );
-
+// get if notification is enabled and notification value
+$ini = eZINI::instance( 'ezcomments.ini' );
+$formSettings = $ini->variable( 'FormSettings', 'AvailableFields' );
+$notificationEnabled = false;
+if( in_array( 'notificationField', $formSettings ) )
+{
+    $notificationEnabled = true;
+}
+$notified = null;
+if( $notificationEnabled )
+{
+    $notified = ezcomSubscription::exists( $contentID,
+                                           $languageID,
+                                           'ezcomcomment',
+                                           $comment->attribute( 'email' ) );
+    $tpl->setVariable( 'notified', $notified );
+}
 
 if ( $Module->isCurrentAction( 'UpdateComment' ) )
 {
-    //1. get the form values
-    $title = $http->postVariable( 'CommentTitle' );
-    $name = $http->postVariable( 'CommentName' );
-    $website = $http->postVariable( 'CommentWebsite' );
-    $email = $http->postVariable( 'CommentEmail' );
-    $content = $http->postVariable( 'CommentContent' );
-    $clientNotified = false;
-    if ( $http->hasPostVariable( 'CommentNotified' ) )
-    {
-        if ( $http->postVariable( 'CommentNotified' ) == 'on' )
-        {
-            $clientNotified = true;
-        }
-    }
-    
    // Validate given input date against form setup
     $formTool = ezcomEditCommentTool::instance();
     $formStatus = $formTool->checkVars();
@@ -90,22 +86,24 @@ if ( $Module->isCurrentAction( 'UpdateComment' ) )
     }
     
     //TODO: code from 93 can be implement in a class, see another TODO in add.php
-    $comment->setAttribute( 'title', $title );
-    $comment->setAttribute( 'url', $website );
-    $comment->setAttribute( 'text', $content );
+    $formTool->fillObject( $comment );
     $time = time();
     $comment->setAttribute( 'modified', $time );
     $commentManager = ezcomCommentManager::instance();
 
+    // update comments
+    $clientNotified = $formTool->fieldValue( 'notificationField' );
     $updateResult = null;
-    if ( $clientNotified == $notified )
-    {
-        $updateResult = $commentManager->updateComment( $comment, null, $time );
-    }
-    else
+    // if notified and clientNotified are not null and different, change notification
+    if( $notificationEnabled && $notified != $clientNotified )
     {
         $updateResult = $commentManager->updateComment( $comment, null, $time, $clientNotified );
     }
+    else
+    {
+        $updateResult = $commentManager->updateComment( $comment, null, $time );
+    }
+    
     if ( $updateResult !== true )
     {
         $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/comment/edit', 'Updating failed.') . $updateResult );

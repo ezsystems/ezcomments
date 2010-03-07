@@ -60,109 +60,95 @@ if ( $module->isCurrentAction( 'AddComment' ) )
         }
 
          //TODO: from 63, most of the code can be implemented in a class see another TODO in edit.php
-         $title = $formTool->fieldValue( 'title' );
-         $name = $formTool->fieldValue( 'name' );
-         $website = $formTool->fieldValue( 'website' );
-         $email = $formTool->fieldValue( 'email' );
-         $content = $formTool->fieldValue( 'comment' );
-         $sessionKey = $http->getSessionKey();
-         $util = ezcomUtility::instance();
-         $ip = $util->getUserIP();
+        // Build ezcomcomment object
+        $comment = ezcomComment::create();
 
-         $comment = ezcomComment::create();
-         $comment->setAttribute( 'title', $title );
-         $comment->setAttribute( 'name', $name );
-         $comment->setAttribute( 'url', $website );
-         $comment->setAttribute( 'email', $email );
-         $comment->setAttribute( 'text', $content );
-         $comment->setAttribute( 'session_key', $sessionKey );
-         $comment->setAttribute( 'ip', $ip );
+        $formTool->fillObject( $comment );
 
-         $languageId = eZContentLanguage::idByLocale( $languageCode );
+        $comment->setAttribute( 'contentobject_id', $contentObjectId );
+        
+        $languageId = eZContentLanguage::idByLocale( $languageCode );
+        $comment->setAttribute( 'language_id', $languageId );
 
-         $notification = false;
-         if ( $http->hasPostVariable( 'CommentNotified' ) &&
-             $http->postVariable( 'CommentNotified' ) == 'on' )
-         {
-             $notification = true;
-         }
+        $sessionKey = $http->getSessionKey();
+        $comment->setAttribute( 'session_key', $sessionKey );
 
-         $user = eZUser::currentUser();
+        $util = ezcomUtility::instance();
+        $ip = $util->getUserIP();
+        $comment->setAttribute( 'ip', $ip );
 
-         $comment->setAttribute( 'contentobject_id', $contentObjectId );
-         $comment->setAttribute( 'language_id', $languageId );
-         $currentTime = time();
-         $comment->setAttribute( 'user_id', $user->attribute( 'contentobject_id' ) );
-         $comment->setAttribute( 'created', $currentTime );
-         $comment->setAttribute( 'modified', $currentTime );
+        $user = eZUser::currentUser();
+        $comment->setAttribute( 'user_id', $user->attribute( 'contentobject_id' ) );
 
-         $commentManager = ezcomCommentManager::instance();
-         $commentManager->tpl = $tpl;
+        $currentTime = time();
+        $comment->setAttribute( 'created', $currentTime );
+        $comment->setAttribute( 'modified', $currentTime );
 
-         $existingNotification = false;
-         // toggle notification state on change in state
-         if( $notification )
-         {
-              $existingNotification = ezcomSubscription::exists( $contentObjectId,
-                                                                $languageId,
-                                                                'ezcomcomment',
-                                                                $email );
-              if( !$existingNotification )
-              {
-                   $addingResult = $commentManager->addComment( $comment, $user, null, true );
-              }
-              else
-              {
-                   $addingResult = $commentManager->addComment( $comment, $user );
-              }
-         }
-         else
-         {
-             $addingResult = $commentManager->addComment( $comment, $user );
-         }
-
-         if ( $addingResult === true )
-         {
-             //remember cookies
-             if ( $user->isAnonymous() )
-             {
-                 $cookieManager = ezcomCookieManager::instance();
-                 if ( $http->hasPostVariable( 'CommentRememberme') &&
-                     $http->postVariable( 'CommentRememberme' ) == 'on' )
-                 {
-                     $cookieManager->storeCookie( $comment );
-                 }
-                 else
-                 {
-                     $cookieManager->clearCookie();
-                 }
-             }
-
-             eZContentCacheManager::clearContentCacheIfNeeded( $contentObjectId );
-
-             $tpl->setVariable( 'success', true );
-             if( $notification && !$existingNotification && !$user->isAnonymous() )
-             {
-                 $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
-                                                             'You will receive comment update notification on the content.' ) );
-             }
-             if( $notification && !$existingNotification && $user->isAnonymous() )
-             {
-                 $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
-                                                             'A confirmation email has been sent to your email address. You will receive comment update notification after confirmation.' ) );
-             }    
-             if( $notification && $existingNotification && !$user->isAnonymous() )
-             {
-                 $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
-                                                             'You have already subscribed comment update on the content before.' ) );
-             }
-             $tpl->setVariable( 'redirect_uri', $redirectURI );
-         }
-
-         else
-         {
+        // toggle notification state on change in state
+        $notification = $formTool->fieldValue( 'notificationField' );
+        $commentManager = ezcomCommentManager::instance();
+        $commentManager->tpl = $tpl;
+        
+        if ( $notification )
+        {
+            $existingNotification = ezcomSubscription::exists( $contentObjectId,
+                                                            $languageId,
+                                                            'ezcomcomment',
+                                                            $email );
+            if ( !$existingNotification )
+            {
+                $addingResult = $commentManager->addComment( $comment, $user, null, true );
+            }
+            else
+            {
+                $addingResult = $commentManager->addComment( $comment, $user );
+            }
+        }
+        else
+        {
+            $addingResult = $commentManager->addComment( $comment, $user );
+        }
+        
+        if ( $addingResult !== true )
+        {
             $tpl->setVariable( 'error_message', $addingResult );
+            $Result['content'] = $tpl->fetch( 'design:comment/add.tpl' );
+            return $Result;
+        }
+        //remember cookies
+        if ( $user->isAnonymous() )
+        {
+            $cookieManager = ezcomCookieManager::instance();
+            if ( $http->hasPostVariable( 'CommentRememberme') &&
+                 $http->postVariable( 'CommentRememberme' ) == 'on' )
+            {
+                $cookieManager->storeCookie( $comment );
+            }
+            else
+            {
+                $cookieManager->clearCookie();
+            }
+        }
+        
+         eZContentCacheManager::clearContentCacheIfNeeded( $contentObjectId );
+        
+         $tpl->setVariable( 'success', true );
+         if ( $notification && !$existingNotification && !$user->isAnonymous() )
+         {
+             $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
+                                                         'You will receive comment update notification on the content.' ) );
          }
+         if ( $notification && !$existingNotification && $user->isAnonymous() )
+         {
+             $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
+                                                         'A confirmation email has been sent to your email address. You will receive comment update notification after confirmation.' ) );
+         }    
+         if ( $notification && $existingNotification && !$user->isAnonymous() )
+         {
+             $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
+                                                         'You have already subscribed comment update on the content before.' ) );
+         }
+         $tpl->setVariable( 'redirect_uri', $redirectURI );
     }
 }
 else

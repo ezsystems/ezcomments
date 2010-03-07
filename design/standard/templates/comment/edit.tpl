@@ -1,10 +1,7 @@
 {ezcss_require( 'comment.css' )}
 {if $can_edit}
-    {def $showTitle = ezini( 'title', 'Display', 'ezcomments.ini' )|eq( 'true' )
-         $showName = ezini( 'name', 'Display', 'ezcomments.ini' )|eq( 'true' )
-         $showWebsite = ezini( 'website', 'Display', 'ezcomments.ini' )|eq( 'true' )
-         $showEmail = ezini( 'email', 'Display', 'ezcomments.ini' )|eq( 'true' )
-    }
+    {def $fields = ezini( 'FormSettings', 'AvailableFields', 'ezcomments.ini' )}
+    {def $fieldRequiredText = '<span class="ezcom-field-mandatory">*</span>'}
     {if is_set( $error_message )}
         <div class="message-error">
            <p>
@@ -26,7 +23,7 @@
                     </h4>
                 </div>
                 
-                {if $showTitle}
+                {if $fields|contains( 'title' )}
                     <div class="ezcom-field ezcom-field-title">
                         <label>
                             {'Title:'|i18n( 'ezcomments/comment/add/form' )}
@@ -35,16 +32,16 @@
                     </div>
                 {/if}
                 
-                {if $showName}
+                {if $fields|contains( 'name' )}
                     <div class="ezcom-field ezcom-field-name">
                         <label>
-                            {'Name:'|i18n( 'ezcomments/comment/add/form' )}
+                            {'Name:'|i18n( 'ezcomments/comment/add/form' )}{$fieldRequiredText}
                         </label>
-                         <input type="text" class="box" maxlength="50" id="ezcomments_comment_edit_name" disabled="true" name="CommentName" value="{$comment.name|wash}" />
+                         <input type="text" class="box" maxlength="50" id="ezcomments_comment_edit_name" name="CommentName" value="{$comment.name|wash}" />
                     </div>
                 {/if}
                 
-                {if $showWebsite}
+                {if $fields|contains( 'website' )}
                     <div class="ezcom-field ezcom-field-website">
                         <label>
                             {'Website:'|i18n( 'ezcomments/comment/add/form' )}
@@ -58,7 +55,7 @@
                     </div>
                 {/if}
                 
-                {if $showEmail}
+                {if $fields|contains( 'email' )}
                     <div class="ezcom-field ezcom-field-email">
                         <label>
                             {'Email:'|i18n( 'ezcomments/comment/add/form' )}
@@ -74,13 +71,11 @@
                 
                 <div class="ezcom-field ezcom-field-content">
                     <label>
-                        {'Content:'|i18n( 'ezcomments/comment/add/form' )}
+                        {'Content:'|i18n( 'ezcomments/comment/add/form' )}{$fieldRequiredText}
                     </label>
                     <textarea class="box" id="ezcomments_comment_edit_content" name="CommentContent">{$comment.text|wash}</textarea>
-                    <span class="ezcom-field-mandatory">*</span>
                 </div>
-                
-                {if $showEmail}
+                {if $fields|contains( 'notificationField' )}
                     <div class="ezcom-field ezcom-field-notified">
                         <label>
                             <input type="checkbox"
@@ -90,8 +85,7 @@
                             {'Notified of new comments'|i18n( 'ezcomments/comment/add/form' )}
                         </label>
                     </div>
-                 {/if}
-                 
+                {/if}
                 <div class="ezcom-field">
                     <input type="submit"
                            value="{'Update comment'|i18n('ezcomments/comment/action' )}"

@@ -12,8 +12,8 @@ class ezcomFormTool
     private static $instance = null;
 
     const REQUIRED = 0;
-    const DISPLAY = 1;
-    const VARNAME = 2;
+    const VARNAME = 1;
+    const ATTRIBUTENAME = 2;
 
     protected $fields = array();
     protected $validationMessage = array();
@@ -27,8 +27,7 @@ class ezcomFormTool
         $fieldSetting = array();
         foreach( $fields as $field )
         {
-            $fieldSetting[$field] = $ini->variableMulti( $field, array( 'Required', 'Display', 'PostVarName' ) );
-
+            $fieldSetting[$field] = $ini->variableMulti( $field, array( 'Required', 'PostVarName', 'AttributeName' ) );
         }
         $this->fields = $fieldSetting;
     }
@@ -121,10 +120,37 @@ class ezcomFormTool
                     }
                 }
             }
-            
         }
         $this->validationStatus = $status;
         return $status;
+    }
+    
+    /**
+     * Fill field to comment object
+     * @param $comment ezcomcomment persistent object
+     * @param $fieldNames field name array selected to be filled into comment
+     * @return
+     */
+    public function fillObject( $comment, $fieldNames = null )
+    {
+        $filledFields = $this->fields;
+        if ( !is_null( $fieldNames ) && is_array( $fieldNames ) )
+        {
+            $filledFields = array();
+            foreach ( $fieldNames as $fieldName )
+            {
+                $filledFields[$fieldName] = $this->fields[$fieldName];
+            }
+        }
+        foreach ( $filledFields as $field => $fieldSetup )
+        {
+            $attributeName = $fieldSetup[self::ATTRIBUTENAME];
+            if ( !is_null( $attributeName ) )
+            {
+                $fieldValue = $this->fieldValues[$field];
+                $comment->setAttribute( $attributeName, $fieldValue );
+            }
+        }
     }
 
     public function status()
