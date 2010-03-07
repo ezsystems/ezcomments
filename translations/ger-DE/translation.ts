@@ -2,6 +2,53 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="de_DE" sourcelanguage="en">
 <context>
+    <name>design/ezwebin/user/edit</name>
+    <message>
+        <source>User profile</source>
+        <translation>Benutzer Profil</translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation>Benutzername</translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation>E-Mail</translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation>Name</translation>
+    </message>
+    <message>
+        <source>My drafts</source>
+        <translation>Meine Entwürfe</translation>
+    </message>
+    <message>
+        <source>My orders</source>
+        <translation>Meine Bestellungen</translation>
+    </message>
+    <message>
+        <source>My pending items</source>
+        <translation>Meine Warteschlange</translation>
+    </message>
+    <message>
+        <source>My notification settings</source>
+        <translation>Meine Benachrichtigungs-Einstellungen</translation>
+    </message>
+    <message>
+        <source>My wish list</source>
+        <translation>Meine Wunschliste</translation>
+    </message>
+    <message>
+        <source>Edit profile</source>
+        <translation>Profil bearbeiten</translation>
+    </message>
+    <message>
+        <source>Change password</source>
+        <translation>Passwort ändern</translation>
+    </message>
+</context>
+<context>
     <name>ezcomments/comment/action</name>
     <message>
         <source>Back</source>
@@ -55,7 +102,7 @@
     </message>
     <message>
         <source>Please click the link to activate.</source>
-        <translation>Bitte klicken Sie auf den Link, um das Abo zu aktivieren</translation>
+        <translation>Bitte klicken Sie auf den Link, um das Abo zu aktivieren.</translation>
     </message>
     <message>
         <source>The activation will expire after %expiry_days days.</source>
@@ -92,6 +139,35 @@
         <source>Commenting has been turned off for this content.</source>
         <translation>Die Kommentar Funktion wurde für diesen Inhalt deaktiviert.</translation>
     </message>
+    <message>
+        <source>Not a valid email address.</source>
+        <translation>Keine gültige E-Mail Adresse.</translation>
+    </message>
+    <message>
+        <source>%1 is missing.</source>
+        <translation>%1 fehlt.</translation>
+    </message>
+    <message>
+        <source>The field [%1] is empty.</source>
+        <translation>Das [%1] Feld ist leer.</translation>
+    </message>
+    <message>
+        <source>You will receive comment update notification on the content.</source>
+        <translation>Sie erhalten E-Mail Benachrichtigungen bei neuen Kommentaren.</translation>
+    </message>
+    <message>
+        <source>A confirmation email has been sent to your email address. You will receive comment update notification after confirmation.</source>
+        <translation>Ein Bestätigung wurde an Ihre E-Mail geschickt. Sie erhalten Benachrichtigungen bei neuen Kommentaren, nachdem Sie den Empfang bestätigt haben.</translation>
+    </message>
+    <message>
+        <source>You have already subscribed comment update on the content before.</source>
+        <translation>Sie haben bereits die Benachrichtigung bei neuen Kommentare abonniert.</translation>
+    </message>
+    <message>
+        <source>You should not access this view directly.</source>
+        <translatorcomment>Sie sollten diese Seite nicht direkt aufrufen.</translatorcomment>
+        <translation></translation>
+    </message>
 </context>
 <context>
     <name>ezcomments/comment/add/form</name>
@@ -105,7 +181,7 @@
     </message>
     <message>
         <source>Name:</source>
-        <translation>Name</translation>
+        <translation>Name:</translation>
     </message>
     <message>
         <source>Website:</source>
