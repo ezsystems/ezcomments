@@ -106,7 +106,7 @@
     </message>
     <message>
         <source>The activation will expire after %expiry_days days.</source>
-        <translation>Die Aktivierung wird nach %expiry_days auslaufen.</translation>
+        <translation>Die Aktivierung wird nach %expiry_days Tagen auslaufen.</translation>
     </message>
     <message>
         <source>The activation will expire after %expiry_hours hours.</source>
@@ -289,7 +289,7 @@
     </message>
     <message>
         <source>Subscription time</source>
-        <translation>Abonnement Dauer</translation>
+        <translation>Abo Dauer</translation>
     </message>
     <message>
         <source>Subscribed</source>
