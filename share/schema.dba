@@ -118,15 +118,14 @@ $schema = array (
           0 => 'id',
         ),
       ),
-      'contentobject_id_contentobject_attribute_id_lang_id_parentcom_id' => 
+      'contentobject_id_lang_id_parentcom_id' => 
       array (
         'type' => 'non-unique',
         'fields' => 
         array (
           0 => 'contentobject_id',
-          1 => 'contentobject_attribute_id',
-          2 => 'language_id',
-          3 => 'parent_comment_id',
+          1 => 'language_id',
+          2 => 'parent_comment_id',
         ),
       ),
       'user_id_session_key_ip' => 
