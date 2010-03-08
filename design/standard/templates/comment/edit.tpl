@@ -84,15 +84,17 @@
                     <textarea class="box" id="ezcomments_comment_edit_content" name="CommentContent">{$comment.text|wash}</textarea>
                 </div>
                 {if $fields|contains( 'notificationField' )}
-                    <div class="ezcom-field ezcom-field-notified">
-                        <label>
-                            <input type="checkbox"
-                                   id="ezcomments_comment_edit_notified"
-                                   name="CommentNotified"
-                                   {if $notified}checked{/if} />
-                            {'Notified of new comments'|i18n( 'ezcomments/comment/add/form' )}
-                        </label>
-                    </div>
+                    {if $fields|contains( 'email' )}
+                        <div class="ezcom-field ezcom-field-notified">
+                            <label>
+                                <input type="checkbox"
+                                       id="ezcomments_comment_edit_notified"
+                                       name="CommentNotified"
+                                       {if $notified}checked{/if} />
+                                {'Notified of new comments'|i18n( 'ezcomments/comment/add/form' )}
+                            </label>
+                        </div>
+                    {/if}
                 {/if}
                 <div class="ezcom-field">
                     <input type="submit"

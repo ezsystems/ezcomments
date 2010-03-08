@@ -56,11 +56,8 @@ $contentID = $comment->attribute( 'contentobject_id' );
 // get if notification is enabled and notification value
 $ini = eZINI::instance( 'ezcomments.ini' );
 $formSettings = $ini->variable( 'FormSettings', 'AvailableFields' );
-$notificationEnabled = false;
-if( in_array( 'notificationField', $formSettings ) )
-{
-    $notificationEnabled = true;
-}
+$notificationEnabled = in_array( 'notificationField', $formSettings );
+$emailEnabled = in_array( 'email', $formSettings );
 $notified = null;
 if( $notificationEnabled )
 {
@@ -95,7 +92,9 @@ if ( $Module->isCurrentAction( 'UpdateComment' ) )
     $clientNotified = $formTool->fieldValue( 'notificationField' );
     $updateResult = null;
     // if notified and clientNotified are not null and different, change notification
-    if( $notificationEnabled && $notified != $clientNotified )
+    if( $notificationEnabled && $emailEnabled
+             && $comment->attribute( 'email' ) != ''
+           && $notified != $clientNotified )
     {
         $updateResult = $commentManager->updateComment( $comment, null, $time, $clientNotified );
     }

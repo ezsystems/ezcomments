@@ -76,12 +76,15 @@
         </div>
 
         {if $fields|contains( 'notificationField' )}
-        <div class="ezcom-field ezcom-field-notified">
-            <label>
-                <input type="checkbox" id="ezcom_field_notified" name="CommentNotified" {if $comment_notified|eq('true')}checked="checked"{/if} />
-                {'Notify me of new comments'|i18n( 'ezcomments/comment/add/form' )}
-            </label>
-        </div>
+            {* When email is enabled or email is enabled but user logged in *}
+            {if or( $fields|contains( 'email' ), and( $fields|contains( 'email' )|not, $is_anonymous|not ) )}
+                <div class="ezcom-field ezcom-field-notified">
+                    <label>
+                        <input type="checkbox" id="ezcom_field_notified" name="CommentNotified" {if $comment_notified|eq('true')}checked="checked"{/if} />
+                        {'Notify me of new comments'|i18n( 'ezcomments/comment/add/form' )}
+                    </label>
+                </div>
+            {/if}
         {/if}
         {if $is_anonymous}
             <div class="ezcom-field ezcom-field-remember">

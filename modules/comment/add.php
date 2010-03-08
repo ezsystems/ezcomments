@@ -85,12 +85,34 @@ if ( $module->isCurrentAction( 'AddComment' ) )
         $comment->setAttribute( 'modified', $currentTime );
 
         // toggle notification state on change in state
+        // only when notification is enabled, the notification can be changed
+        // when email is enabled or email is disabled in setting but user logged in, change notification 
         $notification = $formTool->fieldValue( 'notificationField' );
+        $email = $comment->attribute( 'email' );
+        $changeNotification = false;
+        if ( $notification === true )
+        {
+            // email is enabled in setting
+            if ( !is_null( $email ) )
+            {
+                $changeNotification = true;
+            }
+            else
+            {
+                //email is disabled in setting but user logged in
+                if ( is_null( $email ) && !$user->isAnonymous() )
+                {
+                    $changeNotification = true;
+                    $email = $user->attribute( 'email' );
+                    $comment->setAttribute( 'email', $email );
+                }
+            }
+        }
         $commentManager = ezcomCommentManager::instance();
         $commentManager->tpl = $tpl;
-        
-        $email = $comment->attribute( 'email' );
-        if ( $notification && $email )
+        $existingNotification = false;
+        $addingResult = false;
+        if ( $changeNotification )
         {
             $existingNotification = ezcomSubscription::exists( $contentObjectId,
                                                             $languageId,
@@ -116,6 +138,30 @@ if ( $module->isCurrentAction( 'AddComment' ) )
             $Result['content'] = $tpl->fetch( 'design:comment/add.tpl' );
             return $Result;
         }
+        $tpl->setVariable( 'success', true );
+        // add additional success message
+        if ( $changeNotification )
+        {
+            if ( !$user->isAnonymous() )
+            {
+                if ( $existingNotification )
+                {
+                    $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
+                                                             'You have already subscribed comment update on the content before.' ) );
+                }
+                else
+                {
+                    $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
+                                                             'You will receive comment update notification on the content.' ) );
+                }
+            }
+            else
+            {
+                $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
+                                                         'A confirmation email has been sent to your email address. You will receive comment update notification after confirmation.' ) );
+            }
+        }
+       
         //remember cookies
         if ( $user->isAnonymous() )
         {
@@ -132,23 +178,6 @@ if ( $module->isCurrentAction( 'AddComment' ) )
         }
         
          eZContentCacheManager::clearContentCacheIfNeeded( $contentObjectId );
-        
-         $tpl->setVariable( 'success', true );
-         if ( $notification && !$existingNotification && !$user->isAnonymous() )
-         {
-             $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
-                                                         'You will receive comment update notification on the content.' ) );
-         }
-         if ( $notification && !$existingNotification && $user->isAnonymous() )
-         {
-             $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
-                                                         'A confirmation email has been sent to your email address. You will receive comment update notification after confirmation.' ) );
-         }    
-         if ( $notification && $existingNotification && !$user->isAnonymous() )
-         {
-             $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
-                                                         'You have already subscribed comment update on the content before.' ) );
-         }
          $tpl->setVariable( 'redirect_uri', $redirectURI );
     }
 }
