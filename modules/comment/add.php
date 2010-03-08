@@ -89,9 +89,9 @@ if ( $module->isCurrentAction( 'AddComment' ) )
         $commentManager = ezcomCommentManager::instance();
         $commentManager->tpl = $tpl;
         
-        if ( $notification )
+        $email = $comment->attribute( 'email' );
+        if ( $notification && $email )
         {
-            $email = $comment->attribute( 'notificationField' );
             $existingNotification = ezcomSubscription::exists( $contentObjectId,
                                                             $languageId,
                                                             'ezcomcomment',

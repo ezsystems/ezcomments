@@ -89,9 +89,9 @@ if ( $Module->isCurrentAction( 'UpdateComment' ) )
     $formTool->fillObject( $comment );
     $time = time();
     $comment->setAttribute( 'modified', $time );
-    $commentManager = ezcomCommentManager::instance();
-
+    
     // update comments
+    $commentManager = ezcomCommentManager::instance();
     $clientNotified = $formTool->fieldValue( 'notificationField' );
     $updateResult = null;
     // if notified and clientNotified are not null and different, change notification
