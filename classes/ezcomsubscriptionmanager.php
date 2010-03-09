@@ -162,6 +162,7 @@ class ezcomSubscriptionManager
         $parameters = array();
         $ezcommentsINI = eZINI::instance( 'ezcomments.ini' );
         $mailContentType = $ezcommentsINI->variable( 'NotificationSettings', 'ActivationMailContentType' );
+        $parameters['from'] = $ezcommentsINI->variable( 'NotificationSettings', 'MailFrom' );
         $parameters['content_type'] = $mailContentType;
 
         $result = $transport->send( array( $email ), $mailSubject, $mailBody, null, $parameters );

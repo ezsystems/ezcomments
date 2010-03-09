@@ -1,6 +1,7 @@
 eZ Comments change log
 
 1.0.0Beta2
+ - Fixed bug: the 'from' of activation email is not from setting
  - Corrected user text in add, edit, setting, subscription
  - Fix bug 16371: when email is hidden, notification should be hidden
  - Fixed bug 16362: error in schema.sql
