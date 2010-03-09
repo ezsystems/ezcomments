@@ -39,7 +39,7 @@ class ezcomSubscriptionManager
         if ( is_null( $subscription ) )
         {
             $this->tpl->setVariable( 'error_message', ezi18n( 'ezcomments/comment/activate',
-                                      'The is no subscription with the hash string!' ) );
+                                      'There is no subscription with the hash string!' ) );
         }
         else
         {
