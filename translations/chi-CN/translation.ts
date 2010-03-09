@@ -23,10 +23,6 @@
 <context>
     <name>ezcomments/comment/activate</name>
     <message>
-        <source>The is no subscription with the hash string!</source>
-        <translation>给出的hash string没有订阅!</translation>
-    </message>
-    <message>
         <source>The subscriber is disabled!</source>
         <translation>订阅者未启用!</translation>
     </message>
@@ -42,16 +38,16 @@
         <source>Activate subscription</source>
         <translation>激活订阅</translation>
     </message>
+    <message>
+        <source>There is no subscription with the hash string!</source>
+        <translation>根据给出的hash字符没有订阅.</translation>
+    </message>
 </context>
 <context>
     <name>ezcomments/comment/activationnotification</name>
     <message>
         <source>Dear %email,</source>
         <translation>尊敬的 %email, </translation>
-    </message>
-    <message>
-        <source>You have subscribed the comment update of content. Before you get notification on the content, you need to confirm the subscription.</source>
-        <translation>您已经订阅了评论更新服务， 在您使用订阅前， 您需要激活这个订阅。 </translation>
     </message>
     <message>
         <source>Please click the link to activate.</source>
@@ -66,24 +62,48 @@
         <translation>此激活链接将于%expiry_hours小时后失效。</translation>
     </message>
     <message>
-        <source>If you don&apos;t want to receive the subscription email, igore this email.</source>
-        <translation>如果你不想收到订阅邮件，请忽略这封邮件。</translation>
-    </message>
-    <message>
         <source>You can go to your setting page to manage your subscription.</source>
         <translation>如果您想管理您的订阅，请进入设置页面。</translation>
     </message>
     <message>
-        <source>Subscribe comment</source>
-        <translation>订阅评论</translation>
+        <source>You have subscribed to comment update on content. Before you start the service, you need to confirm the subscription.</source>
+        <translation>你已经订阅了评论更新。在使用此服务前，你需要确认这个订阅。</translation>
+    </message>
+    <message>
+        <source>If you do not want to receive the subscription email, ignore this email.</source>
+        <translation>如果你不想收到订阅邮件，请忽略此邮件。</translation>
+    </message>
+    <message>
+        <source>Activate your subscription</source>
+        <translation>激活你的订阅</translation>
+    </message>
+    <message>
+        <source>Hi,</source>
+        <translation>你好，</translation>
+    </message>
+    <message>
+        <source>posted a new comment on</source>
+        <translation>发表了评论， 在</translation>
+    </message>
+    <message>
+        <source>Comment summary</source>
+        <translation>评论概要</translation>
+    </message>
+    <message>
+        <source>To reply the content, please visit</source>
+        <translation>回复这个内容，请访问</translation>
+    </message>
+    <message>
+        <source>For setting your subscription, please visit</source>
+        <translation>设置你的订阅，请访问</translation>
+    </message>
+    <message>
+        <source>There are updates from</source>
+        <translation>有评论更新在</translation>
     </message>
 </context>
 <context>
     <name>ezcomments/comment/add</name>
-    <message>
-        <source>Posting succeeds!</source>
-        <translation>评论发表成功！</translation>
-    </message>
     <message>
         <source>Add comment</source>
         <translation>添加评论</translation>
@@ -109,16 +129,20 @@
         <translation>你不能直接访问这个页面。</translation>
     </message>
     <message>
-        <source>You will receive comment update notification on the content.</source>
-        <translation>你将收到本内容的评论更新通知。</translation>
+        <source>Your comment has been posted.</source>
+        <translation>你的评论已经发布。</translation>
     </message>
     <message>
-        <source>You have already subscribed comment update on the content before.</source>
-        <translation>之前你已经订阅了本内容的评论更新。</translation>
+        <source>You have already subscribed to comment updates on this content.</source>
+        <translation>你已经订阅了本内容的评论更新。</translation>
     </message>
     <message>
-        <source>A confirmation email has been sent to your email address. You will receive comment update notification after confirmation.</source>
-        <translation>一封确认邮件已经发到你的邮箱，确认邮箱后你将能收到此内容的评论更新。</translation>
+        <source>You will receive comment updates on the content.</source>
+        <translation>你将收到此内容的评论更新。</translation>
+    </message>
+    <message>
+        <source>A confirmation email has been sent to your email address. You will receive comment updates after confirmation.</source>
+        <translation>一封确认邮件已经发到你的邮箱。你在确认邮箱后将收到评论更新。</translation>
     </message>
 </context>
 <context>
@@ -220,14 +244,6 @@
 <context>
     <name>ezcomments/comment/setting</name>
     <message>
-        <source>There is no subscription.</source>
-        <translation>没有订阅。</translation>
-    </message>
-    <message>
-        <source>Update succeeds!</source>
-        <translation>更新成功！</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -238,10 +254,6 @@
     <message>
         <source>Content</source>
         <translation>内容</translation>
-    </message>
-    <message>
-        <source>Subscription time</source>
-        <translation>订阅时间</translation>
     </message>
     <message>
         <source>Subscribed</source>
@@ -258,6 +270,22 @@
     <message>
         <source>Comment settings</source>
         <translation>评论设置</translation>
+    </message>
+    <message>
+        <source>The subscriber doesn&apos;t exist.</source>
+        <translation>定阅者不存在.</translation>
+    </message>
+    <message>
+        <source>You are not subscribing to any content.</source>
+        <translation>你没有订阅到任何内容.</translation>
+    </message>
+    <message>
+        <source>You have updated comment settings.</source>
+        <translation>你已经更新了评论设置.</translation>
+    </message>
+    <message>
+        <source>Subscription started</source>
+        <translation>订阅时间</translation>
     </message>
 </context>
 <context>
