@@ -70,10 +70,6 @@
 <context>
     <name>ezcomments/comment/activate</name>
     <message>
-        <source>The is no subscription with the hash string!</source>
-        <translation>Kein Abonnement mit diesem Code gefunden!</translation>
-    </message>
-    <message>
         <source>The subscriber is disabled!</source>
         <translation>Der Abonnent ist deaktiviert!</translation>
     </message>
@@ -89,16 +85,16 @@
         <source>Activate subscription</source>
         <translation>Abonnement aktivieren</translation>
     </message>
+    <message>
+        <source>There is no subscription with the hash string!</source>
+        <translation>Kein Abonnement mit diesem Code gefunden!</translation>
+    </message>
 </context>
 <context>
     <name>ezcomments/comment/activationnotification</name>
     <message>
         <source>Dear %email,</source>
         <translation>Hallo %email,</translation>
-    </message>
-    <message>
-        <source>You have subscribed the comment update of content. Before you get notification on the content, you need to confirm the subscription.</source>
-        <translation>Sie wollen alle Antworten auf den ausgewählten Content per E-Mail erhalten. Bevor Sie E-Mails zugeschickt bekommen, müssen Sie dies bestätigen.</translation>
     </message>
     <message>
         <source>Please click the link to activate.</source>
@@ -113,24 +109,48 @@
         <translation>Die Aktivierung wird nach %expiry_hours Stunden auslaufen.</translation>
     </message>
     <message>
-        <source>If you don&apos;t want to receive the subscription email, igore this email.</source>
-        <translation>Wenn Sie keine Abo E-Mail erhalten wollen, dann brauchen Sie nur diese E-Mail zu ignorieren.</translation>
-    </message>
-    <message>
         <source>You can go to your setting page to manage your subscription.</source>
         <translation>Sie können auf Ihre Einstellungs-Seite gehen, um das Abonnement zu verwalten.</translation>
     </message>
     <message>
-        <source>Subscribe comment</source>
-        <translation>Kommentare abonnieren</translation>
+        <source>You have subscribed to comment update on content. Before you start the service, you need to confirm the subscription.</source>
+        <translation>Sie haben E-Mail Benachrichtigungen bei neuen Kommentaren abonniert. Bevor wir Ihnen E-Mails senden, müssen Sie das Abonnement bestätigen.</translation>
+    </message>
+    <message>
+        <source>If you do not want to receive the subscription email, ignore this email.</source>
+        <translation>Wenn Sie keine E-Mails erhalten wollen, brauchen Sie nichts weiter zu unternehmen, ignorieren Sie bitte diese E-Mail.</translation>
+    </message>
+    <message>
+        <source>Activate your subscription</source>
+        <translation>Abonnment aktivieren</translation>
+    </message>
+    <message>
+        <source>Hi,</source>
+        <translation>Hallo,</translation>
+    </message>
+    <message>
+        <source>posted a new comment on</source>
+        <translation>hat einen neuen Kommentar geschreiben am</translation>
+    </message>
+    <message>
+        <source>Comment summary</source>
+        <translation>Kommentar Zusammenfassung</translation>
+    </message>
+    <message>
+        <source>To reply the content, please visit</source>
+        <translation>Um darauf zu antworten, besuchen Sie bitte</translation>
+    </message>
+    <message>
+        <source>For setting your subscription, please visit</source>
+        <translation>Wenn Sie Ihr Abonnement einstellen möchten, bitte besuchen Sie</translation>
+    </message>
+    <message>
+        <source>There are updates from</source>
+        <translation>Es sind Updates vorhanden von</translation>
     </message>
 </context>
 <context>
     <name>ezcomments/comment/add</name>
-    <message>
-        <source>Posting succeeds!</source>
-        <translation>Kommentar abgeschickt!</translation>
-    </message>
     <message>
         <source>Add comment</source>
         <translation>Kommentar hinzufügen</translation>
@@ -152,21 +172,25 @@
         <translation>Das [%1] Feld ist leer.</translation>
     </message>
     <message>
-        <source>You will receive comment update notification on the content.</source>
-        <translation>Sie erhalten E-Mail Benachrichtigungen bei neuen Kommentaren.</translation>
-    </message>
-    <message>
-        <source>A confirmation email has been sent to your email address. You will receive comment update notification after confirmation.</source>
-        <translation>Ein Bestätigung wurde an Ihre E-Mail geschickt. Sie erhalten Benachrichtigungen bei neuen Kommentaren, nachdem Sie den Empfang bestätigt haben.</translation>
-    </message>
-    <message>
-        <source>You have already subscribed comment update on the content before.</source>
-        <translation>Sie haben bereits die Benachrichtigung bei neuen Kommentare abonniert.</translation>
-    </message>
-    <message>
         <source>You should not access this view directly.</source>
         <translatorcomment>Sie sollten diese Seite nicht direkt aufrufen.</translatorcomment>
         <translation></translation>
+    </message>
+    <message>
+        <source>Your comment has been posted.</source>
+        <translation>Ihr Kommentar wurde veröffentlicht.</translation>
+    </message>
+    <message>
+        <source>You have already subscribed to comment updates on this content.</source>
+        <translation>Sie erhalten bereits E-Mail Benachrichtigungen bei neuen Kommentaren.</translation>
+    </message>
+    <message>
+        <source>You will receive comment updates on the content.</source>
+        <translation>Sie werden neue Kommentare bei diesem Content erhalten.</translation>
+    </message>
+    <message>
+        <source>A confirmation email has been sent to your email address. You will receive comment updates after confirmation.</source>
+        <translation>Es wurde eine Bestätigungs E-Mail an Ihre E-Mail Adresse gesendet. Sie erhalten E-Mail Benachrichtigungen, wenn Sie dies in der Mail bestätigt haben.</translation>
     </message>
 </context>
 <context>
@@ -268,14 +292,6 @@
 <context>
     <name>ezcomments/comment/setting</name>
     <message>
-        <source>There is no subscription.</source>
-        <translation>Keine Abonnements vorhanden.</translation>
-    </message>
-    <message>
-        <source>Update succeeds!</source>
-        <translation>Aktualisierung erfolgreich!</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -286,10 +302,6 @@
     <message>
         <source>Content</source>
         <translation>Inhalt</translation>
-    </message>
-    <message>
-        <source>Subscription time</source>
-        <translation>Abo Dauer</translation>
     </message>
     <message>
         <source>Subscribed</source>
@@ -306,6 +318,22 @@
     <message>
         <source>Comment settings</source>
         <translation>Kommentar Einstellungen</translation>
+    </message>
+    <message>
+        <source>The subscriber doesn&apos;t exist.</source>
+        <translation>Der Abonnent wurde nicht gefunden.</translation>
+    </message>
+    <message>
+        <source>You are not subscribing to any content.</source>
+        <translation>Sie haben keine E-Mail Benachrichtigung abonniert.</translation>
+    </message>
+    <message>
+        <source>You have updated comment settings.</source>
+        <translation>Sie haben die Einstellungen aktualisiert.</translation>
+    </message>
+    <message>
+        <source>Subscription started</source>
+        <translation>Abonnement begonnen</translation>
     </message>
 </context>
 <context>
