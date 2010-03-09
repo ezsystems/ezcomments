@@ -11,7 +11,7 @@
     {if is_set( $subscriber )|not()}
         <div class="message-error">
             <p>
-                 {'The subscriber doesn't exist.'|i18n('ezcomments/comment/setting')}
+                 {'The subscriber doesn\'t exist.'|i18n('ezcomments/comment/setting')}
             </p>
         </div>
     {elseif $total_count|eq( 0 )}
@@ -49,7 +49,7 @@
         {undef $number_perpage}
         {if is_set( $update_success )}
             <div class="message-feedback">
-                <p>{'Update succeeds!'|i18n( 'ezcomments/comment/setting' )}</p>
+                <p>{'You have updated comment settings.'|i18n( 'ezcomments/comment/setting' )}</p>
                 <input type="button" class="button" value="{'OK'|i18n( 'ezcomments/comment/setting' )}" onclick="this.parentNode.className = 'hide';" />
             </div>
         {/if}

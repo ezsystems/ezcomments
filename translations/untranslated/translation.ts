@@ -2,6 +2,53 @@
 <!DOCTYPE TS>
 <TS version="2.0">
 <context>
+    <name>design/ezwebin/user/edit</name>
+    <message>
+        <source>User profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Username</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Email</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My drafts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My orders</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My pending items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My notification settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>My wish list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit profile</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change password</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ezcomments/comment/action</name>
     <message>
         <source>Back</source>
@@ -50,10 +97,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You have subscribed the comment update of content. Before you get notification on the content, you need to confirm the subscription.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Please click the link to activate.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -66,24 +109,48 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>If you don&apos;t want to receive the subscription email, igore this email.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>You can go to your setting page to manage your subscription.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Subscribe comment</source>
+        <source>You have subscribed to comment update on content. Before you start the service, you need to confirm the subscription.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If you do not want to receive the subscription email, ignore this email.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Activate your subscription</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hi,</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>posted a new comment on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment summary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To reply the content, please visit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>For setting your subscription, please visit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are updates from</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ezcomments/comment/add</name>
-    <message>
-        <source>Posting succeeds!</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>Add comment</source>
         <translation type="unfinished"></translation>
@@ -109,15 +176,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You will receive comment update notification on the content.</source>
+        <source>Your comment has been posted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>A confirmation email has been sent to your email address. You will receive comment update notification after confirmation.</source>
+        <source>You have already subscribed to comment updates on this content.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You have already subscribed comment update on the content before.</source>
+        <source>You will receive comment updates on the content.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A confirmation email has been sent to your email address. You will receive comment updates after confirmation.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -232,10 +303,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Subscription time</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Subscribed</source>
         <translation type="unfinished"></translation>
     </message>
@@ -252,11 +319,19 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>There is no subscription.</source>
+        <source>You are not subscribing to any content.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Update succeeds!</source>
+        <source>Subscription started</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have updated comment settings.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The subscriber doesn&apos;t exist.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
