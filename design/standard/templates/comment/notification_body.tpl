@@ -3,9 +3,7 @@
 <p>
 
 Hi,
-
  <br />
-
 <u>{$comment.name}</u> posted a new comment on <a href="{$content_object.main_node.url_alias}">{$contentobject.name}. </a>
 </p>
 <p>
@@ -14,7 +12,7 @@ Hi,
 <br />
 <br />
 <p>
-For reply the content, please visit 
+To reply the content, please visit 
 <a href="{concat( $base_url, '/', $content_object.main_node.url_alias )}">
   {concat( $base_url, '/', $content_object.main_node.url_alias )}
 </a>
@@ -24,7 +22,6 @@ For setting your subscription, please visit
     {concat( $base_url, '/comment/setting/', $subscriber.hash_string )}
 </a>
 <br /><br />
-Email sent to {$subscriber.email}
 </p>
 
 {undef $base_url}

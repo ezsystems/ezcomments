@@ -18,7 +18,7 @@
   {if and( is_set( $success ), $success|eq( 1 ) )}
     <div class="message-error">
         <p>
-            {'Posting succeeds!'|i18n( 'ezcomments/comment/add' )}
+            {'Your comment has been posted.'|i18n( 'ezcomments/comment/add' )}
         </p>
         {if is_set( $success_message )}
         <p>

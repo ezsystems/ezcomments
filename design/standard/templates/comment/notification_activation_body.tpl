@@ -3,9 +3,9 @@
 <br />
 <br />
 <p>
-{'You have subscribed the comment update of content. Before you get notification on the content, you need to confirm the subscription.'|i18n( 'ezcomments/comment/activationnotification' )}
+{'You have subscribed to comment update on content. Before you start the service, you need to confirm the subscription.'|i18n( 'ezcomments/comment/activationnotification' )}
  <br />
- <h4>{$contentobject.name}</h4>
+ <h4>"{$contentobject.name}"</h4>
  <a href={$contentobject.main_node.url_alias|ezurl( , 'full' )}>
     {$contentobject.main_node.url_alias|ezurl( 'no', 'full' )}
  </a>
@@ -28,7 +28,7 @@
         {/if}
     {undef $expiry_days}
 <p>
-    {'If you don\'t want to receive the subscription email, igore this email.'|i18n( 'ezcomments/comment/activationnotification' )}
+    {'If you do not want to receive the subscription email, ignore this email.'|i18n( 'ezcomments/comment/activationnotification' )}
 </p>
 <p>
     {'You can go to your setting page to manage your subscription.'|i18n( 'ezcomments/comment/activationnotification' )}

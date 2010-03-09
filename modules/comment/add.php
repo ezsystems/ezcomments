@@ -147,18 +147,18 @@ if ( $module->isCurrentAction( 'AddComment' ) )
                 if ( $existingNotification )
                 {
                     $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
-                                                             'You have already subscribed comment update on the content before.' ) );
+                                                             'You have already subscribed to comment updates on this content.' ) );
                 }
                 else
                 {
                     $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
-                                                             'You will receive comment update notification on the content.' ) );
+                                                             'You will receive comment updates on the content.' ) );
                 }
             }
             else
             {
                 $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
-                                                         'A confirmation email has been sent to your email address. You will receive comment update notification after confirmation.' ) );
+                                                         'A confirmation email has been sent to your email address. You will receive comment updates after confirmation.' ) );
             }
         }
        

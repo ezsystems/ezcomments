@@ -11,13 +11,13 @@
     {if is_set( $subscriber )|not()}
         <div class="message-error">
             <p>
-                 {'There is no subscription.'|i18n('ezcomments/comment/setting')}
+                 {'The subscriber doesn't exist.'|i18n('ezcomments/comment/setting')}
             </p>
         </div>
     {elseif $total_count|eq( 0 )}
         <div class="message-error">
                 <p>
-                     {'There is no subscription.'|i18n('ezcomments/comment/setting')}
+                     {'You are not subscribing to any content.'|i18n('ezcomments/comment/setting')}
                 </p>
             </div>
     {else}
@@ -68,7 +68,7 @@
                     </div>
                     <div class="ezcom-setting-count">
                         <span>
-                            {'Subscription time'|i18n( 'ezcomments/comment/setting' )}
+                            {'Subscription started'|i18n( 'ezcomments/comment/setting' )}
                         </span>
                     </div>
                 </div>
