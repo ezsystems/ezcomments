@@ -113,7 +113,7 @@ $sorts = array();
 $sorts = array( 'subscription_time' => 'desc' );
 
 $iniSite = eZINI::instance();
-$languageCode = $iniSite->variable( 'RegionalSettings', 'Locale' );
+$languageCode = $iniSite->variable( 'RegionalSettings', 'ContentObjectLocale' );
 $language = eZContentLanguage::fetchByLocale( $languageCode );
 $languageID = $language->attribute( 'id' );
 

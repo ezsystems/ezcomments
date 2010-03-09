@@ -24,8 +24,8 @@ $contentObjectID = (int)$Params['ContentObjectID'];
 $contentObject = eZContentObject::fetch( $contentObjectID );
 
 // fetch the language
-$ini =eZINI::instance();
-$languageCode = $ini->variable( 'RegionalSettings', 'Locale' );
+$iniSite =eZINI::instance();
+$languageCode = $iniSite->variable( 'RegionalSettings', 'ContentObjectLocale' );
 $languageID = eZContentLanguage::idByLocale( $languageCode );
 // fetch the content object attribute
 $objectAttributes = $contentObject->fetchDataMap( false, $languageCode );

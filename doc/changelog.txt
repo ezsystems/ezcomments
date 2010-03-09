@@ -1,24 +1,25 @@
 eZ Comments change log
 
 1.0.0Beta2
+ - Fixed bug #16378: view is not working / wrong ini setting is taken
  - Fixed bug: the 'from' of activation email is not from setting
  - Corrected user text in add, edit, setting, subscription
- - Fix bug 16371: when email is hidden, notification should be hidden
- - Fixed bug 16362: error in schema.sql
- - Fixed bug 16349: When email is hidden, the email field is still in edit form
+ - Fix bug #16371: when email is hidden, notification should be hidden
+ - Fixed bug #16362: error in schema.sql
+ - Fixed bug #16349: When email is hidden, the email field is still in edit form
  - Added translation support for form validation
  - Fixed bug that error occurs when a subscriber comments on a subsribed content without checking 'notify me'. 
  - Fixed the email field doesn't work
  - Added German translation (made by Georg Franz)
- - Fixed bug 16304: ezcomments: washing of name required
- - Fixed bug 16303: ezcomments - redirection not working
- - Fixed bug 16294: ezcomments: username and email are cached wrongly when posting comment
+ - Fixed bug #16304: ezcomments: washing of name required
+ - Fixed bug #16303: ezcomments - redirection not working
+ - Fixed bug #16294: ezcomments: username and email are cached wrongly when posting comment
  - Added commentor ip into database table when commenting
  - Changed context of translation to make context consistent
- - Fixed bug 16276: ezcomments: cannot create translation
+ - Fixed bug #16276: ezcomments: cannot create translation
 
 1.0.0Beta1
- - Fixed bug 016218: Check for an already present ezcomments attribute in class edit
+ - Fixed bug #16218: Check for an already present ezcomments attribute in class edit
  - Fixed bug: the eZ Comments extension information is not shown in ezinfo/about.
  - Fixed bug #16164: If the content is deleted, comments of the content are still there. Also applied for deleting Comment attribute and deleting class with Comment attribute. 
  - Fixed bug: comment doesn't work when a Comment attribute is added into existing class
