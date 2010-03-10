@@ -13,7 +13,7 @@ class eZCommentsInfo
     {
         return array(
             'Name' => "eZ Comments",
-            'Version' => "1.0.0Beta2",
+            'Version' => "1.0.0RC",
             'Copyright' => 'Copyright (C) 1999-' . date('Y') . ' eZ Systems AS',
             'License' => 'GNU General Public License v2.0',
         );
