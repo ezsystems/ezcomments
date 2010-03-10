@@ -11,7 +11,7 @@
  *  Logic for view notification to set user notifications
  */
 require_once( 'kernel/common/template.php' );
-
+echo ('5'==1);
 $http = eZHTTPTool::instance();
 
 // fetch the content object

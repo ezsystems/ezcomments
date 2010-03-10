@@ -1,5 +1,6 @@
 eZ Comments change log
-
+1.0.0RC
+ - Fixed bug #16361: notification_body.tpl is not translatable
 1.0.0Beta2
  - Fixed bug #16378: view is not working / wrong ini setting is taken
  - Fixed bug: the 'from' of activation email is not from setting

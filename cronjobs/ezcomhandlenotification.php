@@ -12,12 +12,6 @@
  * 
  */
 $cli = eZCLI::instance();
-$scriopt = eZScript::instance( array( 'description' => 'eZ Publish extension ezcomments sending notification script',
-                                      'use-session' => false,
-                                      'use-module' => false,
-                                      'use-extension' => false ) );
-$script->startup();
-$script->initialize();
 if ( !$isQuiet )
     $cli->output( "Start sending comment notification..."  );
 // 1. check ezcomment_notification table
@@ -48,6 +42,8 @@ foreach( $contentObjectIDList as $contentObjectArray )
                                       'WHERE contentobject_id = ' . $contentObjectID );
     // fetch content object
     $contentObject = eZContentObject::fetch( $contentObjectID, true );
+    $contentLanguageLocale = eZContentLanguage::fetch( $contentLanguage )->attribute( 'locale' );
+    $contentObject->setCurrentLanguage( $contentLanguageLocale );
     if ( is_null( $contentObject ) )
     {
         $cli->output( "Content doesn't exist, delete the notification. Content ID:" . $contentObjectID );
@@ -94,6 +90,10 @@ foreach( $contentObjectIDList as $contentObjectArray )
                     if ( $comment->attribute('email') != $subscriber->attribute( 'email' ) )
                     {
                         $notificationManager->sendNotificationInMany( $subscriber, $contentObject, $comment );
+                        if ( !$isQuiet )
+                        {
+                            $cli->output( 'Email sent to ' . $subscriber->attribute( 'email' ) );
+                        }
                     }
                 }
             }
@@ -111,24 +111,26 @@ foreach( $contentObjectIDList as $contentObjectArray )
                 if ( !$isAuthor )
                 {
                     $notificationManager->sendNotificationInOne( $subscriber, $contentObject );
-//                    if ( eZDebug::isDebugEnabled() )
-//                    {
-//                        eZLog::write( 'Sent email to ' . $subscriber->attribute( 'email' ),
-//                                      'ezcomments.log' );
-//                    }
+                    if ( !$isQuiet )
+                    {
+                        $cli->output( 'Email sent to ' . $subscriber->attribute( 'email' ) );
+                    }
                 }
             }
         }
     }
     catch( Exception $ex )
     {
+        $message = 'Sending notification error! Exception:' . $ex->getMessage() . '\n';
+        eZLog::write( $message, 'ezcomments.log' );
         if ( !$isQuiet )
-            $cli->output( 'Sending notification error! Exception' . $ex->getMessage() . '\n' );
+            $cli->output( $message );
     }
     $db->query( 'DELETE FROM ezcomment_notification' . 
                 ' WHERE status = 1 AND' .
                 ' contentobject_id = ' . $contentObjectID .
                 ' AND language_id =' . $contentLanguage );
 }
-    
+if ( !$isQuiet )
+    $cli->output( "Notification sending is finished."  );    
 ?>

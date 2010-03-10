@@ -1,1 +1,1 @@
-{'New comment'|i18n( 'ezcomments/comment/notification' )} - {$contentobject.name}
+New comment - {$contentobject.name}

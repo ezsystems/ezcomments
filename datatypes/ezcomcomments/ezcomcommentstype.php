@@ -138,11 +138,15 @@ class ezcomCommentsType extends eZDataType
      */
     function deleteStoredObjectAttribute( $contentObjectAttribute, $version = null )
     {
-        $contentObjectID = $contentObjectAttribute->attribute( 'contentobject_id' );
-        $languageID = $contentObjectAttribute->attribute( 'language_id' );
-        eZPersistentObject::removeObject( ezcomComment::definition(), 
-                                          array( 'contentobject_id' => $contentObjectID,
-                                                 'language_id' => $languageID ) );
+        $version = $contentObjectAttribute->objectVersion();
+        if ( $version->attribute( 'status' ) == eZContentObjectVersion::STATUS_PUBLISHED )
+        {
+            $contentObjectID = $contentObjectAttribute->attribute( 'contentobject_id' );
+            $languageID = $contentObjectAttribute->attribute( 'language_id' );
+            eZPersistentObject::removeObject( ezcomComment::definition(), 
+                                              array( 'contentobject_id' => $contentObjectID,
+                                                     'language_id' => $languageID ) );
+        }
     }
 }
 

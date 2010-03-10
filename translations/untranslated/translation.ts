@@ -70,12 +70,10 @@
 <context>
     <name>ezcomments/comment/activate</name>
     <message>
-        <location filename="ezcomsubscriptionmanager.php" line="41"/>
         <source>There is no subscription with the hash string!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ezcomsubscriptionmanager.php" line="60"/>
         <source>The subscriber is disabled!</source>
         <translation type="unfinished"></translation>
     </message>
@@ -88,7 +86,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="activate.php" line="27"/>
         <source>Activate subscription</source>
         <translation type="unfinished"></translation>
     </message>
@@ -127,45 +124,18 @@
         <source>Activate your subscription</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Hi,</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>posted a new comment on</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Comment summary</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>To reply the content, please visit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>For setting your subscription, please visit</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>There are updates from</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ezcomments/comment/add</name>
     <message>
-        <location filename="ezcomaddcommenttool.php" line="56"/>
         <source>Not a valid email address.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ezcomformtool.php" line="93"/>
         <source>%1 is missing.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="ezcomformtool.php" line="105"/>
         <source>The field [%1] is empty.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -174,32 +144,26 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add.php" line="22"/>
         <source>Add comment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add.php" line="43"/>
         <source>Commenting has been turned off for this content.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add.php" line="149"/>
         <source>You have already subscribed to comment updates on this content.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add.php" line="154"/>
         <source>You will receive comment updates on the content.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add.php" line="160"/>
         <source>A confirmation email has been sent to your email address. You will receive comment updates after confirmation.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add.php" line="186"/>
         <source>You should not access this view directly.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -255,8 +219,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="add.php" line="56"/>
-        <location filename="edit.php" line="80"/>
         <source>There is a problem with your comment form </source>
         <translation type="unfinished"></translation>
     </message>
@@ -268,17 +230,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="delete.php" line="54"/>
         <source>Deleting failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="delete.php" line="105"/>
         <source>You don&apos;t have access to delete comment or the comment is hidden!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="delete.php" line="141"/>
         <source>Delete comment</source>
         <translation type="unfinished"></translation>
     </message>
@@ -290,13 +249,10 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="edit.php" line="49"/>
-        <location filename="edit.php" line="151"/>
         <source>Edit comment</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="edit.php" line="108"/>
         <source>Updating failed.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -351,9 +307,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="setting.php" line="31"/>
-        <location filename="setting.php" line="66"/>
-        <location filename="setting.php" line="134"/>
         <source>Comment settings</source>
         <translation type="unfinished"></translation>
     </message>
@@ -393,17 +346,14 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="view.php" line="73"/>
         <source>The page parameter is not a number.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="view.php" line="96"/>
         <source>The page parameter can&apos;t be minus.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="view.php" line="121"/>
         <source>Comment/View</source>
         <translation type="unfinished"></translation>
     </message>
@@ -441,7 +391,6 @@
 <context>
     <name>ezcomments/datatype</name>
     <message>
-        <location filename="ezcomcommentstype.php" line="20"/>
         <source>Comments</source>
         <comment>Datatype name</comment>
         <translation type="unfinished"></translation>
