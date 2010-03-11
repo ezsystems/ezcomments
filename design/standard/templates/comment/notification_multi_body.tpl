@@ -3,17 +3,17 @@
 {def $object_url=concat( $base_url, '/', $contentobject.main_node.url_alias, '/(language)/', $contentobject.current_language )}
 <p>
 
-Hi,
+{'Hi,'|i18n( 'ezcomments/comment/activationnotification' )}
  <br /><br />
-There are updates from <a href="{$object_url}">{$contentobject.name}</a>.
+{'There are updates from'|i18n( 'ezcomments/comment/activationnotification' )} <a href="{$object_url}">{$contentobject.name}</a>.
 </p>
 <p>
-To reply the content, please visit 
+{'To reply the content, please visit'|i18n( 'ezcomments/comment/activationnotification' )} 
 <a href="{$object_url}">
   {$object_url}
 </a>
 <br />
-For setting your subscription, please visit 
+{'For setting your subscription, please visit'|i18n( 'ezcomments/comment/activationnotification' )} 
 {if $subscriber.hash_string}
     <a href="{concat( $base_url, '/comment/setting/', $subscriber.hash_string )}">
         {concat( $base_url, '/comment/setting/', $subscriber.hash_string )}
@@ -22,7 +22,7 @@ For setting your subscription, please visit
     <a href="{concat( $base_url, '/comment/setting' )}">
         {concat( $base_url, '/comment/setting' )}
     </a>
-    (You need to login)
+    {'(You need to login)'|i18n( 'ezcomments/comment/activationnotification' )}
 {/if}
 <br /><br />
 </p>

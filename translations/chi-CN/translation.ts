@@ -77,6 +77,38 @@
         <source>Activate your subscription</source>
         <translation>激活你的订阅</translation>
     </message>
+    <message>
+        <source>posted a new comment on</source>
+        <translation>发表了一个新的评论在</translation>
+    </message>
+    <message>
+        <source>Comment summary</source>
+        <translation>评论概要</translation>
+    </message>
+    <message>
+        <source>To reply the content, please visit</source>
+        <translation>回复此内容，请访问</translation>
+    </message>
+    <message>
+        <source>For setting your subscription, please visit</source>
+        <translation>设置你的订阅，请访问</translation>
+    </message>
+    <message>
+        <source>(You need to login)</source>
+        <translation>(你需要先登陆)</translation>
+    </message>
+    <message>
+        <source>There are updates from</source>
+        <translation>有更新在</translation>
+    </message>
+    <message>
+        <source>New comment</source>
+        <translation type="obsolete">新的评论</translation>
+    </message>
+    <message>
+        <source>Hi,</source>
+        <translation>您好，</translation>
+    </message>
 </context>
 <context>
     <name>ezcomments/comment/add</name>

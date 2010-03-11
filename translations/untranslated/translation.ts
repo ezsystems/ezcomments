@@ -124,6 +124,34 @@
         <source>Activate your subscription</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>posted a new comment on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment summary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To reply the content, please visit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>For setting your subscription, please visit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(You need to login)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are updates from</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hi,</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ezcomments/comment/add</name>
