@@ -45,7 +45,12 @@ class ezcomEditCommentTool extends ezcomFormTool
         {
             case 'notificationField':
                 $http = eZHTTPTool::instance();
-                $notification = $http->postVariable( $fieldPostName ) === 'on' ? true : false;
+                $notification = false;
+                if( $http->hasVariable( $fieldPostName ) 
+                    && $http->postVariable( $fieldPostName ) === 'on' )
+                {
+                    $notification = true;
+                }
                 $this->fieldValues[$field] = $notification;
                 break;
             // don't change email value
