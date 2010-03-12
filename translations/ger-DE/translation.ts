@@ -148,6 +148,10 @@
         <source>There are updates from</source>
         <translation>Es sind Updates vorhanden von</translation>
     </message>
+    <message>
+        <source>(You need to login)</source>
+        <translation>(Sie müssen sich anmelden)</translation>
+    </message>
 </context>
 <context>
     <name>ezcomments/comment/add</name>
@@ -225,7 +229,7 @@
     </message>
     <message>
         <source>Notify me of new comments</source>
-        <translation>Mich per E-Mail benachrichtigen, wenn neue Kommentare geschrieben werden</translation>
+        <translation>Bei neuen Kommentaren per E-Mail benachrichtigen</translation>
     </message>
     <message>
         <source>Remember me</source>
@@ -233,7 +237,7 @@
     </message>
     <message>
         <source>Add comment</source>
-        <translation>Kommentar schreiben</translation>
+        <translation>Kommentar absenden</translation>
     </message>
     <message>
         <source>Reset form</source>
