@@ -1,5 +1,6 @@
 eZ Comments change log
 1.0.0RC
+ - Fixed bug #16423: missing ezurl at redirection var and other html errors
  - Fixed bug #16403: PHP warning when updating a comment
  - Fixed bug #16361: notification_body.tpl is not translatable
  

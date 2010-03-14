@@ -78,7 +78,7 @@
                         <div class="ezcom-setting-select">
                             <label>
                                 <input type="checkbox" name="Checkbox{$subscription.id}"
-                                   checked="true" />
+                                   checked="checked" />
                                 {'Subscribed'|i18n( 'ezcomments/comment/setting' )}
                                 <input type="hidden" name="CheckboxName[]" value="Checkbox{$subscription.id}" />
                             </label>

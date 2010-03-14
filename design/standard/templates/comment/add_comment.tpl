@@ -9,7 +9,7 @@
 <form id="ezcom-comment-form" method="post" action={'comment/add'|ezurl} name="CommentAdd">
 <input type="hidden" name="ContentObjectID" value="{$contentobject_id}" />
 <input type="hidden" name="CommentLanguageID" value="{$language_code}" />
-<input type="hidden" name="RedirectURI" value={$redirect_uri} />
+<input type="hidden" name="RedirectURI" value={$redirect_uri|ezurl( , 'full' )} />
 
 <div class="ezcom-add" id="ezcomments_comment_view_addcomment">
         <div class="ezcom-function-title">
@@ -59,7 +59,7 @@
                     {'Email:'|i18n( 'ezcomments/comment/add/form' )}{if $emailRequired}{$fieldRequiredText}{/if}&nbsp;<span class="ezcom-field-emailmessage">{'(The email address will not be shown)'|i18n( 'ezcomments/comment/add/form' )}</span>
                 </label>
                 {if $is_anonymous|not}
-                    <input type="text" maxlength="100" class="box" id="ezcomments_comment_view_addcomment_email" disabled="true" />
+                    <input type="text" maxlength="100" class="box" id="ezcomments_comment_view_addcomment_email" disabled="disabled" />
                     <input type="hidden" name="CommentEmail" />
                 {else}
                     <input type="text" maxlength="100" class="box" id="ezcomments_comment_view_addcomment_email" name="CommentEmail" />
@@ -80,7 +80,7 @@
             {if or( $fields|contains( 'email' ), and( $fields|contains( 'email' )|not, $is_anonymous|not ) )}
                 <div class="ezcom-field ezcom-field-notified">
                     <label>
-                        <input type="checkbox" id="ezcom_field_notified" name="CommentNotified" {if $comment_notified|eq('true')}checked="checked"{/if} />
+                        <input type="checkbox" id="ezcom_field_notified" name="CommentNotified" {if $comment_notified|eq('true')}checked="checked"{/if} value="1" />
                         {'Notify me of new comments'|i18n( 'ezcomments/comment/add/form' )}
                     </label>
                 </div>
@@ -89,7 +89,7 @@
         {if $is_anonymous}
             <div class="ezcom-field ezcom-field-remember">
                 <label>
-                    <input type="checkbox" name="CommentRememberme" checked="checked" />
+                    <input type="checkbox" name="CommentRememberme" checked="checked" value="1" />
                     {'Remember me'|i18n( 'ezcomments/comment/add/form' )}
                 </label>
             </div>
@@ -115,8 +115,7 @@ eZComments.cfg = {ldelim}
                                 name: '#ezcomments_comment_view_addcomment_name',
                                 email: '#ezcomments_comment_view_addcomment_email' 
                             {rdelim}
-                 {rdelim}
-
+                 {rdelim};
 eZComments.init();
 </script>
 

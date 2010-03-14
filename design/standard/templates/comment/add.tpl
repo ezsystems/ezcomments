@@ -16,7 +16,7 @@
     </div>
   {/if}
   {if and( is_set( $success ), $success|eq( 1 ) )}
-    <div class="message-error">
+    <div class="message-feedback">
         <p>
             {'Your comment has been posted.'|i18n( 'ezcomments/comment/add' )}
         </p>
@@ -25,8 +25,8 @@
             {$success_message}
         </p>
         {/if}
-        <form action="{'comment/add'|ezurl}" method="get" name="CommentAdded">
-            <input type="hidden" name="RedirectURI" value={$redirect_uri} />
+        <form action={'comment/add'|ezurl} method="get" name="CommentAdded">
+            <input type="hidden" name="RedirectURI" value="{$redirect_uri}" />
             <input type="submit" class="button" name="BackButton" value="{'Back'|i18n( 'ezcomments/comment/action') }" />
         </form>
     </div>

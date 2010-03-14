@@ -47,7 +47,7 @@ class ezcomEditCommentTool extends ezcomFormTool
                 $http = eZHTTPTool::instance();
                 $notification = false;
                 if( $http->hasVariable( $fieldPostName ) 
-                    && $http->postVariable( $fieldPostName ) === 'on' )
+                    && $http->postVariable( $fieldPostName ) === '1' )
                 {
                     $notification = true;
                 }

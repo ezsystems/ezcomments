@@ -167,7 +167,7 @@ if ( $module->isCurrentAction( 'AddComment' ) )
         {
             $cookieManager = ezcomCookieManager::instance();
             if ( $http->hasPostVariable( 'CommentRememberme') &&
-                 $http->postVariable( 'CommentRememberme' ) == 'on' )
+                 $http->postVariable( 'CommentRememberme' ) == '1' )
             {
                 $cookieManager->storeCookie( $comment );
             }

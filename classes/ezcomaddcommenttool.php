@@ -84,7 +84,7 @@ class ezcomAddCommentTool extends ezcomFormTool
             case 'notificationField':
                 $http = eZHTTPTool::instance();
                 $notification = false;
-                if( $http->hasPostVariable( $fieldPostName ) && $http->postVariable( $fieldPostName ) === 'on')
+                if( $http->hasPostVariable( $fieldPostName ) && $http->postVariable( $fieldPostName ) == '1')
                 {
                     $notification = true;
                 }

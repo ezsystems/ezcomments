@@ -15,7 +15,7 @@
         </div>
     {/if}
     <form method="post" action={concat( '/comment/edit/', $comment.id )|ezurl} name="CommentEdit">
-        <input type="hidden" name="ezcomments_comment_redirect_uri" value="{$redirect_uri}" />
+        <input type="hidden" name="ezcomments_comment_redirect_uri" value={$redirect_uri|ezurl( , 'full' )} />
         <div class="ezcom-edit" id="ezcomments_comment_edit">
                 <div class="ezcom-function-title">
                     <h4>
@@ -71,7 +71,7 @@
                                class="box"
                                id="ezcomments_comment_edit_email"
                                name="CommentEmail"
-                               disabled="true"
+                               disabled="disabled"
                                value="{$comment.email|wash}" />
                     </div>
                 {undef $emailRequired}
@@ -90,7 +90,7 @@
                                 <input type="checkbox"
                                        id="ezcomments_comment_edit_notified"
                                        name="CommentNotified"
-                                       {if $notified}checked{/if} />
+                                       {if $notified}checked="checked"{/if} value="1" />
                                 {'Notified of new comments'|i18n( 'ezcomments/comment/add/form' )}
                             </label>
                         </div>
