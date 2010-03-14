@@ -16,7 +16,7 @@
     {/if}
     <form method="post" action={concat( '/comment/edit/', $comment.id )|ezurl} name="CommentEdit">
         <input type="hidden" name="ezcomments_comment_redirect_uri" value={$redirect_uri|ezurl( , 'full' )} />
-        <div class="ezcom-edit" id="ezcomments_comment_edit">
+        <div class="ezcom-edit">
                 <div class="ezcom-function-title">
                     <h4>
                         {'Edit comment'|i18n( 'ezcomments/comment/edit' )}
@@ -29,7 +29,7 @@
                         <label>
                             {'Title:'|i18n( 'ezcomments/comment/add/form' )}
                         </label>
-                        <input type="text" class="box" maxlength="100" id="ezcomments_comment_edit_title" name="CommentTitle" value="{$comment.title|wash}" />
+                        <input type="text" class="box" maxlength="100" name="CommentTitle" value="{$comment.title|wash}" />
                     </div>
                 {undef $titleRequired}
                 {/if}
@@ -40,7 +40,7 @@
                         <label>
                             {'Name:'|i18n( 'ezcomments/comment/add/form' )}{if $nameRequired}{$fieldRequiredText}{/if}
                         </label>
-                         <input type="text" class="box" maxlength="50" id="ezcomments_comment_edit_name" name="CommentName" value="{$comment.name|wash}" />
+                         <input type="text" class="box" maxlength="50" name="CommentName" value="{$comment.name|wash}" />
                     </div>
                 {undef $nameRequired}
                 {/if}
@@ -54,7 +54,6 @@
                         <input type="text"
                                class="box"
                                maxlength="100"
-                               id="ezcomments_comment_edit_website"
                                name="CommentWebsite"
                                value="{$comment.url|wash}" />
                     </div>
@@ -69,7 +68,6 @@
                         </label>
                         <input type="text"
                                class="box"
-                               id="ezcomments_comment_edit_email"
                                name="CommentEmail"
                                disabled="disabled"
                                value="{$comment.email|wash}" />
@@ -81,14 +79,13 @@
                     <label>
                         {'Content:'|i18n( 'ezcomments/comment/add/form' )}{$fieldRequiredText}
                     </label>
-                    <textarea class="box" id="ezcomments_comment_edit_content" name="CommentContent">{$comment.text|wash}</textarea>
+                    <textarea class="box" name="CommentContent" rows="" cols="">{$comment.text|wash}</textarea>
                 </div>
                 {if $fields|contains( 'notificationField' )}
                     {if $fields|contains( 'email' )}
                         <div class="ezcom-field ezcom-field-notified">
                             <label>
                                 <input type="checkbox"
-                                       id="ezcomments_comment_edit_notified"
                                        name="CommentNotified"
                                        {if $notified}checked="checked"{/if} value="1" />
                                 {'Notified of new comments'|i18n( 'ezcomments/comment/add/form' )}
@@ -100,12 +97,10 @@
                     <input type="submit"
                            value="{'Update comment'|i18n('ezcomments/comment/action' )}"
                            class="button"
-                           id="ezcomments_comment_edit_submit"
                            name="UpdateCommentButton" />
                     <input type="submit" 
                            value="{'Cancel'|i18n('ezcomments/comment/action' )}" 
                            class="button" 
-                           id="ezcomments_comment_edit_cancel" 
                            name="CancelButton" />
                 </div>
         </div>

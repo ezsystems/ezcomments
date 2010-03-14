@@ -15,7 +15,7 @@
             </p>
         </div>
     {elseif $total_count|eq( 0 )}
-        <div class="message-error">
+        <div class="message-feedback">
                 <p>
                      {'You are not subscribing to any content.'|i18n('ezcomments/comment/setting')}
                 </p>
@@ -53,7 +53,7 @@
                 <input type="button" class="button" value="{'OK'|i18n( 'ezcomments/comment/setting' )}" onclick="this.parentNode.className = 'hide';" />
             </div>
         {/if}
-            <form method="post">
+            <form method="post" action="#">
                 <input type="hidden" name="SubscriberID" value="{$subscriber.id}" />
                 <div class="ezcom-setting-head">
                     <div class="ezcom-setting-select">

@@ -6,7 +6,7 @@
     {def $self_delete=false()}
 {/if}
 
-<div class="ezcom-view-comment" id="ezcomments_comment_view_commentitem">
+<div class="ezcom-view-comment">
             <div class="attribute-byline ezcom-comment-top">
                 <div class="ezcom-comment-author">
                     <p class="author">
