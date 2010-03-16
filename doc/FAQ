@@ -6,3 +6,6 @@ If eZ Comments is installed on eZ Publish before 4.3, when a user is granted per
 
 2. Why can't I find the comment setting link?
 Check site.ini, make sure ActiveExtensions[]=ezcomments is before ActiveExtensions[]=ezwebin. Then the comment setting link will be shown in my profile page.
+
+3. Why do I get this message 'The following information is either missing or invalid: * attribute 'comment': Comments (358)'?
+That's because there are more than 2 comment attributes in the class. eZ Comments doesn't support more than 2 comment attributes in one class currently. If you delete one comment attribute, it will work.

@@ -36,15 +36,15 @@ class ezcomCommentsType extends eZDataType
         {
            // find the class and count how many Comments dattype
             $cond = array( 'contentclass_id' => $classAttribute->attribute( 'contentclass_id' ),
+                           'version' => eZContentClass::VERSION_STATUS_TEMPORARY,
                            'data_type_string' => $classAttribute->attribute( 'data_type_string' ) );
-            
             $classAttributeList = eZContentClassAttribute::fetchFilteredList( $cond );
-            // if there are more than 1 Comments attribute, return it as INVALID
+            // if there is more than 1 comment attribute, return it as INVALID
             if ( !is_null( $classAttributeList ) && count( $classAttributeList ) > 1 )
             {
                  if ( $classAttributeList[0]->attribute( 'id' ) == $classAttribute->attribute( 'id' ) )
                  {
-                     eZDebug::writeNotice( 'There are more than 1 Comments attribute in the class.', __METHOD__ );
+                     eZDebug::writeNotice( 'There are more than 1 comment attribute in the class.', __METHOD__ );
                      return eZInputValidator::STATE_INVALID;
                  }
             }
