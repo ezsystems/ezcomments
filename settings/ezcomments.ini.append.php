@@ -80,6 +80,7 @@ AvailableFields[]=title
 AvailableFields[]=name
 AvailableFields[]=website
 AvailableFields[]=email
+#The comment field can not be deleted!
 AvailableFields[]=comment
 AvailableFields[]=notificationField
 
