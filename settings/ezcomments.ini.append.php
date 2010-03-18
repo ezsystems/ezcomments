@@ -53,7 +53,7 @@ DaysToCleanupSubscription=20
 [CommentSettings]
 
 #Number of comments per page in comment list, -1 means not paging
-NumberPerPage=7
+NumberPerPage=10
 
 DefaultSortField=created
 
