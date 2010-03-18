@@ -28,8 +28,8 @@ DefaultEmbededSortOrder=desc
 #notification manager class
 NotificationManagerClass=ezcomNotificationEmailManager
 
-#-1 means not paging
-NumberPerPage=2
+#number of items on comment setting page
+NumberPerPage=8
 
 #length of subscriber hash string
 SubscriberHashStringLength=32
