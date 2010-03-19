@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `ezcomment` (
   `title` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id_session_key_ip` (`user_id`,`session_key`,`ip`),
-  KEY `contentobject_id_lang_id_parentcom_id` (`contentobject_id`,`language_id`,`parent_comment_id`)
+  KEY `content_parentcomment` (`contentobject_id`,`language_id`,`parent_comment_id`)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `ezcomment_notification` (

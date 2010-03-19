@@ -132,7 +132,7 @@ CREATE TABLE ezcomment_subscription (
 
 
 
-CREATE INDEX contentobject_id_lang_id_parentcom_id ON ezcomment USING btree (contentobject_id, language_id, parent_comment_id);
+CREATE INDEX content_parentcomment ON ezcomment USING btree (contentobject_id, language_id, parent_comment_id);
 
 
 

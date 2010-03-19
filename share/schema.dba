@@ -118,7 +118,7 @@ $schema = array (
           0 => 'id',
         ),
       ),
-      'contentobject_id_lang_id_parentcom_id' => 
+      'content_parentcomment' => 
       array (
         'type' => 'non-unique',
         'fields' => 
