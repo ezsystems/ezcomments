@@ -3,16 +3,13 @@
  About eZ Comments
  ===================
  
- eZ Comments is an extension for enhanced commenting on eZ Publish content. 
- Typical features include:
- - Use separate table for storing comments in database, which suits large website's demand 
- - Provide a separate permission setting for reading, adding, editing and deleting comment
- - Provide a comment view page
- - Enable/disable commenting
- - Show/hide comments 
- - Allow user to notify content he/she commented on
- - Customize comment template
- - Add/hide comment fields
+eZ Comments introduces a number features which extend the functionality for commenting on content online. These features are the following:
+* the possibility of editing own & other's comments
+* better anonymous users handling
+* improved control over subscriptions to follow comments via notifications
+* developer options regarding the comments form
+* administrator options for good access and restriction policies
+* administrator options for editing and deleting comments. 
  
  Requirements
  ================
