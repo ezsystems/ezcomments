@@ -4,8 +4,16 @@ FAQ
 The recommended eZ Publish version of eZ Comments is at least 4.3. But it's possible to be installed it on early version, with an issue.
 If eZ Comments is installed on eZ Publish before 4.3, when a user is granted permission to edit or delete his own comment, he will be able to see all the edit and delete buttons on the comment list, even if he can not edit or delete all the comments after clicking the button. If you don't have this permission setting or if you think that's acceptable, eZ Comments will work fine.
 
-2. Why can't I find the comment setting link in my profile page?
+2. Why do I get a message "You don't have access to post comment." after installation?
+If this occurs after installation, that's because you didn't set up comment permission. Please read user manual to set proper comment permission. 
+
+3. Why can't I find the comment setting link in my profile page?
 Check site.ini, make sure ActiveExtensions[]=ezcomments is before ActiveExtensions[]=ezwebin. Then the comment setting link will be shown in my profile page.
 
-3. Why do I get this message 'The following information is either missing or invalid: * attribute 'comment': Comments (358)'?
+4. Why do I get this message 'The following information is either missing or invalid: * attribute 'comment': Comments (358)'?
 That's because there are more than 2 comment attributes in the class. eZ Comments doesn't support more than 2 comment attributes in one class currently. If you delete one comment attribute, it will work.
+
+5. Does eZ Comments support captcha to prevent spam?
+eZ Comments 1.0 doesn't support captcha to prevent spam or comment flooding. You can prevent spam by disabling anonymous user commenting. Also it's possible to develop this functionality based on eZ Comments. Please go to forum of ezcomments to get detail. 
+
+For more question, please visit http://projects.ez.no/ezcomments
