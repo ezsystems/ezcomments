@@ -1,4 +1,7 @@
 {ezcss_require( 'comment.css' )}
+<div class="border-box">
+<div class="border-tl"><div class="border-tr"><div class="border-tc"></div></div></div>
+<div class="border-ml"><div class="border-mr"><div class="border-mc float-break">
 {if $can_edit}
     {def $fields = ezini( 'FormSettings', 'AvailableFields', 'ezcomments.ini' )}
     {def $fieldRequiredText = '<span class="ezcom-field-mandatory">*</span>'}
@@ -112,3 +115,6 @@
         </p>
     </div>
 {/if}
+</div></div></div>
+<div class="border-bl"><div class="border-br"><div class="border-bc"></div></div></div>
+</div>

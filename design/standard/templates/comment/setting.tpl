@@ -1,4 +1,7 @@
 {ezcss_require( 'comment.css' )}
+<div class="border-box">
+<div class="border-tl"><div class="border-tr"><div class="border-tc"></div></div></div>
+<div class="border-ml"><div class="border-mr"><div class="border-mc float-break">
 <div id="ezcom_setting" class="ezcom-setting">
     {if $subscriber.hash_string}
         <div class="ezcom-setting-mail">
@@ -106,4 +109,7 @@
                 </div>
              </form>
         {/if}
+</div>
+</div></div></div>
+<div class="border-bl"><div class="border-br"><div class="border-bc"></div></div></div>
 </div>

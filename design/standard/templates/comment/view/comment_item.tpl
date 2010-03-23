@@ -63,9 +63,7 @@
                             {def $displayAttribute=''}
                         {/if}
                         <span{$displayAttribute}>
-                            <a href={concat( '/comment/edit/', $comment.id )|ezurl}>
-                                {'Edit'|i18n('ezcomments/comment/view')}
-                            </a>
+                            <a href={concat( '/comment/edit/', $comment.id )|ezurl}>{'Edit'|i18n('ezcomments/comment/view')}</a>
                         </span>
                         {undef $displayAttribute}
                     {/if}
