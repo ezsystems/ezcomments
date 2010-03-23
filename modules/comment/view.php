@@ -7,9 +7,6 @@
  *
  */
 
-/**
- *  Logic for view notification to set user notifications
- */
 require_once( 'kernel/common/template.php' );
 $http = eZHTTPTool::instance();
 
