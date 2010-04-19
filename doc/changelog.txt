@@ -1,4 +1,10 @@
 eZ Comments change log
+
+1.1.0 - released 2010/x/y
+ - Fixed bug #016653: ezcomments: name of db schema def file is wrong
+
+1.0.0 Final - released 2010/3/30
+
 1.0.0RC
  - Fixed bug #16447: after adding to class, it cannot saved again
  - Fixed bug #16423: missing ezurl at redirection var and other html errors
