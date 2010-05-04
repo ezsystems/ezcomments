@@ -1,6 +1,7 @@
 eZ Comments change log
 
 1.1.0 - released 2010/x/y
+ - Added extension ordering support that ezcomments should be before ezwebin
  - Fixed bug #016539: Cronjob for sending for one notification email to show multiple comments fails
  - Fixed bug #016653: ezcomments: name of db schema def file is wrong
 
