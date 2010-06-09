@@ -83,6 +83,8 @@ AvailableFields[]=email
 #The comment field can not be deleted!
 AvailableFields[]=comment
 AvailableFields[]=notificationField
+#Comment out the next line if you want to disable the captcha feature
+AvailableFields[]=recaptcha
 
 [title]
 Required=false
@@ -112,5 +114,23 @@ AttributeName=text
 [notificationField]
 Required=false
 PostVarName=CommentNotified
+
+[recaptcha]
+#Don't set it false. Comment out AvailableFields[]=recaptcha in FormSettings if you want to disable the recaptcha
+Required=true
+#Don't change PostVarName value which is hard coded by recaptcha
+PostVarName=recaptcha_response_field
+
+[RecaptchaSetting]
+#You can get public and private key from https://www.google.com/recaptcha/admin/create
+PublicKey=
+PrivateKey=
+# captcha theme options: red|white|blackglass|clean|custom
+# For more customization, please use 'custom' theeme and override the template.
+# Read more recaptcha API on http://recaptcha.net/apidocs/captcha/client.html
+Theme=custom
+#Current captcha language: en, nl, fr, de, pt, ru, es, tr
+Language=en
+TabIndex=0
 */
 ?>

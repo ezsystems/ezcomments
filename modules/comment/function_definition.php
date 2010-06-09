@@ -126,4 +126,14 @@ $FunctionList['self_policies'] = array( 'name' => 'has_self_access',
                                                 'required' => false,
                                                 'default' => null ),
                                         ) );
+$FunctionList['recaptcha_html'] = array( 'name' => 'recaptcha_html',
+                                        'operation_types' => array( 'read' ),
+                                        'call_method' => array(
+                                            'include_file' => 'extension/ezcomments/classes/ezcomfunctioncollection.php',
+                                            'class' => 'ezcomFunctionCollection',
+                                            'method' => 'fetchRecaptchaHTML'
+                                        ),
+                                        'parameter_type' => 'standard',
+                                        'parameters' => array() );
+
 ?>

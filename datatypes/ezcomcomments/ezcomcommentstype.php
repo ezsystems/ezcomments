@@ -32,6 +32,20 @@ class ezcomCommentsType extends eZDataType
 
     function validateClassAttributeHTTPInput( $http, $base, $classAttribute )
     {
+        //checking if the recaptcha key is set up if recaptcha is enabled
+        $ini = eZINI::instance( 'ezcomments.ini' );
+        $fields = $ini->variable( 'FormSettings' , 'AvailableFields' );
+        if( in_array( 'recaptcha', $fields ) )
+        {
+            $publicKey = $ini->variable( 'RecaptchaSetting' , 'PublicKey' );
+            $privateKey = $ini->variable( 'RecaptchaSetting' , 'PrivateKey' );
+            if( $publicKey === '' || $privateKey === '' )
+            {
+                eZDebug::writeError( 'reCAPTCHA key is not set up. For help please visit http://projects.ez.no/ezcomments', __METHOD__ );
+                return eZInputValidator::STATE_INVALID;
+            }
+        }
+        
         if ( $http->hasPostVariable( 'StoreButton' ) || $http->hasPostVariable( 'ApplyButton' ) )
         {
            // find the class and count how many Comments dattype

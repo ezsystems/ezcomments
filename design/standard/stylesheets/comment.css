@@ -33,6 +33,10 @@ div.ezcom-comment-time
     float: right;
 }
 
+input#recaptcha_response_field{
+    width:50%;
+}
+
 div.ezcom-comment-tool
 {
     clear: both;

@@ -57,6 +57,28 @@ class ezcomAddCommentTool extends ezcomFormTool
                     }
                 }
                 return true;
+            case 'captcha':
+                require_once 'recaptchalib.php';
+                $ini = eZINI::instance( 'ezcomments.ini' );
+                $privateKey = $ini->variable( 'RecaptchaSetting' , 'PrivateKey' );
+                $http = eZHTTPTool::instance();
+                if( $http->hasPostVariable( 'recaptcha_challenge_field' ) &&
+                    $http->hasPostVariable( 'recaptcha_response_field' ) )
+                {
+                    $ip = $_SERVER["REMOTE_ADDR"];
+                    $challengeField = $http->postVariable( 'recaptcha_challenge_field' );
+                    $responseField = $http->postVariable( 'recaptcha_response_field' );
+                    $capchaResponse = recaptcha_check_answer( $privateKey, $ip, $challengeField, $responseField );
+                    if( !$capchaResponse->is_valid )
+                    {
+                         return ezi18n( 'ezcomments/comment/add', 'The words you input are incorrect.' );
+                    }
+                }
+                else
+                {
+                    return ezi18n( 'ezcomments/comment/add', 'Captcha parameter error.' );
+                }
+                return true;
             default:
                 return true;
         }
