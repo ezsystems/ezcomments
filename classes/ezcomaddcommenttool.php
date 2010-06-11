@@ -57,7 +57,7 @@ class ezcomAddCommentTool extends ezcomFormTool
                     }
                 }
                 return true;
-            case 'captcha':
+            case 'recaptcha':
                 require_once 'recaptchalib.php';
                 $ini = eZINI::instance( 'ezcomments.ini' );
                 $privateKey = $ini->variable( 'RecaptchaSetting' , 'PrivateKey' );
