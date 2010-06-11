@@ -34,6 +34,9 @@ class ezcomEditCommentTool extends ezcomFormTool
         {
             case 'email':
                 return false;
+            //Don't validate recaptcha
+            case 'recaptcha':
+                return false;
             default:
                 return parent::isVariableRequired( $field );
         }
