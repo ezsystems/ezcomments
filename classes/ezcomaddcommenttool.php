@@ -32,6 +32,14 @@ class ezcomAddCommentTool extends ezcomFormTool
                     return false;
                 }
                 return true;
+            case 'recaptcha':
+                // if the user bypasses captcha, don't validate field
+                $bypassCaptcha = ezcomPermission::hasAccessToSecurity( 'AntiSpam' , 'bypass_captcha' );
+                if( $bypassCaptcha['result'] )
+                {
+                    return false;
+                }
+                return true;
             default:
             return parent::isVariableRequired( $field );
         }

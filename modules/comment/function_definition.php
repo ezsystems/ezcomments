@@ -136,4 +136,23 @@ $FunctionList['recaptcha_html'] = array( 'name' => 'recaptcha_html',
                                         'parameter_type' => 'standard',
                                         'parameters' => array() );
 
+$FunctionList['has_access_to_security'] = array( 'name' => 'has_access_to_security',
+                                        'operation_types' => array( 'read' ),
+                                          'call_method' => array( 'include_file' => 'extension/ezcomments/classes/ezcomPermission',
+                                          'class' => 'ezcomPermission',
+                                          'method' => 'hasAccessToSecurity' ),
+                                          'parameter_type' => 'standard',
+                                          'parameters' => array(
+                                           array( 'name'=> 'limitation',
+                                                  'type'=>'string',
+                                                  'required'=> true,
+                                                  'default'=> ''
+                                            ),
+                                            array( 'name'=> 'option_value',
+                                                   'type'=>'string',
+                                                   'required'=> true,
+                                                   'default'=> ''
+                                            )
+   )
+);
 ?>

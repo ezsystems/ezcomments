@@ -66,6 +66,17 @@ $Creator = array(
         )
     );
 
+/* there might be more limitation for security, for instance moderation*/
+$antiSpam = array(
+    'name' => 'AntiSpam',
+    'values' => array(
+        array(
+            'Name' => 'Bypass Captcha',
+            'value' => 'bypass_captcha'
+        )
+    )
+);
+
 $FunctionList = array();
 
 $FunctionList['read'] = array( 'ContentSection' => $SectionID );
@@ -80,4 +91,6 @@ $FunctionList['delete'] = array( 'ContentSection' => $SectionID,
 $FunctionList['setting'] = array();
 
 $FunctionList['activate'] = array();
+
+$FunctionList['security'] = array( 'AntiSpam' => $antiSpam );
 ?>

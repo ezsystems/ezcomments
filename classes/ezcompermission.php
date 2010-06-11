@@ -187,6 +187,48 @@ class ezcomPermission
         return array( 'result' => $result );
     }
 
+    /**
+     *
+     * @param string $limitation :limitation name of security function
+     * @param string $optionValue : option value of the limitation, like bypass_captcha, bypass_moderation, etc
+     * @return array
+     */
+    public static function hasAccessToSecurity( $limitation, $optionValue )
+    {
+        $user = eZUser::currentUser();
+        $permission = ezcomPermission::instance();
+        $result = $user->hasAccessTo( self::$moduleName, 'security' );
+        if ( $result['accessWord'] !== 'limited' )
+        {
+            $return = $result['accessWord'] === 'yes';
+            return array( 'result' => $return );
+        }
+        else
+        {
+            // if there is one limitation marked as true
+            $return = false;
+            foreach( $result['policies'] as $limitationArray )
+            {
+                if( isset( $limitationArray[$limitation] ) )
+                {
+                    if( in_array( $optionValue, $limitationArray[$limitation] ) )
+                    {
+                        $return = true;
+                        break;
+                    }
+                }
+                // if the it's all selected
+                else
+                {
+                    $return = true;
+                    break;
+                }
+            }
+            return array( 'result' => $return );
+        }
+        
+    }
+
     public static function instance()
     {
         if ( is_null( self::$instance ) )
