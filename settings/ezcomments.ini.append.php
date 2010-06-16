@@ -122,7 +122,7 @@ Required=true
 PostVarName=recaptcha_response_field
 
 [RecaptchaSetting]
-#You can get public and private key from https://www.google.com/recaptcha/admin/create
+#You can get public and private key from https://admin.recaptcha.net/recaptcha/createsite
 PublicKey=
 PrivateKey=
 # captcha theme options: red|white|blackglass|clean|custom
