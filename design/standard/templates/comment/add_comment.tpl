@@ -96,7 +96,7 @@
                   <legend>{'Security text:'|i18n( 'ezcomments/comment/add/form' )}{$fieldRequiredText}</legend>
                   {if ezini( 'RecaptchaSetting', 'PublicKey', 'ezcomments.ini' )|eq('')}
                         <div class="message-warning">
-                            {'reCAPTCHA API key missing.'|i18n( 'ezcomments/comment/add' ) )}
+                            {'reCAPTCHA API key missing.'|i18n( 'ezcomments/comment/add' )}
                         </div>
                   {else}
                       <script type="text/javascript">
