@@ -41,7 +41,7 @@ class ezcomCommentsType extends eZDataType
             $privateKey = $ini->variable( 'RecaptchaSetting' , 'PrivateKey' );
             if( $publicKey === '' || $privateKey === '' )
             {
-                eZDebug::writeError( 'reCAPTCHA key is not set up. For help please visit http://projects.ez.no/ezcomments', __METHOD__ );
+                eZDebug::writeNotice( 'reCAPTCHA key is not set up. For help please visit http://projects.ez.no/ezcomments', __METHOD__ );
                 return eZInputValidator::STATE_INVALID;
             }
         }
