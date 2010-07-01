@@ -80,127 +80,127 @@ class ezcomCommentTest extends ezpDatabaseTestCase
         $this->assertEquals( null, $comment );
     }
     
-    /**
-     * 1. store an ezcomcomment object into database
-     * 2. Fetch the ezcomComment object list
-     * 3. assert fetchForUser( userid )
-     * 4. Assert fetchForUser( userid, notification )
-     * 5. Assert fetchForUser( userid,notification, status )
-     * 6. Assert fetchForUser( userid ) when there is no record in database
-     */
-    public function testFetchForUser()
-    {
-        // Create a new comment
-        $comment = ezcomComment::create();
-        $comment->setAttribute( 'contentobject_id', 13 );
-        $comment->setAttribute( 'language_id', 2 );
-        $comment->setAttribute( 'created', 21213423 );
-        $comment->setAttribute( 'modified', 21321231 );
-        $comment->setAttribute( 'user_id', 15 );
-        $comment->setAttribute( 'session_key', 'a2e4822a98337283e39f7b60acf85ec9' );
-        $comment->setAttribute( 'ip', '10.0.2.122' );
-        $comment->setAttribute( 'name', 'xc' );
-        $comment->setAttribute( 'email', 'xc@ez.no' );
-        $comment->setAttribute( 'url', 'http://ez.no' );
-        $comment->setAttribute( 'status', 1 );
-        $comment->setAttribute( 'text', 'ezcomComment object test comment.' );
-        $comment->store();
-        
-        // Assert fetchForUser( userid )
-        $list = ezcomComment::fetchForUser( 15 );
-        $this->assertType( 'array', $list );
-        $this->assertType( 'ezcomComment', $list[0] );
-        $this->assertEquals( 13, $list[0]->attribute( 'contentobject_id' ) );
-        
-        // Assert fetchForUser( userid, notification )
-        $list = ezcomComment::fetchForUser( 15, 0 );
-        $this->assertType( 'array', $list );
-        $this->assertType( 'ezcomComment', $list[0] );
-        $this->assertEquals( 13, $list[0]->attribute( 'contentobject_id' ) );
-        
-        // Assert fetchForUser( userid,notification, status )
-        $list = ezcomComment::fetchForUser( 15, null, null, null, false, 1 );
-        $this->assertType( 'array', $list );
-        $this->assertType( 'ezcomComment', $list[0] );
-        $this->assertEquals( 13, $list[0]->attribute( 'contentobject_id' ) );
-        
-        // Assert fetchForUser( userid ) when there is no record in database
-        $list = ezcomComment::fetchForUser( 16 );
-        $this->assertType( 'array', $list );
-        $this->assertSame( 0, count( $list ) );
-    }
+//    /**
+//     * 1. store an ezcomcomment object into database
+//     * 2. Fetch the ezcomComment object list
+//     * 3. assert fetchForUser( userid )
+//     * 4. Assert fetchForUser( userid, notification )
+//     * 5. Assert fetchForUser( userid,notification, status )
+//     * 6. Assert fetchForUser( userid ) when there is no record in database
+//     */
+//    public function testFetchForUser()
+//    {
+//        // Create a new comment
+//        $comment = ezcomComment::create();
+//        $comment->setAttribute( 'contentobject_id', 13 );
+//        $comment->setAttribute( 'language_id', 2 );
+//        $comment->setAttribute( 'created', 21213423 );
+//        $comment->setAttribute( 'modified', 21321231 );
+//        $comment->setAttribute( 'user_id', 15 );
+//        $comment->setAttribute( 'session_key', 'a2e4822a98337283e39f7b60acf85ec9' );
+//        $comment->setAttribute( 'ip', '10.0.2.122' );
+//        $comment->setAttribute( 'name', 'xc' );
+//        $comment->setAttribute( 'email', 'xc@ez.no' );
+//        $comment->setAttribute( 'url', 'http://ez.no' );
+//        $comment->setAttribute( 'status', 1 );
+//        $comment->setAttribute( 'text', 'ezcomComment object test comment.' );
+//        $comment->store();
+//
+//        // Assert fetchForUser( userid )
+//        $list = ezcomComment::fetchForUser( 15 );
+//        $this->assertType( 'array', $list );
+//        $this->assertType( 'ezcomComment', $list[0] );
+//        $this->assertEquals( 13, $list[0]->attribute( 'contentobject_id' ) );
+//
+//        // Assert fetchForUser( userid, notification )
+//        $list = ezcomComment::fetchForUser( 15, 0 );
+//        $this->assertType( 'array', $list );
+//        $this->assertType( 'ezcomComment', $list[0] );
+//        $this->assertEquals( 13, $list[0]->attribute( 'contentobject_id' ) );
+//
+//        // Assert fetchForUser( userid,notification, status )
+//        $list = ezcomComment::fetchForUser( 15, null, null, null, false, 1 );
+//        $this->assertType( 'array', $list );
+//        $this->assertType( 'ezcomComment', $list[0] );
+//        $this->assertEquals( 13, $list[0]->attribute( 'contentobject_id' ) );
+//
+//        // Assert fetchForUser( userid ) when there is no record in database
+//        $list = ezcomComment::fetchForUser( 16 );
+//        $this->assertType( 'array', $list );
+//        $this->assertSame( 0, count( $list ) );
+//    }
     
     
     
     
-    /**
-     * Test updateComment method
-     * Test cases:
-     *      1) update title, website, text
-     *         the title, name, website, text will be updated
-     *      2) update notified to be true
-     *         if there is subscription for the user and content, nothing changed
-     *         if there is no subscription for the user and content, add one subscription
-     *         there will be a new notification in notification queue.
-     *      3) update notified to be false
-     *         if there is no notified for the user and content, delete subscription
-     *         if there is still notified for the user and content, keep the subscription 
-     */
-    public function testUpdateComment()
-    {
-        //add comment&subscription
-        $input = array();
-        $input['name'] = 'xc';
-        $input['email'] = 'xcccccc@ez.no';
-        $input['text'] = 'This is a test comment for updating:)';
-        $input['notified'] = false;
-        $user = eZUser::currentUser();
-        $contentObjectID = 219;
-        $languageID = 3;
-        $time = time() + 9;
-        $result = ezcomComment::addComment( $input, $user, $contentObjectID, $languageID, $time );
-        $comment = ezcomComment::fetchByTime( 'created', $time );
-        
-        // 1. update title, name, website, text
-        $commentInput = array();
-        $commentInput['title'] = 'title changed:)';
-        $commentInput['text'] = 'text \' changed?11';
-        $commentInput['url'] = 'http://dfsfsdf.com';
-        $updateResult = ezcomComment::updateComment( $commentInput, $comment->attribute( 'id' ), $user );
-        $this->assertTrue( $updateResult );
-        $updatedComment = ezcomComment::fetchByTime( 'created', $time );
-        $this->assertEquals( $commentInput['title'], $updatedComment->attribute( 'title' ) );
-        $this->assertEquals( $commentInput['text'], $updatedComment->attribute( 'text' ) );
-        $this->assertEquals( $commentInput['url'], $updatedComment->attribute( 'url' ) );
-        $this->assertFalse( ezcomComment::updateComment( null, 1, null ) );
-        
-        $subscriber = ezcomSubscriber::fetchByEmail( $input['email'] );
-        $this->assertNull( $subscriber );
-        
-        $hasSubscription = ezcomSubscription::exists( $contentObjectID . '_' . $languageID, 
-                                            'ezcomcomment', $input['email'] );
-        $this->assertFalse( $hasSubscription );
-        
-        // 2. update notified true
-        $commentInput =array();
-        $commentInput['notified'] = true;
-        $updateResult = ezcomComment::updateComment( $commentInput, $comment->attribute( 'id' ), $user );
-        $this->assertTrue( $updateResult );
-        $subscriber = ezcomSubscriber::fetchByEmail( $input['email'] );
-        $this->assertNotNull( $subscriber );
-        $hasSubscription = ezcomSubscription::exists( $contentObjectID . '_' . $languageID, 
-                                            'ezcomcomment', $input['email'] );
-        $this->assertTrue( $hasSubscription );
-        
-        //3. update notfied false, the subscriber will be kept, the subscription will be deleted
-        $commentInput['notified'] = false;
-        $updateResult = ezcomComment::updateComment( $commentInput, $comment->attribute( 'id' ), $user );
-        $subscriber = ezcomSubscriber::fetchByEmail( $input['email'] );
-        $this->assertNotNull( $subscriber );
-        $hasSubscription = ezcomSubscription::exists( $contentObjectID . '_' . $languageID, 
-                                            'ezcomcomment', $input['email'] );
-        $this->assertFalse( $hasSubscription );
-    }
+//    /**
+//     * Test updateComment method
+//     * Test cases:
+//     *      1) update title, website, text
+//     *         the title, name, website, text will be updated
+//     *      2) update notified to be true
+//     *         if there is subscription for the user and content, nothing changed
+//     *         if there is no subscription for the user and content, add one subscription
+//     *         there will be a new notification in notification queue.
+//     *      3) update notified to be false
+//     *         if there is no notified for the user and content, delete subscription
+//     *         if there is still notified for the user and content, keep the subscription
+//     */
+//    public function testUpdateComment()
+//    {
+//        //add comment&subscription
+//        $input = array();
+//        $input['name'] = 'xc';
+//        $input['email'] = 'xcccccc@ez.no';
+//        $input['text'] = 'This is a test comment for updating:)';
+//        $input['notified'] = false;
+//        $user = eZUser::currentUser();
+//        $contentObjectID = 219;
+//        $languageID = 3;
+//        $time = time() + 9;
+//        $result = ezcomComment::addComment( $input, $user, $contentObjectID, $languageID, $time );
+//        $comment = ezcomComment::fetchByTime( 'created', $time );
+//
+//        // 1. update title, name, website, text
+//        $commentInput = array();
+//        $commentInput['title'] = 'title changed:)';
+//        $commentInput['text'] = 'text \' changed?11';
+//        $commentInput['url'] = 'http://dfsfsdf.com';
+//        $updateResult = ezcomComment::updateComment( $commentInput, $comment->attribute( 'id' ), $user );
+//        $this->assertTrue( $updateResult );
+//        $updatedComment = ezcomComment::fetchByTime( 'created', $time );
+//        $this->assertEquals( $commentInput['title'], $updatedComment->attribute( 'title' ) );
+//        $this->assertEquals( $commentInput['text'], $updatedComment->attribute( 'text' ) );
+//        $this->assertEquals( $commentInput['url'], $updatedComment->attribute( 'url' ) );
+//        $this->assertFalse( ezcomComment::updateComment( null, 1, null ) );
+//
+//        $subscriber = ezcomSubscriber::fetchByEmail( $input['email'] );
+//        $this->assertNull( $subscriber );
+//
+//        $hasSubscription = ezcomSubscription::exists( $contentObjectID . '_' . $languageID,
+//                                            'ezcomcomment', $input['email'] );
+//        $this->assertFalse( $hasSubscription );
+//
+//        // 2. update notified true
+//        $commentInput =array();
+//        $commentInput['notified'] = true;
+//        $updateResult = ezcomComment::updateComment( $commentInput, $comment->attribute( 'id' ), $user );
+//        $this->assertTrue( $updateResult );
+//        $subscriber = ezcomSubscriber::fetchByEmail( $input['email'] );
+//        $this->assertNotNull( $subscriber );
+//        $hasSubscription = ezcomSubscription::exists( $contentObjectID . '_' . $languageID,
+//                                            'ezcomcomment', $input['email'] );
+//        $this->assertTrue( $hasSubscription );
+//
+//        //3. update notfied false, the subscriber will be kept, the subscription will be deleted
+//        $commentInput['notified'] = false;
+//        $updateResult = ezcomComment::updateComment( $commentInput, $comment->attribute( 'id' ), $user );
+//        $subscriber = ezcomSubscriber::fetchByEmail( $input['email'] );
+//        $this->assertNotNull( $subscriber );
+//        $hasSubscription = ezcomSubscription::exists( $contentObjectID . '_' . $languageID,
+//                                            'ezcomcomment', $input['email'] );
+//        $this->assertFalse( $hasSubscription );
+//    }
     
     // todo: finished the test case
     public function testAddSubscription()
@@ -208,35 +208,35 @@ class ezcomCommentTest extends ezpDatabaseTestCase
         
     }
     
-    public function testDeleteCommentWithSubscription()
-    {
-        // 1.1 create comment and subscription
-        $input = array();
-        $input['name'] = 'xc';
-        $input['email'] = 'ccccc@ez.no';
-        $input['text'] = 'This is a test comment for deleting!';
-        $input['notified'] = true;
-        $user = eZUser::currentUser();
-        $time = time() + 10;
-        $contentObjectID = 222;
-        $languageID = 3;
-        ezcomComment::addComment( $input, $user, $contentObjectID, $languageID, $time );
-        $comment = ezcomComment::fetchByTime( 'created', $time );
-        $commentID = $comment->attribute( 'id' );
-        // 1.2 delete the comment
-        $this->assertTrue( ezcomSubscription::exists( $contentObjectID . '_' . $languageID, 'ezcomcomment', $input['email'] ) );
-        ezcomComment::deleteCommentWithSubscription( $commentID );
-        $this->assertNull( ezcomComment::fetch( $commentID ) );
-        $this->assertFalse( ezcomSubscription::exists( $contentObjectID . '_' . $languageID, 'ezcomcomment', $input['email'] ) );
-        // 2.1 create comment without subscription
-        $input['notified'] = false;
-        ezcomComment::addComment( $input, $user, $contentObjectID, $languageID, $time );
-        $comment = ezcomComment::fetchByTime( 'created', $time );
-        $commentID = $comment->attribute( 'id' );
-        // 2.2 delete the comment
-        $this->assertFalse( ezcomSubscription::exists( $contentObjectID . '_' . $languageID, 'ezcomcomment', $input['email'] ) );
-        ezcomComment::deleteCommentWithSubscription( $commentID );
-        $this->assertNull( ezcomComment::fetch( $commentID ) );
-    }
+//    public function testDeleteCommentWithSubscription()
+//    {
+//        // 1.1 create comment and subscription
+//        $input = array();
+//        $input['name'] = 'xc';
+//        $input['email'] = 'ccccc@ez.no';
+//        $input['text'] = 'This is a test comment for deleting!';
+//        $input['notified'] = true;
+//        $user = eZUser::currentUser();
+//        $time = time() + 10;
+//        $contentObjectID = 222;
+//        $languageID = 3;
+//        ezcomComment::addComment( $input, $user, $contentObjectID, $languageID, $time );
+//        $comment = ezcomComment::fetchByTime( 'created', $time );
+//        $commentID = $comment->attribute( 'id' );
+//        // 1.2 delete the comment
+//        $this->assertTrue( ezcomSubscription::exists( $contentObjectID . '_' . $languageID, 'ezcomcomment', $input['email'] ) );
+//        ezcomComment::deleteCommentWithSubscription( $commentID );
+//        $this->assertNull( ezcomComment::fetch( $commentID ) );
+//        $this->assertFalse( ezcomSubscription::exists( $contentObjectID . '_' . $languageID, 'ezcomcomment', $input['email'] ) );
+//        // 2.1 create comment without subscription
+//        $input['notified'] = false;
+//        ezcomComment::addComment( $input, $user, $contentObjectID, $languageID, $time );
+//        $comment = ezcomComment::fetchByTime( 'created', $time );
+//        $commentID = $comment->attribute( 'id' );
+//        // 2.2 delete the comment
+//        $this->assertFalse( ezcomSubscription::exists( $contentObjectID . '_' . $languageID, 'ezcomcomment', $input['email'] ) );
+//        ezcomComment::deleteCommentWithSubscription( $commentID );
+//        $this->assertNull( ezcomComment::fetch( $commentID ) );
+//    }
 }
 ?>

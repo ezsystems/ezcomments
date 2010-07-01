@@ -29,91 +29,91 @@ class ezcomNotificationManagerTest extends ezpDatabaseTestCase
     }
     
     
-    /**
-     * Add a content object, a user
-     * Add 3 comments, one of which is notificed
-     * assert sending notification one comment by one comment
-     * assert sending nofication with all comments in one notification
-     * 
-     * NB: in the user mail account, he/she should be able to get 4 mail in this case.
-     * 1 mail for all comments notification
-     * 3 mail for 3 comments notification  
-     * 
-     * email account needed
-     * 
-     * @return 
-     */
-    public function testSendNotification()
-    {
-        //1. create content and user
-        $content = new ezpObject( 'article' );
-        $content->publish();
-        $contentObject = $content->object;
-        $languageID = 2;
-        
-        $userObject = new ezpObject( 'user' );
-        $userObject->publish();
-        $userID = $userObject->object->attribute( 'id' );
-        $user = eZUser::create( $userID );
-        //2. create subscriber, subscription, notification
-        $input = array();
-        $input['email'] = 'xc@ez.no';
-        $input['name'] = 'xc';
-        $input['text'] = 'notification test1!';
-        $input['notified'] = true;
-        $time = time();
-        
-        ezcomComment::addComment( $input, $user, $contentObject->attribute( 'id' ), $languageID, $time );
-        
-        $input = array();
-        $input['email'] = 'xc@ez.no';
-        $input['name'] = 'xc';
-        $input['text'] = 'notification test2!';
-        $input['notified'] = false;
-        ezcomComment::addComment( $input, $user, $contentObject->attribute( 'id' ), $languageID, $time );
-        
-        $input = array();
-        $input['email'] = 'xc@ez.no';
-        $input['name'] = 'xc';
-        $input['text'] = 'notification test3!';
-        $input['notified'] = false;
-        ezcomComment::addComment( $input, $user, $contentObject->attribute( 'id' ), $languageID, $time );
-        
-        //get subscriber list and comment list
-        $db = eZDB::instance();
-        $contentID = $contentObject->attribute( 'id' ) . '_' . $languageID;
-        $subscriberIDArray = $db->arrayQuery( "SELECT subscriber_id".
-                                              " FROM ezcomment_subscription" . 
-                                              " WHERE content_id='$contentID' " );
-        $subscriberList = array();
-        foreach( $subscriberIDArray as $subscriberID )
-        {
-            $subscriberList[] = ezcomSubscriber::fetch( $subscriberID['subscriber_id'] );
-        }
-        
-        $commentIDArray = $db->arrayQuery( "SELECT comment_id ".
-                                           " FROM ezcomment_notification" );
-        $commentList = array();
-        foreach( $commentIDArray as $commentIDArray )
-        {
-            $commentList[] = ezcomComment::fetch( $commentIDArray['comment_id'] );
-        }
-        $notificationManager = ezcomNotificationManager::instance();
-        // test sending all in one mail
-        foreach( $subscriberList as $subscriber )
-        {
-            $notificationManager->sendNotificationInOne( $subscriber, $contentObject );
-        }
-        
-        //test sending one by one
-        foreach( $subscriberList as $subscriber )
-        {
-            foreach( $commentList as $comment )
-            {
-                $notificationManager->sendNotificationInMany( $subscriber, $contentObject, $comment );
-            }
-        }
-    }
+//    /**
+//     * Add a content object, a user
+//     * Add 3 comments, one of which is notificed
+//     * assert sending notification one comment by one comment
+//     * assert sending nofication with all comments in one notification
+//     *
+//     * NB: in the user mail account, he/she should be able to get 4 mail in this case.
+//     * 1 mail for all comments notification
+//     * 3 mail for 3 comments notification
+//     *
+//     * email account needed
+//     *
+//     * @return
+//     */
+//    public function testSendNotification()
+//    {
+//        //1. create content and user
+//        $content = new ezpObject( 'article' );
+//        $content->publish();
+//        $contentObject = $content->object;
+//        $languageID = 2;
+//
+//        $userObject = new ezpObject( 'user' );
+//        $userObject->publish();
+//        $userID = $userObject->object->attribute( 'id' );
+//        $user = eZUser::create( $userID );
+//        //2. create subscriber, subscription, notification
+//        $input = array();
+//        $input['email'] = 'xc@ez.no';
+//        $input['name'] = 'xc';
+//        $input['text'] = 'notification test1!';
+//        $input['notified'] = true;
+//        $time = time();
+//
+//        ezcomComment::addComment( $input, $user, $contentObject->attribute( 'id' ), $languageID, $time );
+//
+//        $input = array();
+//        $input['email'] = 'xc@ez.no';
+//        $input['name'] = 'xc';
+//        $input['text'] = 'notification test2!';
+//        $input['notified'] = false;
+//        ezcomComment::addComment( $input, $user, $contentObject->attribute( 'id' ), $languageID, $time );
+//
+//        $input = array();
+//        $input['email'] = 'xc@ez.no';
+//        $input['name'] = 'xc';
+//        $input['text'] = 'notification test3!';
+//        $input['notified'] = false;
+//        ezcomComment::addComment( $input, $user, $contentObject->attribute( 'id' ), $languageID, $time );
+//
+//        //get subscriber list and comment list
+//        $db = eZDB::instance();
+//        $contentID = $contentObject->attribute( 'id' ) . '_' . $languageID;
+//        $subscriberIDArray = $db->arrayQuery( "SELECT subscriber_id".
+//                                              " FROM ezcomment_subscription" .
+//                                              " WHERE content_id='$contentID' " );
+//        $subscriberList = array();
+//        foreach( $subscriberIDArray as $subscriberID )
+//        {
+//            $subscriberList[] = ezcomSubscriber::fetch( $subscriberID['subscriber_id'] );
+//        }
+//
+//        $commentIDArray = $db->arrayQuery( "SELECT comment_id ".
+//                                           " FROM ezcomment_notification" );
+//        $commentList = array();
+//        foreach( $commentIDArray as $commentIDArray )
+//        {
+//            $commentList[] = ezcomComment::fetch( $commentIDArray['comment_id'] );
+//        }
+//        $notificationManager = ezcomNotificationManager::instance();
+//        // test sending all in one mail
+//        foreach( $subscriberList as $subscriber )
+//        {
+//            $notificationManager->sendNotificationInOne( $subscriber, $contentObject );
+//        }
+//
+//        //test sending one by one
+//        foreach( $subscriberList as $subscriber )
+//        {
+//            foreach( $commentList as $comment )
+//            {
+//                $notificationManager->sendNotificationInMany( $subscriber, $contentObject, $comment );
+//            }
+//        }
+//    }
     
     
     /**
