@@ -13,7 +13,7 @@ class ezcomCommentsTestSuite extends ezpDatabaseTestSuite
         // init extension setting to make unit test possible in ezp source code (not installed environment).
         $ini = eZINI::instance( 'ezcomments.ini' );
         $var = array( 'ManagerClasses'=> array( 'CommentManagerClass' => 'ezcomCommentCommonManager',
-                                                'SubscriberManagerClass' => 'ezcomSubscriptionManager',
+                                                'SubscriptionManagerClass' => 'ezcomSubscriptionManager',
                                                 'PermissionClass' => 'ezcomPermission',
                                                 'AddCommentToolClass' => 'ezcomAddCommentTool',
                                                 'EditCommentToolClass' => 'ezcomEditCommentTool' ) );
