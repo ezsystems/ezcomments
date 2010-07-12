@@ -83,42 +83,43 @@ class ezcomSubscriptionTest extends ezpDatabaseTestCase
         $subscription->setAttribute( 'user_id', 15 );
         $subscription->setAttribute( 'subscriber_id', $subscriber->attribute( 'id' ) );
         $subscription->setAttribute( 'subscription_type', $subscriptionType );
-        $subscription->setAttribute( 'content_id', '210_2' );
+        $subscription->setAttribute( 'content_id', '210' );
         $subscription->setAttribute( 'subscription_time', $time );
         $subscription->setAttribute( 'enabled', 1 );
+        $subscription->setAttribute( 'language_id', 2 );
         $subscription->store();
         
         //1. test if the subscription exists by contentID
-        $exists = ezcomSubscription::exists( '210_2', $subscriptionType );
+        $exists = ezcomSubscription::exists( '210', '2', $subscriptionType );
         $this->assertTrue( $exists );
-        $exists = ezcomSubscription::exists( '20009', $subscriptionType);
+        $exists = ezcomSubscription::exists( '20009', '2', $subscriptionType);
         $this->assertFalse( $exists );
-        $exists = ezcomSubscription::exists( '20009', 'othertypesssss' );
+        $exists = ezcomSubscription::exists( '20009', '2', 'othertypesssss' );
         $this->assertFalse( $exists );
-        $exists = ezcomSubscription::exists( '20009', null );
+        $exists = ezcomSubscription::exists( '20009', '2', 'othertypesssss', null, null );
         $this->assertNull( $exists );
         //2. test if the subsription exists by contenetID and enabled
-        $exists = ezcomSubscription::exists( '210_2', $subscriptionType, null, 0 );
+        $exists = ezcomSubscription::exists( '210', '2', $subscriptionType, null, 0 );
         $this->assertTrue( $exists );
-        $exists = ezcomSubscription::exists( '210_2', $subscriptionType, null, 1 );
+        $exists = ezcomSubscription::exists( '210', '2', $subscriptionType, null, 1 );
         $this->assertFalse( $exists );
-        $exists = ezcomSubscription::exists( '210_2', $subscriptionType, null, 12 );
+        $exists = ezcomSubscription::exists( '210', '2', $subscriptionType, null, 12 );
         $this->assertNull( $exists );
         
         //3. test if the subscription exists by contentID and email
-        $exists = ezcomSubscription::exists( '210_2', $subscriptionType, $testemail );
+        $exists = ezcomSubscription::exists( '210', '2', $subscriptionType, $testemail );
         $this->assertTrue( $exists );
-        $exists = ezcomSubscription::exists( '210_2', $subscriptionType, 'otheremail@ez.no' );
+        $exists = ezcomSubscription::exists( '210', '2', $subscriptionType, 'otheremail@ez.no' );
         $this->assertFalse( $exists );
         
         //4. test if the subscription exists by contentID, email and enabled
-        $exists = ezcomSubscription::exists( '210_2', $subscriptionType, $testemail, 0 );
+        $exists = ezcomSubscription::exists( '210', '2', $subscriptionType, $testemail, 0 );
         $this->assertTrue( $exists );
-        $exists = ezcomSubscription::exists( '210_2', $subscriptionType, $testemail, 1 );
+        $exists = ezcomSubscription::exists( '210', '2', $subscriptionType, $testemail, 1 );
         $this->assertFalse( $exists );
-        $exists = ezcomSubscription::exists( '210_2', $subscriptionType, 'otheremail@ez.no', 0 );
+        $exists = ezcomSubscription::exists( '210', '2', $subscriptionType, 'otheremail@ez.no', 0 );
         $this->assertFalse( $exists );
-        $exists = ezcomSubscription::exists( '210_2', $subscriptionType, $testemail, 46 );
+        $exists = ezcomSubscription::exists( '210', '2', $subscriptionType, $testemail, 46 );
         $this->assertNull( $exists );
     }
     
