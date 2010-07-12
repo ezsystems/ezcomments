@@ -223,7 +223,7 @@ class ezcomSubscriptionManager
         if ( is_null( $className ) )
         {
             $ini = eZINI::instance( 'ezcomments.ini' );
-            $className = $ini->variable( 'ManagerClasses', 'SubscriberManagerClass' );
+            $className = $ini->variable( 'ManagerClasses', 'SubscriptionManagerClass' );
         }
 
         if ( !is_null( self::$instance ) )

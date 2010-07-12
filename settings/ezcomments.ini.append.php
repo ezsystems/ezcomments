@@ -68,7 +68,7 @@ SubscriptionActivated=false
 #Class for handling logic
 [ManagerClasses]
 CommentManagerClass=ezcomCommentCommonManager
-SubscriberManagerClass=ezcomSubscriptionManager
+SubscriptionManagerClass=ezcomSubscriptionManager
 PermissionClass=ezcomPermission
 AddCommentToolClass=ezcomAddCommentTool
 EditCommentToolClass=ezcomEditCommentTool
