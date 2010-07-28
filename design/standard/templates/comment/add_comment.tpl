@@ -127,6 +127,7 @@
                   {/if}
                  </fieldset>
                 </div>
+             {/if}
              {undef $bypass_captcha}
         {/if}
         {if $is_anonymous}

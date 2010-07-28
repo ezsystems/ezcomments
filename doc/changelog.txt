@@ -1,6 +1,7 @@
 eZ Comments change log
 
 1.1.0 - released 2010/x/y
+ - Corrected {/if} lost in template for reCAPTCHA support
  - Added reCAPTCHA support
  - Added extension ordering support that ezcomments should be before ezwebin
  - Fixed bug #016539: Cronjob for sending for one notification email to show multiple comments fails
