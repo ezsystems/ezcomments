@@ -79,7 +79,69 @@ class ezcomCommentTest extends ezpDatabaseTestCase
         $comment = ezcomComment::fetch( 2 );
         $this->assertEquals( null, $comment );
     }
-    
+
+    /**
+     * Test FetchByContentObjectList
+     */
+    public function testFetchByContentObjectIDList()
+    {
+        $language = eZContentLanguage::fetchByLocale( 'eng-GB' );
+        $languageID = $language->attribute( 'id' );
+        $time = time();
+        $comment1 = array( 'contentobject_id' => 15,
+                           'language_id' => $languageID,
+                           'created' => $time,
+                           'modified' => $time,
+                           'text'=>'comment1',
+                           'user_id' => 15 );
+        $comment2 = array( 'contentobject_id' => 15,
+                           'language_id' => $languageID,
+                           'created' => $time + 1,
+                           'modified' => $time + 1,
+                           'text'=>'comment2',
+                           'user_id' => 15 );
+        $comment3 = array( 'contentobject_id' => 15,
+                           'language_id' => $languageID,
+                           'created' => $time + 2,
+                           'modified' => $time + 2,
+                           'text'=>'comment3',
+                           'user_id' => 15 );
+        $comment4 = array( 'contentobject_id' => 14,
+                           'language_id' => $languageID,
+                           'created' => $time + 3,
+                           'modified' => $time + 3,
+                           'text'=>'comment4',
+                           'user_id' => 14 );
+        $comment = ezcomComment::create( $comment1 );
+        $comment->store();
+        $comment = ezcomComment::create( $comment2 );
+        $comment->store();
+        $comment = ezcomComment::create( $comment3 );
+        $comment->store();
+        $comment = ezcomComment::create( $comment4 );
+        $comment->store();
+        // test null contentobject id and user id
+        $result = ezcomComment::fetchByContentObjectIDList( null, 15, 'eng-GB', null, array( 'modified'=>'desc' ), 0 );
+        $this->assertEquals( 'comment3', $result[0] -> attribute('text') );
+        $this->assertEquals( 'comment1', $result[2] -> attribute('text') );
+
+        // test null contentobject id array and empty user_id
+        $result = ezcomComment::fetchByContentObjectIDList( null, null, 'eng-GB', null, array( 'modified'=>'desc' ), 0 );
+        $this->assertEquals( 'comment1', $result[3] -> attribute('text') );
+
+        // test one contentobject id array
+        $result = ezcomComment::fetchByContentObjectIDList( array( 14 ), null, 'eng-GB', null, array( 'modified'=>'desc' ), 0 );
+        $this->assertEquals( 'comment4', $result[0] -> attribute('text') );
+
+        // test many contentobjects array and sort
+        $result = ezcomComment::fetchByContentObjectIDList( array( 14, 15 ), null, 'eng-GB', null, array( 'modified'=>'asc' ), 0 );
+        $this->assertEquals( 'comment3', $result[2] -> attribute('text') );
+
+        // test length with all null
+        $result = ezcomComment::fetchByContentObjectIDList( null, null, null, null, null, null, 3 );
+        $this->assertEquals( 3, count( $result ) );
+    }
+
 //    /**
 //     * 1. store an ezcomcomment object into database
 //     * 2. Fetch the ezcomComment object list

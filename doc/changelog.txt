@@ -1,6 +1,7 @@
 eZ Comments change log
 
 1.1.0 - released 2010/x/y
+ - Implemented enhancement #016673: ezcomments: add fetch functions to fetch latest comments, my latest comments
  - Corrected {/if} lost in template for reCAPTCHA support
  - Added reCAPTCHA support
  - Added extension ordering support that ezcomments should be before ezwebin

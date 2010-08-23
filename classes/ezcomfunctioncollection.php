@@ -18,6 +18,58 @@ class ezcomFunctionCollection
         return array( 'result' => $result );
     }
 
+    /**
+     * @see ezcomComment::fetchByObjectIDList
+     */
+    public static function fetchCommentListByContentObjectIDList( $contentObjectIDList, $userID, $languageCode, $status, $sortField, $sortOrder, $offset, $length, $extraCondition )
+    {
+        $sorts = array( $sortField => $sortOrder );
+        $result = ezcomComment::fetchByContentObjectIDList( $contentObjectIDList, $userID, $languageCode, $status, $sorts, $offset, $length, $extraCondition );
+        return array( 'result' => $result );
+    }
+
+
+    /**
+     * get latest comment list.
+     * userID can userEmail can be used together or separate.
+     * if $after is a specified time(not null), it will fetch comment after this time, then length can be used or not
+     * if isModified is true, it use modified time to judge 'latest' instead of created time
+     *
+     * @param integer $userID
+     * @param string $userEmail
+     * @param integer $length
+     * @param boolean $isModified
+     * @param integer|null $after
+     * @param string $sortOrder
+     * @return array<ezcomComment>|null|array()
+     */
+    public static function fetchLatestCommentList( $userID, $userEmail, $length, $isModified, $after, $sortOrder )
+    {
+        $extraCondition = array();
+        if( $userEmail !== null )
+        {
+            $extraCondition['email'] = $userEmail;
+        }
+        $sortField = 'created';
+        if( $isModified === true )
+        {
+            $sortField = 'modified';
+        }
+
+        if( $after !== null )
+        {
+            if( $isModified === true )
+            {
+                $extraCondition['modified'] = array( '>', $after );
+            }
+            else
+            {
+                $extraCondition['created'] = array( '>', $after );
+            }
+        }
+        return self::fetchCommentListByContentObjectIDList( null, $userID, null, 1, $sortField, $sortOrder, null, $length, $extraCondition );
+    }
+
     public static function fetchCommentCount( $contentObjectID, $languageID, $status = null )
     {
         $result = ezcomComment::countByContent( $contentObjectID, $languageID, $status );

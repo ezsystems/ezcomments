@@ -197,6 +197,65 @@ class ezcomComment extends eZPersistentObject
     }
 
     /**
+     * Fetch object by object id list. available since 1.1
+     * If $objectIDList is null, it will fetch all comments regardless of content id
+     * If $userID is null, it will fetch all user's comments
+     * If $languageCode is null, it will fetch comments on currrent site access language code
+     * If $status is null, it will fetch comment regardless of status
+     *
+     * @param array|null $objectIDList
+     * @param integer|null $userID
+     * @param string|null $languageCode
+     * @param integer|null $status
+     * @param array|null $sorts
+     * @param integer|null $offset
+     * @param integer|null $length
+     * @param array $extraCondition extra condition according to condition standard in eZPersistentObject::fetchObjectList
+     * @return array<ezcomComment>|null|array()
+     */
+    public static function fetchByContentObjectIDList( $objectIDList = null, $userID = null, $languageCode = null, $status = null, $sorts = null, $offset = null, $length = null, $extraCondition = array() )
+    {
+        $cond = array();
+
+        // object id list
+        if( $objectIDList !== null && !is_array( $objectIDList ) )
+        {
+            return null;
+        }
+        if( is_array( $objectIDList ) )
+        {
+            $cond['contentobject_id'] = array( $objectIDList );
+        }
+
+        // user id
+        if( $userID !== null )
+        {
+            $cond['user_id'] = $userID;
+        }
+
+        // language id
+        if( $languageCode === null )
+        {
+            $ini = eZINI::instance();
+            $languageCode = $ini->variable( 'RegionalSettings' , 'ContentObjectLocale' );
+        }
+        $languageID = eZContentLanguage::fetchByLocale( $languageCode )->attribute( 'id' );
+        $cond['language_id'] = $languageID;
+
+        // status
+        if( $status !== null )
+        {
+            $cond['status'] = $status;
+        }
+        $cond = array_merge( $cond, $extraCondition );
+
+        $limit = array( 'offset' => $offset, 'length' => $length );
+
+        $result = eZPersistentObject::fetchObjectList( self::definition(), null, $cond, $sorts, $limit );
+        return $result;
+    }
+
+    /**
      * Count the comments by content object id
      * @param integer $contentObjectID
      * @param integer $languageID
