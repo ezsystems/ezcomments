@@ -117,7 +117,7 @@ $FunctionList['latest_comment_list'] = array( 'name' => 'latest_comment_list',
                                                               'required'=>false,
                                                               'default'=>null
                                                         ),
-                                                      array( 'name'=> 'is_modified',
+                                                      array( 'name'=> 'use_modified',
                                                           'type'=> 'boolean',
                                                           'required' => false,
                                                           'default'  => false

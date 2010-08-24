@@ -33,17 +33,17 @@ class ezcomFunctionCollection
      * get latest comment list.
      * userID can userEmail can be used together or separate.
      * if $after is a specified time(not null), it will fetch comment after this time, then length can be used or not
-     * if isModified is true, it use modified time to judge 'latest' instead of created time
+     * if useModified is true, it uses modified time to judge 'latest' instead of created time
      *
      * @param integer $userID
      * @param string $userEmail
      * @param integer $length
-     * @param boolean $isModified
+     * @param boolean $useModified
      * @param integer|null $after
      * @param string $sortOrder
      * @return array<ezcomComment>|null|array()
      */
-    public static function fetchLatestCommentList( $userID, $userEmail, $length, $isModified, $after, $sortOrder )
+    public static function fetchLatestCommentList( $userID, $userEmail, $length, $useModified, $after, $sortOrder )
     {
         $extraCondition = array();
         if( $userEmail !== null )
@@ -51,14 +51,14 @@ class ezcomFunctionCollection
             $extraCondition['email'] = $userEmail;
         }
         $sortField = 'created';
-        if( $isModified === true )
+        if( $useModified === true )
         {
             $sortField = 'modified';
         }
 
         if( $after !== null )
         {
-            if( $isModified === true )
+            if( $useModified === true )
             {
                 $extraCondition['modified'] = array( '>', $after );
             }
