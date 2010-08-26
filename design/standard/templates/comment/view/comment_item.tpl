@@ -8,20 +8,22 @@
 
 <div class="ezcom-view-comment">
             <div class="attribute-byline ezcom-comment-top">
-                <div class="ezcom-comment-author">
-                    <p class="author">
-                        {if $comment.url|eq( '' )}
-                            {$comment.name|wash}
-                        {else}
-                            <a href="{$comment.url|wash}">
+                {if $comment.name}
+                    <div class="ezcom-comment-author">
+                        <p class="author">
+                            {if $comment.url|eq( '' )}
                                 {$comment.name|wash}
-                            </a>
-                        {/if}
-                    </p>
-                    <span>
-                     {'wrote:'|i18n('ezcomments/comment/view')}
-                    </span>
-                </div>
+                            {else}
+                                <a href="{$comment.url|wash}">
+                                    {$comment.name|wash}
+                                </a>
+                            {/if}
+                        </p>
+                        <span>
+                         {'wrote:'|i18n('ezcomments/comment/view')}
+                        </span>
+                    </div>
+                {/if}
                 <div class="ezcom-comment-time">
                     <p class="date">
                         {$comment.created|l10n( 'shortdatetime' )}
