@@ -178,7 +178,18 @@ if ( $module->isCurrentAction( 'AddComment' ) )
         }
         
          eZContentCacheManager::clearContentCacheIfNeeded( $contentObjectId );
-         $tpl->setVariable( 'redirect_uri', $redirectURI );
+         if( !$changeNotification )
+         {
+             $commentINI = eZINI::instance( 'ezcomments.ini' );
+             if( $commentINI->variable( 'GlobalSettings', 'RedirectAfterCommenting' ) === 'true' )
+             {
+                 $module->redirectTo( $redirectURI );
+             }
+         }
+         else
+         {
+             $tpl->setVariable( 'redirect_uri', $redirectURI );
+         }
     }
 }
 else

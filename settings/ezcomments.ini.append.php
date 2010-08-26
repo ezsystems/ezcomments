@@ -23,6 +23,8 @@ DefaultEmbededSortField=created
 #Embeded comment sort order in content view
 DefaultEmbededSortOrder=desc
 
+RedirectAfterCommenting=true
+
 #Settings for notification related
 [NotificationSettings]
 #notification manager class
