@@ -13,7 +13,7 @@ class eZCommentsInfo
     {
         return array(
             'Name' => "<a href='http://projects.ez.no/ezcomments'>eZ Comments</a>",
-            'Version' => "1.0.0",
+            'Version' => "1.0.1",
             'Copyright' => 'Copyright (C) 1999-2010 eZ Systems AS',
             'License' => 'GNU General Public License v2.0',
         );
