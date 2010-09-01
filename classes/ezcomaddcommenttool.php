@@ -53,6 +53,8 @@ class ezcomAddCommentTool extends ezcomFormTool
     {
         switch ( $field )
         {
+            case 'website':
+                return ezcomUtility::validateURLString( $value );
             case 'email':
                 // just validate anonymous's input email
                 $user = eZUser::currentUser();

@@ -96,10 +96,11 @@ class ezcomFormTool
                                                                array( $field ) );
                     continue;
                 }
-                else if ( $fieldRequired && $fieldExists )
+                else if ( $fieldExists )
                 {
                     $val = $http->postVariable( $fieldPostName );
-                    if ( empty( $val ) )
+                    // only check the empty value when the field is required. In other cases, still validate field if it has value
+                    if ( $fieldRequired && empty( $val ) )
                     {
                         $status = false;
                         $this->validationMessage[$field] = ezi18n( 'ezcomments/comment/add',
