@@ -13,6 +13,21 @@
  */
 class ezcomUtility
 {
+    /**
+     * validate url string. URL can not start with javascript/vbscript/mailto
+     */
+    public static function validateURLString( $value )
+    {
+        if( preg_match( "/^(java|vb)script:.*/i" , $value ) )
+        {
+            return ezpI18n::tr( 'ezcomments/comment/add', 'Javascript code in url is not allowed.' );
+        }
+        if( preg_match( "/^mailto:(.*)/i" , $value ) )
+        {
+            return ezpI18n::tr( 'ezcomments/comment/add',  "Email link in url is not allowed." );
+        }
+        return true;
+    }
 
     public function generateSusbcriberHashString( $subscriber )
     {

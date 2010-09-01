@@ -1,4 +1,7 @@
 eZ Comments change log
+1.0.1
+ - Fixed bug #016644: Improve field handling in website field 
+
 1.0.0RC
  - Fixed bug #16447: after adding to class, it cannot saved again
  - Fixed bug #16423: missing ezurl at redirection var and other html errors
