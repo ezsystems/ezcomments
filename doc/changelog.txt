@@ -1,6 +1,8 @@
 eZ Comments change log
 
-1.1.0 - released 2010/x/y
+1.1.0 Final - released 2010/x/y
+
+1.1.0Alpha,Beta2
  - Fixed bug #16644: Improve field handling in website field
  - Implemented enhancement #016659 (ezcomments: redirect to commented object page on success) 
  - Implemented enhancement #016655: ezcomments: improve handling of commenter name
