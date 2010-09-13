@@ -61,7 +61,10 @@ class ezcomFormTool
     protected function setFieldValue( $field, $fieldPostName )
     {
         $http = eZHTTPTool::instance();
-        $this->fieldValues[$field] = $http->postVariable( $fieldPostName );
+        if( $http->hasPostVariable( $fieldPostName ) )
+        {
+            $this->fieldValues[$field] = $http->postVariable( $fieldPostName );
+        }
     }
     
     /**
