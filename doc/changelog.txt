@@ -1,6 +1,8 @@
 eZ Comments change log
 
 1.1.0 Final - released 2010/x/y
+1.1.0 RC1
+ - Fixed bug #017268: TC-124 (Ez Comments) Updating a comment on eZ Webin raises an error
 
 1.1.0Alpha,Beta2
  - Fixed bug #16644: Improve field handling in website field
