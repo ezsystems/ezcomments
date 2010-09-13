@@ -23,7 +23,7 @@ class ezcomEditCommentTool extends ezcomFormTool
         switch ( $field )
         {
             case 'website':
-                return ezcomUtility::validateWebsite( $value );
+                return ezcomUtility::validateURLString( $value );
             default:
                 return true;
         }
@@ -39,8 +39,6 @@ class ezcomEditCommentTool extends ezcomFormTool
     {
         switch ( $field )
         {
-            case 'website':
-                return ezcomUtility::validateURLString( $value );
             case 'email':
                 return false;
             //Don't validate recaptcha
