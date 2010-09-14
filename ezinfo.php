@@ -16,6 +16,10 @@ class eZCommentsInfo
             'Version' => "1.1.0 beta2",
             'Copyright' => 'Copyright (C) 1999-2010 eZ Systems AS',
             'License' => 'GNU General Public License v2.0',
+            'Includes the following third-party software' => array( 'Name' => 'reCAPTCHA PHP Library',
+                                                                              'Version' => '1.11',
+                                                                              'Copyright' => 'Copyright (c) 2007 reCAPTCHA -- http://recaptcha.net',
+                                                                              'License' => '',)
         );
     }
 }
