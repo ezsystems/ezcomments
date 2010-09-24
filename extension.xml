@@ -3,8 +3,8 @@
     <metadata>
         <name>eZ Comments</name>
         <version>//autogentag//</version>
-        <copyright>Copyright (C) 1999-2009 eZ Systems AS</copyright>
-        <license>GNU General Public License v2.0</license>
+        <copyright>Copyright (C) 1999-2010 eZ Systems AS</copyright>
+        <license>//EZP_LICENSE//</license>
         <info_url>http://projects.ez.no/ezcomments</info_url>
 
          <software>
