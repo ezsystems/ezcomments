@@ -1,6 +1,6 @@
 <?php /*
 
 [GeneralCondition]
-extension-ezcomments=enabled
+extension-ezcomments=disabled
 
 */ ?>
