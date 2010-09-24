@@ -7,7 +7,7 @@
  *
  */
 
-class eZCommentsInfo
+class ezcommentsInfo
 {
     static function info()
     {
