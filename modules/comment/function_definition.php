@@ -1,4 +1,12 @@
 <?php
+/**
+ * File containing the function definition
+ *
+ * @copyright Copyright (C) 1999-2010 eZ Systems AS. All rights reserved.
+ * @license http://ez.no/licenses/gnu_gpl GNU GPLv2
+ *
+ */
+
 $FunctionList = array();
 $FunctionList['comment_list'] = array( 'name' => 'comment_list',
                                                   'operation_types' => array( 'read' ),
