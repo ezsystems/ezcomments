@@ -93,7 +93,7 @@ class ezcomFormTool
                 if ( $fieldRequired && !$fieldExists )
                 {
                     $status = false;
-                    $this->validationMessage[$field] = ezi18n( 'ezcomments/comment/add',
+                    $this->validationMessage[$field] = ezpI18n::tr( 'ezcomments/comment/add',
                                                                '%1 is missing.',
                                                                null,
                                                                array( $field ) );
@@ -106,7 +106,7 @@ class ezcomFormTool
                     if ( $fieldRequired && empty( $val ) )
                     {
                         $status = false;
-                        $this->validationMessage[$field] = ezi18n( 'ezcomments/comment/add',
+                        $this->validationMessage[$field] = ezpI18n::tr( 'ezcomments/comment/add',
                                                                    'The field [%1] is empty.',
                                                                    null,
                                                                    array( $field ) );

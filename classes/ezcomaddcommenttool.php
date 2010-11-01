@@ -63,7 +63,7 @@ class ezcomAddCommentTool extends ezcomFormTool
                     $result = eZMail::validate( $value );
                     if ( !$result )
                     {
-                        return ezi18n( 'ezcomments/comment/add', 'Not a valid email address.' );
+                        return ezpI18n::tr( 'ezcomments/comment/add', 'Not a valid email address.' );
                     }
                 }
                 return true;
@@ -81,12 +81,12 @@ class ezcomAddCommentTool extends ezcomFormTool
                     $capchaResponse = recaptcha_check_answer( $privateKey, $ip, $challengeField, $responseField );
                     if( !$capchaResponse->is_valid )
                     {
-                         return ezi18n( 'ezcomments/comment/add', 'The words you input are incorrect.' );
+                         return ezpI18n::tr( 'ezcomments/comment/add', 'The words you input are incorrect.' );
                     }
                 }
                 else
                 {
-                    return ezi18n( 'ezcomments/comment/add', 'Captcha parameter error.' );
+                    return ezpI18n::tr( 'ezcomments/comment/add', 'Captcha parameter error.' );
                 }
                 return true;
             default:

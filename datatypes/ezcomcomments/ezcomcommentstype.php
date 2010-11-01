@@ -17,7 +17,7 @@ class ezcomCommentsType extends eZDataType
     */
     function __construct()
     {
-        parent::__construct( self::DATA_TYPE_STRING, ezi18n( 'ezcomments/datatype', 'Comments', 'Datatype name'),
+        parent::__construct( self::DATA_TYPE_STRING, ezpI18n::tr( 'ezcomments/datatype', 'Comments', 'Datatype name'),
                              array( 'serialize_supported' => true) );
     }
 

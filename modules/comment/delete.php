@@ -51,7 +51,7 @@ if ( $Module->isCurrentAction( 'DeleteComment' ) )
         }
         else
         {
-            $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/comment/delete', 'Deleting failed!' ) );
+            $tpl->setVariable( 'error_message', ezpI18n::tr( 'ezcomments/comment/delete', 'Deleting failed!' ) );
             return showDeleteForm( $tpl, $commentID );
         }
     }
@@ -102,7 +102,7 @@ function checkPermission( $comment )
     $commentContent = $objectAttribute->content();
     if ( !$canDeleteResult['result'] || !$commentContent['show_comments'] )
     {
-        return ezi18n( 'ezcomments/comment/delete', 'You don\'t have'.
+        return ezpI18n::tr( 'ezcomments/comment/delete', 'You don\'t have'.
                                                     ' access to delete comment' .
                                                     ' or the comment is hidden!' );
     }
@@ -138,7 +138,7 @@ function showDeleteForm( $tpl, $commentID )
     $tpl->setVariable( 'redirect_uri', $redirectURI );
     $Result = array();
     $Result['path'] = array( array( 'url' => false,
-                            'text' => ezi18n( 'ezcomments/comment/delete', 'Delete comment' ) ) );
+                            'text' => ezpI18n::tr( 'ezcomments/comment/delete', 'Delete comment' ) ) );
     $Result['content'] = $tpl->fetch( 'design:comment/delete.tpl' );
     return $Result;
 }

@@ -19,7 +19,7 @@ $http = eZHTTPTool::instance();
 
 $Result = array();
 $Result['path'] = array( array( 'url' => false,
-                                'text' => ezi18n( 'ezcomments/comment/add', 'Add comment' ) ) );
+                                'text' => ezpI18n::tr( 'ezcomments/comment/add', 'Add comment' ) ) );
 $Result['content'] ='';
 
 if ( $http->hasVariable( 'RedirectURI' ) )
@@ -40,7 +40,7 @@ if ( $module->isCurrentAction( 'AddComment' ) )
     $commentContent = ezcomPostHelper::checkCommentPermission( $contentObject, $languageCode, $foundCommentAttribute );
     if ( !$commentContent['show_comments'] || !$commentContent['enable_comment'] )
     {
-        $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/comment/add', 'Commenting has been turned off for this content.'  ) );
+        $tpl->setVariable( 'error_message', ezpI18n::tr( 'ezcomments/comment/add', 'Commenting has been turned off for this content.'  ) );
         $Result['content'] = $tpl->fetch( 'design:comment/add.tpl' );
         return $Result;
     }
@@ -53,7 +53,7 @@ if ( $module->isCurrentAction( 'AddComment' ) )
         if ( !$formStatus )
         {
             // missing form data
-            $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/comment/add/form', 'There is a problem with your comment form ' ) );
+            $tpl->setVariable( 'error_message', ezpI18n::tr( 'ezcomments/comment/add/form', 'There is a problem with your comment form ' ) );
             $tpl->setVariable( 'validation_messages', $formTool->messages() );
             $Result['content'] = $tpl->fetch( 'design:comment/add.tpl' );
             return $Result;
@@ -146,18 +146,18 @@ if ( $module->isCurrentAction( 'AddComment' ) )
             {
                 if ( $existingNotification )
                 {
-                    $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
+                    $tpl->setVariable( 'success_message', ezpI18n::tr( 'ezcomments/comment/add',
                                                              'You have already subscribed to comment updates on this content.' ) );
                 }
                 else
                 {
-                    $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
+                    $tpl->setVariable( 'success_message', ezpI18n::tr( 'ezcomments/comment/add',
                                                              'You will receive comment updates on the content.' ) );
                 }
             }
             else
             {
-                $tpl->setVariable( 'success_message', ezi18n( 'ezcomments/comment/add',
+                $tpl->setVariable( 'success_message', ezpI18n::tr( 'ezcomments/comment/add',
                                                          'A confirmation email has been sent to your email address. You will receive comment updates after confirmation.' ) );
             }
         }
@@ -194,7 +194,7 @@ if ( $module->isCurrentAction( 'AddComment' ) )
 }
 else
 {
-    $tpl->setVariable( 'error_message', ezi18n( 'ezcomments/comment/add', 'You should not access this view directly.' ) );
+    $tpl->setVariable( 'error_message', ezpI18n::tr( 'ezcomments/comment/add', 'You should not access this view directly.' ) );
 }
 
 $Result['content'] = $tpl->fetch( 'design:comment/add.tpl' );
