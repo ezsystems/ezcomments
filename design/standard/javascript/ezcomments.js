@@ -25,11 +25,11 @@ var eZComments = function() {
         var updateInputFields = function(userDataObject) {
             if (Y.Object.hasKey(userDataObject, sessionID)) {
                 var userData = Y.Object.getValue(userDataObject, sessionID);
-                var fieldName = Y.get(ret.cfg.fields.name);
+                var fieldName = Y.one(ret.cfg.fields.name);
                 if (fieldName!=null){
                     fieldName.set('value', userData.name);
                 }
-                var fieldEmail = Y.get(ret.cfg.fields.email);
+                var fieldEmail = Y.one(ret.cfg.fields.email);
                 if (fieldEmail!=null){
                     fieldEmail.set('value', userData.email);
                 }
