@@ -1,3 +1,5 @@
+{def $fields = ezini( 'FormSettings', 'AvailableFields', 'ezcomments.ini' )}
+{if $fields|contains( 'recaptcha' )}
 {def $public_key = ezini( 'RecaptchaSetting', 'PublicKey', 'ezcomments.ini' )
      $private_key = ezini( 'RecaptchaSetting', 'PrivateKey', 'ezcomments.ini' )}
         {if or( $public_key|eq( '' ), $private_key|eq( '' ) )}
@@ -11,3 +13,5 @@
         </h3>
     </div>
 {undef $public_key $private_key}
+{/if}
+{undef $fields}
