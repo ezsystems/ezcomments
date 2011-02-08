@@ -10,7 +10,7 @@ CREATE TABLE ezcomment (
     parent_comment_id integer DEFAULT 0 NOT NULL,
     name              varchar2(255) NOT NULL,
     email             varchar2(75) NOT NULL,
-    url               varchar2(255) NOT NULL,
+    url               varchar2(255) DEFAULT NULL,
     text              clob NOT NULL,
     status            integer NOT NULL,
     title             varchar2(255) DEFAULT NULL
