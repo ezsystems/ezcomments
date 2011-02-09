@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `ezcomment` (
   `parent_comment_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
   `email` varchar(75) NOT NULL,
-  `url` varchar(255) NOT NULL,
+  `url` varchar(255) DEFAULT NULL,
   `text` text NOT NULL,
   `status` int(11) NOT NULL,
   `title` varchar(255) DEFAULT NULL,

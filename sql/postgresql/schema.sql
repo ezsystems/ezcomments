@@ -75,7 +75,7 @@ CREATE TABLE ezcomment (
     status integer DEFAULT 0 NOT NULL,
     text text NOT NULL,
     title character varying(255),
-    url character varying(255) DEFAULT ''::character varying NOT NULL,
+    url character varying(255),
     user_id integer DEFAULT 0 NOT NULL
 );
 

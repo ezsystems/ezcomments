@@ -97,8 +97,7 @@ $schema = array (
       array (
         'length' => 255,
         'type' => 'varchar',
-        'not_null' => '1',
-        'default' => '',
+        'default' => NULL,
       ),
       'user_id' => 
       array (
