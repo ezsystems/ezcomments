@@ -250,6 +250,22 @@
         <source>There is a problem with your comment form </source>
         <translation>Un problème est survenu avec votre commentaire</translation>
     </message>
+    <message>
+        <source>Enter both words below, with or without a space.</source>
+        <translation>Entrez les deux mots ci-dessous, avec ou sans espace.</translation>
+    </message>
+    <message>
+        <source>The letters are not case-sensitive.</source>
+        <translation>Les lettres ne sont pas sensibles à la casse.</translation>
+    </message>
+    <message>
+        <source>Can't read this?</source>
+        <translation>Une difficulté pour lire ?</translation>
+    </message>
+    <message>
+        <source>Try another</source>
+        <translation>Essayer un autre</translation>
+    </message>
 </context>
 <context>
     <name>ezcomments/comment/delete</name>

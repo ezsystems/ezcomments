@@ -250,6 +250,22 @@
         <source>There is a problem with your comment form </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Enter both words below, with or without a space.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The letters are not case-sensitive.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Can't read this?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Try another</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ezcomments/comment/delete</name>
