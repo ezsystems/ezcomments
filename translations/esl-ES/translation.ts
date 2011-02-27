@@ -193,6 +193,10 @@
         <source>You should not access this view directly.</source>
         <translation>No deberías acceder a esta vista directamente.</translation>
     </message>
+    <message>
+        <source>reCAPTCHA API key missing.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ezcomments/comment/add/form</name>
@@ -262,6 +266,10 @@
     </message>
     <message>
         <source>Try another</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Security text:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

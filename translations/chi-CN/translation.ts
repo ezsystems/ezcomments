@@ -152,6 +152,10 @@
         <source>A confirmation email has been sent to your email address. You will receive comment updates after confirmation.</source>
         <translation>一封确认邮件已经发到你的邮箱。你在确认邮箱后将收到评论更新。</translation>
     </message>
+    <message>
+        <source>reCAPTCHA API key missing.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ezcomments/comment/add/form</name>
@@ -221,6 +225,10 @@
     </message>
     <message>
         <source>Try another</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Security text:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -195,6 +195,10 @@
         <source>You should not access this view directly.</source>
         <translation>Vous de pouvez pas accéder directement à cette vue.</translation>
     </message>
+    <message>
+        <source>reCAPTCHA API key missing.</source>
+        <translation>La clé d'API reCAPTCHA n'est pas renseignée.</translation>
+    </message>
 </context>
 <context>
     <name>ezcomments/comment/add/form</name>
@@ -265,6 +269,10 @@
     <message>
         <source>Try another</source>
         <translation>Essayer un autre</translation>
+    </message>
+    <message>
+        <source>Security text:</source>
+        <translation>Texte anti-spam :</translation>
     </message>
 </context>
 <context>

@@ -196,6 +196,10 @@
         <source>A confirmation email has been sent to your email address. You will receive comment updates after confirmation.</source>
         <translation>Es wurde eine Bestätigungs E-Mail an Ihre E-Mail Adresse gesendet. Sie erhalten E-Mail Benachrichtigungen, wenn Sie dies in der Mail bestätigt haben.</translation>
     </message>
+    <message>
+        <source>reCAPTCHA API key missing.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ezcomments/comment/add/form</name>
@@ -265,6 +269,10 @@
     </message>
     <message>
         <source>Try another</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Security text:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
