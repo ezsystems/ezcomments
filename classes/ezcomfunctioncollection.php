@@ -70,7 +70,7 @@ class ezcomFunctionCollection
         return self::fetchCommentListByContentObjectIDList( null, $userID, null, 1, $sortField, $sortOrder, null, $length, $extraCondition );
     }
 
-    public static function fetchCommentCount( $contentObjectID = null, $languageID = false, $status = null )
+    public static function fetchCommentCount( $contentObjectID = false, $languageID = false, $status = null )
     {
         $result = ezcomComment::countByContent( $contentObjectID, $languageID, $status );
         return array( 'result' => $result );

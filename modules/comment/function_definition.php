@@ -158,7 +158,7 @@ $FunctionList['comment_count'] = array( 'name' => 'comment_count',
                                                    array( 'name'=> 'contentobject_id',
                                                           'type'=>'integer',
                                                           'required' => false,
-                                                          'default' => null
+                                                          'default' => false
                                                     ),
                                                    array( 'name'=> 'language_id',
                                                           'type'=> 'integer',
