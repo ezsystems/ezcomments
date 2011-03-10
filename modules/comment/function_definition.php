@@ -97,7 +97,7 @@ $FunctionList['comment_list_by_content_list'] = array( 'name' => 'comment_list_b
                                                       ),
                                                      array( 'name'=> 'length',
                                                           'type'=> 'integer',
-                                                          'required' => true,
+                                                          'required' => false,
                                                           'default'  => null
                                                       ),
                                                      array( 'name'=> 'extra_condition',
@@ -157,13 +157,13 @@ $FunctionList['comment_count'] = array( 'name' => 'comment_count',
                                                   'parameters' => array(
                                                    array( 'name'=> 'contentobject_id',
                                                           'type'=>'integer',
-                                                          'required'=>true,
-                                                          'default'=>1
+                                                          'required' => false,
+                                                          'default' => null
                                                     ),
                                                    array( 'name'=> 'language_id',
                                                           'type'=> 'integer',
-                                                          'required' => true,
-                                                          'default'  => 0
+                                                          'required' => false,
+                                                          'default'  => false
                                                       ),
                                                    array( 'name'=> 'status',
                                                           'type'=> 'integer',

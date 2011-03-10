@@ -262,10 +262,13 @@ class ezcomComment extends eZPersistentObject
      * @param integer $status
      * @return count of comments
      */
-    static function countByContent( $contentObjectID, $languageID = false, $status = null )
+    static function countByContent( $contentObjectID = null, $languageID = false, $status = null )
     {
         $cond = array();
-        $cond['contentobject_id'] = $contentObjectID;
+        if ( !is_null( $contentObjectID ) )
+        {
+            $cond['contentobject_id'] = $contentObjectID;
+        }
         if ( $languageID !== false )
         {
             $cond['language_id'] = $languageID;
