@@ -13,7 +13,7 @@
     </message>
     <message>
         <source>Email</source>
-        <translation>Email</translation>
+        <translation>Courriel</translation>
     </message>
     <message>
         <source>Name</source>
@@ -33,7 +33,7 @@
     </message>
     <message>
         <source>My notification settings</source>
-        <translation>Mes réglages de notification</translation>
+        <translation>Mes paramètres de notification</translation>
     </message>
     <message>
         <source>My wish list</source>
@@ -41,7 +41,7 @@
     </message>
     <message>
         <source>Edit profile</source>
-        <translation>Éditer le profil</translation>
+        <translation>Modifier mon profil</translation>
     </message>
     <message>
         <source>Change password</source>
@@ -52,15 +52,15 @@
     <name>ezcomments/class/edit</name>
     <message>
         <source>eZ Comments warning: the reCAPTCHA key is not set up properly.</source>
-        <translation type="unfinished"></translation>
+        <translation>Attention : la clé reCAPTCHA n'est définie correctement.</translation>
     </message>
     <message>
         <source>Please get a reCAPTCHA key from &lt;a href=&quot;https://admin.recaptcha.net/recaptcha/createsite&quot; target=&quot;_blank&quot;&gt;https://admin.recaptcha.net/recaptcha/createsite&lt;/a&gt; then set it up in eZ Comments, or disable CAPTCHA feature.</source>
-        <translation type="unfinished"></translation>
+        <translation>Veuillez récupérer une clé reCAPTCHA sur &lt;a href=&quot;https://admin.recaptcha.net/recaptcha/createsite&quot; target=&quot;_blank&quot;&gt;https://admin.recaptcha.net/recaptcha/createsite&lt;/a&gt; et configurer eZ Comments pour l'utiliser ou désactiver le CAPTCHA.</translation>
     </message>
     <message>
         <source>For more details please visit &lt;a href=&quot;http://projects.ez.no/ezcomments&quot; target=&quot;_blank&quot;&gt;http://projects.ez.no/ezcomments&lt;/a&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pour plus d'information, veuillez visiter &lt;a href=&quot;http://projects.ez.no/ezcomments&quot; target=&quot;_blank&quot;&gt;http://projects.ez.no/ezcomments&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>
@@ -98,7 +98,7 @@
     </message>
     <message>
         <source>Go to settings</source>
-        <translation>Aller aux réglages</translation>
+        <translation>Paramètrages</translation>
     </message>
     <message>
         <source>Activate subscription</source>
@@ -129,11 +129,11 @@
     </message>
     <message>
         <source>If you do not want to receive the subscription email, ignore this email.</source>
-        <translation>Si vous ne souhaitez pas recevoir de mise à jour, ignorez cet email.</translation>
+        <translation>Si vous ne souhaitez pas recevoir de mise à jour, ignorez ce courriel.</translation>
     </message>
     <message>
         <source>You can go to your setting page to manage your subscription.</source>
-        <translation>Vous pouvez vous rendre sur votre page de réglages afin de gérer votre abonnement.</translation>
+        <translation>Vous pouvez vous rendre sur votre page de paramètrages afin de gérer votre abonnement.</translation>
     </message>
     <message>
         <source>Activate your subscription</source>
@@ -172,7 +172,7 @@
     <name>ezcomments/comment/add</name>
     <message>
         <source>Not a valid email address.</source>
-        <translation>Adresse email invalide.</translation>
+        <translation>Courriel invalide.</translation>
     </message>
     <message>
         <source>%1 is missing.</source>
@@ -204,11 +204,11 @@
     </message>
     <message>
         <source>A confirmation email has been sent to your email address. You will receive comment updates after confirmation.</source>
-        <translation>Un email de confirmation vient d&apos;être envoyé à votre adresse email. Vous recevrez les nouveaux commentaires après confirmation.</translation>
+        <translation>Un courriel de confirmation vient d&apos;être envoyé à votre adresse. Vous recevrez les nouveaux commentaires après confirmation.</translation>
     </message>
     <message>
         <source>You should not access this view directly.</source>
-        <translation>Vous de pouvez pas accéder directement à cette vue.</translation>
+        <translation>Vous ne pouvez pas accéder directement à cette vue.</translation>
     </message>
     <message>
         <source>reCAPTCHA API key missing.</source>
@@ -216,19 +216,19 @@
     </message>
     <message>
         <source>The words you input are incorrect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les mots que vous avez saisis sont incorrectes.</translation>
     </message>
     <message>
         <source>Captcha parameter error.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erreur de paramètre du captcha.</translation>
     </message>
     <message>
         <source>Javascript code in url is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Le JavaScript dans une URL n'est permis.</translation>
     </message>
     <message>
         <source>Email link in url is not allowed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Les adresses de courriel dans l'URL ne sont pas permis.</translation>
     </message>
 </context>
 <context>
@@ -251,11 +251,11 @@
     </message>
     <message>
         <source>Email:</source>
-        <translation>Email :</translation>
+        <translation>Courriel :</translation>
     </message>
     <message>
         <source>(The email address will not be shown)</source>
-        <translation>(L&apos;adresse email ne sera pas affichée)</translation>
+        <translation>(Le courriel ne sera pas affiché)</translation>
     </message>
     <message>
         <source>Content:</source>
@@ -329,15 +329,15 @@
     <name>ezcomments/comment/edit</name>
     <message>
         <source>You don&apos;t have access to edit.</source>
-        <translation>Vous ne pouvez pas éditer.</translation>
+        <translation>Vous ne pouvez pas modifier.</translation>
     </message>
     <message>
         <source>Edit comment</source>
-        <translation>Éditer le commentaire</translation>
+        <translation>Modifier le commentaire</translation>
     </message>
     <message>
         <source>Updating failed.</source>
-        <translation>La mise à jour à échoué.</translation>
+        <translation>La mise à jour a échoué.</translation>
     </message>
 </context>
 <context>
@@ -359,7 +359,7 @@
     </message>
     <message>
         <source>You have updated comment settings.</source>
-        <translation>Vous avez bien mis à jour vos réglages de commentaires.</translation>
+        <translation>Vous avez bien mis à jour vos paramètres liés aux commentaires.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -391,7 +391,7 @@
     </message>
     <message>
         <source>Comment settings</source>
-        <translation>Réglages des commentaires</translation>
+        <translation>Paramètres des commentaires</translation>
     </message>
 </context>
 <context>
@@ -402,7 +402,7 @@
     </message>
     <message>
         <source>Edit</source>
-        <translation>Éditer</translation>
+        <translation>Modifier</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -494,7 +494,7 @@
     <name>ezcomments/ezwebin/user/edit</name>
     <message>
         <source>My comment settings</source>
-        <translation>Mes réglages pour les commentaires</translation>
+        <translation>Mes paramètres liés aux commentaires</translation>
     </message>
 </context>
 </TS>
