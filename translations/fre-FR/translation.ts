@@ -49,6 +49,21 @@
     </message>
 </context>
 <context>
+    <name>ezcomments/class/edit</name>
+    <message>
+        <source>eZ Comments warning: the reCAPTCHA key is not set up properly.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please get a reCAPTCHA key from &lt;a href=&quot;https://admin.recaptcha.net/recaptcha/createsite&quot; target=&quot;_blank&quot;&gt;https://admin.recaptcha.net/recaptcha/createsite&lt;/a&gt; then set it up in eZ Comments, or disable CAPTCHA feature.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>For more details please visit &lt;a href=&quot;http://projects.ez.no/ezcomments&quot; target=&quot;_blank&quot;&gt;http://projects.ez.no/ezcomments&lt;/a&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ezcomments/comment/action</name>
     <message>
         <source>Back</source>
@@ -197,7 +212,23 @@
     </message>
     <message>
         <source>reCAPTCHA API key missing.</source>
-        <translation>La clé d'API reCAPTCHA n'est pas renseignée.</translation>
+        <translation>La clé d&apos;API reCAPTCHA n&apos;est pas renseignée.</translation>
+    </message>
+    <message>
+        <source>The words you input are incorrect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Captcha parameter error.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Javascript code in url is not allowed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Email link in url is not allowed.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -263,7 +294,7 @@
         <translation>Les lettres ne sont pas sensibles à la casse.</translation>
     </message>
     <message>
-        <source>Can't read this?</source>
+        <source>Can&apos;t read this?</source>
         <translation>Une difficulté pour lire ?</translation>
     </message>
     <message>
