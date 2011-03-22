@@ -154,7 +154,7 @@
     </message>
     <message>
         <source>reCAPTCHA API key missing.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">没有reCAPTCHA注册码.</translation>
     </message>
 </context>
 <context>
@@ -213,23 +213,23 @@
     </message>
     <message>
         <source>Enter both words below, with or without a space.</source>
-        <translation type="unfinished"></translation>
+        <translation>输入下面的字符(可以忽略空格).</translation>
     </message>
     <message>
         <source>The letters are not case-sensitive.</source>
-        <translation type="unfinished"></translation>
+        <translation>对字符大小写不敏感</translation>
     </message>
     <message>
         <source>Can't read this?</source>
-        <translation type="unfinished"></translation>
+        <translation>不能读?</translation>
     </message>
     <message>
         <source>Try another</source>
-        <translation type="unfinished"></translation>
+        <translation>换一个</translation>
     </message>
     <message>
         <source>Security text:</source>
-        <translation type="unfinished"></translation>
+        <translation>验证码:</translation>
     </message>
 </context>
 <context>
