@@ -1,4 +1,6 @@
-<!DOCTYPE TS><TS>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0">
 <context>
     <name>design/ezwebin/user/edit</name>
     <message>
@@ -84,7 +86,7 @@
     <name>ezcomments/comment/activate</name>
     <message>
         <source>The subscriber is disabled!</source>
-        <translation type="obsolete">订阅者未启用!</translation>
+        <translation type="unfinished">订阅者未启用!</translation>
     </message>
     <message>
         <source>The subscription is activated!</source>
@@ -96,11 +98,11 @@
     </message>
     <message>
         <source>Activate subscription</source>
-        <translation type="obsolete">激活订阅</translation>
+        <translation type="unfinished">激活订阅</translation>
     </message>
     <message>
         <source>There is no subscription with the hash string!</source>
-        <translation type="obsolete">根据给出的hash字符没有订阅.</translation>
+        <translation type="unfinished">根据给出的hash字符没有订阅.</translation>
     </message>
 </context>
 <context>
@@ -174,27 +176,27 @@
     <name>ezcomments/comment/add</name>
     <message>
         <source>Add comment</source>
-        <translation type="obsolete">添加评论</translation>
+        <translation type="unfinished">添加评论</translation>
     </message>
     <message>
         <source>%1 is missing.</source>
-        <translation type="obsolete">缺少表单域%1.</translation>
+        <translation type="unfinished">缺少表单域%1.</translation>
     </message>
     <message>
         <source>The field [%1] is empty.</source>
-        <translation type="obsolete">表单域 %1 为空.</translation>
+        <translation type="unfinished">表单域 %1 为空.</translation>
     </message>
     <message>
         <source>Not a valid email address.</source>
-        <translation type="obsolete">不是合法邮箱地址</translation>
+        <translation type="unfinished">不是合法邮箱地址</translation>
     </message>
     <message>
         <source>Commenting has been turned off for this content.</source>
-        <translation type="obsolete">此内容的评论功能已经被关闭。</translation>
+        <translation type="unfinished">此内容的评论功能已经被关闭。</translation>
     </message>
     <message>
         <source>You should not access this view directly.</source>
-        <translation type="obsolete">你不能直接访问这个页面。</translation>
+        <translation type="unfinished">你不能直接访问这个页面。</translation>
     </message>
     <message>
         <source>Your comment has been posted.</source>
@@ -202,19 +204,35 @@
     </message>
     <message>
         <source>You have already subscribed to comment updates on this content.</source>
-        <translation type="obsolete">你已经订阅了本内容的评论更新。</translation>
+        <translation type="unfinished">你已经订阅了本内容的评论更新。</translation>
     </message>
     <message>
         <source>You will receive comment updates on the content.</source>
-        <translation type="obsolete">你将收到此内容的评论更新。</translation>
+        <translation type="unfinished">你将收到此内容的评论更新。</translation>
     </message>
     <message>
         <source>A confirmation email has been sent to your email address. You will receive comment updates after confirmation.</source>
-        <translation type="obsolete">一封确认邮件已经发到你的邮箱。你在确认邮箱后将收到评论更新。</translation>
+        <translation type="unfinished">一封确认邮件已经发到你的邮箱。你在确认邮箱后将收到评论更新。</translation>
     </message>
     <message>
         <source>reCAPTCHA API key missing.</source>
         <translation type="unfinished">没有reCAPTCHA注册码.</translation>
+    </message>
+    <message>
+        <source>The words you input are incorrect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Captcha parameter error.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Javascript code in url is not allowed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Email link in url is not allowed.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -269,7 +287,7 @@
     </message>
     <message>
         <source>There is a problem with your comment form </source>
-        <translation type="obsolete">你的评论表单有一个问题</translation>
+        <translation type="unfinished">你的评论表单有一个问题</translation>
     </message>
     <message>
         <source>Enter both words below, with or without a space.</source>
@@ -300,15 +318,15 @@
     </message>
     <message>
         <source>Deleting failed!</source>
-        <translation type="obsolete">删除评论失败！</translation>
+        <translation type="unfinished">删除评论失败！</translation>
     </message>
     <message>
         <source>You don&apos;t have access to delete comment or the comment is hidden!</source>
-        <translation type="obsolete">你没有删除此评论的权限，或者此评论被隐藏！</translation>
+        <translation type="unfinished">你没有删除此评论的权限，或者此评论被隐藏！</translation>
     </message>
     <message>
         <source>Delete comment</source>
-        <translation type="obsolete">删除评论</translation>
+        <translation type="unfinished">删除评论</translation>
     </message>
 </context>
 <context>
@@ -323,7 +341,7 @@
     </message>
     <message>
         <source>Updating failed.</source>
-        <translation type="obsolete">更新失败。</translation>
+        <translation type="unfinished">更新失败。</translation>
     </message>
 </context>
 <context>
@@ -361,7 +379,7 @@
     </message>
     <message>
         <source>Comment settings</source>
-        <translation type="obsolete">评论设置</translation>
+        <translation type="unfinished">评论设置</translation>
     </message>
     <message>
         <source>The subscriber doesn&apos;t exist.</source>
@@ -416,15 +434,15 @@
     </message>
     <message>
         <source>The page parameter is not a number.</source>
-        <translation type="obsolete">page参数不是数字。</translation>
+        <translation type="unfinished">page参数不是数字。</translation>
     </message>
     <message>
         <source>The page parameter can&apos;t be minus.</source>
-        <translation type="obsolete">page参数不能为负</translation>
+        <translation type="unfinished">page参数不能为负</translation>
     </message>
     <message>
         <source>Comment/View</source>
-        <translation type="obsolete">评论/查看</translation>
+        <translation type="unfinished">评论/查看</translation>
     </message>
 </context>
 <context>
@@ -462,7 +480,7 @@
     <message>
         <source>Comments</source>
         <comment>Datatype name</comment>
-        <translation type="obsolete">评论</translation>
+        <translation type="unfinished">评论</translation>
     </message>
 </context>
 <context>

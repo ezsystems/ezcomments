@@ -1,4 +1,6 @@
-<!DOCTYPE TS><TS>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.0">
 <context>
     <name>design/ezwebin/user/edit</name>
     <message>
@@ -84,11 +86,11 @@
     <name>ezcomments/comment/activate</name>
     <message>
         <source>There is no subscription with the hash string!</source>
-        <translation type="obsolete">¡No hay ninguna suscripción con el hash!</translation>
+        <translation type="unfinished">¡No hay ninguna suscripción con el hash!</translation>
     </message>
     <message>
         <source>The subscriber is disabled!</source>
-        <translation type="obsolete">¡El suscriptor está deshabilitado!</translation>
+        <translation type="unfinished">¡El suscriptor está deshabilitado!</translation>
     </message>
     <message>
         <source>The subscription is activated!</source>
@@ -100,7 +102,7 @@
     </message>
     <message>
         <source>Activate subscription</source>
-        <translation type="obsolete">Activar suscripción</translation>
+        <translation type="unfinished">Activar suscripción</translation>
     </message>
 </context>
 <context>
@@ -170,15 +172,15 @@
     <name>ezcomments/comment/add</name>
     <message>
         <source>Not a valid email address.</source>
-        <translation type="obsolete">No es una dirección de correo electrónico válida.</translation>
+        <translation type="unfinished">No es una dirección de correo electrónico válida.</translation>
     </message>
     <message>
         <source>%1 is missing.</source>
-        <translation type="obsolete">Falta %1.</translation>
+        <translation type="unfinished">Falta %1.</translation>
     </message>
     <message>
         <source>The field [%1] is empty.</source>
-        <translation type="obsolete">El campo [%1] está vacío.</translation>
+        <translation type="unfinished">El campo [%1] está vacío.</translation>
     </message>
     <message>
         <source>Your comment has been posted.</source>
@@ -186,30 +188,46 @@
     </message>
     <message>
         <source>Add comment</source>
-        <translation type="obsolete">Añadir comentario</translation>
+        <translation type="unfinished">Añadir comentario</translation>
     </message>
     <message>
         <source>Commenting has been turned off for this content.</source>
-        <translation type="obsolete">Se ha deshabilitado la opción de comentar este contenido.</translation>
+        <translation type="unfinished">Se ha deshabilitado la opción de comentar este contenido.</translation>
     </message>
     <message>
         <source>You have already subscribed to comment updates on this content.</source>
-        <translation type="obsolete">Ya estás suscrito a las actualizaciones de este comentario.</translation>
+        <translation type="unfinished">Ya estás suscrito a las actualizaciones de este comentario.</translation>
     </message>
     <message>
         <source>You will receive comment updates on the content.</source>
-        <translation type="obsolete">Recibirás las actualizaciones del comentario.</translation>
+        <translation type="unfinished">Recibirás las actualizaciones del comentario.</translation>
     </message>
     <message>
         <source>A confirmation email has been sent to your email address. You will receive comment updates after confirmation.</source>
-        <translation type="obsolete">Un email de confirmación te ha sido enviado a tu correo electrónico. Recibirás las actualizaciones del comentario una vez confirmado.</translation>
+        <translation type="unfinished">Un email de confirmación te ha sido enviado a tu correo electrónico. Recibirás las actualizaciones del comentario una vez confirmado.</translation>
     </message>
     <message>
         <source>You should not access this view directly.</source>
-        <translation type="obsolete">No deberías acceder a esta vista directamente.</translation>
+        <translation type="unfinished">No deberías acceder a esta vista directamente.</translation>
     </message>
     <message>
         <source>reCAPTCHA API key missing.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The words you input are incorrect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Captcha parameter error.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Javascript code in url is not allowed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Email link in url is not allowed.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -265,7 +283,7 @@
     </message>
     <message>
         <source>There is a problem with your comment form </source>
-        <translation type="obsolete">Hay un problema con tu formulario del comentario </translation>
+        <translation type="unfinished">Hay un problema con tu formulario del comentario </translation>
     </message>
     <message>
         <source>Enter both words below, with or without a space.</source>
@@ -296,15 +314,15 @@
     </message>
     <message>
         <source>Deleting failed!</source>
-        <translation type="obsolete">¡Falló la eliminación!</translation>
+        <translation type="unfinished">¡Falló la eliminación!</translation>
     </message>
     <message>
         <source>You don&apos;t have access to delete comment or the comment is hidden!</source>
-        <translation type="obsolete">¡No tienes permisos para eliminar el comentario o el comentario está oculto!</translation>
+        <translation type="unfinished">¡No tienes permisos para eliminar el comentario o el comentario está oculto!</translation>
     </message>
     <message>
         <source>Delete comment</source>
-        <translation type="obsolete">Eliminar comentario</translation>
+        <translation type="unfinished">Eliminar comentario</translation>
     </message>
 </context>
 <context>
@@ -319,7 +337,7 @@
     </message>
     <message>
         <source>Updating failed.</source>
-        <translation type="obsolete">Ha fallado la edición.</translation>
+        <translation type="unfinished">Ha fallado la edición.</translation>
     </message>
 </context>
 <context>
@@ -373,7 +391,7 @@
     </message>
     <message>
         <source>Comment settings</source>
-        <translation type="obsolete">Opciones de comentario</translation>
+        <translation type="unfinished">Opciones de comentario</translation>
     </message>
 </context>
 <context>
@@ -412,15 +430,15 @@
     </message>
     <message>
         <source>The page parameter is not a number.</source>
-        <translation type="obsolete">El parámetro de la página no es un número.</translation>
+        <translation type="unfinished">El parámetro de la página no es un número.</translation>
     </message>
     <message>
         <source>The page parameter can&apos;t be minus.</source>
-        <translation type="obsolete">El parámetro de la página no puede ser negativo.</translation>
+        <translation type="unfinished">El parámetro de la página no puede ser negativo.</translation>
     </message>
     <message>
         <source>Comment/View</source>
-        <translation type="obsolete">Comentario / Vista</translation>
+        <translation type="unfinished">Comentario / Vista</translation>
     </message>
 </context>
 <context>
@@ -458,7 +476,7 @@
     <message>
         <source>Comments</source>
         <comment>Datatype name</comment>
-        <translation type="obsolete">Comentarios</translation>
+        <translation type="unfinished">Comentarios</translation>
     </message>
 </context>
 <context>
