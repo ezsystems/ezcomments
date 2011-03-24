@@ -47,6 +47,21 @@
     </message>
 </context>
 <context>
+    <name>ezcomments/class/edit</name>
+    <message>
+        <source>eZ Comments warning: the reCAPTCHA key is not set up properly.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please get a reCAPTCHA key from &lt;a href=&quot;https://admin.recaptcha.net/recaptcha/createsite&quot; target=&quot;_blank&quot;&gt;https://admin.recaptcha.net/recaptcha/createsite&lt;/a&gt; then set it up in eZ Comments, or disable CAPTCHA feature.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>For more details please visit &lt;a href=&quot;http://projects.ez.no/ezcomments&quot; target=&quot;_blank&quot;&gt;http://projects.ez.no/ezcomments&lt;/a&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ezcomments/comment/action</name>
     <message>
         <source>Back</source>
@@ -69,11 +84,11 @@
     <name>ezcomments/comment/activate</name>
     <message>
         <source>There is no subscription with the hash string!</source>
-        <translation>No hi ha cap subscripció amb aquest hash!</translation>
+        <translation type="obsolete">No hi ha cap subscripció amb aquest hash!</translation>
     </message>
     <message>
         <source>The subscriber is disabled!</source>
-        <translation>El subscriptor està deshabilitat!</translation>
+        <translation type="obsolete">El subscriptor està deshabilitat!</translation>
     </message>
     <message>
         <source>The subscription is activated!</source>
@@ -85,7 +100,7 @@
     </message>
     <message>
         <source>Activate subscription</source>
-        <translation>Activar subscripció</translation>
+        <translation type="obsolete">Activar subscripció</translation>
     </message>
 </context>
 <context>
@@ -155,15 +170,15 @@
     <name>ezcomments/comment/add</name>
     <message>
         <source>Not a valid email address.</source>
-        <translation>No és una adreça de correu electrònic vàlida.</translation>
+        <translation type="obsolete">No és una adreça de correu electrònic vàlida.</translation>
     </message>
     <message>
         <source>%1 is missing.</source>
-        <translation>Falta %1.</translation>
+        <translation type="obsolete">Falta %1.</translation>
     </message>
     <message>
         <source>The field [%1] is empty.</source>
-        <translation>El camp [%1] està buit.</translation>
+        <translation type="obsolete">El camp [%1] està buit.</translation>
     </message>
     <message>
         <source>Your comment has been posted.</source>
@@ -171,27 +186,27 @@
     </message>
     <message>
         <source>Add comment</source>
-        <translation>Afegir comentari</translation>
+        <translation type="obsolete">Afegir comentari</translation>
     </message>
     <message>
         <source>Commenting has been turned off for this content.</source>
-        <translation>S&apos;ha desactivat l&apos;opció d&apos;afegir comentaris d&apos;aquest contingut.</translation>
+        <translation type="obsolete">S&apos;ha desactivat l&apos;opció d&apos;afegir comentaris d&apos;aquest contingut.</translation>
     </message>
     <message>
         <source>You have already subscribed to comment updates on this content.</source>
-        <translation>Ja estàs subscrit a les actualitzacions d&apos;aquest comentari.</translation>
+        <translation type="obsolete">Ja estàs subscrit a les actualitzacions d&apos;aquest comentari.</translation>
     </message>
     <message>
         <source>You will receive comment updates on the content.</source>
-        <translation>Rebràs les actualitzacions del comentari.</translation>
+        <translation type="obsolete">Rebràs les actualitzacions del comentari.</translation>
     </message>
     <message>
         <source>A confirmation email has been sent to your email address. You will receive comment updates after confirmation.</source>
-        <translation>Un email de confirmació t&apos;ha estat enviat a la teva adreça de correu electrònic. Rebràs les actualitzacions del comentari una vegada confirmat.</translation>
+        <translation type="obsolete">Un email de confirmació t&apos;ha estat enviat a la teva adreça de correu electrònic. Rebràs les actualitzacions del comentari una vegada confirmat.</translation>
     </message>
     <message>
         <source>You should not access this view directly.</source>
-        <translation>No has d&apos;accedir a aquesta vista directament.</translation>
+        <translation type="obsolete">No has d&apos;accedir a aquesta vista directament.</translation>
     </message>
     <message>
         <source>reCAPTCHA API key missing.</source>
@@ -250,7 +265,7 @@
     </message>
     <message>
         <source>There is a problem with your comment form </source>
-        <translation>Hi ha un problema amb el teu formulari dels comentaris </translation>
+        <translation type="obsolete">Hi ha un problema amb el teu formulari dels comentaris </translation>
     </message>
     <message>
         <source>Enter both words below, with or without a space.</source>
@@ -261,7 +276,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Can't read this?</source>
+        <source>Can&apos;t read this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -281,15 +296,15 @@
     </message>
     <message>
         <source>Deleting failed!</source>
-        <translation>L&apos;eliminació del comentari ha fallat!</translation>
+        <translation type="obsolete">L&apos;eliminació del comentari ha fallat!</translation>
     </message>
     <message>
         <source>You don&apos;t have access to delete comment or the comment is hidden!</source>
-        <translation>No tens permisos per eliminar el comentari o el comentari està ocult!</translation>
+        <translation type="obsolete">No tens permisos per eliminar el comentari o el comentari està ocult!</translation>
     </message>
     <message>
         <source>Delete comment</source>
-        <translation>Eliminar comentari</translation>
+        <translation type="obsolete">Eliminar comentari</translation>
     </message>
 </context>
 <context>
@@ -304,7 +319,7 @@
     </message>
     <message>
         <source>Updating failed.</source>
-        <translation>L&apos;actualització ha fallat.</translation>
+        <translation type="obsolete">L&apos;actualització ha fallat.</translation>
     </message>
 </context>
 <context>
@@ -358,7 +373,7 @@
     </message>
     <message>
         <source>Comment settings</source>
-        <translation>Opcions de comentaris</translation>
+        <translation type="obsolete">Opcions de comentaris</translation>
     </message>
 </context>
 <context>
@@ -397,15 +412,15 @@
     </message>
     <message>
         <source>The page parameter is not a number.</source>
-        <translation>El paràmetre de pàgina no és un nombre.</translation>
+        <translation type="obsolete">El paràmetre de pàgina no és un nombre.</translation>
     </message>
     <message>
         <source>The page parameter can&apos;t be minus.</source>
-        <translation>El paràmetre de pàgina no pot ser negatiu.</translation>
+        <translation type="obsolete">El paràmetre de pàgina no pot ser negatiu.</translation>
     </message>
     <message>
         <source>Comment/View</source>
-        <translation>Comentari / Vista</translation>
+        <translation type="obsolete">Comentari / Vista</translation>
     </message>
 </context>
 <context>
@@ -443,7 +458,7 @@
     <message>
         <source>Comments</source>
         <comment>Datatype name</comment>
-        <translation>Comentaris</translation>
+        <translation type="obsolete">Comentaris</translation>
     </message>
 </context>
 <context>

@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0">
+<!DOCTYPE TS><TS>
 <context>
     <name>design/ezwebin/user/edit</name>
     <message>
@@ -85,23 +83,11 @@
 <context>
     <name>ezcomments/comment/activate</name>
     <message>
-        <source>There is no subscription with the hash string!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The subscriber is disabled!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>The subscription is activated!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Go to settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Activate subscription</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -171,63 +157,11 @@
 <context>
     <name>ezcomments/comment/add</name>
     <message>
-        <source>Not a valid email address.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 is missing.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The field [%1] is empty.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Your comment has been posted.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Add comment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Commenting has been turned off for this content.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You have already subscribed to comment updates on this content.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You will receive comment updates on the content.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>A confirmation email has been sent to your email address. You will receive comment updates after confirmation.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You should not access this view directly.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>reCAPTCHA API key missing.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The words you input are incorrect.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Captcha parameter error.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Javascript code in url is not allowed.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Email link in url is not allowed.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -282,10 +216,6 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>There is a problem with your comment form </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Enter both words below, with or without a space.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -312,18 +242,6 @@
         <source>Delete comment?</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Deleting failed!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>You don&apos;t have access to delete comment or the comment is hidden!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Delete comment</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ezcomments/comment/edit</name>
@@ -333,10 +251,6 @@
     </message>
     <message>
         <source>Edit comment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Updating failed.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -389,10 +303,6 @@
         <source>Reset</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Comment settings</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ezcomments/comment/view</name>
@@ -428,18 +338,6 @@
         <source>Total %total_count comments</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>The page parameter is not a number.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>The page parameter can&apos;t be minus.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Comment/View</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ezcomments/comment/view/action</name>
@@ -473,11 +371,6 @@
 </context>
 <context>
     <name>ezcomments/datatype</name>
-    <message>
-        <source>Comments</source>
-        <comment>Datatype name</comment>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>ezcomments/datatype/edit</name>

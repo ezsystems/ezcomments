@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="de_DE" sourcelanguage="en">
+<!DOCTYPE TS><TS>
 <context>
     <name>design/ezwebin/user/edit</name>
     <message>
@@ -49,6 +47,21 @@
     </message>
 </context>
 <context>
+    <name>ezcomments/class/edit</name>
+    <message>
+        <source>eZ Comments warning: the reCAPTCHA key is not set up properly.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please get a reCAPTCHA key from &lt;a href=&quot;https://admin.recaptcha.net/recaptcha/createsite&quot; target=&quot;_blank&quot;&gt;https://admin.recaptcha.net/recaptcha/createsite&lt;/a&gt; then set it up in eZ Comments, or disable CAPTCHA feature.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>For more details please visit &lt;a href=&quot;http://projects.ez.no/ezcomments&quot; target=&quot;_blank&quot;&gt;http://projects.ez.no/ezcomments&lt;/a&gt;.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ezcomments/comment/action</name>
     <message>
         <source>Back</source>
@@ -71,7 +84,7 @@
     <name>ezcomments/comment/activate</name>
     <message>
         <source>The subscriber is disabled!</source>
-        <translation>Der Abonnent ist deaktiviert!</translation>
+        <translation type="obsolete">Der Abonnent ist deaktiviert!</translation>
     </message>
     <message>
         <source>The subscription is activated!</source>
@@ -83,11 +96,11 @@
     </message>
     <message>
         <source>Activate subscription</source>
-        <translation>Abonnement aktivieren</translation>
+        <translation type="obsolete">Abonnement aktivieren</translation>
     </message>
     <message>
         <source>There is no subscription with the hash string!</source>
-        <translation>Kein Abonnement mit diesem Code gefunden!</translation>
+        <translation type="obsolete">Kein Abonnement mit diesem Code gefunden!</translation>
     </message>
 </context>
 <context>
@@ -157,28 +170,23 @@
     <name>ezcomments/comment/add</name>
     <message>
         <source>Add comment</source>
-        <translation>Kommentar hinzufügen</translation>
+        <translation type="obsolete">Kommentar hinzufügen</translation>
     </message>
     <message>
         <source>Commenting has been turned off for this content.</source>
-        <translation>Die Kommentar Funktion wurde für diesen Inhalt deaktiviert.</translation>
+        <translation type="obsolete">Die Kommentar Funktion wurde für diesen Inhalt deaktiviert.</translation>
     </message>
     <message>
         <source>Not a valid email address.</source>
-        <translation>Keine gültige E-Mail Adresse.</translation>
+        <translation type="obsolete">Keine gültige E-Mail Adresse.</translation>
     </message>
     <message>
         <source>%1 is missing.</source>
-        <translation>%1 fehlt.</translation>
+        <translation type="obsolete">%1 fehlt.</translation>
     </message>
     <message>
         <source>The field [%1] is empty.</source>
-        <translation>Das [%1] Feld ist leer.</translation>
-    </message>
-    <message>
-        <source>You should not access this view directly.</source>
-        <translatorcomment>Sie sollten diese Seite nicht direkt aufrufen.</translatorcomment>
-        <translation></translation>
+        <translation type="obsolete">Das [%1] Feld ist leer.</translation>
     </message>
     <message>
         <source>Your comment has been posted.</source>
@@ -186,15 +194,15 @@
     </message>
     <message>
         <source>You have already subscribed to comment updates on this content.</source>
-        <translation>Sie erhalten bereits E-Mail Benachrichtigungen bei neuen Kommentaren.</translation>
+        <translation type="obsolete">Sie erhalten bereits E-Mail Benachrichtigungen bei neuen Kommentaren.</translation>
     </message>
     <message>
         <source>You will receive comment updates on the content.</source>
-        <translation>Sie werden neue Kommentare bei diesem Content erhalten.</translation>
+        <translation type="obsolete">Sie werden neue Kommentare bei diesem Content erhalten.</translation>
     </message>
     <message>
         <source>A confirmation email has been sent to your email address. You will receive comment updates after confirmation.</source>
-        <translation>Es wurde eine Bestätigungs E-Mail an Ihre E-Mail Adresse gesendet. Sie erhalten E-Mail Benachrichtigungen, wenn Sie dies in der Mail bestätigt haben.</translation>
+        <translation type="obsolete">Es wurde eine Bestätigungs E-Mail an Ihre E-Mail Adresse gesendet. Sie erhalten E-Mail Benachrichtigungen, wenn Sie dies in der Mail bestätigt haben.</translation>
     </message>
     <message>
         <source>reCAPTCHA API key missing.</source>
@@ -253,7 +261,7 @@
     </message>
     <message>
         <source>There is a problem with your comment form </source>
-        <translation>Es gibt ein Problem beim Kommentar Formular</translation>
+        <translation type="obsolete">Es gibt ein Problem beim Kommentar Formular</translation>
     </message>
     <message>
         <source>Enter both words below, with or without a space.</source>
@@ -264,7 +272,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Can't read this?</source>
+        <source>Can&apos;t read this?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -284,15 +292,15 @@
     </message>
     <message>
         <source>Deleting failed!</source>
-        <translation>Löschen fehlgeschlagen!</translation>
+        <translation type="obsolete">Löschen fehlgeschlagen!</translation>
     </message>
     <message>
         <source>You don&apos;t have access to delete comment or the comment is hidden!</source>
-        <translation>Sie haben keine Berechtigung, Kommentare zu löschen oder die Kommentare wurden versteckt!</translation>
+        <translation type="obsolete">Sie haben keine Berechtigung, Kommentare zu löschen oder die Kommentare wurden versteckt!</translation>
     </message>
     <message>
         <source>Delete comment</source>
-        <translation>Kommentar löschen</translation>
+        <translation type="obsolete">Kommentar löschen</translation>
     </message>
 </context>
 <context>
@@ -307,7 +315,7 @@
     </message>
     <message>
         <source>Updating failed.</source>
-        <translation>Aktualisierung fehltgeschlagen.</translation>
+        <translation type="obsolete">Aktualisierung fehltgeschlagen.</translation>
     </message>
 </context>
 <context>
@@ -345,7 +353,7 @@
     </message>
     <message>
         <source>Comment settings</source>
-        <translation>Kommentar Einstellungen</translation>
+        <translation type="obsolete">Kommentar Einstellungen</translation>
     </message>
     <message>
         <source>The subscriber doesn&apos;t exist.</source>
@@ -400,15 +408,15 @@
     </message>
     <message>
         <source>The page parameter is not a number.</source>
-        <translation>Der Seitenparameter ist keine Zahl.</translation>
+        <translation type="obsolete">Der Seitenparameter ist keine Zahl.</translation>
     </message>
     <message>
         <source>The page parameter can&apos;t be minus.</source>
-        <translation>Der Seitenparameter kann nicht negativ sein.</translation>
+        <translation type="obsolete">Der Seitenparameter kann nicht negativ sein.</translation>
     </message>
     <message>
         <source>Comment/View</source>
-        <translation>Kommentar/Anzeigen</translation>
+        <translation type="obsolete">Kommentar/Anzeigen</translation>
     </message>
 </context>
 <context>
@@ -446,7 +454,7 @@
     <message>
         <source>Comments</source>
         <comment>Datatype name</comment>
-        <translation>Kommentare</translation>
+        <translation type="obsolete">Kommentare</translation>
     </message>
 </context>
 <context>
