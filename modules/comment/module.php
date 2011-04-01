@@ -54,6 +54,20 @@ $ViewList['delete'] = array(
                    'params' => array( 'CommentID' ),
                    );
 
+$ViewList['list'] = array(
+                   'functions' => array( 'list' ),
+                   'default_navigation_part' => 'ezcommentsnavigationpart',
+                   'script' => 'list.php',
+                   'unordered_params' => array( 'offset' => 'Offset' ),
+                   );
+
+$ViewList['removecomments'] = array(
+                   'functions' => array( 'removecomments' ),
+                   'default_navigation_part' => 'ezcommentsnavigationpart',
+                   'script' => 'removecomments.php',
+                   'params' => array(),
+                   );
+
 $SectionID = array(
     'name'=> 'ContentSection',
     'values'=> array(),
@@ -101,4 +115,8 @@ $FunctionList['setting'] = array();
 $FunctionList['activate'] = array();
 
 $FunctionList['security'] = array( 'AntiSpam' => $antiSpam );
+
+$FunctionList['list'] = array();
+
+$FunctionList['removecomments'] = array();
 ?>
