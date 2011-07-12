@@ -12,7 +12,7 @@ $ini = eZINI::instance( 'debug.ini' );
 $ini->loadCache();
 
 require_once( 'kernel/common/template.php' );
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 
 $module = $Params['Module'];
 $http = eZHTTPTool::instance();

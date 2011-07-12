@@ -8,7 +8,7 @@
  */
 
 require_once( 'kernel/common/template.php' );
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 $Module = $Params['Module'];
 if ( $Module->isCurrentAction( 'DeleteComment' ) )
 {
@@ -23,7 +23,7 @@ if ( $Module->isCurrentAction( 'DeleteComment' ) )
         eZDebug::writeError( 'The parameter CommentID is not a number!', 'ezcomments' );
         return;
     }
-    $tpl = templateInit();
+    $tpl = eZTemplate::factory();
     $comment = ezcomComment::fetch( $commentID );
     $permissionResult = checkPermission( $comment );
     if ( $permissionResult !== true )

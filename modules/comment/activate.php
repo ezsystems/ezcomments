@@ -8,7 +8,7 @@
  */
 
 require_once( 'kernel/common/template.php' );
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 $module = $Params['Module'];
 
 if ( $module->isCurrentAction( 'Redirect' ) )

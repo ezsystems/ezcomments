@@ -8,7 +8,7 @@
  */
 
 require_once( 'kernel/common/template.php' );
-$tpl = templateInit();
+$tpl = eZTemplate::factory();
 $user = eZUser::currentUser();
 $http = eZHttpTool::instance();
 
