@@ -42,7 +42,6 @@ abstract class ezcomNotificationManager
     {
          if ( is_null( $tpl ) )
          {
-             require_once( 'kernel/common/template.php' );
              $tpl = eZTemplate::factory();
          }
          $tpl->setVariable( 'subscriber', $subscriber );
@@ -67,7 +66,6 @@ abstract class ezcomNotificationManager
     {
          if ( is_null( $tpl ) )
          {
-             require_once( 'kernel/common/template.php' );
              $tpl = eZTemplate::factory();
          }
          $tpl->setVariable( 'subscriber', $subscriber );

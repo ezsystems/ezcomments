@@ -7,7 +7,6 @@
  *
  */
 
-require_once( 'kernel/common/template.php' );
 $tpl = eZTemplate::factory();
 $Module = $Params['Module'];
 if ( $Module->isCurrentAction( 'DeleteComment' ) )
