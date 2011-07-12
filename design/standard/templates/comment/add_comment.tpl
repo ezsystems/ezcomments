@@ -47,7 +47,7 @@
                 <label>
                     {'Website:'|i18n( 'ezcomments/comment/add/form' )}{if $websiteRequired}{$fieldRequiredText}{/if}
                 </label>
-                <input type="text" class="box" maxlength="100" name="CommentWebsite" />
+                <input type="text" class="box" maxlength="100" id="CommentWebsite" name="CommentWebsite" />
             </div>
         {undef $websiteRequired}
         {/if}
@@ -157,6 +157,7 @@ eZComments.cfg = {ldelim}
                     sortorder: '{ezini('GlobalSettings', 'DefaultEmbededSortOrder', 'ezcomments.ini')}',
                     fields: {ldelim} 
                                 name: '#CommentName',
+                                website: '#CommentWebsite',
                                 email: '#CommentEmail' 
                             {rdelim}
                  {rdelim};

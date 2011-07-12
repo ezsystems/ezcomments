@@ -162,18 +162,14 @@ if ( $module->isCurrentAction( 'AddComment' ) )
         }
        
         //remember cookies
-        if ( $user->isAnonymous() )
+        $cookieManager = ezcomCookieManager::instance();
+        if ( $http->postVariable( 'CommentRememberme', false ) !== false || !$user->isAnonymous() )
         {
-            $cookieManager = ezcomCookieManager::instance();
-            if ( $http->hasPostVariable( 'CommentRememberme') &&
-                 $http->postVariable( 'CommentRememberme' ) == '1' )
-            {
-                $cookieManager->storeCookie( $comment );
-            }
-            else
-            {
-                $cookieManager->clearCookie();
-            }
+            $cookieManager->storeCookie( $comment );
+        }
+        else
+        {
+            $cookieManager->clearCookie();
         }
         
          eZContentCacheManager::clearContentCacheIfNeeded( $contentObjectId );

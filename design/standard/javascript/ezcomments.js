@@ -9,6 +9,9 @@ var eZComments = function() {
         
         var sessionID = Y.Cookie.get(ret.cfg.sessionprefix);
         var encodedUserData = Y.Cookie.get('eZCommentsUserData');
+
+        if ( sessionID === null )
+            sessionID = '';
         
         var userDataCallback = function(id, o) {
             if (o.responseJSON !== undefined) {
@@ -20,19 +23,20 @@ var eZComments = function() {
             }
         }
 
-       
+        var updateField = function(fid, data) {
+            var field = Y.one(fid);
+            if ( field && data ) {
+                field.set('value', data);
+            }
+        }
         
         var updateInputFields = function(userDataObject) {
             if (Y.Object.hasKey(userDataObject, sessionID)) {
                 var userData = Y.Object.getValue(userDataObject, sessionID);
-                var fieldName = Y.one(ret.cfg.fields.name);
-                if (fieldName!=null){
-                    fieldName.set('value', userData.name);
-                }
-                var fieldEmail = Y.one(ret.cfg.fields.email);
-                if (fieldEmail!=null){
-                    fieldEmail.set('value', userData.email);
-                }
+
+                updateField(ret.cfg.fields.name, userData.name);
+                updateField(ret.cfg.fields.website, userData.website);
+                updateField(ret.cfg.fields.email, userData.email);
             } else {
                 return false;
             }
