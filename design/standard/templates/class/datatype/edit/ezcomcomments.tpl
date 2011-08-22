@@ -9,9 +9,9 @@
                 {'Please get a reCAPTCHA key from <a href="https://admin.recaptcha.net/recaptcha/createsite" target="_blank">https://admin.recaptcha.net/recaptcha/createsite</a> then set it up in eZ Comments, or disable CAPTCHA feature.'|i18n( 'ezcomments/class/edit')}<br />
                 {'For more details please visit <a href="http://projects.ez.no/ezcomments" target="_blank">http://projects.ez.no/ezcomments</a>.'|i18n( 'ezcomments/class/edit' )}
             </p>
-        {/if}
-        </h3>
     </div>
+        {/if}
+
 {undef $public_key $private_key}
 {/if}
 {undef $fields}
