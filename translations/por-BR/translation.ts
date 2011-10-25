@@ -9,6 +9,44 @@
     </message>
 </context>
 <context>
+    <name>comments/comment/menu</name>
+    <message>
+        <source>eZ Comments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comments list</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>design/admin/parts/user/menu</name>
+    <message>
+        <source>Change the left menu width to small size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change the left menu width to large size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change the left menu width to medium size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>design/ezwebin/user/edit</name>
     <message>
         <source>My comment settings</source>
@@ -669,10 +707,68 @@
     </message>
 </context>
 <context>
+    <name>ezcomments/comment/list</name>
+    <message>
+        <source>Comments list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select all comments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Node</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IP address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit comment</source>
+        <translation type="unfinished">Editar comentário</translation>
+    </message>
+    <message>
+        <source>Remove selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ezcomments/comment/notification</name>
     <message>
         <source>New comment</source>
         <translation type="unfinished">Novo comentário</translation>
+    </message>
+</context>
+<context>
+    <name>ezcomments/comment/removecomments</name>
+    <message>
+        <source>Confirm comments removal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove selected comments?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancelar</translation>
+    </message>
+    <message>
+        <source>Remove comments</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

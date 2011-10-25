@@ -2,6 +2,44 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="ja_JP">
 <context>
+    <name>comments/comment/menu</name>
+    <message>
+        <source>eZ Comments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comments list</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>design/admin/parts/user/menu</name>
+    <message>
+        <source>Change the left menu width to small size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change the left menu width to large size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change the left menu width to medium size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>design/ezwebin/user/edit</name>
     <message>
         <source>User profile</source>
@@ -85,12 +123,10 @@
 <context>
     <name>ezcomments/comment/activate</name>
     <message>
-        <location filename="ezcomsubscriptionmanager.php" line="41"/>
         <source>There is no subscription with the hash string!</source>
         <translation>ハッシュ文字列を持った通知登録はありません!</translation>
     </message>
     <message>
-        <location filename="ezcomsubscriptionmanager.php" line="60"/>
         <source>The subscriber is disabled!</source>
         <translation>通知登録者は無効です!</translation>
     </message>
@@ -103,7 +139,6 @@
         <translation>設定へ</translation>
     </message>
     <message>
-        <location filename="activate.php" line="27"/>
         <source>Activate subscription</source>
         <translation>通知登録を有効にする</translation>
     </message>
@@ -174,37 +209,30 @@
 <context>
     <name>ezcomments/comment/add</name>
     <message>
-        <location filename="ezcomaddcommenttool.php" line="66"/>
         <source>Not a valid email address.</source>
         <translation>有効なメールアドレスではありません。</translation>
     </message>
     <message>
-        <location filename="ezcomaddcommenttool.php" line="84"/>
         <source>The words you input are incorrect.</source>
         <translation>入力した言葉が不正です。</translation>
     </message>
     <message>
-        <location filename="ezcomaddcommenttool.php" line="89"/>
         <source>Captcha parameter error.</source>
         <translation>キャプチャパラメターエラー。</translation>
     </message>
     <message>
-        <location filename="ezcomformtool.php" line="96"/>
         <source>%1 is missing.</source>
         <translation>%1が不足しています。</translation>
     </message>
     <message>
-        <location filename="ezcomformtool.php" line="109"/>
         <source>The field [%1] is empty.</source>
         <translation>[%1]フィールドは空。</translation>
     </message>
     <message>
-        <location filename="ezcomutility.php" line="23"/>
         <source>Javascript code in url is not allowed.</source>
         <translation>URLにJavascriptコードは禁断されています。</translation>
     </message>
     <message>
-        <location filename="ezcomutility.php" line="27"/>
         <source>Email link in url is not allowed.</source>
         <translation>URLにメールリンクは禁断されています。</translation>
     </message>
@@ -217,32 +245,26 @@
         <translation>reCAPTCHA APIのキーがありません。</translation>
     </message>
     <message>
-        <location filename="add.php" line="22"/>
         <source>Add comment</source>
         <translation>コメントの追加</translation>
     </message>
     <message>
-        <location filename="add.php" line="43"/>
         <source>Commenting has been turned off for this content.</source>
         <translation>このコンテンツにコメントは無効です。</translation>
     </message>
     <message>
-        <location filename="add.php" line="149"/>
         <source>You have already subscribed to comment updates on this content.</source>
         <translation>このコンテンツのコメント更新通知にすでに登録しました。</translation>
     </message>
     <message>
-        <location filename="add.php" line="154"/>
         <source>You will receive comment updates on the content.</source>
         <translation>コメント更新通知が届きます。</translation>
     </message>
     <message>
-        <location filename="add.php" line="160"/>
         <source>A confirmation email has been sent to your email address. You will receive comment updates after confirmation.</source>
         <translation>確認のメールをアドレスに送りました。確認後にコメント更新通知をもらいます。</translation>
     </message>
     <message>
-        <location filename="add.php" line="197"/>
         <source>You should not access this view directly.</source>
         <translation>このビューに直接アクセスしない様にしてください。</translation>
     </message>
@@ -318,8 +340,6 @@
         <translation>新規コメントの通知設定有効</translation>
     </message>
     <message>
-        <location filename="add.php" line="56"/>
-        <location filename="edit.php" line="80"/>
         <source>There is a problem with your comment form </source>
         <translation>コメントフォームに問題があります</translation>
     </message>
@@ -331,17 +351,14 @@
         <translation>コメントを削除する？</translation>
     </message>
     <message>
-        <location filename="delete.php" line="54"/>
         <source>Deleting failed!</source>
         <translation>削除が失敗しました！</translation>
     </message>
     <message>
-        <location filename="delete.php" line="105"/>
         <source>You don&apos;t have access to delete comment or the comment is hidden!</source>
         <translation>このコメントを削除する権限ありませんかコメントが非表示になっています!</translation>
     </message>
     <message>
-        <location filename="delete.php" line="141"/>
         <source>Delete comment</source>
         <translation>コメント削除</translation>
     </message>
@@ -353,15 +370,47 @@
         <translation>編集の権限ありません。</translation>
     </message>
     <message>
-        <location filename="edit.php" line="49"/>
-        <location filename="edit.php" line="151"/>
         <source>Edit comment</source>
         <translation>コメント編集</translation>
     </message>
     <message>
-        <location filename="edit.php" line="108"/>
         <source>Updating failed.</source>
         <translation>更新失敗。</translation>
+    </message>
+</context>
+<context>
+    <name>ezcomments/comment/list</name>
+    <message>
+        <source>Comments list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select all comments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Node</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IP address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit comment</source>
+        <translation type="unfinished">コメント編集</translation>
+    </message>
+    <message>
+        <source>Remove selected</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -369,6 +418,29 @@
     <message>
         <source>New comment</source>
         <translation>新規コメント</translation>
+    </message>
+</context>
+<context>
+    <name>ezcomments/comment/removecomments</name>
+    <message>
+        <source>Confirm comments removal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove selected comments?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">キャンセル</translation>
+    </message>
+    <message>
+        <source>Remove comments</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -414,9 +486,6 @@
         <translation>リセット</translation>
     </message>
     <message>
-        <location filename="setting.php" line="31"/>
-        <location filename="setting.php" line="66"/>
-        <location filename="setting.php" line="134"/>
         <source>Comment settings</source>
         <translation>コメント設定</translation>
     </message>
@@ -456,17 +525,14 @@
         <translation>合計%total_countコメント</translation>
     </message>
     <message>
-        <location filename="view.php" line="69"/>
         <source>The page parameter is not a number.</source>
         <translation>ページパラメターはすっ辞でありません。</translation>
     </message>
     <message>
-        <location filename="view.php" line="92"/>
         <source>The page parameter can&apos;t be minus.</source>
         <translation>ページパラメターはマイナスにできません。</translation>
     </message>
     <message>
-        <location filename="view.php" line="117"/>
         <source>Comment/View</source>
         <translation>コメント/表示</translation>
     </message>
@@ -504,7 +570,6 @@
 <context>
     <name>ezcomments/datatype</name>
     <message>
-        <location filename="ezcomcommentstype.php" line="20"/>
         <source>Comments</source>
         <comment>Datatype name</comment>
         <translation>コメント</translation>

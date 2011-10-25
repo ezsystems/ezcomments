@@ -2,6 +2,44 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="fr_FR">
 <context>
+    <name>comments/comment/menu</name>
+    <message>
+        <source>eZ Comments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comments list</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>design/admin/parts/user/menu</name>
+    <message>
+        <source>Change the left menu width to small size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Small</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change the left menu width to large size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Large</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change the left menu width to medium size.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>design/ezwebin/user/edit</name>
     <message>
         <source>User profile</source>
@@ -52,15 +90,15 @@
     <name>ezcomments/class/edit</name>
     <message>
         <source>eZ Comments warning: the reCAPTCHA key is not set up properly.</source>
-        <translation>Attention : la clé reCAPTCHA n'est définie correctement.</translation>
+        <translation>Attention : la clé reCAPTCHA n&apos;est définie correctement.</translation>
     </message>
     <message>
         <source>Please get a reCAPTCHA key from &lt;a href=&quot;https://admin.recaptcha.net/recaptcha/createsite&quot; target=&quot;_blank&quot;&gt;https://admin.recaptcha.net/recaptcha/createsite&lt;/a&gt; then set it up in eZ Comments, or disable CAPTCHA feature.</source>
-        <translation>Veuillez récupérer une clé reCAPTCHA sur &lt;a href=&quot;https://admin.recaptcha.net/recaptcha/createsite&quot; target=&quot;_blank&quot;&gt;https://admin.recaptcha.net/recaptcha/createsite&lt;/a&gt; et configurer eZ Comments pour l'utiliser ou désactiver le CAPTCHA.</translation>
+        <translation>Veuillez récupérer une clé reCAPTCHA sur &lt;a href=&quot;https://admin.recaptcha.net/recaptcha/createsite&quot; target=&quot;_blank&quot;&gt;https://admin.recaptcha.net/recaptcha/createsite&lt;/a&gt; et configurer eZ Comments pour l&apos;utiliser ou désactiver le CAPTCHA.</translation>
     </message>
     <message>
         <source>For more details please visit &lt;a href=&quot;http://projects.ez.no/ezcomments&quot; target=&quot;_blank&quot;&gt;http://projects.ez.no/ezcomments&lt;/a&gt;.</source>
-        <translation>Pour plus d'information, veuillez visiter &lt;a href=&quot;http://projects.ez.no/ezcomments&quot; target=&quot;_blank&quot;&gt;http://projects.ez.no/ezcomments&lt;/a&gt;.</translation>
+        <translation>Pour plus d&apos;information, veuillez visiter &lt;a href=&quot;http://projects.ez.no/ezcomments&quot; target=&quot;_blank&quot;&gt;http://projects.ez.no/ezcomments&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>
@@ -224,11 +262,11 @@
     </message>
     <message>
         <source>Javascript code in url is not allowed.</source>
-        <translation>Le JavaScript dans une URL n'est permis.</translation>
+        <translation>Le JavaScript dans une URL n&apos;est permis.</translation>
     </message>
     <message>
         <source>Email link in url is not allowed.</source>
-        <translation>Les adresses de courriel dans l'URL ne sont pas permis.</translation>
+        <translation>Les adresses de courriel dans l&apos;URL ne sont pas permis.</translation>
     </message>
 </context>
 <context>
@@ -341,10 +379,68 @@
     </message>
 </context>
 <context>
+    <name>ezcomments/comment/list</name>
+    <message>
+        <source>Comments list</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select all comments</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Comment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Node</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modified</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>IP address</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit comment</source>
+        <translation type="unfinished">Modifier le commentaire</translation>
+    </message>
+    <message>
+        <source>Remove selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ezcomments/comment/notification</name>
     <message>
         <source>New comment</source>
         <translation>Nouveau commentaire</translation>
+    </message>
+</context>
+<context>
+    <name>ezcomments/comment/removecomments</name>
+    <message>
+        <source>Confirm comments removal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Are you sure you want to remove selected comments?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Annuler</translation>
+    </message>
+    <message>
+        <source>Remove comments</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
