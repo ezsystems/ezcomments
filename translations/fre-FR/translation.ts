@@ -5,38 +5,38 @@
     <name>comments/comment/menu</name>
     <message>
         <source>eZ Comments</source>
-        <translation type="unfinished"></translation>
+        <translation>eZ Comments</translation>
     </message>
     <message>
         <source>Comments list</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste de commentaires</translation>
     </message>
 </context>
 <context>
     <name>design/admin/parts/user/menu</name>
     <message>
         <source>Change the left menu width to small size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Changer la largeur du menu gauche en petite taille.</translation>
     </message>
     <message>
         <source>Small</source>
-        <translation type="unfinished"></translation>
+        <translation>Petit</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Moyen</translation>
     </message>
     <message>
         <source>Change the left menu width to large size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Changer la largeur du menu gauche en grande taille.</translation>
     </message>
     <message>
         <source>Large</source>
-        <translation type="unfinished"></translation>
+        <translation>Large</translation>
     </message>
     <message>
         <source>Change the left menu width to medium size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Changer la largeur du menu gauche en moyenne taille.</translation>
     </message>
 </context>
 <context>
@@ -382,35 +382,35 @@
     <name>ezcomments/comment/list</name>
     <message>
         <source>Comments list</source>
-        <translation type="unfinished"></translation>
+        <translation>Liste de commentaires</translation>
     </message>
     <message>
         <source>Select all comments</source>
-        <translation type="unfinished"></translation>
+        <translation>Sélectionner tous les commentaires</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Commentaire</translation>
     </message>
     <message>
         <source>Node</source>
-        <translation type="unfinished"></translation>
+        <translation>Nœud</translation>
     </message>
     <message>
         <source>Modified</source>
-        <translation type="unfinished"></translation>
+        <translation>Modifié</translation>
     </message>
     <message>
         <source>IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>Adresse IP</translation>
     </message>
     <message>
         <source>Edit comment</source>
-        <translation type="unfinished">Modifier le commentaire</translation>
+        <translation>Modifier le commentaire</translation>
     </message>
     <message>
         <source>Remove selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer les éléments sélectionnés</translation>
     </message>
 </context>
 <context>
@@ -424,23 +424,23 @@
     <name>ezcomments/comment/removecomments</name>
     <message>
         <source>Confirm comments removal</source>
-        <translation type="unfinished"></translation>
+        <translation>Confirmer la suppression des commentaires</translation>
     </message>
     <message>
         <source>Are you sure you want to remove selected comments?</source>
-        <translation type="unfinished"></translation>
+        <translation>Etes-vous sûr de vouloir supprimer les commentaires sélectionnés?</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Annuler</translation>
+        <translation>Annuler</translation>
     </message>
     <message>
         <source>Remove comments</source>
-        <translation type="unfinished"></translation>
+        <translation>Supprimer les commentaires</translation>
     </message>
 </context>
 <context>
