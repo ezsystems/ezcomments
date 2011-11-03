@@ -1,42 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0">
+<TS version="2.0" language="hr_HR">
 <context>
     <name>comments/comment/menu</name>
     <message>
         <source>eZ Comments</source>
-        <translation type="unfinished"></translation>
+        <translation>eZ Comments</translation>
     </message>
     <message>
         <source>Comments list</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista komentara</translation>
     </message>
 </context>
 <context>
     <name>design/admin/parts/user/menu</name>
     <message>
         <source>Change the left menu width to small size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Promijeni širinu lijevog menija na malu veličinu.</translation>
     </message>
     <message>
         <source>Small</source>
-        <translation type="unfinished"></translation>
+        <translation>Malo</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Srednje</translation>
     </message>
     <message>
         <source>Change the left menu width to large size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Promijeni širinu lijevog menija na veliku veličinu.</translation>
     </message>
     <message>
         <source>Large</source>
-        <translation type="unfinished"></translation>
+        <translation>Veliko</translation>
     </message>
     <message>
         <source>Change the left menu width to medium size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Promijeni širinu lijevog menija na srednju veličinu.</translation>
     </message>
 </context>
 <context>
@@ -250,7 +250,7 @@
     </message>
     <message>
         <source>reCAPTCHA API key missing.</source>
-        <translation>Nedostaje reCAPTCHA API ključ</translation>
+        <translation>Nedostaje reCAPTCHA API ključ.</translation>
     </message>
     <message>
         <source>The words you input are incorrect.</source>
@@ -371,7 +371,7 @@
     </message>
     <message>
         <source>Edit comment</source>
-        <translation>Uredi komentar.</translation>
+        <translation>Uredi komentar</translation>
     </message>
     <message>
         <source>Updating failed.</source>
@@ -382,35 +382,35 @@
     <name>ezcomments/comment/list</name>
     <message>
         <source>Comments list</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista komentara</translation>
     </message>
     <message>
         <source>Select all comments</source>
-        <translation type="unfinished"></translation>
+        <translation>Odaberi sve komentare</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Komentar</translation>
     </message>
     <message>
         <source>Node</source>
-        <translation type="unfinished"></translation>
+        <translation>Čvor</translation>
     </message>
     <message>
         <source>Modified</source>
-        <translation type="unfinished"></translation>
+        <translation>Zadnja promjena</translation>
     </message>
     <message>
         <source>IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>IP adresa</translation>
     </message>
     <message>
         <source>Edit comment</source>
-        <translation type="unfinished">Uredi komentar.</translation>
+        <translation>Uredi komentar</translation>
     </message>
     <message>
         <source>Remove selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukloni odabrano</translation>
     </message>
 </context>
 <context>
@@ -424,23 +424,23 @@
     <name>ezcomments/comment/removecomments</name>
     <message>
         <source>Confirm comments removal</source>
-        <translation type="unfinished"></translation>
+        <translation>Potvrdite uklanjanje komentara</translation>
     </message>
     <message>
         <source>Are you sure you want to remove selected comments?</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeste li sigurni da želite ukloniti odabrane komentare?</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Odustani</translation>
+        <translation>Odustani</translation>
     </message>
     <message>
         <source>Remove comments</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukloni komentare</translation>
     </message>
 </context>
 <context>
