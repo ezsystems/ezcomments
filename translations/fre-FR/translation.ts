@@ -9,7 +9,7 @@
     </message>
     <message>
         <source>Comments list</source>
-        <translation>Liste de commentaires</translation>
+        <translation>Liste des commentaires</translation>
     </message>
 </context>
 <context>
@@ -382,7 +382,7 @@
     <name>ezcomments/comment/list</name>
     <message>
         <source>Comments list</source>
-        <translation>Liste de commentaires</translation>
+        <translation>Liste des commentaires</translation>
     </message>
     <message>
         <source>Select all comments</source>
@@ -494,7 +494,7 @@
     <name>ezcomments/comment/view</name>
     <message>
         <source>wrote:</source>
-        <translation>a écrit:</translation>
+        <translation>a écrit :</translation>
     </message>
     <message>
         <source>Edit</source>
