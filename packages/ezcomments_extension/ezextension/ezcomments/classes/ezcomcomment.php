@@ -179,7 +179,10 @@ class ezcomComment extends eZPersistentObject
     {
         $cond = array();
         $cond['contentobject_id'] = $contentObjectID;
-        $cond['language_id'] = $languageID;
+        if ( $languageID !== false )
+        {
+            $cond['language_id'] = $languageID;
+        }
         if( !is_null( $status ) )
         {
             $cond['status'] = $status;

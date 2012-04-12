@@ -22,8 +22,8 @@ $FunctionList['comment_list'] = array( 'name' => 'comment_list',
                                                     ),
                                                    array( 'name'=> 'language_id',
                                                           'type'=> 'integer',
-                                                          'required' => true,
-                                                          'default'  => 0
+                                                          'required' => false,
+                                                          'default'  => false
                                                       ),
                                                   array( 'name'=> 'status',
                                                           'type'=>'integer',
