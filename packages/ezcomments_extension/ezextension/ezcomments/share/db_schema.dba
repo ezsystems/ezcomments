@@ -83,7 +83,7 @@ $schema = array (
       ),
       'text' => 
       array (
-        'type' => 'text',
+        'type' => 'longtext',
         'not_null' => '1',
         'default' => false,
       ),
