@@ -136,7 +136,7 @@
     </message>
     <message>
         <source>Go to settings</source>
-        <translation>Paramètrages</translation>
+        <translation>Paramétrages</translation>
     </message>
     <message>
         <source>Activate subscription</source>
@@ -171,7 +171,7 @@
     </message>
     <message>
         <source>You can go to your setting page to manage your subscription.</source>
-        <translation>Vous pouvez vous rendre sur votre page de paramètrages afin de gérer votre abonnement.</translation>
+        <translation>Vous pouvez vous rendre sur votre page de paramétrages afin de gérer votre abonnement.</translation>
     </message>
     <message>
         <source>Activate your subscription</source>
