@@ -159,7 +159,7 @@
     </message>
     <message>
         <source>The activation will expire after %expiry_days days.</source>
-        <translation>L&apos;activation expirera après %expire_days jours.</translation>
+        <translation>L&apos;activation expirera après %expiry_days jours.</translation>
     </message>
     <message>
         <source>The activation will expire after %expiry_hours hours.</source>
