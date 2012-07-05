@@ -93,8 +93,8 @@
         <translation>Attention : la clé reCAPTCHA n&apos;est définie correctement.</translation>
     </message>
     <message>
-        <source>Please get a reCAPTCHA key from &lt;a href=&quot;https://admin.recaptcha.net/recaptcha/createsite&quot; target=&quot;_blank&quot;&gt;https://admin.recaptcha.net/recaptcha/createsite&lt;/a&gt; then set it up in eZ Comments, or disable CAPTCHA feature.</source>
-        <translation>Veuillez récupérer une clé reCAPTCHA sur &lt;a href=&quot;https://admin.recaptcha.net/recaptcha/createsite&quot; target=&quot;_blank&quot;&gt;https://admin.recaptcha.net/recaptcha/createsite&lt;/a&gt; et configurer eZ Comments pour l&apos;utiliser ou désactiver le CAPTCHA.</translation>
+        <source>Please get a reCAPTCHA key from &lt;a href=&quot;https://www.google.com/recaptcha/admin/create&quot; target=&quot;_blank&quot;&gt;https://www.google.com/recaptcha/admin/create&lt;/a&gt; then set it up in eZ Comments, or disable CAPTCHA feature.</source>
+        <translation>Veuillez récupérer une clé reCAPTCHA sur &lt;a href=&quot;https://www.google.com/recaptcha/admin/create&quot; target=&quot;_blank&quot;&gt;https://www.google.com/recaptcha/admin/create&lt;/a&gt; et configurer eZ Comments pour l&apos;utiliser ou désactiver le CAPTCHA.</translation>
     </message>
     <message>
         <source>For more details please visit &lt;a href=&quot;http://projects.ez.no/ezcomments&quot; target=&quot;_blank&quot;&gt;http://projects.ez.no/ezcomments&lt;/a&gt;.</source>

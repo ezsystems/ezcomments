@@ -93,8 +93,8 @@
         <translation>eZ Comments upozorenje: reCAPTCHA ključ nije ispravan.</translation>
     </message>
     <message>
-        <source>Please get a reCAPTCHA key from &lt;a href=&quot;https://admin.recaptcha.net/recaptcha/createsite&quot; target=&quot;_blank&quot;&gt;https://admin.recaptcha.net/recaptcha/createsite&lt;/a&gt; then set it up in eZ Comments, or disable CAPTCHA feature.</source>
-        <translation>Zatražite reCAPTCHA ključ na &lt;a href=&quot;https://admin.recaptcha.net/recaptcha/createsite&quot; target=&quot;_blank&quot;&gt;https://admin.recaptcha.net/recaptcha/createsite&lt;/a&gt; i upišite ga u postavke, ili onemogućite CAPTCHA funkcionalnost.</translation>
+        <source>Please get a reCAPTCHA key from &lt;a href=&quot;https://www.google.com/recaptcha/admin/create&quot; target=&quot;_blank&quot;&gt;https://www.google.com/recaptcha/admin/create&lt;/a&gt; then set it up in eZ Comments, or disable CAPTCHA feature.</source>
+        <translation>Zatražite reCAPTCHA ključ na &lt;a href=&quot;https://www.google.com/recaptcha/admin/create&quot; target=&quot;_blank&quot;&gt;https://www.google.com/recaptcha/admin/create&lt;/a&gt; i upišite ga u postavke, ili onemogućite CAPTCHA funkcionalnost.</translation>
     </message>
     <message>
         <source>For more details please visit &lt;a href=&quot;http://projects.ez.no/ezcomments&quot; target=&quot;_blank&quot;&gt;http://projects.ez.no/ezcomments&lt;/a&gt;.</source>

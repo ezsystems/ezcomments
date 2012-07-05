@@ -11,7 +11,7 @@
             <uses>
                 <name>reCAPTCHA PHP Library</name>
                 <license></license>
-                <copyright>Copyright (c) 2007 reCAPTCHA -- http://recaptcha.net</copyright>
+                <copyright>Copyright (c) 2012 reCAPTCHA -- http://www.google.com/recaptcha</copyright>
                 <version>1.11</version>
             </uses>
         </software>
