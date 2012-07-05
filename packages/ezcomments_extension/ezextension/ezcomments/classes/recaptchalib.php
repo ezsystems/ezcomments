@@ -2,13 +2,13 @@
 /*
  * This is a PHP library that handles calling reCAPTCHA.
  *    - Documentation and latest version
- *          http://recaptcha.net/plugins/php/
+ *          https://developers.google.com/recaptcha/docs/php
  *    - Get a reCAPTCHA API Key
  *          https://www.google.com/recaptcha/admin/create
  *    - Discussion group
  *          http://groups.google.com/group/recaptcha
  *
- * Copyright (c) 2007 reCAPTCHA -- http://recaptcha.net
+ * Copyright (c) 2007-2012 reCAPTCHA -- http://www.google.com/recaptcha
  * AUTHORS:
  *   Mike Crawford
  *   Ben Maurer
