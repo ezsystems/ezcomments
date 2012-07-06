@@ -18,7 +18,7 @@ class ezcommentsInfo
             'License' => 'GNU General Public License v2.0',
             'Includes the following third-party software' => array( 'Name' => 'reCAPTCHA PHP Library',
                                                                               'Version' => '1.11',
-                                                                              'Copyright' => 'Copyright (c) 2007 reCAPTCHA -- http://recaptcha.net',
+                                                                              'Copyright' => 'Copyright (c) 2007-2012 reCAPTCHA -- http://www.google.com/recaptcha',
                                                                               'License' => '',)
         );
     }
