@@ -69,7 +69,7 @@ if ( $module->isCurrentAction( 'AddComment' ) )
         $languageId = eZContentLanguage::idByLocale( $languageCode );
         $comment->setAttribute( 'language_id', $languageId );
 
-        $sessionKey = $http->getSessionKey();
+        $sessionKey = $http->sessionID();
         $comment->setAttribute( 'session_key', $sessionKey );
 
         $util = ezcomUtility::instance();
