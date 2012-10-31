@@ -71,8 +71,7 @@ $schema = array (
       array (
         'length' => 32,
         'type' => 'varchar',
-        'not_null' => '1',
-        'default' => '',
+        'default' => NULL,
       ),
       'status' => 
       array (
