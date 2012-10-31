@@ -4,7 +4,7 @@ CREATE TABLE ezcomment (
     created           integer NOT NULL,
     modified          integer NOT NULL,
     user_id           integer NOT NULL,
-    session_key       varchar2(32) NOT NULL,
+    session_key       varchar2(32) DEFAULT NULL,
     ip                varchar2(100) NOT NULL,
     contentobject_id  integer NOT NULL,
     parent_comment_id integer DEFAULT 0 NOT NULL,

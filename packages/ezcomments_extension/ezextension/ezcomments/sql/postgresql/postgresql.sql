@@ -71,7 +71,7 @@ CREATE TABLE ezcomment (
     modified integer DEFAULT 0 NOT NULL,
     name character varying(255) DEFAULT ''::character varying NOT NULL,
     parent_comment_id integer DEFAULT 0 NOT NULL,
-    session_key character varying(32) DEFAULT ''::character varying NOT NULL,
+    session_key character varying(32),
     status integer DEFAULT 0 NOT NULL,
     text text NOT NULL,
     title character varying(255),
