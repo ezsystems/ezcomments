@@ -2,7 +2,7 @@
 <form action={'/comment/delete'|ezurl} method="post" name="CommentDelete">
     <div class="ezcom-delete" >
         <input type="hidden" name="CommentID" value="{$comment_id}" />
-        <input type="hidden" name="RedirectURI" value={$redirect_uri|ezurl( , 'full' )} />
+        <input type="hidden" name="RedirectURI" value={$redirect_uri|ezurl} />
         {if is_set($error_message)}
             <div class="message-error">
                 <p>
