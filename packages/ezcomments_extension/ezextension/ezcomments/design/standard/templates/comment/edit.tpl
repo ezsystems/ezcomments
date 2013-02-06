@@ -18,7 +18,7 @@
         </div>
     {/if}
     <form method="post" action={concat( '/comment/edit/', $comment.id )|ezurl} name="CommentEdit">
-        <input type="hidden" name="ezcomments_comment_redirect_uri" value={$redirect_uri|ezurl( , 'full' )} />
+        <input type="hidden" name="ezcomments_comment_redirect_uri" value={$redirect_uri|ezurl} />
         <div class="ezcom-edit">
                 <div class="ezcom-function-title">
                     <h4>

@@ -26,7 +26,7 @@
         </p>
         {/if}
         <form action={'comment/add'|ezurl} method="get" name="CommentAdded">
-            <input type="hidden" name="RedirectURI" value="{$redirect_uri}" />
+            <input type="hidden" name="RedirectURI" value="{$redirect_uri|ezurl}" />
             <input type="submit" class="button" name="BackButton" value="{'Back'|i18n( 'ezcomments/comment/action') }" />
         </form>
     </div>
