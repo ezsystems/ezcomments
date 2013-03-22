@@ -9,7 +9,7 @@
     </message>
     <message>
         <source>Comments list</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentarliste</translation>
     </message>
 </context>
 <context>
@@ -90,15 +90,15 @@
     <name>ezcomments/class/edit</name>
     <message>
         <source>eZ Comments warning: the reCAPTCHA key is not set up properly.</source>
-        <translation type="unfinished"></translation>
+        <translation>eZ Comments Warnung: Der reCAPTCHA Schlüssel ist nicht richtig eingestellt</translation>
     </message>
     <message>
         <source>Please get a reCAPTCHA key from &lt;a href=&quot;https://www.google.com/recaptcha/admin/create&quot; target=&quot;_blank&quot;&gt;https://www.google.com/recaptcha/admin/create&lt;/a&gt; then set it up in eZ Comments, or disable CAPTCHA feature.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte hole einen reCAPTCHA Schlüssel von &lt;a href=&quot;https://www.google.com/recaptcha/admin/create&quot; target=&quot;_blank&quot;&gt;https://www.google.com/recaptcha/admin/create&lt;/a&gt; und baue ihn in eZ Comments ein oder schalte das CAPTCHA aus.</translation>
     </message>
     <message>
         <source>For more details please visit &lt;a href=&quot;http://projects.ez.no/ezcomments&quot; target=&quot;_blank&quot;&gt;http://projects.ez.no/ezcomments&lt;/a&gt;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Für weitere Details besuchen Sie: &lt;a href=&quot;http://projects.ez.no/ezcomments&quot; target=&quot;_blank&quot;&gt;http://projects.ez.no/ezcomments&lt;/a&gt;.</translation>
     </message>
 </context>
 <context>
@@ -124,7 +124,7 @@
     <name>ezcomments/comment/activate</name>
     <message>
         <source>The subscriber is disabled!</source>
-        <translation type="unfinished">Der Abonnent ist deaktiviert!</translation>
+        <translation>Der Abonnent ist deaktiviert!</translation>
     </message>
     <message>
         <source>The subscription is activated!</source>
@@ -136,7 +136,7 @@
     </message>
     <message>
         <source>Activate subscription</source>
-        <translation type="unfinished">Abonnement aktivieren</translation>
+        <translation>Abonnement aktivieren</translation>
     </message>
     <message>
         <source>There is no subscription with the hash string!</source>
@@ -210,19 +210,19 @@
     <name>ezcomments/comment/add</name>
     <message>
         <source>Add comment</source>
-        <translation type="unfinished">Kommentar hinzufügen</translation>
+        <translation>Kommentar hinzufügen</translation>
     </message>
     <message>
         <source>Commenting has been turned off for this content.</source>
-        <translation type="unfinished">Die Kommentar Funktion wurde für diesen Inhalt deaktiviert.</translation>
+        <translation>Die Kommentar Funktion wurde für diesen Inhalt deaktiviert.</translation>
     </message>
     <message>
         <source>Not a valid email address.</source>
-        <translation type="unfinished">Keine gültige E-Mail Adresse.</translation>
+        <translation>Keine gültige E-Mail Adresse.</translation>
     </message>
     <message>
         <source>%1 is missing.</source>
-        <translation type="unfinished">%1 fehlt.</translation>
+        <translation>%1 fehlt.</translation>
     </message>
     <message>
         <source>The field [%1] is empty.</source>
@@ -246,11 +246,11 @@
     </message>
     <message>
         <source>reCAPTCHA API key missing.</source>
-        <translation type="unfinished"></translation>
+        <translation>reCAPTCHA API Schlüssel fehlt.</translation>
     </message>
     <message>
         <source>The words you input are incorrect.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Die eingegebenen Wörter sind falsch.</translation>
     </message>
     <message>
         <source>Captcha parameter error.</source>
@@ -325,11 +325,11 @@
     </message>
     <message>
         <source>Enter both words below, with or without a space.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Geben Sie beide Wörter mit oder ohne Leerzeichen ein.</translation>
     </message>
     <message>
         <source>The letters are not case-sensitive.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Bei den Buchstaben wird nicht zwischen Groß- und Kleinschreibung unterschieden.</translation>
     </message>
     <message>
         <source>Can&apos;t read this?</source>
@@ -337,7 +337,7 @@
     </message>
     <message>
         <source>Try another</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Versuche ein anderes</translation>
     </message>
     <message>
         <source>Security text:</source>
@@ -382,35 +382,35 @@
     <name>ezcomments/comment/list</name>
     <message>
         <source>Comments list</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentarliste</translation>
     </message>
     <message>
         <source>Select all comments</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Kommentare auswählen</translation>
     </message>
     <message>
         <source>Comment</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentar</translation>
     </message>
     <message>
         <source>Node</source>
-        <translation type="unfinished"></translation>
+        <translation>Knoten</translation>
     </message>
     <message>
         <source>Modified</source>
-        <translation type="unfinished"></translation>
+        <translation>Bearbeitet</translation>
     </message>
     <message>
         <source>IP address</source>
-        <translation type="unfinished"></translation>
+        <translation>IP Adresse</translation>
     </message>
     <message>
         <source>Edit comment</source>
-        <translation type="unfinished">Kommentar bearbeiten</translation>
+        <translation>Kommentar bearbeiten</translation>
     </message>
     <message>
         <source>Remove selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Markierte entfernen</translation>
     </message>
 </context>
 <context>
@@ -424,11 +424,11 @@
     <name>ezcomments/comment/removecomments</name>
     <message>
         <source>Confirm comments removal</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Löschung des Kommentars bestätigen</translation>
     </message>
     <message>
         <source>Are you sure you want to remove selected comments?</source>
-        <translation type="unfinished"></translation>
+        <translation>Sind Sie sicher, dass die die markierten Kommentare löschen wollen?</translation>
     </message>
     <message>
         <source>OK</source>
@@ -436,11 +436,11 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
     <message>
         <source>Remove comments</source>
-        <translation type="unfinished"></translation>
+        <translation>Kommentare löschen</translation>
     </message>
 </context>
 <context>
