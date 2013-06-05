@@ -56,14 +56,14 @@ $ViewList['delete'] = array(
 
 $ViewList['list'] = array(
                    'functions' => array( 'list' ),
-                   'default_navigation_part' => 'ezcommentsnavigationpart',
+                   'default_navigation_part' => 'ezcontentnavigationpart',
                    'script' => 'list.php',
                    'unordered_params' => array( 'offset' => 'Offset' ),
                    );
 
 $ViewList['removecomments'] = array(
                    'functions' => array( 'removecomments' ),
-                   'default_navigation_part' => 'ezcommentsnavigationpart',
+                   'default_navigation_part' => 'ezcontentnavigationpart',
                    'script' => 'removecomments.php',
                    'params' => array(),
                    );

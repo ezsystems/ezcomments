@@ -1,3 +1,5 @@
+{* This template is by default no longer used but kept since some of the translations are used in menu.ini *}
+
 {* See parts/ini_menu.tpl and menu.ini for more info, or parts/setup/menu.tpl for full example *}
 {include uri='design:parts/ini_menu.tpl' ini_section='Leftmenu_ezcomments' i18n_hash=hash(
     'ezcommentsmenu',       'eZ Comments'|i18n( 'comments/comment/menu' ),
