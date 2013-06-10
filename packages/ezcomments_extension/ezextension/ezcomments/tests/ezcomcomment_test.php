@@ -50,7 +50,7 @@ class ezcomCommentTest extends ezpDatabaseTestCase
         $comment->setAttribute( 'text', 'ezcomComment object test comment.' );
         $comment->store();
 
-        $this->assertType( 'ezcomComment', $comment );
+        $this->assertInstanceOf( 'ezcomComment', $comment );
         $this->assertEquals( 12, $comment->attribute( 'contentobject_id' ) );
         $this->assertEquals( 2, $comment->attribute( 'language_id' ) );
         $this->assertEquals( 21213423, $comment->attribute( 'created' ) );
@@ -74,7 +74,7 @@ class ezcomCommentTest extends ezpDatabaseTestCase
     public function testFetchObject()
     {
         $comment = ezcomComment::fetch( 1 );
-        $this->assertType( 'ezcomComment', $comment );
+        $this->assertInstanceOf( 'ezcomComment', $comment );
         
         $comment = ezcomComment::fetch( 2 );
         $this->assertEquals( null, $comment );
