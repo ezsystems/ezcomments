@@ -28,16 +28,16 @@ class ezcomUtilityTest extends ezpDatabaseTestCase
         $url5 = 'http://ez.no';
 
         $result = ezcomUtility::validateURLString( $url1 );
-        $this->assertType( 'string', $result );
+        $this->assertInternalType( 'string', $result );
 
         $result = ezcomUtility::validateURLString( $url2 );
-        $this->assertType( 'string', $result );
+        $this->assertInternalType( 'string', $result );
 
         $result = ezcomUtility::validateURLString( $url3 );
-        $this->assertType( 'string', $result );
+        $this->assertInternalType( 'string', $result );
 
         $result = ezcomUtility::validateURLString( $url4 );
-        $this->assertType( 'string', $result );
+        $this->assertInternalType( 'string', $result );
 
         $result = ezcomUtility::validateURLString( $url5 );
         $this->assertSame( true, $result );

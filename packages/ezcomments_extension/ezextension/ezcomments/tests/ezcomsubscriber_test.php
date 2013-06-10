@@ -41,7 +41,7 @@ class ezcomSubscriberTest extends ezpDatabaseTestCase
         $hashString = hash('md5','xc@ez.no');
         $subscriber->setAttribute( 'hash_string', $hashString );
         $subscriber->store();
-        $this->assertType( 'ezcomSubscriber', $subscriber );
+        $this->assertInstanceOf( 'ezcomSubscriber', $subscriber );
         $this->assertEquals( 'xc@ez.no', $subscriber->attribute( 'email' ) );
         $this->assertEquals( 10, $subscriber->attribute( 'user_id' ) );
         $this->assertEquals( 0, $subscriber->attribute( 'enabled' ) );
@@ -55,7 +55,7 @@ class ezcomSubscriberTest extends ezpDatabaseTestCase
     {
         $hashString = hash('md5','xc@ez.no');
         $subscriber = ezcomSubscriber::fetchByHashString( $hashString );
-        $this->assertType( 'ezcomSubscriber', $subscriber );
+        $this->assertInstanceOf( 'ezcomSubscriber', $subscriber );
         $hashString2 = hash('md5','xc11111111111@wfsasdfasf.noddfdsf');
         $subscriber2 = ezcomSubscriber::fetchByHashString( $hashString2 );
         $this->assertEquals( null, $subscriber2 );
@@ -67,7 +67,7 @@ class ezcomSubscriberTest extends ezpDatabaseTestCase
     function testFetchByEmail()
     {
         $subscriber = ezcomSubscriber::fetchByEmail( 'xc@ez.no' );
-        $this->assertType( 'ezcomSubscriber', $subscriber );
+        $this->assertInstanceOf( 'ezcomSubscriber', $subscriber );
         $subscriber = ezcomSubscriber::fetchByEmail( 'xc1111111111@111.com' );
         $this->assertEquals( null, $subscriber );
     }
@@ -78,7 +78,7 @@ class ezcomSubscriberTest extends ezpDatabaseTestCase
     function testFetch()
     {
         $subscriber = ezcomSubscriber::fetch( 1 );
-        $this->assertType( 'ezcomSubscriber', $subscriber );
+        $this->assertInstanceOf( 'ezcomSubscriber', $subscriber );
         $subscriber = ezcomSubscriber::fetch( 100 );
         $this->assertEquals( null, $subscriber );
     }
