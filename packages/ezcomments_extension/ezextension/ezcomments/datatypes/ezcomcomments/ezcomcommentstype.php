@@ -164,5 +164,4 @@ class ezcomCommentsType extends eZDataType
     }
 }
 
-eZDataType::register( ezcomCommentsType::DATA_TYPE_STRING, 'ezcomCommentsType' );
 ?>
