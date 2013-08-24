@@ -86,7 +86,7 @@ class ezcomFunctionCollection
         {
             $useSSL = true;
         }
-        return array( 'result' => recaptcha_get_html( $publicKey ), null, $useSSL );
+        return array( 'result' => recaptcha_get_html( $publicKey , null, $useSSL ));
     }
 }
 
