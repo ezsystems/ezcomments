@@ -42,7 +42,7 @@ class ezcomNotificationTest extends ezpDatabaseTestCase
         $notification->setAttribute( 'status', 1 );        
         $notification->store();
         
-        $this->assertInstanceOf( 'ezcomComment', $notification );
+        $this->assertInstanceOf( 'ezcomNotification', $notification );
         $this->assertEquals( 12, $notification->attribute( 'contentobject_id' ) );
         $this->assertEquals( 2, $notification->attribute( 'language_id' ) );
         $this->assertEquals( 1, $notification->attribute( 'status' ) );
@@ -58,7 +58,7 @@ class ezcomNotificationTest extends ezpDatabaseTestCase
     public function testFetchObject()
     {
         $notification = ezcomNotification::fetch( 1 );
-        $this->assertInstanceOf( 'ezcomComment', $notification );
+        $this->assertInstanceOf( 'ezcomNotification', $notification );
         
         $notification = ezcomNotification::fetch( 2 );
         $this->assertEquals( null, $notification );
