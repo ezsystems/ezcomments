@@ -1,0 +1,24 @@
+{
+    "name": "ezsystems/ezcomments-ls-extension",
+    "description": "eZ Publish Legacy comments extension (deprecated)",
+    "type": "ezpublish-legacy-extension",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "eZ Publish dev-team & eZ Community",
+            "homepage": "https://github.com/ezsystems/ezcomments-ls-extension"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "ezsystems/ezpublish-legacy-installer": "*"
+    },
+    "suggest": {
+        "ezsystems/ezwebin-ls-extension": "~5.3",
+        "ezsystems/ezdemo-ls-extension": "~5.3",
+        "ezsystems/ezflow-ls-extension": "~5.3",
+    },
+    "extra": {
+        "ezpublish-legacy-extension-name": "ezcomments"
+    }
+}
