@@ -16,7 +16,7 @@
     "suggest": {
         "ezsystems/ezwebin-ls-extension": "~5.3",
         "ezsystems/ezdemo-ls-extension": "~5.3",
-        "ezsystems/ezflow-ls-extension": "~5.3",
+        "ezsystems/ezflow-ls-extension": "~5.3"
     },
     "extra": {
         "ezpublish-legacy-extension-name": "ezcomments"
